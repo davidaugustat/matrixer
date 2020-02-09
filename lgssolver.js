@@ -31,17 +31,26 @@ var aValues = [
   [3,6,-12,99]
 ];
 
-testMatrix(mValues);
-testMatrix(xValues);
-testMatrix(yValues);
-testMatrix(aValues);
+var mm = new MatrixManager();
+
+ testMatrix(xValues);
+// testMatrix(xValues);
+// testMatrix(yValues);
+// testMatrix(aValues);
 
 function testMatrix(data){
   var matrix = new Matrix(0,0);
   matrix.setData(data);
 
+  var matrixB = new Matrix(0,0);
+  matrixB.setData(aValues);
+
   matrix.print();
-  matrix.rowReduce();
-  matrix.print();
+  matrixB.print();
+  //matrix.rowReduce();
+  //matrix.multiplyByFactor(3);
+  //mm.multiplMatrixByFactor(matrix, 5).print();
+  mm.multiplyMatrices(matrix, matrixB).print();
+  //matrix.print();
   console.log("--------------");
 }

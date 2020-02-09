@@ -21,6 +21,10 @@ class Matrix{
     this.columns = data[0].length;
   }
 
+  getData(){
+    return this.data;
+  }
+
   transpone(){
     var transponed = new Array(this.columns).fill(0).map(() => new Array(this.rows).fill(0));
     for(var row = 0; row<this.rows; row++){
@@ -42,6 +46,18 @@ class Matrix{
       column.push(row[position]);
     });
     return column;
+  }
+
+  getValue(rowPos, columnPos){
+    return this.data[rowPos][columnPos];
+  }
+
+  getColumnCount(){
+    return this.columns;
+  }
+
+  getRowCount(){
+    return this.rows;
   }
 
   print(){
@@ -113,6 +129,20 @@ class Matrix{
       this.moveRow(rowPos, this.rows-1);
     }
     return this.data[rowPos][columnPos] != 0;
+  }
+
+  getCopy(){
+    var copyMatrix = new Matrix(this.rows, this.columns);
+    for(var rowPos = 0; rowPos < this.rows; rowPos++){
+      for(var columnPos = 0; columnPos < this.columns; columnPos++){
+        copyMatrix.set(rowPos, columnPos) = this.data[rowPos][columnPos];
+      }
+    }
+    return copyMatrix;
+  }
+
+  getEmptyCopy(){
+    return new Matrix(this.rows, this.columns);
   }
 
 }
