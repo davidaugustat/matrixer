@@ -90,28 +90,55 @@ class Matrix{
   }
 
   rowReduce(){
+    var row = 0;
     var column = 0;
-    for(var row=0; row<Math.min(this.rows, this.columns); row++){
-      if(column < this.columns){
-        if(this.data[row][column] != 0){
-          this.reduceColumn(row, column);
-        } else{
-          var found = false;
-          for(var movedRows=0; movedRows < (this.rows-row-1); movedRows++){
-            this.moveRow(row, this.rows-1);
-            if(this.data[row][column] != 0){
-              this.reduceColumn(row, column);
-              found = true;
-              break;
-            }
-          }
-          if(!found){
-            row--;
-          }
-        }
+    while(row < this.rows && column < this.columns){
+      if(this.data[row][column] != 0){
+        this.reduceColumn(row, column);
+        row++;
         column++;
+      }
+      else{
+        var isCurrentPositionNotZero = this.moveRowWithoutZeroAtCurrentPosition(row, column);
+        if(!isCurrentPositionNotZero){
+          column++;
+        }
       }
     }
   }
 
+  moveRowWithoutZeroAtCurrentPosition(rowPos, columnPos){
+    var numMoves = 0;
+    while(this.data[rowPos][columnPos] == 0 && numMoves < this.rows-rowPos-1){
+      this.moveRow(rowPos, this.rows-1);
+    }
+    return this.data[rowPos][columnPos] != 0;
+  }
+
 }
+
+// old code:
+// rowReduce2(){
+//   var column = 0;
+//   for(var row=0; row<Math.min(this.rows, this.columns); row++){
+//     if(column < this.columns){
+//       if(this.data[row][column] != 0){
+//         this.reduceColumn(row, column);
+//       } else{
+//         var found = false;
+//         for(var movedRows=0; movedRows < (this.rows-row-1); movedRows++){
+//           this.moveRow(row, this.rows-1);
+//           if(this.data[row][column] != 0){
+//             this.reduceColumn(row, column);
+//             found = true;
+//             break;
+//           }
+//         }
+//         if(!found){
+//           row--;
+//         }
+//       }
+//       column++;
+//     }
+//   }
+// }

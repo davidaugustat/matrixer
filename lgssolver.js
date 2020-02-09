@@ -31,9 +31,17 @@ var aValues = [
   [3,6,-12,99]
 ];
 
-var matrix = new Matrix(5, 4);
-matrix.setData(aValues);
+testMatrix(mValues);
+testMatrix(xValues);
+testMatrix(yValues);
+testMatrix(aValues);
 
-matrix.print();
-matrix.rowReduce();
-matrix.print();
+function testMatrix(data){
+  var matrix = new Matrix(0,0);
+  matrix.setData(data);
+
+  matrix.print();
+  matrix.rowReduce();
+  matrix.print();
+  console.log("--------------");
+}
