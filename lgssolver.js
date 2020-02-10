@@ -51,11 +51,5 @@ function testMatrix(data){
   var solution = matrix.solveHomogenousEquationSystem();
   solution.vectorSolution.forEach((vector) => vector.print());
   matrix.print();
-  //console.log(solution);
-  //matrix.rowReduce();
-  //matrix.multiplyByFactor(3);
-  //mm.multiplMatrixByFactor(matrix, 5).print();
-  //mm.multiplyMatrices(matrix, matrixB).print();
-  //matrix.print();
   console.log("--------------");
 }
