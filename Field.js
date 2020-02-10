@@ -18,7 +18,7 @@ class Field{
   }
 
   multiply(factor1, factor2){
-    if(isPrimeField()){
+    if(this.isPrimeField()){
       return (factor1 * factor2) % this.field;
     } else if(this.field == Field.R){
       return factor1 * factor2;
@@ -26,7 +26,7 @@ class Field{
   }
 
   add(summand1, summand2){
-    if(isPrimeField()){
+    if(this.isPrimeField()){
       return (summand1 + summand2) % this.field;
     } else if(this.field == Field.R){
       return summand1 * summand2;
@@ -34,15 +34,15 @@ class Field{
   }
 
   getInverse(num){
-    if(isPrimeField()){
-      return getLeastCommonMultiple(num, this.field + 1) / num;
+    if(this.isPrimeField()){
+      return this.getLeastCommonMultiple(num, this.field + 1) / num;
     } else if(this.field == Field.R){
       return 1 / num;
     }
   }
 
   parse(value){
-    if(isPrimeField()){
+    if(this.isPrimeField()){
       return value % this.field;
     } else if(this.field == Field.R){
       return value;
@@ -55,7 +55,7 @@ class Field{
   }
 
   getLeastCommonMultiple(num1, num2){
-    var greatestCommonDivider = getGreatestCommonDivider(parse(num1), parse(num2));
+    var greatestCommonDivider = this.getGreatestCommonDivider(this.parse(num1), this.parse(num2));
     return (num1 * num2) / greatestCommonDivider;
   }
 

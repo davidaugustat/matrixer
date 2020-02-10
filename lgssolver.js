@@ -39,10 +39,14 @@ var aValues = [
 
 var mm = new MatrixManager();
 
- testMatrix(mValues);
- testMatrix(xValues);
- testMatrix(yValues);
- testMatrix(aValues);
+var f5 = new Field(Field.F5);
+//console.log(f5.multiply(2, 3));
+console.log(f5.getInverse(4));
+
+ //testMatrix(mValues);
+ //testMatrix(xValues);
+ //testMatrix(yValues);
+ //testMatrix(aValues);
 
 function testMatrix(data){
   var matrix = new Matrix(0,0);
