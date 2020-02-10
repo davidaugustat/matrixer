@@ -8,11 +8,13 @@ class Matrix{
   data;
   rows;
   columns;
+  nonStepColumns;
 
   constructor(rows, columns){
     this.rows = rows;
     this.columns = columns;
     this.data = new Array(rows).fill(0).map(() => new Array(columns).fill(0));
+    this.nonStepColumns = new Array();
   }
 
   setData(data){
@@ -106,6 +108,7 @@ class Matrix{
   }
 
   rowReduce(){
+    var nonStepColumns = new Array();
     var row = 0;
     var column = 0;
     while(row < this.rows && column < this.columns){
@@ -117,6 +120,7 @@ class Matrix{
       else{
         var isCurrentPositionNotZero = this.moveRowWithoutZeroAtCurrentPosition(row, column);
         if(!isCurrentPositionNotZero){
+          this.nonStepColumns.push(column);
           column++;
         }
       }
@@ -129,6 +133,38 @@ class Matrix{
       this.moveRow(rowPos, this.rows-1);
     }
     return this.data[rowPos][columnPos] != 0;
+  }
+
+  solveHomogenousEquationSystem(){
+    var solution = {
+      trivialSolution: new Array(this.rows).fill(0), // Array of values
+      vectorSolution: new Array(), // Array of vectors
+    }
+
+    this.rowReduce()
+
+    this.nonStepColumns.forEach((currentNonStepColumnPos) => {
+       var rowPos = 0;
+       var solutionVector = new Vector(0);
+       for(var pos = 0; pos < this.columns; pos++){
+         if(this.nonStepColumns.includes(pos)){
+           if(pos == currentNonStepColumnPos){
+             solutionVector.add(1);
+           } else{
+             solutionVector.add(0);
+           }
+         } else{
+           solutionVector.add(this.preventNegativeZero(-this.data[rowPos][currentNonStepColumnPos]));
+           rowPos++;
+         }
+       }
+       solution.vectorSolution.push(solutionVector);
+     });
+     return solution;
+  }
+
+  preventNegativeZero(number){
+    return number + 0;
   }
 
   getCopy(){
