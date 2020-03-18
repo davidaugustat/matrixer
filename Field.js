@@ -36,6 +36,12 @@ class Field{
     static F9MinusIotaPlusOne = 7;
     static F9MinusIotaMinusOne = 8;
 
+    static F4Numbers = [Field.F4Zero, Field.F4One, Field.F4Alpha, Field.F4AlphaPlusOne];
+    static F8Numbers = [Field.F8Zero, Field.F8One, Field.F8Beta, Field.F8OnePlusBeta, Field.F8BetaSquare,
+        Field.F8OnePlusBetaSquare, Field.F8BetaPlusBetaSquare, Field.F8OnePlusBetaPlusBetaSquare];
+    static F9Numbers = [Field.F9Zero, Field.F9One, Field.F9MinusOne, Field.F9Iota, Field.F9IotaPlusOne,
+        Field.F9IotaMinusOne, Field.F9MinusIota, Field.F9MinusIotaPlusOne, Field.F9MinusIotaMinusOne, ];
+
     field;
     constructor(field){
         this.field = field;
@@ -43,6 +49,10 @@ class Field{
 
     isPrimeField(){
         return [Field.F2, Field.F3, Field.F5, Field.F7, Field.F11, Field.F13, Field.F17, Field.F19].includes(this.field);
+    }
+
+    isExtendedField(){
+        return [Field.F4, Field.F8, Field.F9].includes(this.field);
     }
 
     /**
@@ -56,6 +66,8 @@ class Field{
             return (factor1 * factor2) % this.field;
         } else if(this.field == Field.R){
             return factor1 * factor2;
+        } else if(this.isExtendedField()){
+            return this.multiplyInExtendedField(factor1, factor2);
         }
     }
 
@@ -72,6 +84,8 @@ class Field{
             return this.getPrimeFieldInverse(num);
         } else if(this.field == Field.R){
             return 1 / num;
+        } else if(this.isExtendedField()){
+            return this.getExtendedFieldInverse(num);
         }
     }
 
@@ -84,9 +98,21 @@ class Field{
         throw("Extended fields are not parsable. :/");
     }
 
-
-
-
+    getString(num){
+        if(this.isPrimeField()){
+         return this.parse(num);
+        } else if(this.field === Field.R){
+            return num;
+        } else if(this.isExtendedField()){
+            if(this.field === Field.F4){
+                return F4ElementsNameLookup.find(object => object.number == num).name;
+            } else if(this.field === Field.F8){
+                return F8ElementsNameLookup.find(object => object.number == num).name;
+            } else if(this.field === Field.F9){
+                return F9ElementsNameLookup.find(object => object.number == num).name;
+            }
+        }
+    }
 
     getPrimeFieldInverse(num){
         // This method uses the Extended Euclidean Algorithm:
@@ -116,5 +142,29 @@ class Field{
             wCurrent = wPrePrevious - multiples[i+1] * wPrevious;
         }
         return this.parse(wCurrent);
+    }
+
+    getExtendedFieldInverse(num){
+        if(this.field === Field.F4){
+            return F4InverseLookup.find(object => object.number == num).inverse;
+        } else if(this.field === Field.F8){
+            return F8InverseLookup.find(object => object.number == num).inverse;
+        } else if(this.field === Field.F9){
+            return F9InverseLookup.find(object => object.number == num).inverse;
+        }
+    }
+
+    multiplyInExtendedField(num1, num2){
+        switch (this.field) {
+            case Field.F4:
+                return F4MultiplicationLookup.find(object => object.factor1 == num1 && object.factor2 == num2).result;
+                break;
+            case Field.F8:
+                return F8MultiplicationLookup.find(object => object.factor1 == num1 && object.factor2 == num2).result;
+                break;
+            case Field.F9:
+                return F9MultiplicationLookup.find(object => object.factor1 == num1 && object.factor2 == num2).result;
+                break;
+        }
     }
 }
