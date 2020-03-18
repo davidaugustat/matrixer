@@ -1,49 +1,49 @@
 class Vector{
-  data;
-  size;
+    data;
+    size;
 
-  constructor(size){
-    this.data = new Array(size).fill(0);
-    this.size = size;
-  }
+    constructor(size){
+        this.data = new Array(size).fill(0);
+        this.size = size;
+    }
 
-  setData(data){
-    this.data = data;
-    this.size = data.length;
-  }
+    setData(data){
+        this.data = data;
+        this.size = data.length;
+    }
 
-  getData(){
-    return this.data;
-  }
+    getData(){
+        return this.data;
+    }
 
-  getRow(rowPos){
-    return this.data[rowPos];
-  }
+    getRow(rowPos){
+        return this.data[rowPos];
+    }
 
-  set(rowPos, value){
-    this.data[rowPos] = value;
-  }
+    set(rowPos, value){
+        this.data[rowPos] = value;
+    }
 
-  getSize(){
-    return this.size;
-  }
+    getSize(){
+        return this.size;
+    }
 
-  toMatrix(){
-    var matrix = new Matrix(1, this.size);
-    matrix.setData(this.data);
-    matrix.transpone();
-    return matrix;
-  }
+    toMatrix(){
+        var matrix = new Matrix(1, this.size);
+        matrix.setData(this.data);
+        matrix.transpone();
+        return matrix;
+    }
 
-  add(value){
-    this.data.push(value);
-  }
+    add(value){
+        this.data.push(value);
+    }
 
-  print(){
-    var output = "";
-    this.data.forEach((value) => {
-      output += value + "\n";
-    });
-    console.log(output);
-  }
+    print(){
+        var output = "";
+        this.data.forEach((value) => {
+            output += value + "\n";
+        });
+        console.log(output);
+    }
 }
