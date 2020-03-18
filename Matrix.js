@@ -171,7 +171,7 @@ class Matrix{
     var copyMatrix = new Matrix(this.rows, this.columns);
     for(var rowPos = 0; rowPos < this.rows; rowPos++){
       for(var columnPos = 0; columnPos < this.columns; columnPos++){
-        copyMatrix.set(rowPos, columnPos) = this.data[rowPos][columnPos];
+        copyMatrix.set(rowPos, columnPos, this.data[rowPos][columnPos]);
       }
     }
     return copyMatrix;

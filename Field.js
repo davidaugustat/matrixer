@@ -17,8 +17,12 @@ class Field{
     this.field = field;
   }
 
+  isPrimeField(){
+    return [Field.F2, Field.F3, Field.F5, Field.F7, Field.F11, Field.F13, Field.F17, Field.F19].includes(this.field);
+  }
+
   multiply(factor1, factor2){
-    if(isPrimeField()){
+    if(this.isPrimeField()){
       return (factor1 * factor2) % this.field;
     } else if(this.field == Field.R){
       return factor1 * factor2;
@@ -26,7 +30,7 @@ class Field{
   }
 
   add(summand1, summand2){
-    if(isPrimeField()){
+    if(this.isPrimeField()){
       return (summand1 + summand2) % this.field;
     } else if(this.field == Field.R){
       return summand1 * summand2;
@@ -34,53 +38,53 @@ class Field{
   }
 
   getInverse(num){
-    if(isPrimeField()){
-      return getLeastCommonMultiple(num, this.field + 1) / num;
+    if(this.isPrimeField()){
+    return this.getPrimeFieldInverse(num);
     } else if(this.field == Field.R){
       return 1 / num;
     }
   }
 
   parse(value){
-    if(isPrimeField()){
-      return value % this.field;
+    if(this.isPrimeField()){
+      return ((value % this.field) + this.field) % this.field;
     } else if(this.field == Field.R){
       return value;
     }
     throw("Extended fields are not parsable. :/");
   }
 
-  isPrimeField(){
-    return [Field.F2, Field.F3, Field.F5, Field.F7, Field.F11, Field.F13, Field.F17, Field.F19].includes(this.field);
-  }
 
-  getLeastCommonMultiple(num1, num2){
-    var greatestCommonDivider = getGreatestCommonDivider(parse(num1), parse(num2));
-    return (num1 * num2) / greatestCommonDivider;
-  }
 
-  getGreatestCommonDivider(num1, num2){
+
+
+  getPrimeFieldInverse(num){
+    // This method uses the Extended Euclidean Algorithm:
+
+    var multiples = [1];
+    // calculate greatest common divider while storing all used multiples:
     var u1 = 0;
-    var u2 = 0;
-    var u3 = 0;
+    var u2 = this.field;
+    var u3 = num;
 
-    if(num1 <= 0 || num2 <= 0){
-      return -1;
-    } else if(num1 == num2){
-      return num1;
-    } else if(num1 < num2){
-      u2 = num1;
-      u3 = num2;
-    } else {
-      u2 = num2;
-      u3 = num1;
-    }
-
-    while(u3 != 0){
+    while(u3 > 0){
       u1 = u2;
       u2 = u3;
       u3 = u1 % u2;
+      multiples.push((u1-u3)/u2);
     }
-    return u2;
+
+    multiples = multiples.reverse();
+
+    // use the stored multiples to find the prime field inverse
+    var wPrePrevious = 0;
+    var wPrevious = 0;
+    var wCurrent = 1;
+    for(var i = 0; i < multiples.length - 2; i++){
+      wPrePrevious = wPrevious;
+      wPrevious = wCurrent;
+      wCurrent = wPrePrevious - multiples[i+1] * wPrevious;
+    }
+    return this.parse(wCurrent);
   }
-}
+ }
