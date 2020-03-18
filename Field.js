@@ -45,6 +45,12 @@ class Field{
     return [Field.F2, Field.F3, Field.F5, Field.F7, Field.F11, Field.F13, Field.F17, Field.F19].includes(this.field);
   }
 
+  /**
+    Multiplies two numbers in a field.
+
+    @param {number} factor1 The first multiplication factor
+    @param {number} factor2 The second multiplication factor
+  */
   multiply(factor1, factor2){
     if(this.isPrimeField()){
       return (factor1 * factor2) % this.field;
