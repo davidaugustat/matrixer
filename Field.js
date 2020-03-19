@@ -76,6 +76,8 @@ class Field{
             return (summand1 + summand2) % this.field;
         } else if(this.field == Field.R){
             return summand1 * summand2;
+        } else if(this.isExtendedField()){
+            return this.addInExtendedField(summand1, summand2);
         }
     }
 
@@ -117,11 +119,11 @@ class Field{
     getPrimeFieldInverse(num){
         // This method uses the Extended Euclidean Algorithm:
 
-        var multiples = [1];
+        let multiples = [1];
         // calculate greatest common divider while storing all used multiples:
-        var u1 = 0;
-        var u2 = this.field;
-        var u3 = num;
+        let u1 = 0;
+        let u2 = this.field;
+        let u3 = num;
 
         while(u3 > 0){
             u1 = u2;
@@ -133,10 +135,10 @@ class Field{
         multiples = multiples.reverse();
 
         // use the stored multiples to find the prime field inverse
-        var wPrePrevious = 0;
-        var wPrevious = 0;
-        var wCurrent = 1;
-        for(var i = 0; i < multiples.length - 2; i++){
+        let wPrePrevious = 0;
+        let wPrevious = 0;
+        let wCurrent = 1;
+        for(let i = 0; i < multiples.length - 2; i++){
             wPrePrevious = wPrevious;
             wPrevious = wCurrent;
             wCurrent = wPrePrevious - multiples[i+1] * wPrevious;
@@ -154,16 +156,30 @@ class Field{
         }
     }
 
-    multiplyInExtendedField(num1, num2){
+    multiplyInExtendedField(factor1, factor2){
         switch (this.field) {
             case Field.F4:
-                return F4MultiplicationLookup.find(object => object.factor1 == num1 && object.factor2 == num2).result;
+                return F4MultiplicationLookup.find(object => object.factor1 == factor1 && object.factor2 == factor2).result;
                 break;
             case Field.F8:
-                return F8MultiplicationLookup.find(object => object.factor1 == num1 && object.factor2 == num2).result;
+                return F8MultiplicationLookup.find(object => object.factor1 == factor1 && object.factor2 == factor2).result;
                 break;
             case Field.F9:
-                return F9MultiplicationLookup.find(object => object.factor1 == num1 && object.factor2 == num2).result;
+                return F9MultiplicationLookup.find(object => object.factor1 == factor1 && object.factor2 == factor2).result;
+                break;
+        }
+    }
+
+    addInExtendedField(summand1, summand2) {
+        switch (this.field) {
+            case Field.F4:
+                return F4AdditionLookup.find(object => object.summand1 == summand1 && object.summand2 == summand2).result;
+                break;
+            case Field.F8:
+                return F8AdditionLookup.find(object => object.summand1 == summand1 && object.summand2 == summand2).result;
+                break;
+            case Field.F9:
+                return F9AdditionLookup.find(object => object.summand1 == summand1 && object.summand2 == summand2).result;
                 break;
         }
     }

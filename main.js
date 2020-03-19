@@ -50,9 +50,13 @@ var f4 = new Field(Field.F4);
 
 console.log(f4.getString(f4.multiply(0, 0)));
 //console.log(F4MultiplicationLookup.find(object => object.factor1 === 2 && object.factor2 === 3).result);
-printFieldTable(Field.F4Numbers, Field.F4);
-printFieldTable(Field.F8Numbers, Field.F8);
-printFieldTable(Field.F9Numbers, Field.F9);
+// printMultiplicationFieldTable(Field.F4Numbers, Field.F4);
+// printMultiplicationFieldTable(Field.F8Numbers, Field.F8);
+// printMultiplicationFieldTable(Field.F9Numbers, Field.F9);
+
+printAdditionFieldTable(Field.F4Numbers, Field.F4);
+printAdditionFieldTable(Field.F8Numbers, Field.F8);
+printAdditionFieldTable(Field.F9Numbers, Field.F9);
 
 function testMatrix(data){
     var matrix = new Matrix(0,0);
@@ -64,7 +68,19 @@ function testMatrix(data){
     console.log("--------------");
 }
 
-function printFieldTable(fieldElements, field){
+
+function printAdditionFieldTable(fieldElements, field){
+    var fieldObject = new Field(field);
+    for(var firstElement in fieldElements){
+        for(var secondElement in fieldElements){
+            var result = fieldObject.getString(fieldObject.add(firstElement, secondElement));
+            console.log(fieldObject.getString(firstElement) + " + " + fieldObject.getString(secondElement) + " = \t\t" + result);
+        }
+        console.log("---------------------");
+    }
+}
+
+function printMultiplicationFieldTable(fieldElements, field){
     var fieldObject = new Field(field);
     for(var firstElement in fieldElements){
         for(var secondElement in fieldElements){

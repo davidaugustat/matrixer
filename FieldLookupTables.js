@@ -1,18 +1,18 @@
-var F4ElementsNameLookup = [
+const F4ElementsNameLookup = [
     {number: Field.F4Zero, name: "0"},
     {number: Field.F4One, name: "1"},
     {number: Field.F4Alpha, name: "α"},
     {number: Field.F4AlphaPlusOne, name: "α+1"}
 ];
 
-var F4InverseLookup = [
+const F4InverseLookup = [
     {number: Field.F4Zero, inverse: Field.F4One},
     {number: Field.F4One, inverse: Field.F4One},
     {number: Field.F4Alpha, inverse: Field.F4AlphaPlusOne},
     {number: Field.F4AlphaPlusOne, inverse: Field.F4Alpha}
 ];
 
-var F4AdditionLookup = [
+const F4AdditionLookup = [
     {summand1: Field.F4Zero, summand2: Field.F4Zero, result: Field.F4Zero},
     {summand1: Field.F4Zero, summand2: Field.F4One, result: Field.F4One},
     {summand1: Field.F4Zero, summand2: Field.F4Alpha, result: Field.F4Alpha},
@@ -31,7 +31,7 @@ var F4AdditionLookup = [
     {summand1: Field.F4AlphaPlusOne, summand2: Field.F4AlphaPlusOne, result: Field.F4Zero}
 ];
 
-var F4MultiplicationLookup = [
+const F4MultiplicationLookup = [
     {factor1: Field.F4Zero, factor2: Field.F4Zero, result: Field.F4Zero},
     {factor1: Field.F4Zero, factor2: Field.F4One, result: Field.F4Zero},
     {factor1: Field.F4Zero, factor2: Field.F4Alpha, result: Field.F4Zero},
@@ -50,7 +50,7 @@ var F4MultiplicationLookup = [
     {factor1: Field.F4AlphaPlusOne, factor2: Field.F4AlphaPlusOne, result: Field.F4Alpha}
 ];
 
-var F8ElementsNameLookup = [
+const F8ElementsNameLookup = [
     {number: Field.F8Zero, name: "0"},
     {number: Field.F8One, name: "1"},
     {number: Field.F8Beta, name: "β"},
@@ -61,7 +61,7 @@ var F8ElementsNameLookup = [
     {number: Field.F8OnePlusBetaPlusBetaSquare, name: "1+β+β²"}
 ];
 
-var F8InverseLookup = [
+const F8InverseLookup = [
     {number: Field.F8Zero, inverse: Field.F8One},
     {number: Field.F8One, inverse: Field.F8One},
     {number: Field.F8Beta, inverse: Field.F8OnePlusBetaSquare},
@@ -72,7 +72,7 @@ var F8InverseLookup = [
     {number: Field.F8OnePlusBetaPlusBetaSquare, inverse: Field.F8BetaSquare}
 ];
 
-var F8AdditionLookup = [
+const F8AdditionLookup = [
     {summand1: Field.F8Zero, summand2: Field.F8Zero, result: Field.F8Zero},
     {summand1: Field.F8Zero, summand2: Field.F8One, result: Field.F8One},
     {summand1: Field.F8Zero, summand2: Field.F8Beta, result: Field.F8Beta},
@@ -139,7 +139,7 @@ var F8AdditionLookup = [
     {summand1: Field.F8OnePlusBetaPlusBetaSquare, summand2: Field.F8OnePlusBetaPlusBetaSquare, result: Field.F8Zero}
 ];
 
-var F8MultiplicationLookup = [
+const F8MultiplicationLookup = [
     {factor1: Field.F8Zero, factor2: Field.F8Zero, result: Field.F8Zero},
     {factor1: Field.F8Zero, factor2: Field.F8One, result: Field.F8Zero},
     {factor1: Field.F8Zero, factor2: Field.F8Beta, result: Field.F8Zero},
@@ -206,7 +206,7 @@ var F8MultiplicationLookup = [
     {factor1: Field.F8OnePlusBetaPlusBetaSquare, factor2: Field.F8OnePlusBetaPlusBetaSquare, result: Field.F8OnePlusBeta}
 ];
 
-var F9ElementsNameLookup = [
+const F9ElementsNameLookup = [
     {number: Field.F9Zero, name: "0"},
     {number: Field.F9One, name: "1"},
     {number: Field.F9MinusOne, name: "-1"},
@@ -218,7 +218,7 @@ var F9ElementsNameLookup = [
     {number: Field.F9MinusIotaMinusOne, name: "-ι-1"}
 ];
 
-var F9InverseLookup = [
+const F9InverseLookup = [
     {number: Field.F9Zero, inverse: Field.F9},
     {number: Field.F9One, inverse: Field.F9},
     {number: Field.F9MinusOne, inverse: Field.F9},
@@ -230,91 +230,91 @@ var F9InverseLookup = [
     {number: Field.F9MinusIotaMinusOne, inverse: Field.F9}
 ];
 
-var F9AdditionLookup = [
-    {summand1: Field.F9Zero, summand2: Field.F9Zero, result: Field.F9},
-    {summand1: Field.F9Zero, summand2: Field.F9One, result: Field.F9},
-    {summand1: Field.F9Zero, summand2: Field.F9MinusOne, result: Field.F9},
-    {summand1: Field.F9Zero, summand2: Field.F9Iota, result: Field.F9},
-    {summand1: Field.F9Zero, summand2: Field.F9IotaPlusOne, result: Field.F9},
-    {summand1: Field.F9Zero, summand2: Field.F9IotaMinusOne, result: Field.F9},
-    {summand1: Field.F9Zero, summand2: Field.F9MinusIota, result: Field.F9},
-    {summand1: Field.F9Zero, summand2: Field.F9MinusIotaPlusOne, result: Field.F9},
-    {summand1: Field.F9Zero, summand2: Field.F9MinusIotaMinusOne, result: Field.F9},
-    {summand1: Field.F9One, summand2: Field.F9Zero, result: Field.F9},
-    {summand1: Field.F9One, summand2: Field.F9One, result: Field.F9},
-    {summand1: Field.F9One, summand2: Field.F9MinusOne, result: Field.F9},
-    {summand1: Field.F9One, summand2: Field.F9Iota, result: Field.F9},
-    {summand1: Field.F9One, summand2: Field.F9IotaPlusOne, result: Field.F9},
-    {summand1: Field.F9One, summand2: Field.F9IotaMinusOne, result: Field.F9},
-    {summand1: Field.F9One, summand2: Field.F9MinusIota, result: Field.F9},
-    {summand1: Field.F9One, summand2: Field.F9MinusIotaPlusOne, result: Field.F9},
-    {summand1: Field.F9One, summand2: Field.F9MinusIotaMinusOne, result: Field.F9},
-    {summand1: Field.F9MinusOne, summand2: Field.F9Zero, result: Field.F9},
-    {summand1: Field.F9MinusOne, summand2: Field.F9One, result: Field.F9},
-    {summand1: Field.F9MinusOne, summand2: Field.F9MinusOne, result: Field.F9},
-    {summand1: Field.F9MinusOne, summand2: Field.F9Iota, result: Field.F9},
-    {summand1: Field.F9MinusOne, summand2: Field.F9IotaPlusOne, result: Field.F9},
-    {summand1: Field.F9MinusOne, summand2: Field.F9IotaMinusOne, result: Field.F9},
-    {summand1: Field.F9MinusOne, summand2: Field.F9MinusIota, result: Field.F9},
-    {summand1: Field.F9MinusOne, summand2: Field.F9MinusIotaPlusOne, result: Field.F9},
-    {summand1: Field.F9MinusOne, summand2: Field.F9MinusIotaMinusOne, result: Field.F9},
-    {summand1: Field.F9Iota, summand2: Field.F9Zero, result: Field.F9},
-    {summand1: Field.F9Iota, summand2: Field.F9One, result: Field.F9},
-    {summand1: Field.F9Iota, summand2: Field.F9MinusOne, result: Field.F9},
-    {summand1: Field.F9Iota, summand2: Field.F9Iota, result: Field.F9},
-    {summand1: Field.F9Iota, summand2: Field.F9IotaPlusOne, result: Field.F9},
-    {summand1: Field.F9Iota, summand2: Field.F9IotaMinusOne, result: Field.F9},
-    {summand1: Field.F9Iota, summand2: Field.F9MinusIota, result: Field.F9},
-    {summand1: Field.F9Iota, summand2: Field.F9MinusIotaPlusOne, result: Field.F9},
-    {summand1: Field.F9Iota, summand2: Field.F9MinusIotaMinusOne, result: Field.F9},
-    {summand1: Field.F9IotaPlusOne, summand2: Field.F9Zero, result: Field.F9},
-    {summand1: Field.F9IotaPlusOne, summand2: Field.F9One, result: Field.F9},
-    {summand1: Field.F9IotaPlusOne, summand2: Field.F9MinusOne, result: Field.F9},
-    {summand1: Field.F9IotaPlusOne, summand2: Field.F9Iota, result: Field.F9},
-    {summand1: Field.F9IotaPlusOne, summand2: Field.F9IotaPlusOne, result: Field.F9},
-    {summand1: Field.F9IotaPlusOne, summand2: Field.F9IotaMinusOne, result: Field.F9},
-    {summand1: Field.F9IotaPlusOne, summand2: Field.F9MinusIota, result: Field.F9},
-    {summand1: Field.F9IotaPlusOne, summand2: Field.F9MinusIotaPlusOne, result: Field.F9},
-    {summand1: Field.F9IotaPlusOne, summand2: Field.F9MinusIotaMinusOne, result: Field.F9},
-    {summand1: Field.F9IotaMinusOne, summand2: Field.F9Zero, result: Field.F9},
-    {summand1: Field.F9IotaMinusOne, summand2: Field.F9One, result: Field.F9},
-    {summand1: Field.F9IotaMinusOne, summand2: Field.F9MinusOne, result: Field.F9},
-    {summand1: Field.F9IotaMinusOne, summand2: Field.F9Iota, result: Field.F9},
-    {summand1: Field.F9IotaMinusOne, summand2: Field.F9IotaPlusOne, result: Field.F9},
-    {summand1: Field.F9IotaMinusOne, summand2: Field.F9IotaMinusOne, result: Field.F9},
-    {summand1: Field.F9IotaMinusOne, summand2: Field.F9MinusIota, result: Field.F9},
-    {summand1: Field.F9IotaMinusOne, summand2: Field.F9MinusIotaPlusOne, result: Field.F9},
-    {summand1: Field.F9IotaMinusOne, summand2: Field.F9MinusIotaMinusOne, result: Field.F9},
-    {summand1: Field.F9MinusIota, summand2: Field.F9Zero, result: Field.F9},
-    {summand1: Field.F9MinusIota, summand2: Field.F9One, result: Field.F9},
-    {summand1: Field.F9MinusIota, summand2: Field.F9MinusOne, result: Field.F9},
-    {summand1: Field.F9MinusIota, summand2: Field.F9Iota, result: Field.F9},
-    {summand1: Field.F9MinusIota, summand2: Field.F9IotaPlusOne, result: Field.F9},
-    {summand1: Field.F9MinusIota, summand2: Field.F9IotaMinusOne, result: Field.F9},
-    {summand1: Field.F9MinusIota, summand2: Field.F9MinusIota, result: Field.F9},
-    {summand1: Field.F9MinusIota, summand2: Field.F9MinusIotaPlusOne, result: Field.F9},
-    {summand1: Field.F9MinusIota, summand2: Field.F9MinusIotaMinusOne, result: Field.F9},
-    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9Zero, result: Field.F9},
-    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9One, result: Field.F9},
-    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9MinusOne, result: Field.F9},
-    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9Iota, result: Field.F9},
-    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9IotaPlusOne, result: Field.F9},
-    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9IotaMinusOne, result: Field.F9},
-    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9MinusIota, result: Field.F9},
-    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9MinusIotaPlusOne, result: Field.F9},
-    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9MinusIotaMinusOne, result: Field.F9},
-    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9Zero, result: Field.F9},
-    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9One, result: Field.F9},
-    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9MinusOne, result: Field.F9},
-    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9Iota, result: Field.F9},
-    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9IotaPlusOne, result: Field.F9},
-    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9IotaMinusOne, result: Field.F9},
-    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9MinusIota, result: Field.F9},
-    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9MinusIotaPlusOne, result: Field.F9},
-    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9MinusIotaMinusOne, result: Field.F9},
+const F9AdditionLookup = [
+    {summand1: Field.F9Zero, summand2: Field.F9Zero, result: Field.F9Zero},
+    {summand1: Field.F9Zero, summand2: Field.F9One, result: Field.F9One},
+    {summand1: Field.F9Zero, summand2: Field.F9MinusOne, result: Field.F9MinusOne},
+    {summand1: Field.F9Zero, summand2: Field.F9Iota, result: Field.F9Iota},
+    {summand1: Field.F9Zero, summand2: Field.F9IotaPlusOne, result: Field.F9IotaPlusOne},
+    {summand1: Field.F9Zero, summand2: Field.F9IotaMinusOne, result: Field.F9IotaMinusOne},
+    {summand1: Field.F9Zero, summand2: Field.F9MinusIota, result: Field.F9MinusIota},
+    {summand1: Field.F9Zero, summand2: Field.F9MinusIotaPlusOne, result: Field.F9MinusIotaPlusOne},
+    {summand1: Field.F9Zero, summand2: Field.F9MinusIotaMinusOne, result: Field.F9MinusIotaMinusOne},
+    {summand1: Field.F9One, summand2: Field.F9Zero, result: Field.F9One},
+    {summand1: Field.F9One, summand2: Field.F9One, result: Field.F9MinusOne},
+    {summand1: Field.F9One, summand2: Field.F9MinusOne, result: Field.F9Zero},
+    {summand1: Field.F9One, summand2: Field.F9Iota, result: Field.F9IotaPlusOne},
+    {summand1: Field.F9One, summand2: Field.F9IotaPlusOne, result: Field.F9IotaMinusOne},
+    {summand1: Field.F9One, summand2: Field.F9IotaMinusOne, result: Field.F9Iota},
+    {summand1: Field.F9One, summand2: Field.F9MinusIota, result: Field.F9MinusIotaPlusOne},
+    {summand1: Field.F9One, summand2: Field.F9MinusIotaPlusOne, result: Field.F9MinusIotaMinusOne},
+    {summand1: Field.F9One, summand2: Field.F9MinusIotaMinusOne, result: Field.F9MinusIota},
+    {summand1: Field.F9MinusOne, summand2: Field.F9Zero, result: Field.F9MinusOne},
+    {summand1: Field.F9MinusOne, summand2: Field.F9One, result: Field.F9Zero},
+    {summand1: Field.F9MinusOne, summand2: Field.F9MinusOne, result: Field.F9One},
+    {summand1: Field.F9MinusOne, summand2: Field.F9Iota, result: Field.F9IotaMinusOne},
+    {summand1: Field.F9MinusOne, summand2: Field.F9IotaPlusOne, result: Field.F9Iota},
+    {summand1: Field.F9MinusOne, summand2: Field.F9IotaMinusOne, result: Field.F9IotaPlusOne},
+    {summand1: Field.F9MinusOne, summand2: Field.F9MinusIota, result: Field.F9MinusIotaMinusOne},
+    {summand1: Field.F9MinusOne, summand2: Field.F9MinusIotaPlusOne, result: Field.F9MinusIota},
+    {summand1: Field.F9MinusOne, summand2: Field.F9MinusIotaMinusOne, result: Field.F9MinusIotaPlusOne},
+    {summand1: Field.F9Iota, summand2: Field.F9Zero, result: Field.F9Iota},
+    {summand1: Field.F9Iota, summand2: Field.F9One, result: Field.F9IotaPlusOne},
+    {summand1: Field.F9Iota, summand2: Field.F9MinusOne, result: Field.F9IotaMinusOne},
+    {summand1: Field.F9Iota, summand2: Field.F9Iota, result: Field.F9MinusIota},
+    {summand1: Field.F9Iota, summand2: Field.F9IotaPlusOne, result: Field.F9MinusIotaPlusOne},
+    {summand1: Field.F9Iota, summand2: Field.F9IotaMinusOne, result: Field.F9MinusIotaMinusOne},
+    {summand1: Field.F9Iota, summand2: Field.F9MinusIota, result: Field.F9Zero},
+    {summand1: Field.F9Iota, summand2: Field.F9MinusIotaPlusOne, result: Field.F9One},
+    {summand1: Field.F9Iota, summand2: Field.F9MinusIotaMinusOne, result: Field.F9MinusOne},
+    {summand1: Field.F9IotaPlusOne, summand2: Field.F9Zero, result: Field.F9IotaPlusOne},
+    {summand1: Field.F9IotaPlusOne, summand2: Field.F9One, result: Field.F9IotaMinusOne},
+    {summand1: Field.F9IotaPlusOne, summand2: Field.F9MinusOne, result: Field.F9Iota},
+    {summand1: Field.F9IotaPlusOne, summand2: Field.F9Iota, result: Field.F9MinusIotaPlusOne},
+    {summand1: Field.F9IotaPlusOne, summand2: Field.F9IotaPlusOne, result: Field.F9MinusIotaMinusOne},
+    {summand1: Field.F9IotaPlusOne, summand2: Field.F9IotaMinusOne, result: Field.F9MinusIota},
+    {summand1: Field.F9IotaPlusOne, summand2: Field.F9MinusIota, result: Field.F9One},
+    {summand1: Field.F9IotaPlusOne, summand2: Field.F9MinusIotaPlusOne, result: Field.F9MinusOne},
+    {summand1: Field.F9IotaPlusOne, summand2: Field.F9MinusIotaMinusOne, result: Field.F9Zero},
+    {summand1: Field.F9IotaMinusOne, summand2: Field.F9Zero, result: Field.F9IotaMinusOne},
+    {summand1: Field.F9IotaMinusOne, summand2: Field.F9One, result: Field.F9Iota},
+    {summand1: Field.F9IotaMinusOne, summand2: Field.F9MinusOne, result: Field.F9IotaPlusOne},
+    {summand1: Field.F9IotaMinusOne, summand2: Field.F9Iota, result: Field.F9MinusIotaMinusOne},
+    {summand1: Field.F9IotaMinusOne, summand2: Field.F9IotaPlusOne, result: Field.F9MinusIota},
+    {summand1: Field.F9IotaMinusOne, summand2: Field.F9IotaMinusOne, result: Field.F9MinusIotaPlusOne},
+    {summand1: Field.F9IotaMinusOne, summand2: Field.F9MinusIota, result: Field.F9MinusOne},
+    {summand1: Field.F9IotaMinusOne, summand2: Field.F9MinusIotaPlusOne, result: Field.F9Zero},
+    {summand1: Field.F9IotaMinusOne, summand2: Field.F9MinusIotaMinusOne, result: Field.F9One},
+    {summand1: Field.F9MinusIota, summand2: Field.F9Zero, result: Field.F9MinusIota},
+    {summand1: Field.F9MinusIota, summand2: Field.F9One, result: Field.F9MinusIotaPlusOne},
+    {summand1: Field.F9MinusIota, summand2: Field.F9MinusOne, result: Field.F9MinusIotaMinusOne},
+    {summand1: Field.F9MinusIota, summand2: Field.F9Iota, result: Field.F9Zero},
+    {summand1: Field.F9MinusIota, summand2: Field.F9IotaPlusOne, result: Field.F9One},
+    {summand1: Field.F9MinusIota, summand2: Field.F9IotaMinusOne, result: Field.F9MinusOne},
+    {summand1: Field.F9MinusIota, summand2: Field.F9MinusIota, result: Field.F9Iota},
+    {summand1: Field.F9MinusIota, summand2: Field.F9MinusIotaPlusOne, result: Field.F9IotaPlusOne},
+    {summand1: Field.F9MinusIota, summand2: Field.F9MinusIotaMinusOne, result: Field.F9IotaMinusOne},
+    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9Zero, result: Field.F9MinusIotaPlusOne},
+    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9One, result: Field.F9MinusIotaMinusOne},
+    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9MinusOne, result: Field.F9MinusIota},
+    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9Iota, result: Field.F9One},
+    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9IotaPlusOne, result: Field.F9MinusOne},
+    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9IotaMinusOne, result: Field.F9Zero},
+    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9MinusIota, result: Field.F9IotaPlusOne},
+    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9MinusIotaPlusOne, result: Field.F9IotaMinusOne},
+    {summand1: Field.F9MinusIotaPlusOne, summand2: Field.F9MinusIotaMinusOne, result: Field.F9Iota},
+    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9Zero, result: Field.F9MinusIotaMinusOne},
+    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9One, result: Field.F9MinusIota},
+    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9MinusOne, result: Field.F9MinusIotaPlusOne},
+    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9Iota, result: Field.F9MinusOne},
+    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9IotaPlusOne, result: Field.F9Zero},
+    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9IotaMinusOne, result: Field.F9One},
+    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9MinusIota, result: Field.F9IotaMinusOne},
+    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9MinusIotaPlusOne, result: Field.F9Iota},
+    {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9MinusIotaMinusOne, result: Field.F9IotaPlusOne},
 ];
 
-var F9MultiplicationLookup = [
+const F9MultiplicationLookup = [
     {factor1: Field.F9Zero, factor2: Field.F9Zero, result: Field.F9Zero},
     {factor1: Field.F9Zero, factor2: Field.F9One, result: Field.F9Zero},
     {factor1: Field.F9Zero, factor2: Field.F9MinusOne, result: Field.F9Zero},
