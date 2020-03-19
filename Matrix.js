@@ -1,7 +1,7 @@
 /**
  A class that can store and manipulate a mathematical matrix over real numbers.
 
- Author: David Augustat
+ @author David Augustat
  */
 
 class Matrix{
@@ -30,9 +30,9 @@ class Matrix{
     }
 
     transpone(){
-        var transponed = new Array(this.columns).fill(0).map(() => new Array(this.rows).fill(0));
-        for(var row = 0; row<this.rows; row++){
-            for(var column = 0; column <this.columns; column++){
+        const transponed = new Array(this.columns).fill(0).map(() => new Array(this.rows).fill(0));
+        for(let row = 0; row<this.rows; row++){
+            for(let column = 0; column <this.columns; column++){
                 transponed[column][row] = this.data[row][column];
             }
         }
@@ -45,7 +45,7 @@ class Matrix{
     }
 
     getColumn(position){
-        var column = new Array();
+        const column = new Array();
         this.data.forEach((row) => {
             column.push(row[position]);
         });
@@ -65,10 +65,10 @@ class Matrix{
     }
 
     print(){
-        var output = "";
+        let output = "";
         this.data.forEach((row) => {
             row.forEach((value) => {
-                output += value + "\t";
+                output += this.field.getString(value) + "\t";
             });
             output += "\n";
         });
@@ -80,14 +80,14 @@ class Matrix{
     }
 
     multiplyRow(rowPos, factor){
-        var row = this.data[rowPos];
-        for(var column = 0; column < this.columns; column++){
+        const row = this.data[rowPos];
+        for(let column = 0; column < this.columns; column++){
             row[column] = this.field.multiply(row[column], factor);
         }
     }
 
     addRowToOther(sourceRowPos, targetRowPos, factor){
-        for(var column = 0; column < this.columns; column++){
+        for(let column = 0; column < this.columns; column++){
             this.data[targetRowPos][column] = this.field.add(this.data[targetRowPos][column], this.field.multiply( this.data[sourceRowPos][column], factor));
         }
     }
@@ -96,23 +96,23 @@ class Matrix{
         const factor = this.field.getMultiplicationInverse(this.data[rowPos][columnPos]);
         this.multiplyRow(rowPos, factor);
 
-        for(var row = 0; row<this.rows; row++){
+        for(let row = 0; row<this.rows; row++){
             if(row != rowPos){
                 // var rowFactor = -this.data[row][columnPos];
+                const rowFactor = this.field.getAdditionInverse(this.data[row][columnPos]);
                 this.addRowToOther(rowPos, row, rowFactor);
             }
         }
     }
 
     moveRow(rowPos, targetPos){
-        var cutOut = this.data.splice(rowPos, 1)[0];
+        const cutOut = this.data.splice(rowPos, 1)[0];
         this.data.splice(targetPos, 0, cutOut);
     }
 
     rowReduce(){
-        var nonStepColumns = new Array();
-        var row = 0;
-        var column = 0;
+        let row = 0;
+        let column = 0;
         while(row < this.rows && column < this.columns){
             if(this.data[row][column] != 0){
                 this.reduceColumn(row, column);
@@ -120,7 +120,7 @@ class Matrix{
                 column++;
             }
             else{
-                var isCurrentPositionNotZero = this.moveRowWithoutZeroAtCurrentPosition(row, column);
+                const isCurrentPositionNotZero = this.moveRowWithoutZeroAtCurrentPosition(row, column);
                 if(!isCurrentPositionNotZero){
                     this.nonStepColumns.push(column);
                     column++;
@@ -130,25 +130,25 @@ class Matrix{
     }
 
     moveRowWithoutZeroAtCurrentPosition(rowPos, columnPos){
-        var numMoves = 0;
+        const numMoves = 0;
         while(this.data[rowPos][columnPos] == 0 && numMoves < this.rows-rowPos-1){
             this.moveRow(rowPos, this.rows-1);
         }
         return this.data[rowPos][columnPos] != 0;
     }
 
-    solveHomogenousEquationSystem(){
-        var solution = {
+    solveHomogeneousEquationSystem(){
+        const solution = {
             trivialSolution: new Array(this.rows).fill(0), // Array of values
             vectorSolution: new Array(), // Array of vectors
-        }
+        };
 
-        this.rowReduce()
+        this.rowReduce();
 
         this.nonStepColumns.forEach((currentNonStepColumnPos) => {
-            var rowPos = 0;
-            var solutionVector = new Vector(0);
-            for(var pos = 0; pos < this.columns; pos++){
+            let rowPos = 0;
+            const solutionVector = new Vector(0);
+            for(let pos = 0; pos < this.columns; pos++){
                 if(this.nonStepColumns.includes(pos)){
                     if(pos == currentNonStepColumnPos){
                         solutionVector.add(1);
@@ -156,7 +156,7 @@ class Matrix{
                         solutionVector.add(0);
                     }
                 } else{
-                    solutionVector.add(this.preventNegativeZero(-this.data[rowPos][currentNonStepColumnPos]));
+                    solutionVector.add(this.field.getAdditionInverse(this.data[rowPos][currentNonStepColumnPos]));
                     rowPos++;
                 }
             }
@@ -170,9 +170,9 @@ class Matrix{
     }
 
     getCopy(){
-        var copyMatrix = new Matrix(this.rows, this.columns);
-        for(var rowPos = 0; rowPos < this.rows; rowPos++){
-            for(var columnPos = 0; columnPos < this.columns; columnPos++){
+        const copyMatrix = new Matrix(this.rows, this.columns, this.field);
+        for(let rowPos = 0; rowPos < this.rows; rowPos++){
+            for(let columnPos = 0; columnPos < this.columns; columnPos++){
                 copyMatrix.set(rowPos, columnPos, this.data[rowPos][columnPos]);
             }
         }
@@ -180,33 +180,7 @@ class Matrix{
     }
 
     getEmptyCopy(){
-        return new Matrix(this.rows, this.columns);
+        return new Matrix(this.rows, this.columns, this.field);
     }
 
 }
-
-// old code:
-// rowReduce2(){
-//   var column = 0;
-//   for(var row=0; row<Math.min(this.rows, this.columns); row++){
-//     if(column < this.columns){
-//       if(this.data[row][column] != 0){
-//         this.reduceColumn(row, column);
-//       } else{
-//         var found = false;
-//         for(var movedRows=0; movedRows < (this.rows-row-1); movedRows++){
-//           this.moveRow(row, this.rows-1);
-//           if(this.data[row][column] != 0){
-//             this.reduceColumn(row, column);
-//             found = true;
-//             break;
-//           }
-//         }
-//         if(!found){
-//           row--;
-//         }
-//       }
-//       column++;
-//     }
-//   }
-// }

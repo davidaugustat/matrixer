@@ -1,3 +1,12 @@
+
+/**
+ * Class that represents an algebraic number field.
+ *
+ * Info: https://en.wikipedia.org/wiki/Algebraic_number_field
+ * Available fields are the real numbers as well as several prime number fields and the extended fields F4, F8 and F9.
+ *
+ * @author David Augustat
+ * */
 class Field{
     static F2 = 2;
     static F3 = 3;
@@ -43,6 +52,7 @@ class Field{
         Field.F9IotaMinusOne, Field.F9MinusIota, Field.F9MinusIotaPlusOne, Field.F9MinusIotaMinusOne, ];
 
     field;
+
     constructor(field){
         this.field = field;
     }
@@ -71,6 +81,12 @@ class Field{
         }
     }
 
+    /**
+     * Adds two numbers in a field.
+     *
+     * @param {number} summand1 The first addition summand
+     * @param {number} summand2 The second addition summand
+     * */
     add(summand1, summand2){
         if(this.isPrimeField()){
             return this.parse(summand1 + summand2)
@@ -81,35 +97,69 @@ class Field{
         }
     }
 
+    /**
+     * Returns the multiplication inverse of a number.
+     *
+     * The multiplication inverse of a number x is a number y for that applies x * y = 1
+     *
+     * @param {number} num The number to obtain the inverse of
+     * */
     getMultiplicationInverse(num){
         if(this.isPrimeField()){
-            return this.getPrimeFieldInverse(num);
+            return this.getPrimeFieldMultiplicationInverse(num);
         } else if(this.field == Field.R){
             return 1 / num;
         } else if(this.isExtendedField()){
-            return this.getExtendedFieldInverse(num);
+            return this.getExtendedFieldMultiplicationInverse(num);
         }
     }
 
+    /**
+     * Returns the addition inverse of a number.
+     *
+     * The addition inverse of a number x is a number y for that applies x + y = 0
+     *
+     * @param {number} num The number to obtain the inverse of
+     * */
     getAdditionInverse(num){
         if(this.isPrimeField()){
             return this.parse(this.field - num);
         } else if(this.field == Field.R){
-            return -num;
+            return this.preventNegativeZero(-num);
         } else if(this.isExtendedField()){
-
+            this.getExtendedFieldAdditionInverse(num);
         }
     }
 
+    /**
+     * Parses a number to it's representative in the current field.
+     *
+     * - In real numbers: Each number is it's own representative, e.g. parse(5) = 5
+     * - In prime fields: Each number has a representative between 0 and [field order]. e.g. in F5 parse(14) = 4
+     * - In extended fields it is not possible to parse a number outside the field to a representative.
+     *  For simplicity this function will just return the input without checking.
+     *
+     *  @param {number} value The value to be parsed
+     * */
     parse(value){
         if(this.isPrimeField()){
             return ((value % this.field) + this.field) % this.field;
         } else if(this.field == Field.R){
             return value;
+        } else if(this.isExtendedField()){
+            return value;
         }
-        throw("Extended fields are not parsable. :/");
     }
 
+    /**
+     * Returns the number value as a human readable string.
+     *
+     * - In real numbers: Each number already is human readable by itself. Therefore e.g. getString(5) = 5
+     * - In prime fields: The representative of the provided number is returned. e.g. in F5 getString(14) = 4
+     * - In extended fields: A human readable text is returned, e.g. in F4 getString(Field.F4AlphaPlusOne) = α+1
+     *
+     * @param {number} num The value to be converted to a string
+     * */
     getString(num){
         if(this.isPrimeField()){
          return this.parse(num);
@@ -126,7 +176,7 @@ class Field{
         }
     }
 
-    getPrimeFieldInverse(num){
+    getPrimeFieldMultiplicationInverse(num){
         // This method uses the Extended Euclidean Algorithm:
 
         let multiples = [1];
@@ -156,7 +206,7 @@ class Field{
         return this.parse(wCurrent);
     }
 
-    getExtendedFieldInverse(num){
+    getExtendedFieldMultiplicationInverse(num){
         if(this.field === Field.F4){
             return F4MultiplicationInverseLookup.find(object => object.number == num).inverse;
         } else if(this.field === Field.F8){
@@ -193,4 +243,24 @@ class Field{
                 break;
         }
     }
+
+    getExtendedFieldAdditionInverse(num){
+        switch (this.field) {
+            case Field.F4:
+                return F4AdditionInverseLookup.find(object => object.number == num).result;
+                break;
+            case Field.F8:
+                return F8AdditionInverseLookup.find(object => object.number == num).result;
+                break;
+            case Field.F9:
+                return F9AdditionInverseLookup.find(object => object.number == num).result;
+                break;
+        }
+    }
+
+    preventNegativeZero(number){
+        return number + 0;
+    }
+
+
 }

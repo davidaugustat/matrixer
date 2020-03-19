@@ -29,7 +29,7 @@ var yValues = [
     [1,1,-2,0,0,-2]
 ];
 
-var aValues = [
+var cValues = [
     [1,4,-8,7],
     [2,5,-10,8],
     [3,6,-12,99]
@@ -46,24 +46,29 @@ var mm = new MatrixManager();
 
 
 var f4 = new Field(Field.F4);
+testMatrix(mValues);
+testMatrix(xValues);
+testMatrix(yValues);
+testMatrix(cValues);
+testMatrix(aValues);
 //console.log(f4.getString(f4.getInverse(Field.F4Alpha)));
 
-console.log(f4.getString(f4.multiply(0, 0)));
+// console.log(f4.getString(f4.multiply(0, 0)));
 //console.log(F4MultiplicationLookup.find(object => object.factor1 === 2 && object.factor2 === 3).result);
 // printMultiplicationFieldTable(Field.F4Numbers, Field.F4);
 // printMultiplicationFieldTable(Field.F8Numbers, Field.F8);
 // printMultiplicationFieldTable(Field.F9Numbers, Field.F9);
-
-printAdditionFieldTable(Field.F4Numbers, Field.F4);
-printAdditionFieldTable(Field.F8Numbers, Field.F8);
-printAdditionFieldTable(Field.F9Numbers, Field.F9);
+//
+// printAdditionFieldTable(Field.F4Numbers, Field.F4);
+// printAdditionFieldTable(Field.F8Numbers, Field.F8);
+// printAdditionFieldTable(Field.F9Numbers, Field.F9);
 
 function testMatrix(data){
     var matrix = new Matrix(0,0);
     matrix.setData(data);
     matrix.print();
-    var solution = matrix.solveHomogenousEquationSystem();
-    //solution.vectorSolution.forEach((vector) => vector.print());
+    var solution = matrix.solveHomogeneousEquationSystem();
+    solution.vectorSolution.forEach((vector) => vector.print());
     matrix.print();
     console.log("--------------");
 }
