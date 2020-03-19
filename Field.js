@@ -73,21 +73,31 @@ class Field{
 
     add(summand1, summand2){
         if(this.isPrimeField()){
-            return (summand1 + summand2) % this.field;
+            return this.parse(summand1 + summand2)
         } else if(this.field == Field.R){
-            return summand1 * summand2;
+            return summand1 + summand2;
         } else if(this.isExtendedField()){
             return this.addInExtendedField(summand1, summand2);
         }
     }
 
-    getInverse(num){
+    getMultiplicationInverse(num){
         if(this.isPrimeField()){
             return this.getPrimeFieldInverse(num);
         } else if(this.field == Field.R){
             return 1 / num;
         } else if(this.isExtendedField()){
             return this.getExtendedFieldInverse(num);
+        }
+    }
+
+    getAdditionInverse(num){
+        if(this.isPrimeField()){
+            return this.parse(this.field - num);
+        } else if(this.field == Field.R){
+            return -num;
+        } else if(this.isExtendedField()){
+
         }
     }
 
@@ -148,11 +158,11 @@ class Field{
 
     getExtendedFieldInverse(num){
         if(this.field === Field.F4){
-            return F4InverseLookup.find(object => object.number == num).inverse;
+            return F4MultiplicationInverseLookup.find(object => object.number == num).inverse;
         } else if(this.field === Field.F8){
-            return F8InverseLookup.find(object => object.number == num).inverse;
+            return F8MultiplicationInverseLookup.find(object => object.number == num).inverse;
         } else if(this.field === Field.F9){
-            return F9InverseLookup.find(object => object.number == num).inverse;
+            return F9MultiplicationInverseLookup.find(object => object.number == num).inverse;
         }
     }
 

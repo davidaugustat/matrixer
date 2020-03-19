@@ -5,11 +5,18 @@ const F4ElementsNameLookup = [
     {number: Field.F4AlphaPlusOne, name: "α+1"}
 ];
 
-const F4InverseLookup = [
+const F4MultiplicationInverseLookup = [
     {number: Field.F4Zero, inverse: Field.F4One},
     {number: Field.F4One, inverse: Field.F4One},
     {number: Field.F4Alpha, inverse: Field.F4AlphaPlusOne},
     {number: Field.F4AlphaPlusOne, inverse: Field.F4Alpha}
+];
+
+const F4AdditionInverseLookup = [
+    {number: Field.F4Zero, inverse: Field.F4Zero},
+    {number: Field.F4One, inverse: Field.F4One},
+    {number: Field.F4Alpha, inverse: Field.F4Alpha},
+    {number: Field.F4AlphaPlusOne, inverse: Field.F4AlphaPlusOne}
 ];
 
 const F4AdditionLookup = [
@@ -61,7 +68,7 @@ const F8ElementsNameLookup = [
     {number: Field.F8OnePlusBetaPlusBetaSquare, name: "1+β+β²"}
 ];
 
-const F8InverseLookup = [
+const F8MultiplicationInverseLookup = [
     {number: Field.F8Zero, inverse: Field.F8One},
     {number: Field.F8One, inverse: Field.F8One},
     {number: Field.F8Beta, inverse: Field.F8OnePlusBetaSquare},
@@ -70,6 +77,17 @@ const F8InverseLookup = [
     {number: Field.F8OnePlusBetaSquare, inverse: Field.F8Beta},
     {number: Field.F8BetaPlusBetaSquare, inverse: Field.F8OnePlusBeta},
     {number: Field.F8OnePlusBetaPlusBetaSquare, inverse: Field.F8BetaSquare}
+];
+
+const F8AdditionInverseLookup = [
+    {number: Field.F8Zero, inverse: Field.F8Zero},
+    {number: Field.F8One, inverse: Field.F8One},
+    {number: Field.F8Beta, inverse: Field.F8Beta},
+    {number: Field.F8OnePlusBeta, inverse: Field.F8OnePlusBeta},
+    {number: Field.F8BetaSquare, inverse: Field.F8BetaSquare},
+    {number: Field.F8OnePlusBetaSquare, inverse: Field.F8OnePlusBetaSquare},
+    {number: Field.F8BetaPlusBetaSquare, inverse: Field.F8BetaPlusBetaSquare},
+    {number: Field.F8OnePlusBetaPlusBetaSquare, inverse: Field.F8OnePlusBetaPlusBetaSquare}
 ];
 
 const F8AdditionLookup = [
@@ -218,16 +236,28 @@ const F9ElementsNameLookup = [
     {number: Field.F9MinusIotaMinusOne, name: "-ι-1"}
 ];
 
-const F9InverseLookup = [
-    {number: Field.F9Zero, inverse: Field.F9},
-    {number: Field.F9One, inverse: Field.F9},
-    {number: Field.F9MinusOne, inverse: Field.F9},
-    {number: Field.F9Iota, inverse: Field.F9},
-    {number: Field.F9IotaPlusOne, inverse: Field.F9},
-    {number: Field.F9IotaMinusOne, inverse: Field.F9},
-    {number: Field.F9MinusIota, inverse: Field.F9},
-    {number: Field.F9MinusIotaPlusOne, inverse: Field.F9},
-    {number: Field.F9MinusIotaMinusOne, inverse: Field.F9}
+const F9MultiplicationInverseLookup = [
+    {number: Field.F9Zero, inverse: Field.F9One},
+    {number: Field.F9One, inverse: Field.F9One},
+    {number: Field.F9MinusOne, inverse: Field.F9MinusOne},
+    {number: Field.F9Iota, inverse: Field.F9MinusIota},
+    {number: Field.F9IotaPlusOne, inverse: Field.F9IotaMinusOne},
+    {number: Field.F9IotaMinusOne, inverse: Field.F9IotaPlusOne},
+    {number: Field.F9MinusIota, inverse: Field.F9Iota},
+    {number: Field.F9MinusIotaPlusOne, inverse: Field.F9MinusIotaMinusOne},
+    {number: Field.F9MinusIotaMinusOne, inverse: Field.F9MinusIotaPlusOne}
+];
+
+const F9AdditionInverseLookup = [
+    {number: Field.F9Zero, inverse: Field.F9Zero},
+    {number: Field.F9One, inverse: Field.F9MinusOne},
+    {number: Field.F9MinusOne, inverse: Field.F9One},
+    {number: Field.F9Iota, inverse: Field.F9MinusIota},
+    {number: Field.F9IotaPlusOne, inverse: Field.F9MinusIotaMinusOne},
+    {number: Field.F9IotaMinusOne, inverse: Field.F9MinusIotaPlusOne},
+    {number: Field.F9MinusIota, inverse: Field.F9Iota},
+    {number: Field.F9MinusIotaPlusOne, inverse: Field.F9IotaMinusOne},
+    {number: Field.F9MinusIotaMinusOne, inverse: Field.F9IotaPlusOne}
 ];
 
 const F9AdditionLookup = [

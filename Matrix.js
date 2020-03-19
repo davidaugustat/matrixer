@@ -8,13 +8,15 @@ class Matrix{
     data;
     rows;
     columns;
+    field;
     nonStepColumns;
 
-    constructor(rows, columns){
+    constructor(rows = 0, columns = 0, fieldName = Field.R){
         this.rows = rows;
         this.columns = columns;
         this.data = new Array(rows).fill(0).map(() => new Array(columns).fill(0));
         this.nonStepColumns = new Array();
+        this.field = new Field(fieldName);
     }
 
     setData(data){
@@ -80,23 +82,23 @@ class Matrix{
     multiplyRow(rowPos, factor){
         var row = this.data[rowPos];
         for(var column = 0; column < this.columns; column++){
-            row[column] = row[column]*factor;
+            row[column] = this.field.multiply(row[column], factor);
         }
     }
 
     addRowToOther(sourceRowPos, targetRowPos, factor){
         for(var column = 0; column < this.columns; column++){
-            this.data[targetRowPos][column] = this.data[targetRowPos][column] + this.data[sourceRowPos][column] * factor;
+            this.data[targetRowPos][column] = this.field.add(this.data[targetRowPos][column], this.field.multiply( this.data[sourceRowPos][column], factor));
         }
     }
 
     reduceColumn(rowPos, columnPos){
-        var factor = 1/this.data[rowPos][columnPos];
+        const factor = this.field.getMultiplicationInverse(this.data[rowPos][columnPos]);
         this.multiplyRow(rowPos, factor);
 
         for(var row = 0; row<this.rows; row++){
             if(row != rowPos){
-                var rowFactor = -this.data[row][columnPos];
+                // var rowFactor = -this.data[row][columnPos];
                 this.addRowToOther(rowPos, row, rowFactor);
             }
         }
