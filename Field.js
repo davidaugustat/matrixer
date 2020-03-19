@@ -57,6 +57,15 @@ class Field{
         this.field = field;
     }
 
+    /**
+     * Returns the name of the field, e.g. Field.F4, Field.F5, Field.R
+     *
+     * @returns number The name of the field
+     * */
+    getName(){
+        return this.field;
+    }
+
     isPrimeField(){
         return [Field.F2, Field.F3, Field.F5, Field.F7, Field.F11, Field.F13, Field.F17, Field.F19].includes(this.field);
     }
@@ -127,7 +136,7 @@ class Field{
         } else if(this.field == Field.R){
             return this.preventNegativeZero(-num);
         } else if(this.isExtendedField()){
-            this.getExtendedFieldAdditionInverse(num);
+            return this.getExtendedFieldAdditionInverse(num);
         }
     }
 
@@ -247,13 +256,13 @@ class Field{
     getExtendedFieldAdditionInverse(num){
         switch (this.field) {
             case Field.F4:
-                return F4AdditionInverseLookup.find(object => object.number == num).result;
+                return F4AdditionInverseLookup.find(object => object.number == num).inverse;
                 break;
             case Field.F8:
-                return F8AdditionInverseLookup.find(object => object.number == num).result;
+                return F8AdditionInverseLookup.find(object => object.number == num).inverse;
                 break;
             case Field.F9:
-                return F9AdditionInverseLookup.find(object => object.number == num).result;
+                return F9AdditionInverseLookup.find(object => object.number == num).inverse;
                 break;
         }
     }

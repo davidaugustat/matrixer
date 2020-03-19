@@ -130,9 +130,10 @@ class Matrix{
     }
 
     moveRowWithoutZeroAtCurrentPosition(rowPos, columnPos){
-        const numMoves = 0;
+        let numMoves = 0;
         while(this.data[rowPos][columnPos] == 0 && numMoves < this.rows-rowPos-1){
             this.moveRow(rowPos, this.rows-1);
+            numMoves++;
         }
         return this.data[rowPos][columnPos] != 0;
     }
@@ -147,7 +148,7 @@ class Matrix{
 
         this.nonStepColumns.forEach((currentNonStepColumnPos) => {
             let rowPos = 0;
-            const solutionVector = new Vector(0);
+            const solutionVector = new Vector(0, this.field.getName());
             for(let pos = 0; pos < this.columns; pos++){
                 if(this.nonStepColumns.includes(pos)){
                     if(pos == currentNonStepColumnPos){
@@ -170,7 +171,7 @@ class Matrix{
     }
 
     getCopy(){
-        const copyMatrix = new Matrix(this.rows, this.columns, this.field);
+        const copyMatrix = new Matrix(this.rows, this.columns, this.field.getName());
         for(let rowPos = 0; rowPos < this.rows; rowPos++){
             for(let columnPos = 0; columnPos < this.columns; columnPos++){
                 copyMatrix.set(rowPos, columnPos, this.data[rowPos][columnPos]);
@@ -180,7 +181,7 @@ class Matrix{
     }
 
     getEmptyCopy(){
-        return new Matrix(this.rows, this.columns, this.field);
+        return new Matrix(this.rows, this.columns, this.field.getName());
     }
 
 }

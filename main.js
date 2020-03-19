@@ -41,16 +41,48 @@ var aValues = [
     [3,6,-12,12,99]
 ];
 
+// F4 matrix:
+var dValues = [
+    [Field.F4Zero, Field.F4One, Field.F4AlphaPlusOne],
+    [Field.F4AlphaPlusOne, Field.F4One, Field.F4Alpha],
+    [Field.F4One, Field.F4AlphaPlusOne, Field.F4Zero]
+];
+
+// F9 matrix:
+var eValues = [
+    [Field.F9Zero, Field.F9Zero, Field.F9One, Field.F9MinusIotaPlusOne, Field.F9Iota, Field.F9MinusIota],
+    [Field.F9MinusOne, Field.F9MinusIota, Field.F9MinusOne, Field.F9Iota, Field.F9IotaMinusOne, Field.F9One],
+    [Field.F9Iota, Field.F9MinusOne, Field.F9MinusIota, Field.F9IotaMinusOne, Field.F9Iota, Field.F9Zero]
+];
+
+// F2 matrix:
+var fValues = [
+    [1, 1],
+    [0, 1],
+    [1, 1]
+];
+
+// F3 matrix:
+var gValues = [
+    [1,1,1,1],
+    [1,-1,0,0],
+    [1,1,-1,0],
+    [1,-1,1,-1],
+    [1,1,0,-1]
+];
+
 var mm = new MatrixManager();
 
 
 
 var f4 = new Field(Field.F4);
-testMatrix(mValues);
-testMatrix(xValues);
-testMatrix(yValues);
-testMatrix(cValues);
-testMatrix(aValues);
+// testMatrix(mValues);
+// testMatrix(xValues);
+// testMatrix(yValues);
+// testMatrix(cValues);
+// testMatrix(aValues);
+testMatrix(gValues, Field.F3);
+//console.log(f4.getAdditionInverse(Field.F4AlphaPlusOne));
 //console.log(f4.getString(f4.getInverse(Field.F4Alpha)));
 
 // console.log(f4.getString(f4.multiply(0, 0)));
@@ -63,8 +95,8 @@ testMatrix(aValues);
 // printAdditionFieldTable(Field.F8Numbers, Field.F8);
 // printAdditionFieldTable(Field.F9Numbers, Field.F9);
 
-function testMatrix(data){
-    var matrix = new Matrix(0,0);
+function testMatrix(data, field=Field.R){
+    var matrix = new Matrix(0,0, field);
     matrix.setData(data);
     matrix.print();
     var solution = matrix.solveHomogeneousEquationSystem();
