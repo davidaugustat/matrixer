@@ -75,6 +75,37 @@ class Matrix{
         console.log(output);
     }
 
+    getLatex(isDisplayMode=false){
+        let output = "";
+
+        if(isDisplayMode){
+            output += "\\[";
+        } else{
+            output += "\\(";
+        }
+
+        output += "\\begin{pmatrix}";
+        this.data.forEach((row) => {
+            row.forEach((value, index, array) => {
+                if(index < array.length-1) {
+                    output += this.field.getString(value) + " & ";
+                } else{
+                    output += this.field.getString(value);
+                }
+            });
+            output += "\\\\";
+        });
+        output += "\\end{pmatrix}";
+
+        if(isDisplayMode){
+            output += "\\]";
+        } else{
+            output += "\\)";
+        }
+
+        return output;
+    }
+
     set(rowPos, columnPos, value){
         this.data[rowPos][columnPos] = value;
     }
@@ -164,10 +195,6 @@ class Matrix{
             solution.vectorSolution.push(solutionVector);
         });
         return solution;
-    }
-
-    preventNegativeZero(number){
-        return number + 0;
     }
 
     getCopy(){
