@@ -1,6 +1,6 @@
 class MatrixManager{
 
-    multiplMatrixByFactor(matrix, factor){
+    multiplyMatrixByFactor(matrix, factor){
         var result = matrix.getEmptyCopy();
         matrix.getData().forEach((row, rowPos) => {
             row.forEach((value, columnPos) => {
@@ -58,7 +58,7 @@ class MatrixManager{
         text = this.removeCharacter(text, "}");
 
         const rows = text.split(";");
-        const matrixData = new Array(new Array());
+        const matrixData = new Array();
 
         let numColumns = 0;
         rows.forEach(rowString => {
@@ -89,13 +89,13 @@ class MatrixManager{
      * */
     getNumberFromNumberString(numberString, field){
         if(isRealNumbersField(field) || isPrimeField(field)){
-            return parseInt(numberString);
+            return parseFloat(numberString);
         } else if(field == Field.F4){
-            this.getF4NumberFromString(numberString);
+            return this.getF4NumberFromString(numberString);
         } else if(field == Field.F8){
-            this.getF8NumberFromString(numberString);
+            return this.getF8NumberFromString(numberString);
         } else if(field == Field.F9){
-            this.getF9NumberFromString(numberString);
+            return this.getF9NumberFromString(numberString);
         }
     }
 

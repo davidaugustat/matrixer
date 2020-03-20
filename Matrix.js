@@ -1,5 +1,5 @@
 /**
- A class that can store and manipulate a mathematical matrix over real numbers.
+ A class that can store and manipulate a mathematical matrix over several fields.
 
  @author David Augustat
  */

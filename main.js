@@ -80,10 +80,12 @@ var f4 = new Field(Field.F4);
 // testMatrix(xValues);
 // testMatrix(yValues);
 // testMatrix(cValues);
-// testMatrix(aValues);
+//testMatrix(aValues);
 //testMatrix(dValues, Field.F4);
 // console.log("-".replace(new RegExp('[.\\\\+*?\\[\\^\\]$(){}=!<>|:\\-]', 'g'), '\\$&'));
-console.log(RegExp(getMatrixRegex(Field.F9)).test("{0,1,-1,j,1-j,-j-1}")); //0,1,-1,j,1-j,-j-jj
+//console.log(RegExp(getMatrixRegex(Field.F9)).test("{0,1,-1,j,1-j,-j-1}")); //0,1,-1,j,1-j,-j-jj
+const ma = mm.getMatrixFromText(" {j,j+1,j-1;-j,-1, -j-1}", Field.F9);//`{18.89,2,3;4,5,6;7,${Math.PI},999.01}`
+ma.print();
 //console.log(f4.getAdditionInverse(Field.F4AlphaPlusOne));
 //console.log(f4.getString(f4.getInverse(Field.F4Alpha)));
 
@@ -100,11 +102,11 @@ console.log(RegExp(getMatrixRegex(Field.F9)).test("{0,1,-1,j,1-j,-j-1}")); //0,1
 function testMatrix(data, field=Field.R){
     var matrix = new Matrix(0,0, field);
     matrix.setData(data);
-    //matrix.print();
+    matrix.print();
     print(matrix.getLatex(true));
     var solution = matrix.solveHomogeneousEquationSystem();
     solution.vectorSolution.forEach((vector) => vector.print());
-    //matrix.print();
+    matrix.print();
     print(matrix.getLatex(true));
     console.log("--------------");
 }
