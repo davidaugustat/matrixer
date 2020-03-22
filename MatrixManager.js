@@ -1,5 +1,10 @@
 class MatrixManager{
 
+    /**
+     * @param {Matrix} matrix
+     * @param {number} factor
+     * @returns {Matrix}
+     * */
     multiplyMatrixByFactor(matrix, factor){
         var result = matrix.getEmptyCopy();
         matrix.getData().forEach((row, rowPos) => {
@@ -10,26 +15,36 @@ class MatrixManager{
         return result;
     }
 
+    /**
+     * @param {Matrix} matrixA
+     * @param {Matrix} matrixB
+     * @returns {Matrix}
+     * */
     multiplyMatrices(matrixA, matrixB){
         if(matrixA.getColumnCount() != matrixB.getRowCount()){
             throw "Result of matrix multiplication not defined! (wrong dimensions)";
         }
 
-        var result = new Matrix(matrixA.getRowCount(), matrixB.getColumnCount());
+        const result = new Matrix(matrixA.getRowCount(), matrixB.getColumnCount());
 
-        for(var rowPos = 0; rowPos < result.getRowCount(); rowPos++){
-            for(var columnPos = 0; columnPos < result.getColumnCount(); columnPos++){
-                var sourceRow = matrixA.getRow(rowPos);
-                var sourceColumn = matrixB.getColumn(columnPos);
+        for(let rowPos = 0; rowPos < result.getRowCount(); rowPos++){
+            for(let columnPos = 0; columnPos < result.getColumnCount(); columnPos++){
+                const sourceRow = matrixA.getRow(rowPos);
+                const sourceColumn = matrixB.getColumn(columnPos);
                 result.set(rowPos, columnPos, this.multiplyRowWithColumn(sourceRow, sourceColumn));
             }
         }
         return result;
     }
 
+    /**
+     * @param {[number]} row
+     * @param {[number]} column
+     * @returns {number}
+     * */
     multiplyRowWithColumn(row, column){
-        var result = 0;
-        for(var pos = 0; pos < row.length; pos++){
+        let result = 0;
+        for(let pos = 0; pos < row.length; pos++){
             result += row[pos] * column[pos];
         }
         return result;
@@ -65,7 +80,7 @@ class MatrixManager{
            const rowStringValues =  rowString.split(",");
            const rowNumbers = new Array();
            rowStringValues.forEach(stringValue => {
-               const numberValue = this.getNumberFromNumberString(stringValue, field);
+               const numberValue = getNumberFromNumberString(stringValue, field);
                rowNumbers.push(numberValue);
            });
            if(numColumns > 0 && rowNumbers.length != numColumns){
@@ -80,78 +95,7 @@ class MatrixManager{
         return matrix;
     }
 
-    /**
-     * Converts a string into a number. Works for every available field.
-     *
-     * @param {string} numberString The string representation of the number. This must NOT contain spaces!
-     * @param {number} field The field in which the number should be parsed
-     * @returns number The number equivalent to numberString
-     * */
-    getNumberFromNumberString(numberString, field){
-        if(isRealNumbersField(field) || isPrimeField(field)){
-            return parseFloat(numberString);
-        } else if(field == Field.F4){
-            return this.getF4NumberFromString(numberString);
-        } else if(field == Field.F8){
-            return this.getF8NumberFromString(numberString);
-        } else if(field == Field.F9){
-            return this.getF9NumberFromString(numberString);
-        }
-    }
 
-    getF4NumberFromString(numberString){
-        if(numberString == "0"){
-            return Field.F4Zero;
-        } else if(numberString == "1"){
-            return Field.F4One;
-        } else if(numberString == "a"){
-            return Field.F4Alpha;
-        } else if(["a+1", "1+a"].includes(numberString)){
-            return Field.F4AlphaPlusOne;
-        }
-    }
-
-    getF8NumberFromString(numberString){
-        if(numberString == "0"){
-            return Field.F8Zero;
-        } else if(numberString == "1"){
-            return Field.F8One;
-        } else if(numberString == "b"){
-            return Field.F8Beta;
-        } else if(numberString == "bs"){
-            return Field.F8BetaSquare;
-        } else if(["1+b", "b+1"].includes(numberString)){
-            return Field.F8OnePlusBeta;
-        } else if(["1+bs", "bs+1"].includes(numberString)){
-            return Field.F8OnePlusBetaSquare;
-        } else if(["b+bs", "bs+b"].includes(numberString)){
-            return Field.F8BetaPlusBetaSquare;
-        } else if(["1+b+bs", "1+bs+b", "b+1+bs", "b+bs+1", "bs+1+b", "bs+b+1"].includes(numberString)){
-            return Field.F8OnePlusBetaPlusBetaSquare;
-        }
-    }
-
-    getF9NumberFromString(numberString){
-        if(numberString == "0"){
-            return Field.F9Zero;
-        } else if(numberString == "1"){
-            return Field.F9One;
-        } else if(numberString == "-1"){
-            return Field.F9MinusOne;
-        } else if(numberString == "j"){
-            return Field.F9Iota;
-        } else if(numberString == "-j"){
-            return Field.F9MinusIota;
-        } else if(["j+1", "1+j"].includes(numberString)){
-            return Field.F9IotaPlusOne;
-        } else if(["j-1", "-1+j"].includes(numberString)){
-            return Field.F9IotaMinusOne;
-        } else if(["-j+1", "1-j"].includes(numberString)){
-            return Field.F9MinusIotaPlusOne;
-        } else if(["-j-1", "-1-j"].includes(numberString)){
-            return Field.F9MinusIotaMinusOne;
-        }
-    }
 
     /**
      * Removes all occurrences of a character from a string

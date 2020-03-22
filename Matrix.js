@@ -5,12 +5,26 @@
  */
 
 class Matrix{
+    /** @type {[[number]]} */
     data;
+
+    /** @type {number} */
     rows;
+
+    /** @type {number} */
     columns;
+
+    /** @type {Field} */
     field;
+
+    /** @type {[number]} */
     nonStepColumns;
 
+    /**
+     * @param {number} rows
+     * @param {number} columns
+     * @param {number} fieldName
+     * */
     constructor(rows = 0, columns = 0, fieldName = Field.R){
         this.rows = rows;
         this.columns = columns;
@@ -19,31 +33,43 @@ class Matrix{
         this.field = new Field(fieldName);
     }
 
+    /**
+     * @param {[[number]]} data
+     * */
     setData(data){
         this.data = data;
         this.rows = data.length;
         this.columns = data[0].length;
     }
 
+    /**
+     * @returns {[[number]]}
+     * */
     getData(){
         return this.data;
     }
 
-    transpone(){
-        const transponed = new Array(this.columns).fill(0).map(() => new Array(this.rows).fill(0));
+    transpose(){
+        const transposed = new Array(this.columns).fill(0).map(() => new Array(this.rows).fill(0));
         for(let row = 0; row<this.rows; row++){
             for(let column = 0; column <this.columns; column++){
-                transponed[column][row] = this.data[row][column];
+                transposed[column][row] = this.data[row][column];
             }
         }
-        this.data = transponed;
+        this.data = transposed;
         [this.rows, this.columns] = [this.columns, this.rows];
     }
 
+    /**
+     * @returns {[number]}
+     * */
     getRow(position){
         return this.data[position]
     }
 
+    /**
+     * @returns {[number]}
+     * */
     getColumn(position){
         const column = new Array();
         this.data.forEach((row) => {
@@ -52,14 +78,23 @@ class Matrix{
         return column;
     }
 
+    /**
+     * @returns {number}
+     * */
     getValue(rowPos, columnPos){
         return this.data[rowPos][columnPos];
     }
 
+    /**
+     * @returns {number}
+     * */
     getColumnCount(){
         return this.columns;
     }
 
+    /**
+     * @returns {number}
+     * */
     getRowCount(){
         return this.rows;
     }
@@ -75,6 +110,10 @@ class Matrix{
         console.log(output);
     }
 
+    /**
+     * @param {boolean} isDisplayMode
+     * @returns {string}
+     * */
     getLatex(isDisplayMode=false){
         let output = "";
 
@@ -106,10 +145,19 @@ class Matrix{
         return output;
     }
 
+    /**
+     * @param {number} rowPos
+     * @param {number} columnPos
+     * @param {number} value
+     * */
     set(rowPos, columnPos, value){
         this.data[rowPos][columnPos] = value;
     }
 
+    /**
+     * @param {number} rowPos
+     * @param {number} factor
+     * */
     multiplyRow(rowPos, factor){
         const row = this.data[rowPos];
         for(let column = 0; column < this.columns; column++){
@@ -117,12 +165,21 @@ class Matrix{
         }
     }
 
+    /**
+     * @param {number} sourceRowPos
+     * @param {number} targetRowPos
+     * @param {number} factor
+     * */
     addRowToOther(sourceRowPos, targetRowPos, factor){
         for(let column = 0; column < this.columns; column++){
             this.data[targetRowPos][column] = this.field.add(this.data[targetRowPos][column], this.field.multiply( this.data[sourceRowPos][column], factor));
         }
     }
 
+    /**
+     * @param {number} rowPos
+     * @param {number} columnPos
+     */
     reduceColumn(rowPos, columnPos){
         const factor = this.field.getMultiplicationInverse(this.data[rowPos][columnPos]);
         this.multiplyRow(rowPos, factor);
@@ -136,6 +193,10 @@ class Matrix{
         }
     }
 
+    /**
+     * @param {number} rowPos
+     * @param {number} targetPos
+     */
     moveRow(rowPos, targetPos){
         const cutOut = this.data.splice(rowPos, 1)[0];
         this.data.splice(targetPos, 0, cutOut);
@@ -160,6 +221,10 @@ class Matrix{
         }
     }
 
+    /**
+     * @param {number} rowPos
+     * @param {number} columnPos
+     */
     moveRowWithoutZeroAtCurrentPosition(rowPos, columnPos){
         let numMoves = 0;
         while(this.data[rowPos][columnPos] == 0 && numMoves < this.rows-rowPos-1){
@@ -197,6 +262,9 @@ class Matrix{
         return solution;
     }
 
+    /**
+     * @returns {Matrix}
+     * */
     getCopy(){
         const copyMatrix = new Matrix(this.rows, this.columns, this.field.getName());
         for(let rowPos = 0; rowPos < this.rows; rowPos++){
@@ -207,6 +275,9 @@ class Matrix{
         return copyMatrix;
     }
 
+    /**
+     * @returns {Matrix}
+    * */
     getEmptyCopy(){
         return new Matrix(this.rows, this.columns, this.field.getName());
     }

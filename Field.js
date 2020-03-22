@@ -53,6 +53,9 @@ class Field{
 
     field;
 
+    /**
+     * @param {number} field
+     * */
     constructor(field){
         this.field = field;
     }
@@ -66,10 +69,16 @@ class Field{
         return this.field;
     }
 
+    /**
+     * @returns {boolean}
+     * */
     isPrimeField(){
         return [Field.F2, Field.F3, Field.F5, Field.F7, Field.F11, Field.F13, Field.F17, Field.F19].includes(this.field);
     }
 
+    /**
+     * @returns {boolean}
+     * */
     isExtendedField(){
         return [Field.F4, Field.F8, Field.F9].includes(this.field);
     }
@@ -79,6 +88,7 @@ class Field{
 
      @param {number} factor1 The first multiplication factor
      @param {number} factor2 The second multiplication factor
+     @returns {number}
      */
     multiply(factor1, factor2){
         if(this.isPrimeField()){
@@ -95,6 +105,7 @@ class Field{
      *
      * @param {number} summand1 The first addition summand
      * @param {number} summand2 The second addition summand
+     * @returns {number}
      * */
     add(summand1, summand2){
         if(this.isPrimeField()){
@@ -112,6 +123,7 @@ class Field{
      * The multiplication inverse of a number x is a number y for that applies x * y = 1
      *
      * @param {number} num The number to obtain the inverse of
+     * @returns {number}
      * */
     getMultiplicationInverse(num){
         if(this.isPrimeField()){
@@ -129,6 +141,7 @@ class Field{
      * The addition inverse of a number x is a number y for that applies x + y = 0
      *
      * @param {number} num The number to obtain the inverse of
+     * @returns {number}
      * */
     getAdditionInverse(num){
         if(this.isPrimeField()){
@@ -149,6 +162,7 @@ class Field{
      *  For simplicity this function will just return the input without checking.
      *
      *  @param {number} value The value to be parsed
+     *  @returns {number}
      * */
     parse(value){
         if(this.isPrimeField()){
@@ -168,12 +182,13 @@ class Field{
      * - In extended fields: A human readable text is returned, e.g. in F4 getString(Field.F4AlphaPlusOne) = α+1
      *
      * @param {number} num The value to be converted to a string
+     * @returns {string}
      * */
     getString(num){
         if(this.isPrimeField()){
-         return this.parse(num);
+         return this.parse(num).toString();
         } else if(this.field === Field.R){
-            return num;
+            return num.toString();
         } else if(this.isExtendedField()){
             if(this.field === Field.F4){
                 return F4ElementsNameLookup.find(object => object.number == num).name;
@@ -185,6 +200,10 @@ class Field{
         }
     }
 
+    /**
+     * @param {number} num
+     * @returns {number}
+     * */
     getPrimeFieldMultiplicationInverse(num){
         // This method uses the Extended Euclidean Algorithm:
 
@@ -215,6 +234,10 @@ class Field{
         return this.parse(wCurrent);
     }
 
+    /**
+     * @param {number} num
+     * @returns {number}
+     * */
     getExtendedFieldMultiplicationInverse(num){
         if(this.field === Field.F4){
             return F4MultiplicationInverseLookup.find(object => object.number == num).inverse;
@@ -225,48 +248,57 @@ class Field{
         }
     }
 
+    /**
+     * @param {number} factor1
+     * @param {number} factor2
+     * @returns {number}
+     * */
     multiplyInExtendedField(factor1, factor2){
         switch (this.field) {
             case Field.F4:
                 return F4MultiplicationLookup.find(object => object.factor1 == factor1 && object.factor2 == factor2).result;
-                break;
             case Field.F8:
                 return F8MultiplicationLookup.find(object => object.factor1 == factor1 && object.factor2 == factor2).result;
-                break;
             case Field.F9:
                 return F9MultiplicationLookup.find(object => object.factor1 == factor1 && object.factor2 == factor2).result;
-                break;
         }
     }
 
+    /**
+     * @param {number} summand1
+     * @param {number} summand2
+     * @returns {number}
+     * */
     addInExtendedField(summand1, summand2) {
         switch (this.field) {
             case Field.F4:
                 return F4AdditionLookup.find(object => object.summand1 == summand1 && object.summand2 == summand2).result;
-                break;
             case Field.F8:
                 return F8AdditionLookup.find(object => object.summand1 == summand1 && object.summand2 == summand2).result;
-                break;
             case Field.F9:
                 return F9AdditionLookup.find(object => object.summand1 == summand1 && object.summand2 == summand2).result;
-                break;
         }
     }
 
+    /**
+     * @param {number} num
+     * @returns {number}
+     * */
     getExtendedFieldAdditionInverse(num){
         switch (this.field) {
             case Field.F4:
                 return F4AdditionInverseLookup.find(object => object.number == num).inverse;
-                break;
             case Field.F8:
                 return F8AdditionInverseLookup.find(object => object.number == num).inverse;
-                break;
             case Field.F9:
                 return F9AdditionInverseLookup.find(object => object.number == num).inverse;
-                break;
         }
     }
 
+    /**
+     * @param {number} number
+     * @returns {number}
+     * */
     preventNegativeZero(number){
         return number + 0;
     }

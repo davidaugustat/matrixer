@@ -1,3 +1,5 @@
+
+/** @type {[{number: number, name: string}]} */
 const F4ElementsNameLookup = [
     {number: Field.F4Zero, name: "0"},
     {number: Field.F4One, name: "1"},
@@ -5,6 +7,7 @@ const F4ElementsNameLookup = [
     {number: Field.F4AlphaPlusOne, name: "α+1"}
 ];
 
+/** @type {[{number: number, inverse: number}]} */
 const F4MultiplicationInverseLookup = [
     {number: Field.F4Zero, inverse: Field.F4One},
     {number: Field.F4One, inverse: Field.F4One},
@@ -12,6 +15,7 @@ const F4MultiplicationInverseLookup = [
     {number: Field.F4AlphaPlusOne, inverse: Field.F4Alpha}
 ];
 
+/** @type {[{number: number, inverse: number}]} */
 const F4AdditionInverseLookup = [
     {number: Field.F4Zero, inverse: Field.F4Zero},
     {number: Field.F4One, inverse: Field.F4One},
@@ -19,6 +23,7 @@ const F4AdditionInverseLookup = [
     {number: Field.F4AlphaPlusOne, inverse: Field.F4AlphaPlusOne}
 ];
 
+/** @type {[{summand1: number, summand2: number, result: number}]} */
 const F4AdditionLookup = [
     {summand1: Field.F4Zero, summand2: Field.F4Zero, result: Field.F4Zero},
     {summand1: Field.F4Zero, summand2: Field.F4One, result: Field.F4One},
@@ -38,6 +43,7 @@ const F4AdditionLookup = [
     {summand1: Field.F4AlphaPlusOne, summand2: Field.F4AlphaPlusOne, result: Field.F4Zero}
 ];
 
+/** @type {[{factor1: number, factor2: number, result: number}]} */
 const F4MultiplicationLookup = [
     {factor1: Field.F4Zero, factor2: Field.F4Zero, result: Field.F4Zero},
     {factor1: Field.F4Zero, factor2: Field.F4One, result: Field.F4Zero},
@@ -57,6 +63,7 @@ const F4MultiplicationLookup = [
     {factor1: Field.F4AlphaPlusOne, factor2: Field.F4AlphaPlusOne, result: Field.F4Alpha}
 ];
 
+/** @type {[{number: number, name: string}]} */
 const F8ElementsNameLookup = [
     {number: Field.F8Zero, name: "0"},
     {number: Field.F8One, name: "1"},
@@ -68,6 +75,7 @@ const F8ElementsNameLookup = [
     {number: Field.F8OnePlusBetaPlusBetaSquare, name: "1+β+β²"}
 ];
 
+/** @type {[{number: number, inverse: number}]} */
 const F8MultiplicationInverseLookup = [
     {number: Field.F8Zero, inverse: Field.F8One},
     {number: Field.F8One, inverse: Field.F8One},
@@ -79,6 +87,7 @@ const F8MultiplicationInverseLookup = [
     {number: Field.F8OnePlusBetaPlusBetaSquare, inverse: Field.F8BetaSquare}
 ];
 
+/** @type {[{number: number, inverse: number}]} */
 const F8AdditionInverseLookup = [
     {number: Field.F8Zero, inverse: Field.F8Zero},
     {number: Field.F8One, inverse: Field.F8One},
@@ -90,6 +99,7 @@ const F8AdditionInverseLookup = [
     {number: Field.F8OnePlusBetaPlusBetaSquare, inverse: Field.F8OnePlusBetaPlusBetaSquare}
 ];
 
+/** @type {[{summand1: number, summand2: number, result: number}]} */
 const F8AdditionLookup = [
     {summand1: Field.F8Zero, summand2: Field.F8Zero, result: Field.F8Zero},
     {summand1: Field.F8Zero, summand2: Field.F8One, result: Field.F8One},
@@ -157,6 +167,7 @@ const F8AdditionLookup = [
     {summand1: Field.F8OnePlusBetaPlusBetaSquare, summand2: Field.F8OnePlusBetaPlusBetaSquare, result: Field.F8Zero}
 ];
 
+/** @type {[{factor1: number, factor2: number, result: number}]} */
 const F8MultiplicationLookup = [
     {factor1: Field.F8Zero, factor2: Field.F8Zero, result: Field.F8Zero},
     {factor1: Field.F8Zero, factor2: Field.F8One, result: Field.F8Zero},
@@ -224,6 +235,7 @@ const F8MultiplicationLookup = [
     {factor1: Field.F8OnePlusBetaPlusBetaSquare, factor2: Field.F8OnePlusBetaPlusBetaSquare, result: Field.F8OnePlusBeta}
 ];
 
+/** @type {[{number: number, name: string}]} */
 const F9ElementsNameLookup = [
     {number: Field.F9Zero, name: "0"},
     {number: Field.F9One, name: "1"},
@@ -236,6 +248,7 @@ const F9ElementsNameLookup = [
     {number: Field.F9MinusIotaMinusOne, name: "-ι-1"}
 ];
 
+/** @type {[{number: number, inverse: number}]} */
 const F9MultiplicationInverseLookup = [
     {number: Field.F9Zero, inverse: Field.F9One},
     {number: Field.F9One, inverse: Field.F9One},
@@ -248,6 +261,7 @@ const F9MultiplicationInverseLookup = [
     {number: Field.F9MinusIotaMinusOne, inverse: Field.F9MinusIotaPlusOne}
 ];
 
+/** @type {[{number: number, inverse: number}]} */
 const F9AdditionInverseLookup = [
     {number: Field.F9Zero, inverse: Field.F9Zero},
     {number: Field.F9One, inverse: Field.F9MinusOne},
@@ -260,6 +274,7 @@ const F9AdditionInverseLookup = [
     {number: Field.F9MinusIotaMinusOne, inverse: Field.F9IotaPlusOne}
 ];
 
+/** @type {[{summand1: number, summand2: number, result: number}]} */
 const F9AdditionLookup = [
     {summand1: Field.F9Zero, summand2: Field.F9Zero, result: Field.F9Zero},
     {summand1: Field.F9Zero, summand2: Field.F9One, result: Field.F9One},
@@ -344,6 +359,7 @@ const F9AdditionLookup = [
     {summand1: Field.F9MinusIotaMinusOne, summand2: Field.F9MinusIotaMinusOne, result: Field.F9IotaPlusOne},
 ];
 
+/** @type {[{factor1: number, factor2: number, result: number}]} */
 const F9MultiplicationLookup = [
     {factor1: Field.F9Zero, factor2: Field.F9Zero, result: Field.F9Zero},
     {factor1: Field.F9Zero, factor2: Field.F9One, result: Field.F9Zero},

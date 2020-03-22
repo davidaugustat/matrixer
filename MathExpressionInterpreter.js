@@ -7,13 +7,15 @@ const operators = {
 
 class MathExpressionInterpreter {
 
+    /** @type {[string]} */
     operatorsInCorrectOrder = [operators.ADD, operators.SUBTRACT, operators.MULTIPLY, operators.TERMINAL];
 
     /**
      * @param {string} expression
+     * @param {number} field
      * @returns {ExpressionNode}
      * */
-    interpret(expression){
+    interpret(expression, field){
         const expressionParts = this.tokenize(expression, Field.R);
         return this.interpretOperator(expressionParts, this.operatorsInCorrectOrder);
     }
@@ -23,15 +25,15 @@ class MathExpressionInterpreter {
      * @param {[string]} operatorsList
      * @returns {ExpressionNode}
      * */
-    interpretOperator(expression, operatorsList){
+    interpretOperator(expression, operatorsList, field){
 
         const operator = operatorsList[0];
         if(operator == operators.TERMINAL){
-            return this.interpret(expression[0]);
+            return this.interpret(expression[0], field);
         }
 
-        if(this.isValidNumber(expression)){
-            return new ExpressionNode(null, null, null, parseFloat(expression[0]));
+        if(this.isValidNumber(expression, field)){
+            return new ExpressionNode(null, null, null, getNumberFromNumberString(expression[0], field), field);
         }
 
         if(this.expressionContainsOperator(expression, operator)){
@@ -39,12 +41,12 @@ class MathExpressionInterpreter {
             const expressionBeforeOperator = expressionSeparatedByOperator[0];
             const expressionAfterOperator = expressionSeparatedByOperator[1];
 
-            const leftNode = this.interpretOperator(expressionBeforeOperator, this.getRotatedOperators(operatorsList));
-            const rightNode = this.interpretOperator(expressionAfterOperator, operatorsList);
-            return new ExpressionNode(leftNode, rightNode, operator, null);
+            const leftNode = this.interpretOperator(expressionBeforeOperator, this.getRotatedOperators(operatorsList), field);
+            const rightNode = this.interpretOperator(expressionAfterOperator, operatorsList, field);
+            return new ExpressionNode(leftNode, rightNode, operator, null, field);
         }
 
-        return this.interpretOperator(expression, this.getRotatedOperators(operatorsList));
+        return this.interpretOperator(expression, this.getRotatedOperators(operatorsList), field);
     }
 
     /**
@@ -143,11 +145,12 @@ class MathExpressionInterpreter {
 
     /**
      * @param {string | [string]} expression
+     * @param {number} field
      * @returns boolean
      * */
-    isValidNumber(expression){
+    isValidNumber(expression, field){
         if(Array.isArray(expression) && expression.length == 1){
-            return RegExp(getRealNumberRegex()).test(expression[0]);
+            return RegExp(getRegexForField(field)).test(expression[0]);
         }
         return false;
     }
