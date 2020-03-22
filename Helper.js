@@ -55,4 +55,14 @@ function isExtendedField(field){
     return [Field.F4, Field.F8, Field.F9].includes(field);
 }
 
+/**
+ * Removes all spaces from a string.
+ *
+ * @param {string} text The string with spaces
+ * @returns string The string without spaces
+ * */
+function removeSpaces(text){
+    return text.split(' ').join('');
+}
+
 

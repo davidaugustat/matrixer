@@ -84,8 +84,8 @@ var f4 = new Field(Field.F4);
 //testMatrix(dValues, Field.F4);
 // console.log("-".replace(new RegExp('[.\\\\+*?\\[\\^\\]$(){}=!<>|:\\-]', 'g'), '\\$&'));
 //console.log(RegExp(getMatrixRegex(Field.F9)).test("{0,1,-1,j,1-j,-j-1}")); //0,1,-1,j,1-j,-j-jj
-const ma = mm.getMatrixFromText(" {j,j+1,j-1;-j,-1, -j-1}", Field.F9);//`{18.89,2,3;4,5,6;7,${Math.PI},999.01}`
-ma.print();
+//const ma = mm.getMatrixFromText(" {j,j+1,j-1;-j,-1, -j-1}", Field.F9);//`{18.89,2,3;4,5,6;7,${Math.PI},999.01}`
+//ma.print();
 //console.log(f4.getAdditionInverse(Field.F4AlphaPlusOne));
 //console.log(f4.getString(f4.getInverse(Field.F4Alpha)));
 
@@ -98,6 +98,9 @@ ma.print();
 // printAdditionFieldTable(Field.F4Numbers, Field.F4);
 // printAdditionFieldTable(Field.F8Numbers, Field.F8);
 // printAdditionFieldTable(Field.F9Numbers, Field.F9);
+
+const mep = new MathExpressionInterpreter();
+console.log(mep.tokenize("(a+1)*a", Field.R));
 
 function testMatrix(data, field=Field.R){
     var matrix = new Matrix(0,0, field);
