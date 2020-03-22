@@ -19,10 +19,10 @@ class ExpressionNode {
     field;
 
     /**
-     * @param {ExpressionNode} leftNode
-     * @param {ExpressionNode} rightNode
-     * @param {string} operator
-     * @param {number} terminalNumber
+     * @param {?ExpressionNode} leftNode
+     * @param {?ExpressionNode} rightNode
+     * @param {?string} operator
+     * @param {?number} terminalNumber
      * @param {number} field
      * */
     constructor(leftNode, rightNode, operator, terminalNumber, field) {
@@ -47,9 +47,10 @@ class ExpressionNode {
                     return this.field.add(this.leftNode.calculate(), this.rightNode.calculate());
                 case operators.MULTIPLY:
                     return this.field.multiply(this.leftNode.calculate(), this.rightNode.calculate());
-                //case operators.SUBTRACT:
-                    // return this.leftNode.calculate() - this.rightNode.calculate();
-                    //throw "Subtraction not yet implemented";
+                case operators.SUBTRACT:
+                    return this.field.subtract(this.leftNode.calculate(), this.rightNode.calculate());
+                case operators.DIVIDE:
+                    return this.field.divide(this.leftNode.calculate(), this.rightNode.calculate());
                 default:
                     throw "Invalid Operator";
             }

@@ -1,14 +1,15 @@
 const operators = {
     ADD: '+',
-    /*SUBTRACT: '-',*/
+    SUBTRACT: '-',
     MULTIPLY: '*',
+    DIVIDE: '/',
     TERMINAL: '€'
 };
 
 class MathExpressionInterpreter {
 
     /** @type {[string]} */
-    operatorsInCorrectOrder = [operators.ADD,/* operators.SUBTRACT,*/ operators.MULTIPLY, operators.TERMINAL];
+    operatorsInCorrectOrder = [operators.ADD, operators.SUBTRACT, operators.MULTIPLY, operators.DIVIDE, operators.TERMINAL];
 
     /**
      * @param {string} expression
@@ -23,6 +24,7 @@ class MathExpressionInterpreter {
     /**
      * @param {[string]} expression
      * @param {[string]} operatorsList
+     * @param {number} field
      * @returns {ExpressionNode}
      * */
     interpretOperator(expression, operatorsList, field){
@@ -95,7 +97,7 @@ class MathExpressionInterpreter {
      * @returns {boolean}
      * */
     isOperator(character){
-        return [operators.ADD, operators.SUBTRACT, operators.MULTIPLY].includes(character);
+        return this.operatorsInCorrectOrder.includes(character);
     }
 
     /**

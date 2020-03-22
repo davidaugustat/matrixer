@@ -118,6 +118,37 @@ class Field{
     }
 
     /**
+     * Subtracts two numbers in a field.
+     *
+     * This is achieved by calculating the additive inverse of the subtrahend and then adding the minuend to that inverse.
+     *
+     * @param {number} minuend The number before minus
+     * @param {number} subtrahend The number after minus
+     * @returns {number}
+     * */
+    subtract(minuend, subtrahend){
+        const summand2 = this.getAdditionInverse(subtrahend);
+        return this.add(minuend, summand2);
+    }
+
+    /**
+     * Divides two numbers in a field.
+     *
+     * This is achieved by calculating the multiplicative inverse of the divisor and then multiplying the dividend by that inverse.
+     *
+     * @param {number} dividend The number before /
+     * @param {number} divisor The number after /
+     * @returns {number}
+     * */
+    divide(dividend, divisor){
+        if(divisor == 0){
+            throw "Division by 0 is not allowed!";
+        }
+        const factor2 = this.getMultiplicationInverse(divisor);
+        return this.multiply(dividend, factor2);
+    }
+
+    /**
      * Returns the multiplication inverse of a number.
      *
      * The multiplication inverse of a number x is a number y for that applies x * y = 1

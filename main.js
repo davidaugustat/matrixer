@@ -106,7 +106,7 @@ var f4 = new Field(Field.F4);
 // const n5 = new ExpressionNode(n3, n4, operators.MULTIPLY);
 // console.log(n5.calculate());
 
-const mep = new MathExpressionInterpreter();
+
 const exp1 = "5*3+(5*4)+((5*4)+2*3*(4+6+8))+7";
 const exp2 = "(4+3)*10";
 const exp3 = "(a+1+a)*a+1*a";
@@ -116,10 +116,17 @@ const exp6 = "(j+j*j)*(j-1+(1+1+j))";
 //const exp6 = "(j-1+(1+1+j))";
 //const exp6 = "j-1+j-1";
 //console.log(getNumberFromNumberString("5", Field.R));
-const time = Date.now();
-const result = mep.interpret(exp6, Field.F9).calculate();
-console.log("Delay: " + (Date.now()-time));
-console.log("Res: " + new Field(Field.F9).getString(result));
+//testExpression("(15+700/100-9)+(-(5+8-9)+87*(-4*3))-6/2+1", Field.F7);
+testExpression("(j-1)/(j)", Field.F9);
+
+
+function testExpression(expression, field){
+    const mep = new MathExpressionInterpreter();
+    const time = Date.now();
+    const result = mep.interpret(expression, field).calculate();
+    console.log("Delay: " + (Date.now()-time));
+    console.log("Res: " + new Field(field).getString(result));
+}
 
 
 function testMatrix(data, field=Field.R){
