@@ -18,7 +18,7 @@ function getMatrixRegex(field) {
 }
 
 function getRealNumberRegex(){
-    const realNumberRegex = "(-)?([0-9]+\\.[0-9]+|[0-9]+)";
+     const realNumberRegex = "^((-)?([0-9]+\\.[0-9]+|[0-9]+))$";
     return realNumberRegex;
 }
 

@@ -99,8 +99,17 @@ var f4 = new Field(Field.F4);
 // printAdditionFieldTable(Field.F8Numbers, Field.F8);
 // printAdditionFieldTable(Field.F9Numbers, Field.F9);
 
+// const n1 = new ExpressionNode(null, null, null, 5);
+// const n2 = new ExpressionNode(null, null, null, 6);
+// const n3 = new ExpressionNode(null, null, null, 7);
+// const n4 = new ExpressionNode(n1, n2, operators.ADD);
+// const n5 = new ExpressionNode(n3, n4, operators.MULTIPLY);
+// console.log(n5.calculate());
+
 const mep = new MathExpressionInterpreter();
-console.log(mep.tokenize("(a+1)*a", Field.R));
+const result = mep.interpret("5*3+(5*4)+((5*4)+2*3*(4+6+8))+7").calculate();
+console.log(result);
+
 
 function testMatrix(data, field=Field.R){
     var matrix = new Matrix(0,0, field);

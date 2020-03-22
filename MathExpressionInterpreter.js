@@ -24,6 +24,7 @@ class MathExpressionInterpreter {
      * @returns {ExpressionNode}
      * */
     interpretOperator(expression, operatorsList){
+
         const operator = operatorsList[0];
         if(operator == operators.TERMINAL){
             return this.interpret(expression[0]);
@@ -147,9 +148,8 @@ class MathExpressionInterpreter {
     isValidNumber(expression){
         if(Array.isArray(expression) && expression.length == 1){
             return RegExp(getRealNumberRegex()).test(expression[0]);
-        } else{
-            return RegExp(getRealNumberRegex()).test(expression[0]);
         }
+        return false;
     }
 
     /**
