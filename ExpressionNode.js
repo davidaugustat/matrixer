@@ -44,14 +44,12 @@ class ExpressionNode {
         } else{
             switch (this.operator) {
                 case operators.ADD:
-                    // return this.leftNode.calculate() + this.rightNode.calculate();
                     return this.field.add(this.leftNode.calculate(), this.rightNode.calculate());
                 case operators.MULTIPLY:
-                    // return this.leftNode.calculate() * this.rightNode.calculate();
                     return this.field.multiply(this.leftNode.calculate(), this.rightNode.calculate());
-                case operators.SUBTRACT:
+                //case operators.SUBTRACT:
                     // return this.leftNode.calculate() - this.rightNode.calculate();
-                    throw "Subtraction not yet implemented";
+                    //throw "Subtraction not yet implemented";
                 default:
                     throw "Invalid Operator";
             }

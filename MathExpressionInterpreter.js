@@ -1,6 +1,6 @@
 const operators = {
     ADD: '+',
-    SUBTRACT: '-',
+    /*SUBTRACT: '-',*/
     MULTIPLY: '*',
     TERMINAL: '€'
 };
@@ -8,7 +8,7 @@ const operators = {
 class MathExpressionInterpreter {
 
     /** @type {[string]} */
-    operatorsInCorrectOrder = [operators.ADD, operators.SUBTRACT, operators.MULTIPLY, operators.TERMINAL];
+    operatorsInCorrectOrder = [operators.ADD,/* operators.SUBTRACT,*/ operators.MULTIPLY, operators.TERMINAL];
 
     /**
      * @param {string} expression
@@ -16,8 +16,8 @@ class MathExpressionInterpreter {
      * @returns {ExpressionNode}
      * */
     interpret(expression, field){
-        const expressionParts = this.tokenize(expression, Field.R);
-        return this.interpretOperator(expressionParts, this.operatorsInCorrectOrder);
+        const expressionParts = this.tokenize(expression, field);
+        return this.interpretOperator(expressionParts, this.operatorsInCorrectOrder, field);
     }
 
     /**

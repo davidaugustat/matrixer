@@ -107,16 +107,27 @@ var f4 = new Field(Field.F4);
 // console.log(n5.calculate());
 
 const mep = new MathExpressionInterpreter();
-const result = mep.interpret("5*3+(5*4)+((5*4)+2*3*(4+6+8))+7").calculate();
-console.log(result);
+const exp1 = "5*3+(5*4)+((5*4)+2*3*(4+6+8))+7";
+const exp2 = "(4+3)*10";
+const exp3 = "(a+1+a)*a+1*a";
+const exp4 = "1+b+bs*(b*bs*bs)";
+const exp5 = "bs*b*(1+bs*(b+bs))";
+const exp6 = "(j+j*j)*(j-1+(1+1+j))";
+//const exp6 = "(j-1+(1+1+j))";
+//const exp6 = "j-1+j-1";
+//console.log(getNumberFromNumberString("5", Field.R));
+const time = Date.now();
+const result = mep.interpret(exp6, Field.F9).calculate();
+console.log("Delay: " + (Date.now()-time));
+console.log("Res: " + new Field(Field.F9).getString(result));
 
 
 function testMatrix(data, field=Field.R){
-    var matrix = new Matrix(0,0, field);
+    const matrix = new Matrix(0, 0, field);
     matrix.setData(data);
     matrix.print();
     print(matrix.getLatex(true));
-    var solution = matrix.solveHomogeneousEquationSystem();
+    const solution = matrix.solveHomogeneousEquationSystem();
     solution.vectorSolution.forEach((vector) => vector.print());
     matrix.print();
     print(matrix.getLatex(true));
@@ -125,10 +136,10 @@ function testMatrix(data, field=Field.R){
 
 
 function printAdditionFieldTable(fieldElements, field){
-    var fieldObject = new Field(field);
-    for(var firstElement in fieldElements){
-        for(var secondElement in fieldElements){
-            var result = fieldObject.getString(fieldObject.add(firstElement, secondElement));
+    const fieldObject = new Field(field);
+    for(const firstElement in fieldElements){
+        for(const secondElement in fieldElements){
+            const result = fieldObject.getString(fieldObject.add(firstElement, secondElement));
             console.log(fieldObject.getString(firstElement) + " + " + fieldObject.getString(secondElement) + " = \t\t" + result);
         }
         console.log("---------------------");
@@ -136,10 +147,10 @@ function printAdditionFieldTable(fieldElements, field){
 }
 
 function printMultiplicationFieldTable(fieldElements, field){
-    var fieldObject = new Field(field);
+    const fieldObject = new Field(field);
     for(var firstElement in fieldElements){
-        for(var secondElement in fieldElements){
-            var result = fieldObject.getString(fieldObject.multiply(firstElement, secondElement));
+        for(const secondElement in fieldElements){
+            const result = fieldObject.getString(fieldObject.multiply(firstElement, secondElement));
             console.log(fieldObject.getString(firstElement) + " * " + fieldObject.getString(secondElement) + " = \t\t" + result);
         }
         console.log("---------------------");

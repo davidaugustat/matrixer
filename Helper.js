@@ -4,9 +4,8 @@
  * @returns {string}
  * */
 function getMatrixRegex(field) {
-    const generalMatrixRegex = "\{(([a-zA-Z0-9.+-]+,)*[a-zA-Z0-9.+-]+;)*([a-zA-Z0-9.+-]+,)*[a-zA-Z0-9.+-]+\}";
+    //const generalMatrixRegex = "\{(([a-zA-Z0-9.+-]+,)*[a-zA-Z0-9.+-]+;)*([a-zA-Z0-9.+-]+,)*[a-zA-Z0-9.+-]+\}";
 
-    // const templateMatrixRegex = "\{((number+,)*number+;)*(number+,)*number+\}";
     const templateMatrixRegex = "\{((number,)*number;)*(number,)*number\}";
     return templateMatrixRegex.split("number").join(getRegexForField(field));
 }
@@ -23,7 +22,7 @@ function getRealNumberRegex(){
  * @returns {string}
  * */
 function getPrimeFieldRegex(){
-    const primeFieldRegex = "(-)?([0-9]+)";
+    const primeFieldRegex = "^(-)?([0-9]+)$";
     return primeFieldRegex;
 }
 
@@ -31,7 +30,7 @@ function getPrimeFieldRegex(){
  * @returns {string}
  * */
 function getF4Regex(){
-    const f4Regex = "(0|1|a|a\\+1|1\\+a)";
+    const f4Regex = "^(0|1|a|a\\+1|1\\+a)$";
     return f4Regex;
 }
 
@@ -39,7 +38,7 @@ function getF4Regex(){
  * @returns {string}
  * */
 function getF8Regex(){
-    const f8Regex = "(0|1|b|1\\+b|b\\+1|bs|1\\+bs|bs\\+1|b\\+bs|bs\\+b|1\\+b\\+bs|1\\+bs\\+b|b\\+1\\+bs|b\\+bs\\+1|bs\\+1\\+b|bs\\+b\\+1)";
+    const f8Regex = "^(0|1|b|1\\+b|b\\+1|bs|1\\+bs|bs\\+1|b\\+bs|bs\\+b|1\\+b\\+bs|1\\+bs\\+b|b\\+1\\+bs|b\\+bs\\+1|bs\\+1\\+b|bs\\+b\\+1)$";
     return f8Regex;
 }
 
@@ -47,8 +46,7 @@ function getF8Regex(){
  * @returns {string}
  * */
 function getF9Regex(){
-     const f9Regex = "(0|1|\\-1|j|j\\+1|1\\+j|j\\-1|\\-1\\+j|\\-j|\\-j\\+1|1\\-j|\\-j\\-1|\\-1\\-j)";
-    //const f9Regex = "(0|1|-1|j|j\\+1|1\\+j|j-1|-1\\+j|-j|-j\\+1|1-j|-j-1|-1-j)";
+     const f9Regex = "^(0|1|\\-1|j|j\\+1|1\\+j|j\\-1|\\-1\\+j|\\-j|\\-j\\+1|1\\-j|\\-j\\-1|\\-1\\-j)$";
     return f9Regex;
 }
 
@@ -116,6 +114,7 @@ function removeSpaces(text){
  * @returns number The number equivalent to numberString
  * */
 function getNumberFromNumberString(numberString, field){
+    console.log(numberString);
     if(isRealNumbersField(field) || isPrimeField(field)){
         return parseFloat(numberString);
     } else if(field == Field.F4){
