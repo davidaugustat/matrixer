@@ -192,4 +192,8 @@ function getF9NumberFromString(numberString){
     }
 }
 
+function numberIsInteger(number) {
+    return number === parseInt(number);
+}
+
 

@@ -51,6 +51,8 @@ class ExpressionNode {
                     return this.field.subtract(this.leftNode.calculate(), this.rightNode.calculate());
                 case operators.DIVIDE:
                     return this.field.divide(this.leftNode.calculate(), this.rightNode.calculate());
+                case operators.EXPONENTIATE:
+                    return this.field.exponentiate(this.leftNode.calculate(), this.rightNode.calculate());
                 default:
                     throw "Invalid Operator";
             }

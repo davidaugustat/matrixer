@@ -149,6 +149,35 @@ class Field{
     }
 
     /**
+     * Exponentiates a base to an exponent.
+     *
+     * This is achieved by multiplying the base exponent-times by itself. If the exponent is 0, the result is 1.
+     *
+     * NOTE: The exponent MUST be a integer in real numbers that is >= 0. Even when the field is not R, the
+     * exponent must be from R. E.g. (a+1)\^5 is allowed, but (a+1)\^a is not allowed in F4.
+     *
+     * @param {number} base Base of the exponentiation. This must be a number inside the given field.
+     * @param {number} exponent Exponent of the exponentiation. This must be a real integer >= 0.
+     * @returns {number}
+     * */
+    exponentiate(base, exponent){
+        if(this.field == Field.R){
+            return Math.pow(base, exponent);
+        } else if( isPrimeField(this.field) && numberIsInteger(exponent) && exponent >= 0){
+            let result = 1;
+            for(let i = 0; i < exponent; i++){
+                result = this.multiply(result, base);
+            }
+            return result;
+        } else if(isExtendedField(this.field)){
+            throw "Exponentiation for extended fields is not yet implemented.";
+        }
+        throw "In fields other than R only integer values >= 0 are allowed as exponents.";
+    }
+
+
+
+    /**
      * Returns the multiplication inverse of a number.
      *
      * The multiplication inverse of a number x is a number y for that applies x * y = 1

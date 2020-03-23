@@ -117,7 +117,8 @@ const exp6 = "(j+j*j)*(j-1+(1+1+j))";
 //const exp6 = "j-1+j-1";
 //console.log(getNumberFromNumberString("5", Field.R));
 //testExpression("(15+700/100-9)+(-(5+8-9)+87*(-4*3))-6/2+1", Field.F7);
-testExpression("(j-1)/(j)", Field.F9);
+//testExpression("(j-1)/(j)", Field.F9);
+testExpression("(5^2)^3", Field.R);
 
 
 function testExpression(expression, field){

@@ -2,6 +2,7 @@ const operators = {
     ADD: '+',
     SUBTRACT: '-',
     MULTIPLY: '*',
+    EXPONENTIATE: '^',
     DIVIDE: '/',
     TERMINAL: '€'
 };
@@ -9,7 +10,7 @@ const operators = {
 class MathExpressionInterpreter {
 
     /** @type {[string]} */
-    operatorsInCorrectOrder = [operators.ADD, operators.SUBTRACT, operators.MULTIPLY, operators.DIVIDE, operators.TERMINAL];
+    operatorsInCorrectOrder = [operators.ADD, operators.SUBTRACT, operators.MULTIPLY, operators.EXPONENTIATE, operators.DIVIDE, operators.TERMINAL];
 
     /**
      * @param {string} expression
