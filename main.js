@@ -127,7 +127,23 @@ const res = new RealNumber(4)
     .divideByNumber(new RealNumber(5))
     .toString();
 
-console.log(res);
+const res2 = new F4Number(Field.F4Alpha).add(new F4Number(Field.F4One)).multiplyWith(new F4Number(Field.F4Alpha)).toString();
+
+const res3 = new F9Number(Field.F9Iota).add(new F9Number(Field.F9MinusOne)).divideBy(new F9Number(Field.F9IotaPlusOne)).toString(); // 1
+// const res3 = new F9Number(Field.F9IotaMinusOne).divideBy(new F9Number(Field.F9IotaPlusOne)).toString(); // 1
+// const res3 = new F9Number(Field.F9IotaMinusOne).multiplyWith(new F9Number(Field.F9IotaMinusOne)).toString(); // j
+
+//const res3 = new F9Number(Field.F9IotaPlusOne).getMultiplicativeInverse().toString(); // j-1
+
+const res4 = new F8Number(Field.F8OnePlusBetaPlusBetaSquare).subtract(new F8Number(Field.F8One)).divideBy(new F8Number(Field.F8BetaSquare)).toString();
+
+const res5 = new PrimeFieldNumber(Field.F5, 3)
+    .add(new PrimeFieldNumber(Field.F5, 1))
+    .divideBy(new PrimeFieldNumber(Field.F5, 3))
+    .subtract(new PrimeFieldNumber(Field.F5, 4))
+    .toString();
+
+console.log(res5);
 
 
 function testExpression(expression, field){

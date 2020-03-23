@@ -20,6 +20,15 @@ class MathElement {
         return this._value;
     }
 
+
+    set field(value) {
+        this._field = value;
+    }
+
+    set value(value) {
+        this._value = value;
+    }
+
     /**
      * @param {MathElement} factor
      * @returns {MathElement}

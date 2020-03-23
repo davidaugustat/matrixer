@@ -14,4 +14,8 @@ class GeneralNumber extends MathElement{
         throw "This is not implemented!";
     }
 
+    toLatex() {
+        return this.toString();
+    }
+
 }

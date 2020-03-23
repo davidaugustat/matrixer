@@ -1,23 +1,27 @@
 class PrimeFieldNumber  extends GeneralNumber {
 
     constructor(field, value) {
-        super(field, value);
+        super(field, PrimeFieldNumber.valueToRepresentative(field, value));
     }
 
     multiplyWithNumber(factor) {
-        return new PrimeFieldNumber(this.value * factor.value);
+        return new PrimeFieldNumber(this.field, this.value * factor.value);
     }
 
     addNumber(summand) {
-        return new PrimeFieldNumber(this.value + summand.value);
+        return new PrimeFieldNumber(this.field,this.value + summand.value);
     }
 
     subtractNumber(subtrahend) {
-        return new PrimeFieldNumber(this.value - subtrahend.value);
+        return new PrimeFieldNumber(this.field, this.value - subtrahend.value);
     }
 
+    /**
+     * @param {PrimeFieldNumber} divisor
+     * */
     divideByNumber(divisor) {
         //return new PrimeFieldNumber(this.value / divisor.value);
+        return new PrimeFieldNumber(this.field,this.value * divisor.getMultiplicativeInverse().value)
     }
 
     getMultiplicativeInverse() {
@@ -46,23 +50,31 @@ class PrimeFieldNumber  extends GeneralNumber {
             wPrevious = wCurrent;
             wCurrent = wPrePrevious - multiples[i+1] * wPrevious;
         }
-        return new PrimeFieldNumber(this.field, this.parse(wCurrent));
+        return new PrimeFieldNumber(this.field, this.valueToRepresentative(wCurrent));
     }
 
     getAdditiveInverse() {
-        return new PrimeFieldNumber(this.valueToRepresentative(this.field - this.value));
+        return new PrimeFieldNumber(this.field,this.field - this.value);
     }
 
     toString() {
-        return this.value.toString();
-    }
-
-    toLatex() {
-        return toString();
+         return this.value.toString();
+        //return this;
     }
 
     valueToRepresentative(value){
         return ((value % this.field) + this.field) % this.field;
+    }
+
+    /**
+     * This duplicate is necessary, because only static methods can be called as first call in constructor.
+     *
+     * @param {number} field;
+     * @param {number} value;
+     * @returns {number}
+     * */
+    static valueToRepresentative(field, value){
+        return ((value % field) + field) % field;
     }
 
 }

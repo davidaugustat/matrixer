@@ -34,8 +34,4 @@ class RealNumber extends GeneralNumber{
     toString() {
         return this.value.toString();
     }
-
-    toLatex() {
-        return toString();
-    }
 }
