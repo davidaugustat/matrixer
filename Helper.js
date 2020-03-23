@@ -6,7 +6,7 @@
 function getMatrixRegex(field) {
     //const generalMatrixRegex = "\{(([a-zA-Z0-9.+-]+,)*[a-zA-Z0-9.+-]+;)*([a-zA-Z0-9.+-]+,)*[a-zA-Z0-9.+-]+\}";
 
-    const templateMatrixRegex = "\{((number,)*number;)*(number,)*number\}";
+    const templateMatrixRegex = "^\{((number,)*number;)*(number,)*number\}$";
     return templateMatrixRegex.split("number").join(getRegexForField(field));
 }
 
@@ -194,6 +194,14 @@ function getF9NumberFromString(numberString){
 
 function numberIsInteger(number) {
     return number === parseInt(number);
+}
+
+/**
+ * @param {number} number
+ * @returns {number}
+ * */
+function preventNegativeZero(number){
+    return number + 0;
 }
 
 

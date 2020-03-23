@@ -118,7 +118,16 @@ const exp6 = "(j+j*j)*(j-1+(1+1+j))";
 //console.log(getNumberFromNumberString("5", Field.R));
 //testExpression("(15+700/100-9)+(-(5+8-9)+87*(-4*3))-6/2+1", Field.F7);
 //testExpression("(j-1)/(j)", Field.F9);
-testExpression("(5^2)^3", Field.R);
+// testExpression("(5^2)^3", Field.R);
+
+const res = new RealNumber(4)
+    .multiplyWith(new RealNumber(6))
+    .addNumber(new RealNumber(5))
+    .subtractNumber(new RealNumber(4))
+    .divideByNumber(new RealNumber(5))
+    .toString();
+
+console.log(res);
 
 
 function testExpression(expression, field){

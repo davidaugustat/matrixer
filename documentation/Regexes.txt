@@ -17,7 +17,7 @@ Prime Field Numbers:
 Regex Prime Field Numbers:
 [0-9]+
 
-Number inputs of F4:
+GeneralNumber inputs of F4:
 0
 1
 a
@@ -27,7 +27,7 @@ a+1
 Regex F4:
 (0|1|a|a+1|1+a)
 
-Number inputs of F8:
+GeneralNumber inputs of F8:
 0
 1
 b
@@ -48,7 +48,7 @@ bs+b+1
 Regex F8:
 (0|1|b|1+b|b+1|bs|1+bs|bs+1|b+bs|bs+b|1+b+bs|1+bs+b|b+1+bs|b+bs+1|bs+1+b|bs+b+1)
 
-Number inputs of F9:
+GeneralNumber inputs of F9:
 0
 1
 -1
