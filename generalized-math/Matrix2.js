@@ -23,7 +23,6 @@ class Matrix2 extends MathElement{
      * */
     constructor(field = Field.R, value, rows = 0, columns = 0){
         super(field, value);
-
         if(value !== null){
             this.value = value;
         } else{
@@ -42,6 +41,13 @@ class Matrix2 extends MathElement{
         this._value = value;
         this.rows = value.length;
         this.columns = value[0].length;
+    }
+
+    /**
+     * @returns {[[GeneralNumber]]}
+     * */
+    get value(){
+        return this._value;
     }
 
     /**
@@ -156,12 +162,11 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @returns {object}
+     * @returns {{trivialSolution: Vector2, vectorSolution: [Vector2], rowReducedMatrix: Matrix2}}
      * */
     solveHomogeneousEquationSystem(){
         const copy = this.getCopy();
-        copy._internalSolveHomogeneousEquationSystem();
-        return copy;
+        return copy._internalSolveHomogeneousEquationSystem();
     }
 
     /**
@@ -302,6 +307,9 @@ class Matrix2 extends MathElement{
         return this.value[rowPos][columnPos].value !== 0;
     }
 
+    /**
+     * @returns {{trivialSolution: Vector2, vectorSolution: [Vector2], rowReducedMatrix: Matrix2}}
+     * */
     _internalSolveHomogeneousEquationSystem(){
         const zeroNumber = parseValueToFittingNumberObject(this.field, 0);
         const oneNumber = parseValueToFittingNumberObject(this.field, 1);
@@ -320,12 +328,12 @@ class Matrix2 extends MathElement{
             for(let pos = 0; pos < this.columns; pos++){
                 if(this.nonStepColumns.includes(pos)){
                     if(pos === currentNonStepColumnPos){
-                        solutionVector.add(oneNumber);
+                        solutionVector.addRow(oneNumber);
                     } else{
-                        solutionVector.add(zeroNumber);
+                        solutionVector.addRow(zeroNumber);
                     }
                 } else{
-                    solutionVector.add(this.value[rowPos][currentNonStepColumnPos].getAdditiveInverse());
+                    solutionVector.addRow(this.value[rowPos][currentNonStepColumnPos].getAdditiveInverse());
                     rowPos++;
                 }
             }
@@ -352,6 +360,24 @@ class Matrix2 extends MathElement{
      * */
     getEmptyCopy(){
         return new Matrix2(this.field, null, this.rows, this.columns);
+    }
+
+
+    /**
+     * @param{number} field
+     * @param{[[number]]} data
+     * @returns {Matrix2}
+     * */
+    static fromRawData(field, data, ){
+        const resultData = new Array();
+        data.forEach((row) => {
+            const resultRow = new Array();
+            row.forEach((cellValue) => {
+                resultRow.push(parseValueToFittingNumberObject(field, cellValue));
+            });
+            resultData.push(resultRow);
+        });
+        return new Matrix2(field, resultData, 0, 0);
     }
     
 }

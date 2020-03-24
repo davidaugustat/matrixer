@@ -26,6 +26,13 @@ class Vector2 extends MathElement{
     }
 
     /**
+     * @returns {[GeneralNumber]}
+     * */
+    get value(){
+        return this._value;
+    }
+
+    /**
      * @returns {GeneralNumber}
      * */
     getRow(rowPos){

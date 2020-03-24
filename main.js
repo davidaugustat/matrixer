@@ -120,30 +120,34 @@ const exp6 = "(j+j*j)*(j-1+(1+1+j))";
 //testExpression("(j-1)/(j)", Field.F9);
 // testExpression("(5^2)^3", Field.R);
 
-const res = new RealNumber(4)
-    .multiplyWith(new RealNumber(6))
-    .addNumber(new RealNumber(5))
-    .subtractNumber(new RealNumber(4))
-    .divideByNumber(new RealNumber(5))
-    .toString();
+// const res = new RealNumber(4)
+//     .multiplyWith(new RealNumber(6))
+//     .addNumber(new RealNumber(5))
+//     .subtractNumber(new RealNumber(4))
+//     .divideByNumber(new RealNumber(5))
+//     .toString();
+//
+// const res2 = new F4Number(Field.F4Alpha).add(new F4Number(Field.F4One)).multiplyWith(new F4Number(Field.F4Alpha)).toString();
+//
+// const res3 = new F9Number(Field.F9Iota).add(new F9Number(Field.F9MinusOne)).divideBy(new F9Number(Field.F9IotaPlusOne)).toString(); // 1
+// // const res3 = new F9Number(Field.F9IotaMinusOne).divideBy(new F9Number(Field.F9IotaPlusOne)).toString(); // 1
+// // const res3 = new F9Number(Field.F9IotaMinusOne).multiplyWith(new F9Number(Field.F9IotaMinusOne)).toString(); // j
+//
+// //const res3 = new F9Number(Field.F9IotaPlusOne).getMultiplicativeInverse().toString(); // j-1
+//
+// const res4 = new F8Number(Field.F8OnePlusBetaPlusBetaSquare).subtract(new F8Number(Field.F8One)).divideBy(new F8Number(Field.F8BetaSquare)).toString();
+//
+// const res5 = new PrimeFieldNumber(Field.F5, 3)
+//     .add(new PrimeFieldNumber(Field.F5, 1))
+//     .divideBy(new PrimeFieldNumber(Field.F5, 3))
+//     .subtract(new PrimeFieldNumber(Field.F5, 4))
+//     .toString();
+//
+// console.log(res5);
 
-const res2 = new F4Number(Field.F4Alpha).add(new F4Number(Field.F4One)).multiplyWith(new F4Number(Field.F4Alpha)).toString();
+testMatrix2(yValues, Field.R);
+testMatrix(yValues, Field.R);
 
-const res3 = new F9Number(Field.F9Iota).add(new F9Number(Field.F9MinusOne)).divideBy(new F9Number(Field.F9IotaPlusOne)).toString(); // 1
-// const res3 = new F9Number(Field.F9IotaMinusOne).divideBy(new F9Number(Field.F9IotaPlusOne)).toString(); // 1
-// const res3 = new F9Number(Field.F9IotaMinusOne).multiplyWith(new F9Number(Field.F9IotaMinusOne)).toString(); // j
-
-//const res3 = new F9Number(Field.F9IotaPlusOne).getMultiplicativeInverse().toString(); // j-1
-
-const res4 = new F8Number(Field.F8OnePlusBetaPlusBetaSquare).subtract(new F8Number(Field.F8One)).divideBy(new F8Number(Field.F8BetaSquare)).toString();
-
-const res5 = new PrimeFieldNumber(Field.F5, 3)
-    .add(new PrimeFieldNumber(Field.F5, 1))
-    .divideBy(new PrimeFieldNumber(Field.F5, 3))
-    .subtract(new PrimeFieldNumber(Field.F5, 4))
-    .toString();
-
-console.log(res5);
 
 
 function testExpression(expression, field){
@@ -158,7 +162,7 @@ function testExpression(expression, field){
 function testMatrix(data, field=Field.R){
     const matrix = new Matrix(0, 0, field);
     matrix.setData(data);
-    matrix.print();
+    //matrix.print();
     print(matrix.getLatex(true));
     const solution = matrix.solveHomogeneousEquationSystem();
     solution.vectorSolution.forEach((vector) => vector.print());
@@ -167,6 +171,13 @@ function testMatrix(data, field=Field.R){
     console.log("--------------");
 }
 
+function testMatrix2(data, field){
+    const matrix = Matrix2.fromRawData(field, data);
+
+    const solution = matrix.solveHomogeneousEquationSystem();
+    solution.vectorSolution.forEach(vector => vector.print());
+    solution.rowReducedMatrix.print();
+}
 
 function printAdditionFieldTable(fieldElements, field){
     const fieldObject = new Field(field);
