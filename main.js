@@ -82,18 +82,25 @@ var iValues = [
     [11, 12, 13, 14]
 ];
 
+var jValues = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+
 var aVector = [1,2,3,4];
-var bVector = [5,6,7,8];
+var bVector = [5,6,7,2];
 
 var cVector = [Field.F4Alpha, Field.F4One, Field.F4AlphaPlusOne];
 var dVector = [Field.F4One, Field.F4Alpha, Field.F4One];
 
 //const vecRes = Matrix2.fromRawData(Field.R, cValues).multiplyWith(Vector2.fromRawData(Field.R, aVector)).toString();
-const constRes = Matrix2.fromRawData(Field.R, hValues).multiplyWith(new RealNumber(2)).toString();
+//const constRes = Matrix2.fromRawData(Field.R, hValues).multiplyWith(new RealNumber(2)).toString();
 //const constRes = Matrix2.fromRawData(Field.R, hValues);
- const vecRes = Vector2.fromRawData(Field.R, aVector).multiplyWith(new RealNumber(2)).toString();
+//const vecRes = Vector2.fromRawData(Field.R, aVector).subtract(Vector2.fromRawData(Field.R, bVector)).toString();
 //const vecRes = Vector2.fromRawData(Field.R, aVector);
-console.log(vecRes);
+const matRes = Matrix2.fromRawData(Field.R, xValues).subtract(Matrix2.fromRawData(Field.R, jValues)).toString();
+console.log(matRes);
 
 //var mm = new MatrixManager();
 //var f4 = new Field(Field.F4);

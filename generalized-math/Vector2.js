@@ -108,6 +108,46 @@ class Vector2 extends MathElement{
         return result;
     }
 
+    addNumber(summand) {
+        throw "Addition of numbers to a vector is not allowed";
+    }
+
+    addMatrix(summand) {
+        throw "Addition of matrices to a vector is not allowed";
+    }
+
+    /**
+     * @param {Vector2} summand
+     * @return {Vector2}
+     * */
+    addVector(summand) {
+        if(summand.size != this.size){
+            throw "Both vectors must have same dimensions for addition";
+        }
+
+        let result = new Vector2(this.field, null, 0);
+        for(let rowPos = 0; rowPos < this.size; rowPos++){
+            result.addRow(this.value[rowPos].add(summand.value[rowPos]));
+        }
+        return result;
+    }
+
+    subtractNumber(subtrahend) {
+        throw "Subtraction of numbers from a vector is not allowed";
+    }
+
+    subtractMatrix(subtrahend) {
+        throw "Subtraction of matrices from a vector is not allowed";
+    }
+
+    /**
+     * @param {Vector2} subtrahend
+     * */
+    subtractVector(subtrahend) {
+        const summand2Value = subtrahend.value.map(number => number.getAdditiveInverse());
+        return this.addVector(new Vector2(subtrahend.field, summand2Value));
+    }
+
     toString() {
         let output = "";
         this.value.forEach((rowElement) => {

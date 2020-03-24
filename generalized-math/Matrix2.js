@@ -219,6 +219,45 @@ class Matrix2 extends MathElement{
        return result;
     }
 
+    addNumber(summand) {
+        throw "Addition of numbers to a matrix is not allowed";
+    }
+
+    /**
+     * @param {Matrix2} summand
+     * @returns {Matrix2}
+     * */
+    addMatrix(summand) {
+        if(this.rows !== summand.rows || this.columns !== summand.columns){
+            throw "Addition of matrices with different dimensions is not allowed";
+        }
+        const result = this.getEmptyCopy();
+        for(let rowPos = 0; rowPos < this.rows; rowPos++){
+            for(let columnPos = 0; columnPos < this.columns; columnPos++){
+                const resultCellValue = this.value[rowPos][columnPos].add(summand.value[rowPos][columnPos]);
+                result.set(rowPos, columnPos, resultCellValue);
+            }
+        }
+        return result;
+    }
+
+    addVector(summand) {
+        throw "Addition of vector to matrix is not allowed";
+    }
+
+    subtractNumber(subtrahend) {
+        throw  "Subtraction of number from matrix is not allowed";
+    }
+
+    /**
+     * @param {Matrix2} subtrahend
+     * @returns {Matrix2}
+     * */
+    subtractMatrix(subtrahend) {
+        const summand2Value = subtrahend.value.map(row => row.map(cellElement => cellElement.getAdditiveInverse()));
+        return this.addMatrix(new Matrix2(this.field, summand2Value));
+    }
+
     /**
      * @param {[GeneralNumber]} row
      * @param {[GeneralNumber]} column
