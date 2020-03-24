@@ -43,15 +43,15 @@ class ExpressionNode {
             return this.terminalNumber;
         } else{
             switch (this.operator) {
-                case operators.ADD:
+                case Operators.ADD:
                     return this.field.add(this.leftNode.calculate(), this.rightNode.calculate());
-                case operators.MULTIPLY:
+                case Operators.MULTIPLY:
                     return this.field.multiply(this.leftNode.calculate(), this.rightNode.calculate());
-                case operators.SUBTRACT:
+                case Operators.SUBTRACT:
                     return this.field.subtract(this.leftNode.calculate(), this.rightNode.calculate());
-                case operators.DIVIDE:
+                case Operators.DIVIDE:
                     return this.field.divide(this.leftNode.calculate(), this.rightNode.calculate());
-                case operators.EXPONENTIATE:
+                case Operators.EXPONENTIATE:
                     return this.field.exponentiate(this.leftNode.calculate(), this.rightNode.calculate());
                 default:
                     throw "Invalid Operator";

@@ -101,8 +101,19 @@ var dVector = [Field.F4One, Field.F4Alpha, Field.F4One];
 //const vecRes = Vector2.fromRawData(Field.R, aVector);
 //const matRes = Matrix2.fromRawData(Field.R, xValues).subtract(Matrix2.fromRawData(Field.R, jValues)).toString();
 
-const res = Matrix2.fromRawData(Field.R, jValues).exponentiate(new RealNumber(2)).toString();
-console.log(res);
+//const res = Matrix2.fromRawData(Field.R, jValues).exponentiate(new RealNumber(2)).toString();
+//console.log(res);
+
+const en1 = new ExpressionNode2(null, null, null, new F8Number(Field.F4Alpha));
+const en2 = new ExpressionNode2(null, null, null, new F8Number(Field.F4AlphaPlusOne));
+//const en3 = new ExpressionNode2(null, null, null, new F8Number(Field.F4One));
+const en3 = new ExpressionNode2(null, null, null, Matrix2.fromRawData(Field.F4, dValues));
+const en7 = new ExpressionNode2(null, null, null, new RealNumber(1));
+const en4 = new ExpressionNode2(en1, en2, Operators.ADD, null);
+const en5 = new ExpressionNode2(en3, en4, Operators.MULTIPLY, null);
+const en6 = new ExpressionNode2(en5, en7, Operators.EXPONENTIATE, null);
+console.log(en6.calculate().toString());
+
 
 //var mm = new MatrixManager();
 //var f4 = new Field(Field.F4);

@@ -192,7 +192,6 @@ class Matrix2 extends MathElement{
         }
 
         const result = new Matrix2(this.field, null, this.rows, factor.columns);
-        console.log("Res Rows: " + result.rows + " Columns: " + result.columns);
         for(let rowPos = 0; rowPos < result.rows; rowPos++){
             for(let columnPos = 0; columnPos < result.columns; columnPos++){
                 const sourceRow = this.getRow(rowPos);

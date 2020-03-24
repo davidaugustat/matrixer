@@ -1,16 +1,7 @@
-const operators = {
-    ADD: '+',
-    SUBTRACT: '-',
-    MULTIPLY: '*',
-    EXPONENTIATE: '^',
-    DIVIDE: '/',
-    TERMINAL: '€'
-};
-
 class MathExpressionInterpreter {
 
     /** @type {[string]} */
-    operatorsInCorrectOrder = [operators.ADD, operators.SUBTRACT, operators.MULTIPLY, operators.EXPONENTIATE, operators.DIVIDE, operators.TERMINAL];
+    operatorsInCorrectOrder = [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.EXPONENTIATE, Operators.DIVIDE, Operators.TERMINAL];
 
     /**
      * @param {string} expression
@@ -31,7 +22,7 @@ class MathExpressionInterpreter {
     interpretOperator(expression, operatorsList, field){
 
         const operator = operatorsList[0];
-        if(operator == operators.TERMINAL){
+        if(operator == Operators.TERMINAL){
             return this.interpret(expression[0], field);
         }
 
@@ -115,7 +106,7 @@ class MathExpressionInterpreter {
      * @returns {string}
      */
     completeLeadingMinus(expression){
-        if(expression.startsWith(operators.SUBTRACT)){
+        if(expression.startsWith(Operators.SUBTRACT)){
             return "0" + expression;
         }
         return expression;

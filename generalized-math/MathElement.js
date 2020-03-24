@@ -70,7 +70,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     exponentiate(exponent){
-        if(exponent.value < 0 || !numberIsInteger(exponent.value)){
+        if(!exponent instanceof RealNumber ||exponent.value < 0 || !numberIsInteger(exponent.value)){
             throw "Invalid exponent";
         }
 
