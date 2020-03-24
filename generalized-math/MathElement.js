@@ -65,6 +65,22 @@ class MathElement {
             () => {throw "Division by matrix not supported!";}, () => {throw "Division by vector not supported!";});
     }
 
+    /**
+     * @param {RealNumber} exponent This must be an integer >=0. Note that is must be a real number regardless of the current field.
+     * @returns {MathElement}
+     * */
+    exponentiate(exponent){
+        if(exponent.value < 0 || !numberIsInteger(exponent.value)){
+            throw "Invalid exponent";
+        }
+
+        let result = parseValueToFittingNumberObject(this.field, 1);
+        for(let i = 0; i < exponent.value; i++){
+            result = result.multiplyWith(this);
+        }
+        return result;
+    }
+
 
     /**
      * @returns {string}

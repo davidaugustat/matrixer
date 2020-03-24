@@ -20,6 +20,13 @@ class RealNumber extends GeneralNumber{
         return new RealNumber(this.value / divisor.value);
     }
 
+    /**
+     * @param {RealNumber} exponent For real numbers, the exponent can be any real number. Doesn't need to be an Integer or >= 0.
+     * */
+    exponentiate(exponent) {
+        return new RealNumber(Math.pow(this.value, exponent.value));
+    }
+
     getMultiplicativeInverse() {
         if(this.value === 0){
             throw "Division by 0 not allowed!";

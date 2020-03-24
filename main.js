@@ -99,8 +99,10 @@ var dVector = [Field.F4One, Field.F4Alpha, Field.F4One];
 //const constRes = Matrix2.fromRawData(Field.R, hValues);
 //const vecRes = Vector2.fromRawData(Field.R, aVector).subtract(Vector2.fromRawData(Field.R, bVector)).toString();
 //const vecRes = Vector2.fromRawData(Field.R, aVector);
-const matRes = Matrix2.fromRawData(Field.R, xValues).subtract(Matrix2.fromRawData(Field.R, jValues)).toString();
-console.log(matRes);
+//const matRes = Matrix2.fromRawData(Field.R, xValues).subtract(Matrix2.fromRawData(Field.R, jValues)).toString();
+
+const res = Matrix2.fromRawData(Field.R, jValues).exponentiate(new RealNumber(2)).toString();
+console.log(res);
 
 //var mm = new MatrixManager();
 //var f4 = new Field(Field.F4);
