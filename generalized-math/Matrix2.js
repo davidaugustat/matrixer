@@ -6,25 +6,18 @@
 
 class Matrix2 extends MathElement{
 
-
-    /** @type {[[number]]} */
-    data;
-
     /** @type {number} */
     rows;
 
     /** @type {number} */
     columns;
 
-    /** @type {Field} */
-    field;
-
     /** @type {[number]} */
     nonStepColumns;
 
     /**
      * @param {number} field
-     * @param {[[number]]} value
+     * @param {[[GeneralNumber]]} value
      * @param {number} rows
      * @param {number} columns
      * */
@@ -42,33 +35,26 @@ class Matrix2 extends MathElement{
         this.nonStepColumns = new Array();
     }
 
+    /**
+     * @param {[[GeneralNumber]]} value
+     * */
     set value(value) {
         this._value = value;
         this.rows = value.length;
         this.columns = value[0].length;
     }
 
-
-    transpose(){
-        const transposed = new Array(this.columns).fill(0).map(() => new Array(this.rows).fill(0));
-        for(let row = 0; row<this.rows; row++){
-            for(let column = 0; column <this.columns; column++){
-                transposed[column][row] = this.value[row][column];
-            }
-        }
-        this.value = transposed;
-        [this.rows, this.columns] = [this.columns, this.rows];
-    }
-
     /**
-     * @returns {[number]}
+     * @param {number} position
+     * @returns {[GeneralNumber]}
      * */
     getRow(position){
         return this.value[position]
     }
 
     /**
-     * @returns {[number]}
+     * @param {number} position
+     * @returns {[GeneralNumber]}
      * */
     getColumn(position){
         const column = new Array();
@@ -79,9 +65,11 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @returns {number}
+     * @param {number} rowPos
+     * @param {number} columnPos
+     * @returns {GeneralNumber}
      * */
-    getValue(rowPos, columnPos){
+    getCellValue(rowPos, columnPos){
         return this.value[rowPos][columnPos];
     }
 
@@ -102,8 +90,8 @@ class Matrix2 extends MathElement{
     print(){
         let output = "";
         this.value.forEach((row) => {
-            row.forEach((value) => {
-                output += this.field.getString(value) + "\t";
+            row.forEach((cellElement) => {
+                output += cellElement.toString() + "\t";
             });
             output += "\n";
         });
@@ -113,8 +101,8 @@ class Matrix2 extends MathElement{
     toString(){
         let output = "";
         this.value.forEach((row) => {
-            row.forEach((value) => {
-                output += this.field.getString(value) + "\t";
+            row.forEach((cellElement) => {
+                output += cellElement.toString() + "\t";
             });
             output += "\n";
         });
@@ -122,17 +110,16 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @param {boolean} isDisplayMode
      * @returns {string}
      * */
     toLatex(){
         let output = "\\begin{pmatrix}";
         this.value.forEach((row) => {
-            row.forEach((value, index, array) => {
+            row.forEach((cellElement, index, array) => {
                 if(index < array.length-1) {
-                    output += this.field.getString(value) + " & ";
+                    output += cellElement.getLatex() + " & ";
                 } else{
-                    output += this.field.getString(value);
+                    output += cellElement.getLatex();
                 }
             });
             output += "\\\\";
@@ -144,31 +131,116 @@ class Matrix2 extends MathElement{
     /**
      * @param {number} rowPos
      * @param {number} columnPos
-     * @param {number} value
+     * @param {GeneralNumber} value
      * */
     set(rowPos, columnPos, value){
         this.value[rowPos][columnPos] = value;
     }
 
     /**
-     * @param {number} rowPos
-     * @param {number} factor
+     * @returns {Matrix2}
      * */
-    multiplyRow(rowPos, factor){
+    transpose(){
+        const copy = this.getCopy();
+        copy._internalTranspose();
+        return copy;
+    }
+
+    /**
+     * @returns {Matrix2}
+     * */
+    rowReduce(){
+        const copy = this.getCopy();
+        copy._internalRowReduce();
+        return copy;
+    }
+
+    /**
+     * @returns {object}
+     * */
+    solveHomogeneousEquationSystem(){
+        const copy = this.getCopy();
+        copy._internalSolveHomogeneousEquationSystem();
+        return copy;
+    }
+
+    /**
+     * @param {GeneralNumber} factor
+     * @returns {Matrix2}
+     * */
+    multiplyWithNumber(factor) {
+        const result = this.getEmptyCopy();
+        this.value.forEach((row, rowPos) => {
+            row.forEach((cellElement, columnPos) => {
+                result.getRow(rowPos)[columnPos] = cellElement.multiplyWith(factor);
+            });
+        });
+        return result;
+    }
+
+    /**
+     * @param {Matrix2} factor
+     * */
+    multiplyWithMatrix(factor) {
+        if(this.getColumnCount() !== factor.getRowCount()){
+            throw "Result of matrix multiplication not defined! (wrong dimensions)";
+        }
+
+        const result = new Matrix2(this.field, null, this.rows, factor.columns);
+        for(let rowPos = 0; rowPos < result.columns; rowPos++){
+            for(let columnPos = 0; columnPos < result.columns; columnPos++){
+                const sourceRow = this.getRow(rowPos);
+                const sourceColumn = this.getColumn(columnPos);
+                result.set(rowPos, columnPos, this._multiplyRowWithColumn(sourceRow, sourceColumn));
+            }
+        }
+        return result;
+    }
+
+    /**
+     * @param {[GeneralNumber]} row
+     * @param {[GeneralNumber]} column
+     * @returns {GeneralNumber}
+     * */
+    _multiplyRowWithColumn(row, column){
+        let result = parseValueToFittingNumberObject(this.field, 0);
+        for(let pos = 0; pos < row.length; pos++){
+            result = result.addNumber(row[pos].multiplyWith(column[pos]));
+        }
+        return result;
+    }
+
+    _internalTranspose(){
+        const transposed = new Array(this.columns).fill(0).map(() => new Array(this.rows).fill(0));
+        for(let row = 0; row<this.rows; row++){
+            for(let column = 0; column <this.columns; column++){
+                transposed[column][row] = this.value[row][column];
+            }
+        }
+        this.value = transposed;
+        [this.rows, this.columns] = [this.columns, this.rows];
+    }
+
+    /**
+     * @param {number} rowPos
+     * @param {GeneralNumber} factor
+     * */
+    _multiplyRow(rowPos, factor){
         const row = this.value[rowPos];
         for(let column = 0; column < this.columns; column++){
-            row[column] = this.field.multiply(row[column], factor);
+            //row[column] = this.field.multiply(row[column], factor);
+            row[column] = row[column].multiplyWith(factor);
         }
     }
 
     /**
      * @param {number} sourceRowPos
      * @param {number} targetRowPos
-     * @param {number} factor
+     * @param {GeneralNumber} factor
      * */
-    addRowToOther(sourceRowPos, targetRowPos, factor){
+    _addRowToOther(sourceRowPos, targetRowPos, factor){
         for(let column = 0; column < this.columns; column++){
-            this.value[targetRowPos][column] = this.field.add(this.value[targetRowPos][column], this.field.multiply( this.value[sourceRowPos][column], factor));
+            this.value[targetRowPos][column] = this.value[targetRowPos][column].add(this.value[sourceRowPos][column].multiplyWith(factor));
         }
     }
 
@@ -176,15 +248,15 @@ class Matrix2 extends MathElement{
      * @param {number} rowPos
      * @param {number} columnPos
      */
-    reduceColumn(rowPos, columnPos){
-        const factor = this.field.getMultiplicationInverse(this.value[rowPos][columnPos]);
-        this.multiplyRow(rowPos, factor);
+    _reduceColumn(rowPos, columnPos){
+        const factor = this.value[rowPos][columnPos].getMultiplicativeInverse();
+        this._multiplyRow(rowPos, factor);
 
-        for(let row = 0; row<this.rows; row++){
-            if(row != rowPos){
+        for(let row = 0; row < this.rows; row++){
+            if(row !== rowPos){
                 // var rowFactor = -this.value[row][columnPos];
-                const rowFactor = this.field.getAdditionInverse(this.value[row][columnPos]);
-                this.addRowToOther(rowPos, row, rowFactor);
+                const rowFactor = this.value[row][columnPos].getAdditiveInverse();
+                this._addRowToOther(rowPos, row, rowFactor);
             }
         }
     }
@@ -193,22 +265,22 @@ class Matrix2 extends MathElement{
      * @param {number} rowPos
      * @param {number} targetPos
      */
-    moveRow(rowPos, targetPos){
+    _moveRow(rowPos, targetPos){
         const cutOut = this.value.splice(rowPos, 1)[0];
         this.value.splice(targetPos, 0, cutOut);
     }
 
-    rowReduce(){
+    _internalRowReduce(){
         let row = 0;
         let column = 0;
         while(row < this.rows && column < this.columns){
-            if(this.value[row][column] != 0){
-                this.reduceColumn(row, column);
+            if(this.value[row][column].value !== 0){
+                this._reduceColumn(row, column);
                 row++;
                 column++;
             }
             else{
-                const isCurrentPositionNotZero = this.moveRowWithoutZeroAtCurrentPosition(row, column);
+                const isCurrentPositionNotZero = this._moveRowWithoutZeroAtCurrentPosition(row, column);
                 if(!isCurrentPositionNotZero){
                     this.nonStepColumns.push(column);
                     column++;
@@ -221,35 +293,39 @@ class Matrix2 extends MathElement{
      * @param {number} rowPos
      * @param {number} columnPos
      */
-    moveRowWithoutZeroAtCurrentPosition(rowPos, columnPos){
+    _moveRowWithoutZeroAtCurrentPosition(rowPos, columnPos){
         let numMoves = 0;
-        while(this.value[rowPos][columnPos] == 0 && numMoves < this.rows-rowPos-1){
-            this.moveRow(rowPos, this.rows-1);
+        while(this.value[rowPos][columnPos].value === 0 && numMoves < this.rows-rowPos-1){
+            this._moveRow(rowPos, this.rows-1);
             numMoves++;
         }
-        return this.value[rowPos][columnPos] != 0;
+        return this.value[rowPos][columnPos].value !== 0;
     }
 
-    solveHomogeneousEquationSystem(){
+    _internalSolveHomogeneousEquationSystem(){
+        const zeroNumber = parseValueToFittingNumberObject(this.field, 0);
+        const oneNumber = parseValueToFittingNumberObject(this.field, 1);
+
         const solution = {
-            trivialSolution: new Array(this.rows).fill(0), // Array of values
+            trivialSolution: new Vector2(this.field, null, this.rows),
             vectorSolution: new Array(), // Array of vectors
+            rowReducedMatrix: this
         };
 
-        this.rowReduce();
+        this._internalRowReduce();
 
         this.nonStepColumns.forEach((currentNonStepColumnPos) => {
             let rowPos = 0;
-            const solutionVector = new Vector(0, this.field.getName());
+            const solutionVector = new Vector2(this.field, null, 0);
             for(let pos = 0; pos < this.columns; pos++){
                 if(this.nonStepColumns.includes(pos)){
-                    if(pos == currentNonStepColumnPos){
-                        solutionVector.add(1);
+                    if(pos === currentNonStepColumnPos){
+                        solutionVector.add(oneNumber);
                     } else{
-                        solutionVector.add(0);
+                        solutionVector.add(zeroNumber);
                     }
                 } else{
-                    solutionVector.add(this.field.getAdditionInverse(this.value[rowPos][currentNonStepColumnPos]));
+                    solutionVector.add(this.value[rowPos][currentNonStepColumnPos].getAdditiveInverse());
                     rowPos++;
                 }
             }
@@ -262,7 +338,7 @@ class Matrix2 extends MathElement{
      * @returns {Matrix2}
      * */
     getCopy(){
-        const copyMatrix2 = new Matrix2(this.rows, this.columns, this.field.getName());
+        const copyMatrix2 = new Matrix2(this. field, null, this.rows, this.columns);
         for(let rowPos = 0; rowPos < this.rows; rowPos++){
             for(let columnPos = 0; columnPos < this.columns; columnPos++){
                 copyMatrix2.set(rowPos, columnPos, this.value[rowPos][columnPos]);
@@ -275,7 +351,7 @@ class Matrix2 extends MathElement{
      * @returns {Matrix2}
      * */
     getEmptyCopy(){
-        return new Matrix2(this.rows, this.columns, this.field.getName());
+        return new Matrix2(this.field, null, this.rows, this.columns);
     }
     
 }

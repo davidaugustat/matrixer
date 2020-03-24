@@ -204,4 +204,21 @@ function preventNegativeZero(number){
     return number + 0;
 }
 
+function parseValueToFittingNumberObject(field, value){
+    if(isRealNumbersField(field)){
+        return new RealNumber(value);
+    } else if(isPrimeField(field)){
+        return new PrimeFieldNumber(field, value);
+    } else if(isExtendedField(field)){
+        switch (field) {
+            case Field.F4:
+                return new F4Number(value);
+            case Field.F8:
+                return new F8Number(value);
+            case Field.F9:
+                return new F9Number(value);
+        }
+    }
+}
+
 

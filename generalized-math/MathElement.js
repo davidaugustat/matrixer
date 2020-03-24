@@ -3,7 +3,7 @@ class MathElement {
     /** @type {number} */
     _field;
 
-    /** @type {number | [[number]] | [number]}*/
+    /** @type {number | [[GeneralNumber]] | [GeneralNumber]}*/
     _value;
 
     constructor(field, value) {

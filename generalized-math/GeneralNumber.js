@@ -1,5 +1,6 @@
 class GeneralNumber extends MathElement{
 
+
     /**
      * @returns {GeneralNumber}
      * */
