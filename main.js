@@ -71,11 +71,25 @@ var gValues = [
     [1,1,0,-1]
 ];
 
-var mm = new MatrixManager();
+var hValues = [
+    [1, 2],
+    [3, 4],
+    [5, 6]
+];
 
+var iValues = [
+    [7, 8, 9, 10],
+    [11, 12, 13, 14]
+];
 
+var aVector = [1,2,3,4];
 
-var f4 = new Field(Field.F4);
+const vecRes = Matrix2.fromRawData(Field.R, cValues).multiplyWith(Vector2.fromRawData(Field.R, aVector)).toString();
+//const constRes = Matrix2.fromRawData(Field.R, hValues).multiplyWith(new RealNumber(2)).toString();
+console.log(vecRes);
+
+//var mm = new MatrixManager();
+//var f4 = new Field(Field.F4);
 // testMatrix(mValues);
 // testMatrix(xValues);
 // testMatrix(yValues);
@@ -145,8 +159,11 @@ const exp6 = "(j+j*j)*(j-1+(1+1+j))";
 //
 // console.log(res5);
 
-testMatrix2(yValues, Field.R);
-testMatrix(yValues, Field.R);
+//testMatrix2(yValues, Field.R);
+//testMatrix(yValues, Field.R);
+
+//const res =Matrix2.fromRawData(Field.R, hValues).multiplyWith(Matrix2.fromRawData(Field.R, iValues)).toString();
+//console.log(res);
 
 
 

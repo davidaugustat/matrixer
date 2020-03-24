@@ -192,14 +192,31 @@ class Matrix2 extends MathElement{
         }
 
         const result = new Matrix2(this.field, null, this.rows, factor.columns);
-        for(let rowPos = 0; rowPos < result.columns; rowPos++){
+        console.log("Res Rows: " + result.rows + " Columns: " + result.columns);
+        for(let rowPos = 0; rowPos < result.rows; rowPos++){
             for(let columnPos = 0; columnPos < result.columns; columnPos++){
                 const sourceRow = this.getRow(rowPos);
-                const sourceColumn = this.getColumn(columnPos);
+                const sourceColumn = factor.getColumn(columnPos);
                 result.set(rowPos, columnPos, this._multiplyRowWithColumn(sourceRow, sourceColumn));
             }
         }
         return result;
+    }
+
+    /**
+     * @param {Vector2} factor
+     * @returns {Vector2}
+     * */
+    multiplyWithVector(factor) {
+       if(this.getColumnCount() !== factor.getSize()){
+           throw "Result of multiplication of matrix with vector not defined! (wrong dimensions)"
+       }
+
+       const result = new Vector2(this.field, null, 0);
+       for(let rowPos = 0; rowPos < this.rows; rowPos++){
+           result.addRow(this._multiplyRowWithColumn(this.getRow(rowPos), factor.value))
+       }
+       return result;
     }
 
     /**

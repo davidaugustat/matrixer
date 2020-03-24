@@ -176,7 +176,7 @@ class MathElement {
         } else if(element instanceof Matrix2){
             return matrixBehavior(element);
         } else if(element instanceof Vector2){
-            return numberBehavior(element);
+            return vectorBehavior(element);
         }
     }
 

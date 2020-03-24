@@ -68,6 +68,7 @@ class Vector2 extends MathElement{
      * */
     addRow(value){
         this.value.push(value);
+        this.size = this.value.length;
     }
 
     print(){
@@ -88,5 +89,14 @@ class Vector2 extends MathElement{
 
     toLatex() {
         throw "Not implemented yet";
+    }
+
+    /**
+     * @param {number} field
+     * @param {[number]} data
+     * */
+    static fromRawData(field, data){
+        const resultData = data.map(number => parseValueToFittingNumberObject(field, number));
+        return new Vector2(field, resultData);
     }
 }
