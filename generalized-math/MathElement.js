@@ -82,6 +82,13 @@ class MathElement {
         throw "This is not implemented!";
     }
 
+    /**
+     * @returns {MathElement}
+     * */
+    getCopy(){
+        throw "This is not implemented!";
+    }
+
     // internal functions that need to be overridden in subtypes:
     /**
      * @param {MathElement} factor

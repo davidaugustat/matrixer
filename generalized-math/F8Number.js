@@ -45,4 +45,13 @@ class F8Number extends GeneralNumber{
     toString() {
         return F8ElementsNameLookup.find(object => object.number == this.value).name;
     }
+
+    /**
+     * Returns an object that is identical to the current one, but not the same object.
+     *
+     * @returns {F8Number}
+     * */
+    getCopy() {
+        return new F8Number(this.value);
+    }
 }

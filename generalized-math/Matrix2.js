@@ -123,9 +123,9 @@ class Matrix2 extends MathElement{
         this.value.forEach((row) => {
             row.forEach((cellElement, index, array) => {
                 if(index < array.length-1) {
-                    output += cellElement.getLatex() + " & ";
+                    output += cellElement.toLatex() + " & ";
                 } else{
-                    output += cellElement.getLatex();
+                    output += cellElement.toLatex();
                 }
             });
             output += "\\\\";

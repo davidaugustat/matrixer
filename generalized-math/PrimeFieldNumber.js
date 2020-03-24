@@ -62,6 +62,15 @@ class PrimeFieldNumber  extends GeneralNumber {
         //return this;
     }
 
+    /**
+     * Returns an object that is identical to the current one, but not the same object.
+     *
+     * @returns {PrimeFieldNumber}
+     * */
+    getCopy() {
+        return new PrimeFieldNumber(this.field, this.value);
+    }
+
     valueToRepresentative(value){
         return ((value % this.field) + this.field) % this.field;
     }

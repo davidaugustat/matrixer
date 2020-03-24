@@ -45,4 +45,13 @@ class F4Number extends GeneralNumber{
     toString() {
         return F4ElementsNameLookup.find(object => object.number == this.value).name;
     }
+
+    /**
+     * Returns an object that is identical to the current one, but not the same object.
+     *
+     * @returns {F4Number}
+     * */
+    getCopy() {
+        return new F4Number(this.value);
+    }
 }

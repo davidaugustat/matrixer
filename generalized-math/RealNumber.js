@@ -34,4 +34,13 @@ class RealNumber extends GeneralNumber{
     toString() {
         return this.value.toString();
     }
+
+    /**
+     * Returns an object that is identical to the current one, but not the same object.
+     *
+     * @returns {RealNumber}
+     * */
+    getCopy() {
+        return new RealNumber(this.value);
+    }
 }

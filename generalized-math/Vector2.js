@@ -79,6 +79,35 @@ class Vector2 extends MathElement{
         console.log(output);
     }
 
+    /**
+     * @param {GeneralNumber} factor
+     * @returns {Vector2}
+     * */
+    multiplyWithNumber(factor) {
+        const resultValue = this.value.map(number => number.multiplyWith(factor));
+        return new Vector2(this.field, resultValue, 0);
+    }
+
+    multiplyWithMatrix(factor) {
+        throw "A vector cannot be multiplied with a Matrix this way around.";
+    }
+
+    /**
+     * @param {Vector2} factor
+     * @returns {GeneralNumber}
+     * */
+    multiplyWithVector(factor) {
+        if(this.size !== factor.size){
+            throw "Both vectors must have same dimensions for multiplication";
+        }
+
+        let result = parseValueToFittingNumberObject(this.field, 0);
+        for(let rowPos = 0; rowPos < this.size; rowPos++){
+            result = result.add(this.getRow(rowPos).multiplyWith(factor.getRow(rowPos)));
+        }
+        return result;
+    }
+
     toString() {
         let output = "";
         this.value.forEach((rowElement) => {
@@ -88,12 +117,23 @@ class Vector2 extends MathElement{
     }
 
     toLatex() {
-        throw "Not implemented yet";
+        let output = "\\begin{pmatrix}";
+        this.value.forEach(number => {
+            output += number.toLatex() + "\\\\";
+        });
+        output += "\\end{pmatrix}";
+        return output;
+    }
+
+    getCopy() {
+        const resultValue = this.value.map(value => value.getCopy());
+        return new Vector2(this.field, resultValue);
     }
 
     /**
      * @param {number} field
      * @param {[number]} data
+     * @returns {Vector2}
      * */
     static fromRawData(field, data){
         const resultData = data.map(number => parseValueToFittingNumberObject(field, number));
