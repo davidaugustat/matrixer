@@ -104,14 +104,14 @@ var dVector = [Field.F4One, Field.F4Alpha, Field.F4One];
 //const res = Matrix2.fromRawData(Field.R, jValues).exponentiate(new RealNumber(2)).toString();
 //console.log(res);
 
-const en1 = new ExpressionNode2(null, null, null, new F8Number(Field.F4Alpha));
-const en2 = new ExpressionNode2(null, null, null, new F8Number(Field.F4AlphaPlusOne));
+const en1 = new ExpressionNode(null, null, null, new F8Number(Field.F4Alpha));
+const en2 = new ExpressionNode(null, null, null, new F8Number(Field.F4AlphaPlusOne));
 //const en3 = new ExpressionNode2(null, null, null, new F8Number(Field.F4One));
-const en3 = new ExpressionNode2(null, null, null, Matrix.fromRawData(Field.F4, dValues));
-const en7 = new ExpressionNode2(null, null, null, new RealNumber(1));
-const en4 = new ExpressionNode2(en1, en2, Operators.ADD, null);
-const en5 = new ExpressionNode2(en3, en4, Operators.MULTIPLY, null);
-const en6 = new ExpressionNode2(en5, en7, Operators.EXPONENTIATE, null);
+const en3 = new ExpressionNode(null, null, null, Matrix.fromRawData(Field.F4, dValues));
+const en7 = new ExpressionNode(null, null, null, new RealNumber(1));
+const en4 = new ExpressionNode(en1, en2, Operators.ADD, null);
+const en5 = new ExpressionNode(en3, en4, Operators.MULTIPLY, null);
+const en6 = new ExpressionNode(en5, en7, Operators.EXPONENTIATE, null);
 //console.log(en6.calculate().toString());
 
 //console.log(new Interpreter2(Field.R).tokenize("5*(4+6)*rowReduce({5,3,4,7})", Field.R));
@@ -126,6 +126,8 @@ const time = performance.now();
 const res = new Interpreter(Field.F8).interpret("b*b*bs*({b,1+b,bs;0,1+bs,b+bs}*[bs,1+b,1+bs])+[b,bs]").calculate().toString();
 console.log("Time: " + (performance.now()-time) + " ms");
 console.log(res);
+
+Vector.fromRawData(Field.R, bVector).toMatrix().print();
 // console.log(new Interpreter2(Field.F8).isVector(["[bs,1+b,1+bs]"]));
 
 //var mm = new MatrixManager();

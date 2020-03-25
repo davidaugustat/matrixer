@@ -5,13 +5,13 @@ class F9Number extends GeneralNumber{
 
     multiplyWithNumber(factor) {
         const resultValue = F9MultiplicationLookup
-            .find(object => object.factor1 == this.value && object.factor2 == factor.value).result;
+            .find(object => object.factor1 === this.value && object.factor2 === factor.value).result;
         return new F9Number(resultValue);
     }
 
     addNumber(summand) {
         const resultValue = F9AdditionLookup
-            .find(object => object.summand1 == this.value && object.summand2 == summand.value).result;
+            .find(object => object.summand1 === this.value && object.summand2 === summand.value).result;
         return new F9Number(resultValue);
     }
 
@@ -32,17 +32,17 @@ class F9Number extends GeneralNumber{
     }
 
     getMultiplicativeInverse() {
-        const resultValue = F9MultiplicationInverseLookup.find(object => object.number == this.value).inverse;
+        const resultValue = F9MultiplicationInverseLookup.find(object => object.number === this.value).inverse;
         return new F9Number(resultValue);
     }
 
     getAdditiveInverse() {
-        const resultValue = F9AdditionInverseLookup.find(object => object.number == this.value).inverse;
+        const resultValue = F9AdditionInverseLookup.find(object => object.number === this.value).inverse;
         return new F9Number(resultValue);
     }
 
     toString() {
-        return F9ElementsNameLookup.find(object => object.number == this.value).name;
+        return F9ElementsNameLookup.find(object => object.number === this.value).name;
     }
 
     /**

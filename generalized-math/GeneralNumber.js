@@ -20,16 +20,16 @@ class GeneralNumber extends MathElement{
     }
 
     /**
-     * @param {Matrix2} factor
-     * @returns {Matrix2}
+     * @param {Matrix} factor
+     * @returns {Matrix}
      * */
     multiplyWithMatrix(factor) {
         return factor.multiplyWithNumber(this);
     }
 
     /**
-     * @param {Vector2} factor
-     * @returns {Vector2}
+     * @param {Vector} factor
+     * @returns {Vector}
      * */
     multiplyWithVector(factor) {
         return factor.multiplyWithNumber(this);

@@ -1,6 +1,7 @@
 
 /**
  * @param {number} field
+ * @param {boolean} hasStartStopMarkers
  * @returns {string}
  * */
 function getMatrixRegex(field, hasStartStopMarkers=true) {
@@ -204,7 +205,7 @@ function getF8NumberFromString(numberString){
  * @returns {number}
  * */
 function getF9NumberFromString(numberString){
-    if(numberString == "0"){
+    if(numberString === "0"){
         return Field.F9Zero;
     } else if(numberString === "1"){
         return Field.F9One;

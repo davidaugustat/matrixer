@@ -55,11 +55,11 @@ class Vector extends MathElement{
     }
 
     /**
-     * @returns {Matrix2}
+     * @returns {Matrix}
      * */
     toMatrix(){
         const matrix = new Matrix(this.field, null,1, this.size);
-        matrix.setData(this.value);
+        matrix.value = [this.value];
         return matrix.transpose();
     }
 

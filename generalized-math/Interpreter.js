@@ -16,7 +16,7 @@ class Interpreter {
 
     /**
      * @param {string} expression
-     * @returns {ExpressionNode2}
+     * @returns {ExpressionNode}
      * */
     interpret(expression){
         const expressionParts = this.tokenize(expression);
@@ -26,7 +26,7 @@ class Interpreter {
     /**
      * @param {[string]} expression
      * @param {[string]} operatorsList
-     * @returns {ExpressionNode2}
+     * @returns {ExpressionNode}
      * */
     interpretOperator(expression, operatorsList){
 
@@ -36,11 +36,11 @@ class Interpreter {
         }
 
         if(this.isValidNumber(expression)){
-            return new ExpressionNode2(null, null, null, getNumberFromNumberString(this.field, expression[0]));
+            return new ExpressionNode(null, null, null, getNumberFromNumberString(this.field, expression[0]));
         } else if(this.isMatrix(expression)){
-            return new ExpressionNode2(null, null, null, Matrix.fromString(this.field, expression[0]));
+            return new ExpressionNode(null, null, null, Matrix.fromString(this.field, expression[0]));
         } else if(this.isVector(expression)){
-            return new ExpressionNode2(null, null, null, Vector.fromString(this.field, expression[0]));
+            return new ExpressionNode(null, null, null, Vector.fromString(this.field, expression[0]));
         } else if(this.isFunction(expression)){
             return this.interpretFunction(expression[0]);
         }
@@ -59,7 +59,7 @@ class Interpreter {
             } else {
                 rightNode = this.interpretOperator(expressionAfterOperator, operatorsList);
             }
-            return new ExpressionNode2(leftNode, rightNode, operator, null);
+            return new ExpressionNode(leftNode, rightNode, operator, null);
         }
 
         return this.interpretOperator(expression, this.getRotatedOperators(operatorsList));
@@ -125,7 +125,7 @@ class Interpreter {
 
     /**
      * @param {String} expression
-     * @returns {ExpressionNode2}
+     * @returns {ExpressionNode}
      * */
     interpretFunction(expression){
         const splitExpression = expression.split('(', 2);
@@ -133,8 +133,8 @@ class Interpreter {
         const innerExpression = splitExpression[1];
 
         const innerResult = this.interpret(innerExpression).calculate();
-        const innerResultNode = new ExpressionNode2(null, null, null, innerResult);
-        return new ExpressionNode2(innerResultNode, null, functionName, null);
+        const innerResultNode = new ExpressionNode(null, null, null, innerResult);
+        return new ExpressionNode(innerResultNode, null, functionName, null);
     }
 
     /**

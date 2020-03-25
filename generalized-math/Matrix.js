@@ -31,7 +31,7 @@ class Matrix extends MathElement{
             this.value = new Array(rows).fill(0).map(() => new Array(columns).fill(0));
         }
 
-        this.nonStepColumns = new Array();
+        this.nonStepColumns = [];
     }
 
     /**
@@ -63,7 +63,7 @@ class Matrix extends MathElement{
      * @returns {[GeneralNumber]}
      * */
     getColumn(position){
-        const column = new Array();
+        const column = [];
         this.value.forEach((row) => {
             column.push(row[position]);
         });
@@ -162,7 +162,7 @@ class Matrix extends MathElement{
     }
 
     /**
-     * @returns {{trivialSolution: Vector2, vectorSolution: [Vector2], rowReducedMatrix: Matrix}}
+     * @returns {{trivialSolution: Vector, vectorSolution: [Vector], rowReducedMatrix: Matrix}}
      * */
     solveHomogeneousEquationSystem(){
         const copy = this.getCopy();
@@ -203,8 +203,8 @@ class Matrix extends MathElement{
     }
 
     /**
-     * @param {Vector2} factor
-     * @returns {Vector2}
+     * @param {Vector} factor
+     * @returns {Vector}
      * */
     multiplyWithVector(factor) {
        if(this.getColumnCount() !== factor.getSize()){
@@ -363,7 +363,7 @@ class Matrix extends MathElement{
     }
 
     /**
-     * @returns {{trivialSolution: Vector2, vectorSolution: [Vector2], rowReducedMatrix: Matrix}}
+     * @returns {{trivialSolution: Vector, vectorSolution: [Vector], rowReducedMatrix: Matrix}}
      * */
     _internalSolveHomogeneousEquationSystem(){
         const zeroNumber = parseValueToFittingNumberObject(this.field, 0);
@@ -371,7 +371,7 @@ class Matrix extends MathElement{
 
         const solution = {
             trivialSolution: new Vector(this.field, null, this.rows),
-            vectorSolution: new Array(), // Array of vectors
+            vectorSolution: [], // Array of vectors
             rowReducedMatrix: this
         };
 
@@ -424,9 +424,9 @@ class Matrix extends MathElement{
      * @returns {Matrix}
      * */
     static fromRawData(field, data, ){
-        const resultData = new Array();
+        const resultData = [];
         data.forEach((row) => {
-            const resultRow = new Array();
+            const resultRow = [];
             row.forEach((cellValue) => {
                 resultRow.push(parseValueToFittingNumberObject(field, cellValue));
             });
@@ -449,12 +449,12 @@ class Matrix extends MathElement{
         text = removeCharacter(text, "}");
 
         const rows = text.split(";");
-        const matrixData = new Array();
+        const matrixData = [];
 
         let numColumns = 0;
         rows.forEach(rowString => {
             const rowStringValues =  rowString.split(",");
-            const rowNumbers = new Array();
+            const rowNumbers = [];
             rowStringValues.forEach(stringValue => {
                 const numberValue = getNumberFromNumberString(field, stringValue);
                 rowNumbers.push(numberValue);

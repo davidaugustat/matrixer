@@ -1,9 +1,9 @@
-class ExpressionNode2 {
+class ExpressionNode {
 
-    /** @type {ExpressionNode2} */
+    /** @type {ExpressionNode} */
     leftNode;
 
-    /** @type {ExpressionNode2} */
+    /** @type {ExpressionNode} */
     rightNode;
 
     /** @type {string} */
@@ -19,8 +19,8 @@ class ExpressionNode2 {
     isSingleBranchNode;
 
     /**
-     * @param {?ExpressionNode2} leftNode
-     * @param {?ExpressionNode2} rightNode
+     * @param {?ExpressionNode} leftNode
+     * @param {?ExpressionNode} rightNode
      * @param {?string} operator
      * @param {?MathElement} terminalElement
      * */
@@ -61,7 +61,7 @@ class ExpressionNode2 {
     }
 
     /**
-     * @returns {Matrix2}
+     * @returns {Matrix}
      * */
     rowReduce(){
         const innerValue = this.leftNode.calculate();
