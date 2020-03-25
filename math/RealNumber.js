@@ -50,4 +50,13 @@ class RealNumber extends GeneralNumber{
     getCopy() {
         return new RealNumber(this.value);
     }
+
+    /**
+     * @param {number} field
+     * @param {string} text
+     * @returns {RealNumber}
+     * */
+    static fromString(field, text){
+        return new RealNumber(parseFloat(text));
+    }
 }

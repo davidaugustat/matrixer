@@ -150,81 +150,15 @@ function getNumberFromNumberString(field,numberString){
     if(isRealNumbersField(field)){
         return new RealNumber(parseFloat(numberString));
     } else if(isPrimeField(field)){
-        return new PrimeFieldNumber(field, parseInt(numberString));
+        return PrimeFieldNumber.fromString(field, numberString);
     } else if(field === Field.F4){
-        return new F4Number(this.getF4NumberFromString(numberString));
+        return F4Number.fromString(field, numberString);
     } else if(field === Field.F8){
-        return new F8Number(this.getF8NumberFromString(numberString));
+        return F8Number.fromString(field, numberString);
     } else if(field === Field.F9){
-        return new F9Number(this.getF9NumberFromString(numberString));
+        return F9Number.fromString(field, numberString);
     }
 }
-
-/**
- * @param {string} numberString
- * @returns {number}
- * */
-function getF4NumberFromString(numberString){
-    if(numberString === "0"){
-        return Field.F4Zero;
-    } else if(numberString === "1"){
-        return Field.F4One;
-    } else if(numberString === "a"){
-        return Field.F4Alpha;
-    } else if(["a+1", "1+a"].includes(numberString)){
-        return Field.F4AlphaPlusOne;
-    }
-}
-
-/**
- * @param {string} numberString
- * @returns {number}
- * */
-function getF8NumberFromString(numberString){
-    if(numberString === "0"){
-        return Field.F8Zero;
-    } else if(numberString === "1"){
-        return Field.F8One;
-    } else if(numberString === "b"){
-        return Field.F8Beta;
-    } else if(numberString === "bs"){
-        return Field.F8BetaSquare;
-    } else if(["1+b", "b+1"].includes(numberString)){
-        return Field.F8OnePlusBeta;
-    } else if(["1+bs", "bs+1"].includes(numberString)){
-        return Field.F8OnePlusBetaSquare;
-    } else if(["b+bs", "bs+b"].includes(numberString)){
-        return Field.F8BetaPlusBetaSquare;
-    } else if(["1+b+bs", "1+bs+b", "b+1+bs", "b+bs+1", "bs+1+b", "bs+b+1"].includes(numberString)){
-        return Field.F8OnePlusBetaPlusBetaSquare;
-    }
-}
-
-/**
- * @param {string} numberString
- * @returns {number}
- * */
-function getF9NumberFromString(numberString){
-    if(numberString === "0"){
-        return Field.F9Zero;
-    } else if(numberString === "1"){
-        return Field.F9One;
-    } else if(numberString === "-1"){
-        return Field.F9MinusOne;
-    } else if(numberString === "j"){
-        return Field.F9Iota;
-    } else if(numberString === "-j"){
-        return Field.F9MinusIota;
-    } else if(["j+1", "1+j"].includes(numberString)){
-        return Field.F9IotaPlusOne;
-    } else if(["j-1", "-1+j"].includes(numberString)){
-        return Field.F9IotaMinusOne;
-    } else if(["-j+1", "1-j"].includes(numberString)){
-        return Field.F9MinusIotaPlusOne;
-    } else if(["-j-1", "-1-j"].includes(numberString)){
-        return Field.F9MinusIotaMinusOne;
-    }
- }
 
 function numberIsInteger(number) {
     return number === parseInt(number);

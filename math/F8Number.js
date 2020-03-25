@@ -54,4 +54,31 @@ class F8Number extends GeneralNumber{
     getCopy() {
         return new F8Number(this.value);
     }
+
+    /**
+     * @param {?number} field
+     * @param {string} text
+     * @returns {F8Number}
+     * */
+    static fromString(field, text){
+        let result;
+        if(text === "0"){
+            result = Field.F8Zero;
+        } else if(text === "1"){
+            result = Field.F8One;
+        } else if(text === "b"){
+            result = Field.F8Beta;
+        } else if(text === "bs"){
+            result = Field.F8BetaSquare;
+        } else if(["1+b", "b+1"].includes(text)){
+            result = Field.F8OnePlusBeta;
+        } else if(["1+bs", "bs+1"].includes(text)){
+            result = Field.F8OnePlusBetaSquare;
+        } else if(["b+bs", "bs+b"].includes(text)){
+            result = Field.F8BetaPlusBetaSquare;
+        } else if(["1+b+bs", "1+bs+b", "b+1+bs", "b+bs+1", "bs+1+b", "bs+b+1"].includes(text)){
+            result = Field.F8OnePlusBetaPlusBetaSquare;
+        }
+        return new F8Number(result);
+    }
 }

@@ -203,4 +203,13 @@ class MathElement {
         }
     }
 
+    /**
+     * @param {number} field
+     * @param {string} text
+     * @returns {MathElement}
+     * */
+    static fromString(field, text){
+
+    }
+
 }

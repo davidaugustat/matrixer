@@ -54,4 +54,23 @@ class F4Number extends GeneralNumber{
     getCopy() {
         return new F4Number(this.value);
     }
+
+    /**
+     * @param {?number} field
+     * @param {string} text
+     * @returns {F4Number}
+     * */
+    static fromString(field, text){
+        let result;
+        if(text === "0"){
+            result = Field.F4Zero;
+        } else if(text === "1"){
+            result = Field.F4One;
+        } else if(text === "a"){
+            result =  Field.F4Alpha;
+        } else if(["a+1", "1+a"].includes(text)){
+            result = Field.F4AlphaPlusOne;
+        }
+        return new F4Number(result);
+    }
 }

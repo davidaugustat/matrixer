@@ -86,4 +86,13 @@ class PrimeFieldNumber  extends GeneralNumber {
         return ((value % field) + field) % field;
     }
 
+    /**
+     * @param {number} field
+     * @param {string} text
+     * @returns {PrimeFieldNumber}
+     * */
+    static fromString(field, text){
+        return new PrimeFieldNumber(field, parseInt(text));
+    }
+
 }

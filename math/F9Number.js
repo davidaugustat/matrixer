@@ -53,4 +53,33 @@ class F9Number extends GeneralNumber{
     getCopy() {
         return new F9Number(this.value);
     }
+
+    /**
+     * @param {?number} field
+     * @param {string} text
+     * @returns {F9Number}
+     * */
+    static fromString(field, text){
+        let result;
+        if(text === "0"){
+            result = Field.F9Zero;
+        } else if(text === "1"){
+            result = Field.F9One;
+        } else if(text === "-1"){
+            result = Field.F9MinusOne;
+        } else if(text === "j"){
+            result = Field.F9Iota;
+        } else if(text === "-j"){
+            result = Field.F9MinusIota;
+        } else if(["j+1", "1+j"].includes(text)){
+            result = Field.F9IotaPlusOne;
+        } else if(["j-1", "-1+j"].includes(text)){
+            result = Field.F9IotaMinusOne;
+        } else if(["-j+1", "1-j"].includes(text)){
+            result = Field.F9MinusIotaPlusOne;
+        } else if(["-j-1", "-1-j"].includes(text)){
+            result = Field.F9MinusIotaMinusOne;
+        }
+        return new F9Number(result);
+    }
 }
