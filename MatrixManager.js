@@ -50,7 +50,6 @@ class MatrixManager{
         return result;
     }
 
-
     /**
      * Interprets a string and returns a matrix object that equals the matrix represented by the string.
      *
@@ -94,8 +93,6 @@ class MatrixManager{
         matrix.setData(matrixData);
         return matrix;
     }
-
-
 
     /**
      * Removes all occurrences of a character from a string

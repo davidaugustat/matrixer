@@ -124,7 +124,18 @@ function isExtendedField(field){
  * @returns string The string without spaces
  * */
 function removeSpaces(text){
-    return text.split(' ').join('');
+    return removeCharacter(text, ' ');
+}
+
+/**
+ * Removes all occurrences of a character from a string
+ *
+ * @param {string} text The string with the character
+ * @param {string} characterToRemove The character to remove
+ * @returns string The string without character
+ * */
+function removeCharacter(text, characterToRemove){
+    return text.split(characterToRemove).join('');
 }
 
 /**

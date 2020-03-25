@@ -78,12 +78,13 @@ class Interpreter2 {
         let result = [];
         let roundBracketLevel = 0;
         let curlyBracketLevel = 0;
+        let squareBracketLevel = 0;
         let lastSplitPosition = 0;
         let functionStarting = false;
 
         for(let i = 0; i < expression.length; i++){
             let currentChar = expression.charAt(i);
-            if(roundBracketLevel === 0 && curlyBracketLevel === 0){
+            if(roundBracketLevel === 0 && curlyBracketLevel === 0 && squareBracketLevel === 0){
                 if(this.isOperator(currentChar)){
                     result.push(expression.substring(lastSplitPosition, i));
                     result.push(currentChar);
@@ -97,7 +98,7 @@ class Interpreter2 {
                     result.push(expression.substring(lastSplitPosition, i));
                     functionStarting = true;
                 }
-            } else if(roundBracketLevel === 1 && curlyBracketLevel === 0 && currentChar === ')'){
+            } else if(roundBracketLevel === 1 && curlyBracketLevel === 0 && squareBracketLevel === 0 && currentChar === ')'){
                 result.push(expression.substring(lastSplitPosition, i));
                 lastSplitPosition = i+1;
             }
@@ -110,6 +111,10 @@ class Interpreter2 {
                 curlyBracketLevel++;
             } else if(currentChar === '}'){
                 curlyBracketLevel--;
+            }else if(currentChar === '['){
+                squareBracketLevel++;
+            } else if(currentChar === ']'){
+                squareBracketLevel--;
             }
         }
 

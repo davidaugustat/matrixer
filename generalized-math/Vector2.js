@@ -121,7 +121,7 @@ class Vector2 extends MathElement{
      * @return {Vector2}
      * */
     addVector(summand) {
-        if(summand.size != this.size){
+        if(summand.size !== this.size){
             throw "Both vectors must have same dimensions for addition";
         }
 
@@ -186,6 +186,15 @@ class Vector2 extends MathElement{
      * @returns {Vector2}
      * */
     static fromString(field, text){
-        // TODO: implement me
+        text = removeSpaces(text);
+        if(!RegExp(getVectorRegex(field)).test(text)){
+            throw "Not a valid input!";
+        }
+        text = removeCharacter(text, "[");
+        text = removeCharacter(text, "]");
+
+        const rows = text.split(",");
+        const vectorValues = rows.map(elementString => getNumberFromNumberString(field, elementString));
+        return new Vector2(field, vectorValues);
     }
 }
