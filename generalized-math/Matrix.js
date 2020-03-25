@@ -4,7 +4,7 @@
  @author David Augustat
  */
 
-class Matrix2 extends MathElement{
+class Matrix extends MathElement{
 
     /** @type {number} */
     rows;
@@ -144,7 +144,7 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @returns {Matrix2}
+     * @returns {Matrix}
      * */
     transpose(){
         const copy = this.getCopy();
@@ -153,7 +153,7 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @returns {Matrix2}
+     * @returns {Matrix}
      * */
     rowReduce(){
         const copy = this.getCopy();
@@ -162,7 +162,7 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @returns {{trivialSolution: Vector2, vectorSolution: [Vector2], rowReducedMatrix: Matrix2}}
+     * @returns {{trivialSolution: Vector2, vectorSolution: [Vector2], rowReducedMatrix: Matrix}}
      * */
     solveHomogeneousEquationSystem(){
         const copy = this.getCopy();
@@ -171,7 +171,7 @@ class Matrix2 extends MathElement{
 
     /**
      * @param {GeneralNumber} factor
-     * @returns {Matrix2}
+     * @returns {Matrix}
      * */
     multiplyWithNumber(factor) {
         const result = this.getEmptyCopy();
@@ -184,14 +184,14 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @param {Matrix2} factor
+     * @param {Matrix} factor
      * */
     multiplyWithMatrix(factor) {
         if(this.getColumnCount() !== factor.getRowCount()){
             throw "Result of matrix multiplication not defined! (wrong dimensions)";
         }
 
-        const result = new Matrix2(this.field, null, this.rows, factor.columns);
+        const result = new Matrix(this.field, null, this.rows, factor.columns);
         for(let rowPos = 0; rowPos < result.rows; rowPos++){
             for(let columnPos = 0; columnPos < result.columns; columnPos++){
                 const sourceRow = this.getRow(rowPos);
@@ -211,7 +211,7 @@ class Matrix2 extends MathElement{
            throw "Result of multiplication of matrix with vector not defined! (wrong dimensions)"
        }
 
-       const result = new Vector2(this.field, null, 0);
+       const result = new Vector(this.field, null, 0);
        for(let rowPos = 0; rowPos < this.rows; rowPos++){
            result.addRow(this._multiplyRowWithColumn(this.getRow(rowPos), factor.value))
        }
@@ -223,8 +223,8 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @param {Matrix2} summand
-     * @returns {Matrix2}
+     * @param {Matrix} summand
+     * @returns {Matrix}
      * */
     addMatrix(summand) {
         if(this.rows !== summand.rows || this.columns !== summand.columns){
@@ -249,12 +249,12 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @param {Matrix2} subtrahend
-     * @returns {Matrix2}
+     * @param {Matrix} subtrahend
+     * @returns {Matrix}
      * */
     subtractMatrix(subtrahend) {
         const summand2Value = subtrahend.value.map(row => row.map(cellElement => cellElement.getAdditiveInverse()));
-        return this.addMatrix(new Matrix2(this.field, summand2Value));
+        return this.addMatrix(new Matrix(this.field, summand2Value));
     }
 
     /**
@@ -363,14 +363,14 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @returns {{trivialSolution: Vector2, vectorSolution: [Vector2], rowReducedMatrix: Matrix2}}
+     * @returns {{trivialSolution: Vector2, vectorSolution: [Vector2], rowReducedMatrix: Matrix}}
      * */
     _internalSolveHomogeneousEquationSystem(){
         const zeroNumber = parseValueToFittingNumberObject(this.field, 0);
         const oneNumber = parseValueToFittingNumberObject(this.field, 1);
 
         const solution = {
-            trivialSolution: new Vector2(this.field, null, this.rows),
+            trivialSolution: new Vector(this.field, null, this.rows),
             vectorSolution: new Array(), // Array of vectors
             rowReducedMatrix: this
         };
@@ -379,7 +379,7 @@ class Matrix2 extends MathElement{
 
         this.nonStepColumns.forEach((currentNonStepColumnPos) => {
             let rowPos = 0;
-            const solutionVector = new Vector2(this.field, null, 0);
+            const solutionVector = new Vector(this.field, null, 0);
             for(let pos = 0; pos < this.columns; pos++){
                 if(this.nonStepColumns.includes(pos)){
                     if(pos === currentNonStepColumnPos){
@@ -398,10 +398,10 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @returns {Matrix2}
+     * @returns {Matrix}
      * */
     getCopy(){
-        const copyMatrix2 = new Matrix2(this. field, null, this.rows, this.columns);
+        const copyMatrix2 = new Matrix(this. field, null, this.rows, this.columns);
         for(let rowPos = 0; rowPos < this.rows; rowPos++){
             for(let columnPos = 0; columnPos < this.columns; columnPos++){
                 copyMatrix2.set(rowPos, columnPos, this.value[rowPos][columnPos]);
@@ -411,17 +411,17 @@ class Matrix2 extends MathElement{
     }
 
     /**
-     * @returns {Matrix2}
+     * @returns {Matrix}
      * */
     getEmptyCopy(){
-        return new Matrix2(this.field, null, this.rows, this.columns);
+        return new Matrix(this.field, null, this.rows, this.columns);
     }
 
 
     /**
      * @param{number} field
      * @param{[[number]]} data
-     * @returns {Matrix2}
+     * @returns {Matrix}
      * */
     static fromRawData(field, data, ){
         const resultData = new Array();
@@ -432,13 +432,13 @@ class Matrix2 extends MathElement{
             });
             resultData.push(resultRow);
         });
-        return new Matrix2(field, resultData, 0, 0);
+        return new Matrix(field, resultData, 0, 0);
     }
 
     /**
      * @param {number} field
      * @param {string} text
-     * @returns {Matrix2}
+     * @returns {Matrix}
      * */
     static fromString(field, text){
         text = removeSpaces(text);
@@ -466,7 +466,7 @@ class Matrix2 extends MathElement{
             matrixData.push(rowNumbers);
         });
 
-        return new Matrix2(field, matrixData);
+        return new Matrix(field, matrixData);
     }
 
 }

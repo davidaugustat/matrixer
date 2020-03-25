@@ -196,9 +196,9 @@ class MathElement {
     doAccordingToElementType(element, numberBehavior, matrixBehavior, vectorBehavior){
         if(element instanceof GeneralNumber){
             return numberBehavior(element);
-        } else if(element instanceof Matrix2){
+        } else if(element instanceof Matrix){
             return matrixBehavior(element);
-        } else if(element instanceof Vector2){
+        } else if(element instanceof Vector){
             return vectorBehavior(element);
         }
     }

@@ -107,7 +107,7 @@ var dVector = [Field.F4One, Field.F4Alpha, Field.F4One];
 const en1 = new ExpressionNode2(null, null, null, new F8Number(Field.F4Alpha));
 const en2 = new ExpressionNode2(null, null, null, new F8Number(Field.F4AlphaPlusOne));
 //const en3 = new ExpressionNode2(null, null, null, new F8Number(Field.F4One));
-const en3 = new ExpressionNode2(null, null, null, Matrix2.fromRawData(Field.F4, dValues));
+const en3 = new ExpressionNode2(null, null, null, Matrix.fromRawData(Field.F4, dValues));
 const en7 = new ExpressionNode2(null, null, null, new RealNumber(1));
 const en4 = new ExpressionNode2(en1, en2, Operators.ADD, null);
 const en5 = new ExpressionNode2(en3, en4, Operators.MULTIPLY, null);
@@ -123,7 +123,7 @@ const en6 = new ExpressionNode2(en5, en7, Operators.EXPONENTIATE, null);
 
 // console.log(Matrix2.fromString(Field.F8, "{b,1+b,bs;0,1+bs,b+bs}").multiplyWith(Vector2.fromString(Field.F8, "[bs,1+b,1+bs]")).toString());
 const time = performance.now();
-const res = new Interpreter2(Field.F8).interpret("b*b*bs*({b,1+b,bs;0,1+bs,b+bs}*[bs,1+b,1+bs])+[b,bs]").calculate().toString();
+const res = new Interpreter(Field.F8).interpret("b*b*bs*({b,1+b,bs;0,1+bs,b+bs}*[bs,1+b,1+bs])+[b,bs]").calculate().toString();
 console.log("Time: " + (performance.now()-time) + " ms");
 console.log(res);
 // console.log(new Interpreter2(Field.F8).isVector(["[bs,1+b,1+bs]"]));
@@ -229,7 +229,7 @@ function testMatrix(data, field=Field.R){
 }
 
 function testMatrix2(data, field){
-    const matrix = Matrix2.fromRawData(field, data);
+    const matrix = Matrix.fromRawData(field, data);
 
     const solution = matrix.solveHomogeneousEquationSystem();
     solution.vectorSolution.forEach(vector => vector.print());

@@ -1,4 +1,4 @@
-class Interpreter2 {
+class Interpreter {
     /** @type{number} */
     field;
 
@@ -38,9 +38,9 @@ class Interpreter2 {
         if(this.isValidNumber(expression)){
             return new ExpressionNode2(null, null, null, getNumberFromNumberString(this.field, expression[0]));
         } else if(this.isMatrix(expression)){
-            return new ExpressionNode2(null, null, null, Matrix2.fromString(this.field, expression[0]));
+            return new ExpressionNode2(null, null, null, Matrix.fromString(this.field, expression[0]));
         } else if(this.isVector(expression)){
-            return new ExpressionNode2(null, null, null, Vector2.fromString(this.field, expression[0]));
+            return new ExpressionNode2(null, null, null, Vector.fromString(this.field, expression[0]));
         } else if(this.isFunction(expression)){
             return this.interpretFunction(expression[0]);
         }
@@ -55,7 +55,7 @@ class Interpreter2 {
             let rightNode;
             if(operator === Operators.EXPONENTIATE){
                 // right node MUST be a real number. Therefore parse it using a real number interpreter:
-                rightNode = new Interpreter2(Field.R).interpretOperator(expressionAfterOperator, operatorsList);
+                rightNode = new Interpreter(Field.R).interpretOperator(expressionAfterOperator, operatorsList);
             } else {
                 rightNode = this.interpretOperator(expressionAfterOperator, operatorsList);
             }

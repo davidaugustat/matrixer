@@ -1,4 +1,4 @@
-class Vector2 extends MathElement{
+class Vector extends MathElement{
     /** @type {number} */
     size;
 
@@ -58,7 +58,7 @@ class Vector2 extends MathElement{
      * @returns {Matrix2}
      * */
     toMatrix(){
-        const matrix = new Matrix2(this.field, null,1, this.size);
+        const matrix = new Matrix(this.field, null,1, this.size);
         matrix.setData(this.value);
         return matrix.transpose();
     }
@@ -81,11 +81,11 @@ class Vector2 extends MathElement{
 
     /**
      * @param {GeneralNumber} factor
-     * @returns {Vector2}
+     * @returns {Vector}
      * */
     multiplyWithNumber(factor) {
         const resultValue = this.value.map(number => number.multiplyWith(factor));
-        return new Vector2(this.field, resultValue, 0);
+        return new Vector(this.field, resultValue, 0);
     }
 
     multiplyWithMatrix(factor) {
@@ -93,7 +93,7 @@ class Vector2 extends MathElement{
     }
 
     /**
-     * @param {Vector2} factor
+     * @param {Vector} factor
      * @returns {GeneralNumber}
      * */
     multiplyWithVector(factor) {
@@ -117,15 +117,15 @@ class Vector2 extends MathElement{
     }
 
     /**
-     * @param {Vector2} summand
-     * @return {Vector2}
+     * @param {Vector} summand
+     * @return {Vector}
      * */
     addVector(summand) {
         if(summand.size !== this.size){
             throw "Both vectors must have same dimensions for addition";
         }
 
-        let result = new Vector2(this.field, null, 0);
+        let result = new Vector(this.field, null, 0);
         for(let rowPos = 0; rowPos < this.size; rowPos++){
             result.addRow(this.value[rowPos].add(summand.value[rowPos]));
         }
@@ -141,11 +141,11 @@ class Vector2 extends MathElement{
     }
 
     /**
-     * @param {Vector2} subtrahend
+     * @param {Vector} subtrahend
      * */
     subtractVector(subtrahend) {
         const summand2Value = subtrahend.value.map(number => number.getAdditiveInverse());
-        return this.addVector(new Vector2(subtrahend.field, summand2Value));
+        return this.addVector(new Vector(subtrahend.field, summand2Value));
     }
 
     toString() {
@@ -167,23 +167,23 @@ class Vector2 extends MathElement{
 
     getCopy() {
         const resultValue = this.value.map(value => value.getCopy());
-        return new Vector2(this.field, resultValue);
+        return new Vector(this.field, resultValue);
     }
 
     /**
      * @param {number} field
      * @param {[number]} data
-     * @returns {Vector2}
+     * @returns {Vector}
      * */
     static fromRawData(field, data){
         const resultData = data.map(number => parseValueToFittingNumberObject(field, number));
-        return new Vector2(field, resultData);
+        return new Vector(field, resultData);
     }
 
     /**
      * @param {string} text
      * @param {number} field
-     * @returns {Vector2}
+     * @returns {Vector}
      * */
     static fromString(field, text){
         text = removeSpaces(text);
@@ -195,6 +195,6 @@ class Vector2 extends MathElement{
 
         const rows = text.split(",");
         const vectorValues = rows.map(elementString => getNumberFromNumberString(field, elementString));
-        return new Vector2(field, vectorValues);
+        return new Vector(field, vectorValues);
     }
 }

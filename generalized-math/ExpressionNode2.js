@@ -65,7 +65,7 @@ class ExpressionNode2 {
      * */
     rowReduce(){
         const innerValue = this.leftNode.calculate();
-        if(innerValue instanceof Matrix2){
+        if(innerValue instanceof Matrix){
             return innerValue.rowReduce();
         }
         throw "Not a matrix. Cannot be row reduced!";
