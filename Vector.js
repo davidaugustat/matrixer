@@ -80,4 +80,5 @@ class Vector{
         });
         console.log(output);
     }
+
 }

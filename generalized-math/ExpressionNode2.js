@@ -31,7 +31,7 @@ class ExpressionNode2 {
         this.terminalElement = terminalElement;
 
         this.isTerminal = terminalElement != null;
-        this.isSingleBranchNode = rightNode == null;
+        this.isSingleBranchNode = leftNode != null && rightNode == null;
     }
 
     /**
@@ -52,10 +52,23 @@ class ExpressionNode2 {
                     return this.leftNode.calculate().divideBy(this.rightNode.calculate());
                 case Operators.EXPONENTIATE:
                     return this.leftNode.calculate().exponentiate(this.rightNode.calculate());
+                case Operators.ROW_REDUCE:
+                    return this.rowReduce();
                 default:
                     throw "Invalid Operator";
             }
         }
+    }
+
+    /**
+     * @returns {Matrix2}
+     * */
+    rowReduce(){
+        const innerValue = this.leftNode.calculate();
+        if(innerValue instanceof Matrix2){
+            return innerValue.rowReduce();
+        }
+        throw "Not a matrix. Cannot be row reduced!";
     }
 
 }

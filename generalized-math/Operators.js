@@ -4,5 +4,8 @@ const Operators = {
     MULTIPLY: '*',
     EXPONENTIATE: '^',
     DIVIDE: '/',
-    TERMINAL: '€'
+    TERMINAL: '€',
+    ROW_REDUCE: 'rowreduce',
+    DETERMINANT: 'det',
+    ABSOLUTE_VALUE: 'abs'
 };

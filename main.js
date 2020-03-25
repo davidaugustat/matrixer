@@ -112,8 +112,13 @@ const en7 = new ExpressionNode2(null, null, null, new RealNumber(1));
 const en4 = new ExpressionNode2(en1, en2, Operators.ADD, null);
 const en5 = new ExpressionNode2(en3, en4, Operators.MULTIPLY, null);
 const en6 = new ExpressionNode2(en5, en7, Operators.EXPONENTIATE, null);
-console.log(en6.calculate().toString());
+//console.log(en6.calculate().toString());
 
+//console.log(new Interpreter2(Field.R).tokenize("5*(4+6)*rowReduce({5,3,4,7})", Field.R));
+
+// console.log(new Interpreter2(Field.R).interpret("5*(4+(3*2))^2/2", Field.R).calculate());
+console.log(new Interpreter2(Field.R).interpret("5*rowreduce({1,2,3;1,2,3;1,2,3})").calculate().toString());
+// console.log(new Interpreter2(Field.R).isVector(["[1,34,-54.3234]"]));
 
 //var mm = new MatrixManager();
 //var f4 = new Field(Field.F4);

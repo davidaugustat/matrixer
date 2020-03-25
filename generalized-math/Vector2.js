@@ -179,4 +179,13 @@ class Vector2 extends MathElement{
         const resultData = data.map(number => parseValueToFittingNumberObject(field, number));
         return new Vector2(field, resultData);
     }
+
+    /**
+     * @param {string} text
+     * @param {number} field
+     * @returns {Vector2}
+     * */
+    static fromString(field, text){
+        // TODO: implement me
+    }
 }

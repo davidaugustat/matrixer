@@ -434,5 +434,50 @@ class Matrix2 extends MathElement{
         });
         return new Matrix2(field, resultData, 0, 0);
     }
+
+    /**
+     * @param {number} field
+     * @param {string} text
+     * @returns {Matrix2}
+     * */
+    static fromString(field, text){
+        text = this.removeCharacter(text, " ");
+        if(!RegExp(getMatrixRegex(field)).test(text)){
+            throw "Not a valid input!";
+        }
+        text = this.removeCharacter(text, "{");
+        text = this.removeCharacter(text, "}");
+
+        const rows = text.split(";");
+        const matrixData = new Array();
+
+        let numColumns = 0;
+        rows.forEach(rowString => {
+            const rowStringValues =  rowString.split(",");
+            const rowNumbers = new Array();
+            rowStringValues.forEach(stringValue => {
+                const numberValue = getNumberFromNumberString(field, stringValue);
+                rowNumbers.push(numberValue);
+            });
+            if(numColumns > 0 && rowNumbers.length !== numColumns){
+                throw "Unequal amount of columns";
+            }
+            numColumns = rowNumbers.length;
+            matrixData.push(rowNumbers);
+        });
+
+        return new Matrix2(field, matrixData);
+    }
+
+    /**
+     * Removes all occurrences of a character from a string
+     *
+     * @param {string} text The string with the character
+     * @param {string} characterToRemove The character to remove
+     * @returns string The string without character
+     * */
+    static removeCharacter(text, characterToRemove){
+        return text.split(characterToRemove).join('');
+    }
     
 }
