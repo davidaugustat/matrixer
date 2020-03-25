@@ -116,8 +116,9 @@ const en6 = new ExpressionNode2(en5, en7, Operators.EXPONENTIATE, null);
 
 //console.log(new Interpreter2(Field.R).tokenize("5*(4+6)*rowReduce({5,3,4,7})", Field.R));
 
-// console.log(new Interpreter2(Field.R).interpret("5*(4+(3*2))^2/2", Field.R).calculate());
-console.log(new Interpreter2(Field.R).interpret("5*rowreduce({1,2,3;1,2,3;1,2,3})").calculate().toString());
+ console.log(new Interpreter2(Field.R).interpret("-(15+700/100-9)+(-(5+8-9^4)+87*(-4*3))-6/2+2").calculate());
+ console.log(new Interpreter2(Field.F4).interpret("a+1-(a+1)*(a*a)*a^2").calculate().toString());
+//console.log(new Interpreter2(Field.R).interpret("5*rowreduce({1,2,3;1,2,3;1,2,3})").calculate().toString());
 // console.log(new Interpreter2(Field.R).isVector(["[1,34,-54.3234]"]));
 
 //var mm = new MatrixManager();

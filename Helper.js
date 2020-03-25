@@ -60,6 +60,7 @@ function getF9Regex(hasStartStopMarkers=true){
 
 /**
  * @param {number} field
+ * @param {boolean} hasStartStopMarkers
  * @returns {string}
  * */
 function getRegexForField(field, hasStartStopMarkers=true){
@@ -97,7 +98,7 @@ function prepareRegex(regex, hasStartStopMarkers){
  * @returns {boolean}
  * */
 function isRealNumbersField(field){
-    return field == Field.R;
+    return field === Field.R;
 }
 
 /**
@@ -134,8 +135,10 @@ function removeSpaces(text){
  * @returns {GeneralNumber} The number equivalent to numberString
  * */
 function getNumberFromNumberString(field,numberString){
-    if(isRealNumbersField(field) || isPrimeField(field)){
+    if(isRealNumbersField(field)){
         return new RealNumber(parseFloat(numberString));
+    } else if(isPrimeField(field)){
+        return new PrimeFieldNumber(field, parseInt(numberString));
     } else if(field === Field.F4){
         return new F4Number(this.getF4NumberFromString(numberString));
     } else if(field === Field.F8){
@@ -150,11 +153,11 @@ function getNumberFromNumberString(field,numberString){
  * @returns {number}
  * */
 function getF4NumberFromString(numberString){
-    if(numberString == "0"){
+    if(numberString === "0"){
         return Field.F4Zero;
-    } else if(numberString == "1"){
+    } else if(numberString === "1"){
         return Field.F4One;
-    } else if(numberString == "a"){
+    } else if(numberString === "a"){
         return Field.F4Alpha;
     } else if(["a+1", "1+a"].includes(numberString)){
         return Field.F4AlphaPlusOne;
@@ -166,13 +169,13 @@ function getF4NumberFromString(numberString){
  * @returns {number}
  * */
 function getF8NumberFromString(numberString){
-    if(numberString == "0"){
+    if(numberString === "0"){
         return Field.F8Zero;
-    } else if(numberString == "1"){
+    } else if(numberString === "1"){
         return Field.F8One;
-    } else if(numberString == "b"){
+    } else if(numberString === "b"){
         return Field.F8Beta;
-    } else if(numberString == "bs"){
+    } else if(numberString === "bs"){
         return Field.F8BetaSquare;
     } else if(["1+b", "b+1"].includes(numberString)){
         return Field.F8OnePlusBeta;
@@ -192,13 +195,13 @@ function getF8NumberFromString(numberString){
 function getF9NumberFromString(numberString){
     if(numberString == "0"){
         return Field.F9Zero;
-    } else if(numberString == "1"){
+    } else if(numberString === "1"){
         return Field.F9One;
-    } else if(numberString == "-1"){
+    } else if(numberString === "-1"){
         return Field.F9MinusOne;
-    } else if(numberString == "j"){
+    } else if(numberString === "j"){
         return Field.F9Iota;
-    } else if(numberString == "-j"){
+    } else if(numberString === "-j"){
         return Field.F9MinusIota;
     } else if(["j+1", "1+j"].includes(numberString)){
         return Field.F9IotaPlusOne;
@@ -211,91 +214,6 @@ function getF9NumberFromString(numberString){
     }
  }
 
-//  * Converts a string into a number. Works for every available field.
-//  *
-//  * @param {string} numberString The string representation of the number. This must NOT contain spaces!
-//  * @param {number} field The field in which the number should be parsed
-//  * @returns number The number equivalent to numberString
-//  * */
-// function getNumberFromNumberString(numberString, field){
-//     console.log(numberString);
-//     if(isRealNumbersField(field) || isPrimeField(field)){
-//         return parseFloat(numberString);
-//     } else if(field == Field.F4){
-//         return this.getF4NumberFromString(numberString);
-//     } else if(field == Field.F8){
-//         return this.getF8NumberFromString(numberString);
-//     } else if(field == Field.F9){
-//         return this.getF9NumberFromString(numberString);
-//     }
-// }
-//
-// /**
-//  * @param {string} numberString
-//  * @returns {number}
-//  * */
-// function getF4NumberFromString(numberString){
-//     if(numberString == "0"){
-//         return Field.F4Zero;
-//     } else if(numberString == "1"){
-//         return Field.F4One;
-//     } else if(numberString == "a"){
-//         return Field.F4Alpha;
-//     } else if(["a+1", "1+a"].includes(numberString)){
-//         return Field.F4AlphaPlusOne;
-//     }
-// }
-//
-// /**
-//  * @param {string} numberString
-//  * @returns {number}
-//  * */
-// function getF8NumberFromString(numberString){
-//     if(numberString == "0"){
-//         return Field.F8Zero;
-//     } else if(numberString == "1"){
-//         return Field.F8One;
-//     } else if(numberString == "b"){
-//         return Field.F8Beta;
-//     } else if(numberString == "bs"){
-//         return Field.F8BetaSquare;
-//     } else if(["1+b", "b+1"].includes(numberString)){
-//         return Field.F8OnePlusBeta;
-//     } else if(["1+bs", "bs+1"].includes(numberString)){
-//         return Field.F8OnePlusBetaSquare;
-//     } else if(["b+bs", "bs+b"].includes(numberString)){
-//         return Field.F8BetaPlusBetaSquare;
-//     } else if(["1+b+bs", "1+bs+b", "b+1+bs", "b+bs+1", "bs+1+b", "bs+b+1"].includes(numberString)){
-//         return Field.F8OnePlusBetaPlusBetaSquare;
-//     }
-// }
-//
-// /**
-//  * @param {string} numberString
-//  * @returns {number}
-//  * */
-// function getF9NumberFromString(numberString){
-//     if(numberString == "0"){
-//         return Field.F9Zero;
-//     } else if(numberString == "1"){
-//         return Field.F9One;
-//     } else if(numberString == "-1"){
-//         return Field.F9MinusOne;
-//     } else if(numberString == "j"){
-//         return Field.F9Iota;
-//     } else if(numberString == "-j"){
-//         return Field.F9MinusIota;
-//     } else if(["j+1", "1+j"].includes(numberString)){
-//         return Field.F9IotaPlusOne;
-//     } else if(["j-1", "-1+j"].includes(numberString)){
-//         return Field.F9IotaMinusOne;
-//     } else if(["-j+1", "1-j"].includes(numberString)){
-//         return Field.F9MinusIotaPlusOne;
-//     } else if(["-j-1", "-1-j"].includes(numberString)){
-//         return Field.F9MinusIotaMinusOne;
-//     }
-// }
-
 function numberIsInteger(number) {
     return number === parseInt(number);
 }
@@ -305,6 +223,7 @@ function numberIsInteger(number) {
  * @returns {number}
  * */
 function preventNegativeZero(number){
+    //Yes, it's actually meant to be like that:
     return number + 0;
 }
 
