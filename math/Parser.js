@@ -15,6 +15,7 @@ class Parser {
         if(this.containsInvalidCharacters(field, text)){
             throw "Contains invalid characters!";
         }
+        return true;
     }
 
 
@@ -35,9 +36,9 @@ class Parser {
         const characterStack = [];
         for(let i = 0; i < text.length; i++){
             const currentChar = text.charAt(i);
-            if(this.isOpeningBracket(currentChar)){
+            if(isOpeningBracket(currentChar)){
                 characterStack.push(currentChar);
-            } else if(this.isClosingBracket(currentChar)){
+            } else if(isClosingBracket(currentChar)){
                 const respectiveOpeningBracket = characterStack[characterStack.length-1];
                 if((currentChar === ')' && respectiveOpeningBracket === '(')
                     || (currentChar === '}' && respectiveOpeningBracket === '{')
@@ -67,22 +68,6 @@ class Parser {
     removeEveryThingButBrackets(text){
         const everyThingButBracketsRegex = /[^(){}\[\]]/g;
         return text.replace(everyThingButBracketsRegex, '');
-    }
-
-    /**
-     * @param {string} character
-     * @returns {boolean}
-     * */
-    isOpeningBracket(character){
-        return character === '(' || character === '{' || character === '[';
-    }
-
-    /**
-     * @param {string} character
-     * @returns {boolean}
-     * */
-    isClosingBracket(character){
-        return character === ')' || character === '}' || character === ']';
     }
 
     /**

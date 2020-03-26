@@ -132,7 +132,13 @@ var dVector = [Field.F4One, Field.F4Alpha, Field.F4One];
 
 //console.log(new Parser().removeEveryThingButBrackets("kljsdsf(q#ä){fdd}[sdfsa[fsdf]"));// {[()()()(())]})
 const parser = new Parser();
-console.log(parser.containsInvalidCharacters(Field.F5, "5*(5-6+5)*2^3*rowReduce(334)*abs(4)"));
+//console.log(parser.containsInvalidCharacters(Field.F4, "a+1*(a-0+a+1)*a^a+1*rowReduce(a+a+a)*abs(0)"));
+
+// console.log(new Interpreter(Field.F8).completeOmittedMultiplicationOperator("b+bs(1+b+bs(bs))"));
+const time = performance.now();
+const fixed = new Interpreter(Field.R).interpret("0.3{1,1;1,1}(0.3{1,1;1,1})").calculate().toString();
+console.log("Time: " + (performance.now()-time) + " ms");
+console.log(fixed);
 
 //var mm = new MatrixManager();
 //var f4 = new Field(Field.F4);

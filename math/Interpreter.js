@@ -12,8 +12,6 @@ class Interpreter {
     /** @type {[string]} */
     operatorsInCorrectOrder = [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.DIVIDE, Operators.EXPONENTIATE, Operators.TERMINAL];
 
-    functionOperators = [Operators.ROW_REDUCE, Operators.DETERMINANT, Operators.ABSOLUTE_VALUE];
-
     /**
      * @param {string} expression
      * @returns {ExpressionNode}
@@ -74,6 +72,7 @@ class Interpreter {
     tokenize(expression){
         expression = expression.toLowerCase();
         expression = this.completeLeadingMinus(expression);
+        expression = this.completeOmittedMultiplicationOperator(expression);
 
         let result = [];
         let roundBracketLevel = 0;
@@ -143,7 +142,7 @@ class Interpreter {
      * @returns {boolean}
      * */
     startsWithFunctionOperator(expression, startPosition=0){
-        return this.functionOperators.some(operator => expression.startsWith(operator, startPosition));
+        return functionOperators.some(operator => expression.startsWith(operator, startPosition));
     }
 
     /**
@@ -172,6 +171,94 @@ class Interpreter {
             return "0" + expression;
         }
         return expression;
+    }
+
+    /**
+     * @param {string} expression
+     * @returns {string}
+     * */
+    completeOmittedMultiplicationOperator(expression){
+        let functionStarting = false;
+        for(let i = 0; i < expression.length; i++){
+            const currentChar = expression.charAt(i);
+            if(this.startsWithFunctionOperator(expression, i)){
+                functionStarting = true;
+            } else if(currentChar === '(' && functionStarting){
+                functionStarting = false;
+            } else if(!functionStarting){
+               expression = this.fixOmittedMultiplicationOperatorOnce(expression, i);
+
+            }
+        }
+        return expression;
+    }
+
+    /**
+     * @param {string} expression
+     * @param {number} startPosition
+     * @returns {string}
+     * */
+    fixOmittedMultiplicationOperatorOnce(expression, startPosition=0){
+        const expressionFromPosition = expression.substring(startPosition);
+        const possibilities = this.getOmittedMultiplicationOperatorPossibilities();
+        possibilities.forEach(possibility => {
+            if(expressionFromPosition.startsWith(possibility.value)){
+                const expressionBeforePosition = expression.substring(0, startPosition);
+                const fixedExpressionFromPosition =expressionFromPosition.replace(possibility.value, possibility.replacement);
+                expression = expressionBeforePosition + fixedExpressionFromPosition;
+            }
+        });
+        return expression;
+    }
+
+    /**
+     * @returns {[{value: string, replacement: string}]}
+     * */
+    getOmittedMultiplicationOperatorPossibilities(){
+        const possibilities = [
+            {value: ')(', replacement: ')*('},
+            {value: '){', replacement: ')*{'},
+            {value: ')[', replacement: ')*['},
+            {value: '}(', replacement: '}*('},
+            {value: '}{', replacement: '}*{'},
+            {value: '}[', replacement: '}*['},
+            {value: '](', replacement: ']*('},
+            {value: ']{', replacement: ']*{'},
+            {value: '][', replacement: ']*['}
+            ];
+
+        let fieldCharacters = [];
+        if(isRealNumbersField(this.field)){
+            fieldCharacters = realNumberCharactersWithoutDot;
+        } else if(isPrimeField(this.field)){
+            fieldCharacters = primeFieldNumberCharacters;
+        } else if(this.field === Field.F4){
+            fieldCharacters = f4NumberCharacters;
+        } else if(this.field === Field.F8){
+            fieldCharacters = f8NumberCharacters;
+        } else if(this.field === Field.F9){
+            fieldCharacters = f9NumberCharacters;
+        }
+        fieldCharacters.forEach(character => {
+            possibilities.push({value: character + '(', replacement: character + '*('});
+            possibilities.push({value: character + '{', replacement: character + '*{'});
+            possibilities.push({value: character + '[', replacement: character + '*['});
+            possibilities.push({value: ')' + character, replacement: ')*' + character});
+            possibilities.push({value: '}' + character, replacement: '}*' + character});
+            possibilities.push({value: ']' + character, replacement: ']*' + character});
+        });
+        return possibilities;
+    }
+
+    splitAtNextBracket(expression, position){
+        const stringBeforePosition = expression.substring(0, position);
+        const stringAfterPosition = expression.substring(position);
+        const result = [];
+        const stringAfterPositionSplitByBracket = stringAfterPosition.split(/(?=[(){}\[\]])/, 2);
+        console.log(stringAfterPositionSplitByBracket);
+        result.push(stringBeforePosition + stringAfterPositionSplitByBracket[0]);
+        result.push(stringAfterPositionSplitByBracket[1]);
+        return result;
     }
 
     /**

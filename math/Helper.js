@@ -190,4 +190,20 @@ function parseValueToFittingNumberObject(field, value){
     }
 }
 
+/**
+ * @param {string} character
+ * @returns {boolean}
+ * */
+function isOpeningBracket(character){
+    return character === '(' || character === '{' || character === '[';
+}
+
+/**
+ * @param {string} character
+ * @returns {boolean}
+ * */
+function isClosingBracket(character){
+    return character === ')' || character === '}' || character === ']';
+}
+
 
