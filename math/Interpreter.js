@@ -250,17 +250,6 @@ class Interpreter {
         return possibilities;
     }
 
-    splitAtNextBracket(expression, position){
-        const stringBeforePosition = expression.substring(0, position);
-        const stringAfterPosition = expression.substring(position);
-        const result = [];
-        const stringAfterPositionSplitByBracket = stringAfterPosition.split(/(?=[(){}\[\]])/, 2);
-        console.log(stringAfterPositionSplitByBracket);
-        result.push(stringBeforePosition + stringAfterPositionSplitByBracket[0]);
-        result.push(stringAfterPositionSplitByBracket[1]);
-        return result;
-    }
-
     /**
      * @param {[string]} list
      * @returns {[string]}
