@@ -12,7 +12,12 @@ class Parser {
             throw "Brackets not correct!";
         }
 
+        if(this.containsInvalidCharacters(field, text)){
+            throw "Contains invalid characters!";
+        }
     }
+
+
 
     /**
      * Checks if brackets are used in correct order and quantity.
@@ -47,6 +52,15 @@ class Parser {
     }
 
     /**
+     * @param  {number} field
+     * @param {string} text
+     * @returns {boolean}
+     * */
+    containsInvalidCharacters(field, text) {
+       return this.getValidCharactersRegex(field).test(text.toLowerCase());
+    }
+
+    /**
      * @param {string} text
      * @returns {string}
      * */
@@ -55,11 +69,58 @@ class Parser {
         return text.replace(everyThingButBracketsRegex, '');
     }
 
+    /**
+     * @param {string} character
+     * @returns {boolean}
+     * */
     isOpeningBracket(character){
         return character === '(' || character === '{' || character === '[';
     }
 
+    /**
+     * @param {string} character
+     * @returns {boolean}
+     * */
     isClosingBracket(character){
         return character === ')' || character === '}' || character === ']';
+    }
+
+    /**
+     * @param {number} field
+     * @returns {[string]}
+     * */
+    getValidCharacters(field){
+        const charactersUsedByAll = generalCharacters.concat(listOfAllOperators);
+       if(isRealNumbersField(field)){
+           return charactersUsedByAll.concat(realNumberCharacters);
+       } else if(isPrimeField(field)){
+           return charactersUsedByAll.concat(primeFieldNumberCharacters);
+       } else if(field === Field.F4){
+            return charactersUsedByAll.concat(f4NumberCharacters);
+        } else if(field === Field.F8){
+            return charactersUsedByAll.concat(f8NumberCharacters);
+        } else if(field === Field.F9){
+            return charactersUsedByAll.concat(f9NumberCharacters);
+        }
+    }
+
+    /**
+     * @param {number} field
+     * @returns {RegExp}
+     * */
+    getValidCharactersRegex(field){
+        let validCharactersList = this.getValidCharacters(field);
+        validCharactersList = validCharactersList.map(character => this.escapeCharacterForUseInRegex(character));
+        let regexString = "^(";
+        validCharactersList.forEach(character => regexString += character + '|');
+        // remove last '|' from regexString:
+        regexString = regexString.substring(0, regexString.length-1);
+        regexString += ")+$";
+        return RegExp(regexString);
+        //return regexString;
+    }
+
+    escapeCharacterForUseInRegex(character) {
+        return character.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
     }
 }

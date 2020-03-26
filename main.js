@@ -130,7 +130,9 @@ var dVector = [Field.F4One, Field.F4Alpha, Field.F4One];
 // Vector.fromRawData(Field.R, bVector).toMatrix().print();
 // console.log(new Interpreter2(Field.F8).isVector(["[bs,1+b,1+bs]"]));
 
-console.log(new Parser().removeEveryThingButBrackets("kljsdsf(q#ä){fdd}[sdfsa[fsdf]"));// {[()()()(())]})
+//console.log(new Parser().removeEveryThingButBrackets("kljsdsf(q#ä){fdd}[sdfsa[fsdf]"));// {[()()()(())]})
+const parser = new Parser();
+console.log(parser.containsInvalidCharacters(Field.F5, "5*(5-6+5)*2^3*rowReduce(334)*abs(4)"));
 
 //var mm = new MatrixManager();
 //var f4 = new Field(Field.F4);
