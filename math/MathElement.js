@@ -99,6 +99,14 @@ class MathElement {
     }
 
     /**
+     * Returns a string representation that can be used as an input for the Interpreter
+     * @returns {string}
+     * */
+    toUserInputString(){
+        throw "This is not implemented!";
+    }
+
+    /**
      * @returns {MathElement}
      * */
     getCopy(){

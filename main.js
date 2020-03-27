@@ -203,8 +203,10 @@ const exp7 = "rowReduce({4,3,8,9;3,78,3,4;5,3,2,7})";
 const exp8 = "4(4(4(4(4(4(4))))))*rowreduce({1,1;1,1})";
 
 const time = performance.now();
-console.log(new UserIoHandler().processCalculation(Field.R, exp8));
+console.log(new Interpreter(Field.F8).interpret(exp).calculate());
+console.log(new UserIoHandler().processCalculation(Field.F8, exp));
 console.log("Time: " + (performance.now()-time) + " ms");
+// console.log(removeSpacesAndLineBreaks("this is \n a \r\n text!"));
 
 // console.log(round(3.23430001, 10));
 

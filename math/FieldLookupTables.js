@@ -7,6 +7,14 @@ const F4ElementsNameLookup = [
     {number: Field.F4AlphaPlusOne, name: "α+1"}
 ];
 
+/** @type {[{number: number, inputString: string}]} */
+const F4ElementsUserInputLookup = [
+    {number: Field.F4Zero, inputString: "0"},
+    {number: Field.F4One, inputString: "1"},
+    {number: Field.F4Alpha, inputString: "a"},
+    {number: Field.F4AlphaPlusOne, inputString: "a+1"}
+];
+
 /** @type {[{number: number, inverse: number}]} */
 const F4MultiplicationInverseLookup = [
     {number: Field.F4Zero, inverse: Field.F4One},
@@ -73,6 +81,18 @@ const F8ElementsNameLookup = [
     {number: Field.F8OnePlusBetaSquare, name: "1+β²"},
     {number: Field.F8BetaPlusBetaSquare, name: "β+β²"},
     {number: Field.F8OnePlusBetaPlusBetaSquare, name: "1+β+β²"}
+];
+
+/** @type {[{number: number, userInput: string}]} */
+const F8ElementsUserInputLookup = [
+    {number: Field.F8Zero, inputString: "0"},
+    {number: Field.F8One, inputString: "1"},
+    {number: Field.F8Beta, inputString: "b"},
+    {number: Field.F8OnePlusBeta, inputString: "1+b"},
+    {number: Field.F8BetaSquare, inputString: "bs"},
+    {number: Field.F8OnePlusBetaSquare, inputString: "1+bs"},
+    {number: Field.F8BetaPlusBetaSquare, inputString: "b+bs"},
+    {number: Field.F8OnePlusBetaPlusBetaSquare, inputString: "1+b+bs"}
 ];
 
 /** @type {[{number: number, inverse: number}]} */
@@ -246,6 +266,19 @@ const F9ElementsNameLookup = [
     {number: Field.F9MinusIota, name: "-ι"},
     {number: Field.F9MinusIotaPlusOne, name: "-ι+1"},
     {number: Field.F9MinusIotaMinusOne, name: "-ι-1"}
+];
+
+/** @type {[{number: number, inputString: string}]} */
+const F9ElementsUserInputLookup = [
+    {number: Field.F9Zero, inputString: "0"},
+    {number: Field.F9One, inputString: "1"},
+    {number: Field.F9MinusOne, inputString: "-1"},
+    {number: Field.F9Iota, inputString: "j"},
+    {number: Field.F9IotaPlusOne, inputString: "j+1"},
+    {number: Field.F9IotaMinusOne, inputString: "j-1"},
+    {number: Field.F9MinusIota, inputString: "-j"},
+    {number: Field.F9MinusIotaPlusOne, inputString: "-j+1"},
+    {number: Field.F9MinusIotaMinusOne, inputString: "-j-1"}
 ];
 
 /** @type {[{number: number, inverse: number}]} */

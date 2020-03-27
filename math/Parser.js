@@ -21,6 +21,8 @@ class Parser {
      * @returns {boolean} Does the expression fulfill every criteria?
      * */
     isValidMathExpression(field, text){
+        text = removeSpacesAndLineBreaks(text);
+
         if(!this.isValidBracketMatching(text)){
             throw "Brackets not correct!";
         }
@@ -235,7 +237,7 @@ class Parser {
        } else if(field === Field.F4){
             return charactersUsedByAll.concat(getF4Regex(false));
         } else if(field === Field.F8){
-            return charactersUsedByAll.concat(getF8Regex());
+            return charactersUsedByAll.concat(getF8Regex(false));
         } else if(field === Field.F9){
             return charactersUsedByAll.concat(getF9Regex(false));
         }

@@ -46,6 +46,10 @@ class F8Number extends GeneralNumber{
         return F8ElementsNameLookup.find(object => object.number === this.value).name;
     }
 
+    toUserInputString() {
+        return F8ElementsUserInputLookup.find(object => object.number === this.value).inputString;
+    }
+
     /**
      * Returns an object that is identical to the current one, but not the same object.
      *

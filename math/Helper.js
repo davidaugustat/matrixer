@@ -131,8 +131,10 @@ function isExtendedField(field){
  * @param {string} text The string with spaces
  * @returns string The string without spaces
  * */
-function removeSpaces(text){
-    return removeCharacter(text, ' ');
+function removeSpacesAndLineBreaks(text){
+    let result = removeCharacter(text, ' ');
+    result = result.replace(/\r?\n|\r/g, '');
+    return result;
 }
 
 /**

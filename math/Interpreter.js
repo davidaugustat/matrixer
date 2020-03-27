@@ -17,6 +17,7 @@ class Interpreter {
      * @returns {ExpressionNode}
      * */
     interpret(expression){
+        expression = removeSpacesAndLineBreaks(expression);
         const expressionParts = this.tokenize(expression);
         return this.interpretOperator(expressionParts, this.operatorsInCorrectOrder);
     }

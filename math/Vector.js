@@ -165,6 +165,19 @@ class Vector extends MathElement{
         return output;
     }
 
+    toUserInputString() {
+        let output = "[";
+        this.value.forEach((number, index, array) => {
+            if(index < this.value.length-1) {
+                output += number.toUserInputString() + ", ";
+            } else{
+                output += number.toUserInputString();
+            }
+        });
+        output += "]";
+        return output;
+    }
+
     getCopy() {
         const resultValue = this.value.map(value => value.getCopy());
         return new Vector(this.field, resultValue);
@@ -186,7 +199,7 @@ class Vector extends MathElement{
      * @returns {Vector}
      * */
     static fromString(field, text){
-        text = removeSpaces(text);
+        text = removeSpacesAndLineBreaks(text);
         if(!RegExp(getVectorRegex(field)).test(text)){
             throw "Not a valid input!";
         }

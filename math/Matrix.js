@@ -134,6 +134,22 @@ class Matrix extends MathElement{
         return output;
     }
 
+    toUserInputString() {
+        let output = "{";
+        this.value.forEach((row) => {
+            row.forEach((cellElement, index, array) => {
+                if(index < array.length-1) {
+                    output += cellElement.toUserInputString() + ", ";
+                } else{
+                    output += cellElement.toUserInputString();
+                }
+            });
+            output += "; ";
+        });
+        output += "}";
+        return output;
+    }
+
     /**
      * @param {number} rowPos
      * @param {number} columnPos
@@ -441,7 +457,7 @@ class Matrix extends MathElement{
      * @returns {Matrix}
      * */
     static fromString(field, text){
-        text = removeSpaces(text);
+        text = removeSpacesAndLineBreaks(text);
         if(!RegExp(getMatrixRegex(field)).test(text)){
             throw "Not a valid input!";
         }

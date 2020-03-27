@@ -45,6 +45,10 @@ class F9Number extends GeneralNumber{
         return F9ElementsNameLookup.find(object => object.number === this.value).name;
     }
 
+    toUserInputString() {
+        return F9ElementsUserInputLookup.find(object => object.number === this.value).inputString;
+    }
+
     /**
      * Returns an object that is identical to the current one, but not the same object.
      *

@@ -43,6 +43,13 @@ class RealNumber extends GeneralNumber{
     }
 
     /**
+     * Note: Number will NOT be rounded here to maximize precision when using this output as an input again.
+     * */
+    toUserInputString() {
+        return this.value.toString();
+    }
+
+    /**
      * Returns an object that is identical to the current one, but not the same object.
      *
      * @returns {RealNumber}

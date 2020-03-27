@@ -46,6 +46,10 @@ class F4Number extends GeneralNumber{
         return F4ElementsNameLookup.find(object => object.number === this.value).name;
     }
 
+    toUserInputString() {
+        return F4ElementsUserInputLookup.find(object => object.number === this.value).inputString;
+    }
+
     /**
      * Returns an object that is identical to the current one, but not the same object.
      *

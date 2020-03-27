@@ -59,7 +59,10 @@ class PrimeFieldNumber  extends GeneralNumber {
 
     toString() {
          return this.value.toString();
-        //return this;
+    }
+
+    toUserInputString() {
+        return this.toString();
     }
 
     /**

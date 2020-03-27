@@ -10,7 +10,8 @@ class UserIoHandler {
      * the user input.
      * When this tree has been created, it's mathematical solution is calculated recursively. The output of the
      * calculated tree will be a MathElement which contains the final solution. This solution is then converted to
-     * a Latex string representation for outputting.
+     * a Latex string representation for outputting as well as a user input string representation that the user can
+     * use in another calculation.
      * Additionally this method also generates a Latex representation of the user input, so that it can be displayed
      * on screen along with the solution.
      *
@@ -19,21 +20,35 @@ class UserIoHandler {
      *
      * @param {number} field
      * @param {string} input
-     * @returns {{isSuccessful: boolean, latexUserInput: string, latexResult: string, ?exception: Object}}
+     * @returns {{isSuccessful: boolean, latexUserInput: string, latexResult: string, userInputResult: string, ?exception: Object}}
      */
     processCalculation(field, input){
         try {
             if(new Parser().isValidMathExpression(field, input)){
                 const resultNode = new Interpreter(field).interpret(input);
-                const latexResult = resultNode.calculate().toLatex();
+                const mathElementResult = resultNode.calculate();
+                const latexResult = mathElementResult.toLatex();
+                const userInputResult = mathElementResult.toUserInputString();
 
                 const latexUserInput = new InputToLatexConverter().toLatex(input);
 
-                return {isSuccessful: true, latexUserInput: latexUserInput, latexResult: latexResult, exception: null};
+                return {
+                    isSuccessful: true,
+                    latexUserInput: latexUserInput,
+                    latexResult: latexResult,
+                    userInputResult: userInputResult,
+                    exception: null
+                };
             }
 
         } catch (exception) {
-            return {isSuccessful: false, latexUserInput: "", latexResult: "", exception: exception};
+            return {
+                isSuccessful: false,
+                latexUserInput: "",
+                latexResult: "",
+                userInputResult: "",
+                exception: exception
+            };
         }
     }
 }

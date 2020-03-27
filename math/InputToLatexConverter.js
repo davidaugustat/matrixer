@@ -5,6 +5,7 @@ class InputToLatexConverter {
      * @returns {string}
      * */
     toLatex(text){
+        text = removeSpacesAndLineBreaks(text);
         text = this.convertFieldNumberStrings(text);
         text = this.convertMatrices(text);
         text = this.convertVectors(text);
