@@ -138,10 +138,13 @@ const parser = new Parser();
 //const time = performance.now();
 //const fixed = new Interpreter(Field.F4).interpret("1+a^2+a+1").calculate().toString();
 //console.log("Time: " + (performance.now()-time) + " ms");
-const time = performance.now();
+//const time = performance.now();
 //console.log(new Interpreter(Field.R).interpret("+(+5+5)").calculate().value);
- console.log(parser.areFunctionOperatorsFollowedByBracket("(5*rowreduce(4+4+abs(5*{1,1;1,1}))"));
-console.log("Time: " + (performance.now()-time) + " ms");
+// console.log(parser.areFunctionOperatorsFollowedByBracket("(5*rowreduce(4+4+abs(5*{1,1;1,1}))"));
+//console.log(parser.areAllMatricesValid(Field.F4, ""));
+//console.log(RegExp(getVectorRegex(Field.F4)).test("[[a,a]"))
+console.log(parser.isValidMathExpression(Field.R,"5,7*5+6{5,3,5;35}*[4,2,63]*4345.3*[4,2,63]*{5,3,5;35}"));
+//console.log("Time: " + (performance.now()-time) + " ms");
 
 //var mm = new MatrixManager();
 //var f4 = new Field(Field.F4);

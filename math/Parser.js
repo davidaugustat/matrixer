@@ -1,18 +1,24 @@
 class Parser {
 
-    /*
-    * TODO:
-    *  - check if function is followed by bracket!
-    *  - check if ',' and ';' are only used in matrices and vectors respectively
-    *  - check correctness of matrices and vectors
-    * */
-
     /**
      * Checks if text is a valid math expression. If not, an exception containing the approximate reason of failure will be thrown.
      *
-     * @param {number} field;
-     * @param {string} text
-     * @returns {boolean}
+     * Note: This method will only ever return true or throw an exception. It will never return false!
+     *
+     * Following criteria will be checked:
+     * - Is order and quantity of each bracket type correct?
+     * - Does text only contains valid numbers and characters?
+     *  Note: On Fields other than R, numbers in R will also be accepted
+     *  at every position. This is because real numbers must be allowed for exponentiation
+     *  - Invalid operator positions will be checked, e.g. multiplication sign at beginning, multiple operators in series
+     *  - Are function operators (e.g. rowreduce) followed by opening round bracket?
+     *  - Do all matrices match the matrix regex for the given field?
+     *  - Do all vectors match the matrix regex for the given field?
+     *  - Are comma and semicolon used outside of matrices or vector?
+     *
+     * @param {number} field The field that is used in the expression
+     * @param {string} text The expression to be checked
+     * @returns {boolean} Does the expression fulfill every criteria?
      * */
     isValidMathExpression(field, text){
         if(!this.isValidBracketMatching(text)){
@@ -31,10 +37,19 @@ class Parser {
             throw "Function operators must be followed by opening round bracket!"
         }
 
+        if(!this.areAllMatricesValid(field, text)){
+            throw "Incorrect matrix!";
+        }
+
+        if(!this.areAllVectorsValid(field, text)){
+            throw "Incorrect vector!";
+        }
+
+        if(this.commaAndSemicolonUsedOutsideMatrixAndVector(text)){
+            throw "Use of , or ; forbidden outside of matrix or vector!"
+        }
         return true;
     }
-
-
 
     /**
      * Checks if brackets are used in correct order and quantity.
@@ -120,12 +135,77 @@ class Parser {
         const separatedByFunctionOperators = text.split(RegExp(functionOperatorsRegex))
             .filter(substring => !functionOperators.includes(substring));
         const expressionPartsWithoutFirst = separatedByFunctionOperators.slice(1);
-        console.log(expressionPartsWithoutFirst);
         return expressionPartsWithoutFirst.every(substring => substring.startsWith('('));
     }
 
+    /**
+     * Extracts all matrices (marked by curly brackets) from the expression and matches them against the
+     * matrix regex.
+     *
+     * This method does NOT check if all rows have the same amount of columns!
+     *
+     * @param {number} field
+     * @param {string} text
+     * */
+    areAllMatricesValid(field, text){
+        const matrixStrings = [];
+        let lastOpeningCurlyBracketPosition = 0;
+        let insideMatrix = false;
+        for(let i = 0; i < text.length; i++){
+            const currentChar = text.charAt(i);
+            if(currentChar === '{'){
+                if(insideMatrix){
+                    return false;
+                }
+                insideMatrix = true;
+                lastOpeningCurlyBracketPosition = i;
+            } else if(currentChar === '}'){
+                const matrixString = text.substring(lastOpeningCurlyBracketPosition, i+1);
+                matrixStrings.push(matrixString);
+                insideMatrix = false;
+            }
+        }
 
+        const matrixRegex = RegExp(getMatrixRegex(field));
+        return matrixStrings.every(matrixString => matrixRegex.test(matrixString));
+    }
 
+    /**
+     * Extracts all vectors (marked by square brackets) from the expression and matches them against the
+     * vector regex.
+     *
+     * @param {number} field
+     * @param {string} text
+     * */
+    areAllVectorsValid(field, text){
+        const vectorStrings = [];
+        let lastOpeningSquareBracketPosition = 0;
+        for(let i = 0; i < text.length; i++){
+            const currentChar = text.charAt(i);
+            if(currentChar === '['){
+                lastOpeningSquareBracketPosition = i;
+            } else if(currentChar === ']'){
+                const vectorString = text.substring(lastOpeningSquareBracketPosition, i+1);
+                vectorStrings.push(vectorString);
+            }
+        }
+
+        const vectorRegex = RegExp(getVectorRegex(field));
+        return vectorStrings.every(vectorString => vectorRegex.test(vectorString));
+    }
+
+    commaAndSemicolonUsedOutsideMatrixAndVector(text){
+        const commaAndSemicolon = [',', ';'];
+        const textWithoutMatricesAndVectors = this.removeMatrixAndVectorStrings(text);
+        return commaAndSemicolon.some(character => textWithoutMatricesAndVectors.includes(character));
+    }
+
+    removeMatrixAndVectorStrings(text){
+        const simplifiedMatrixRegex = /{[\S]*?}/g;
+        const simplifiedVectorRegex = /\[[\S]*?]/g;
+        const textWithoutMatrices = text.replace(simplifiedMatrixRegex, '');
+        return textWithoutMatrices.replace(simplifiedVectorRegex, '');
+    }
 
     /**
      * @param {string} text
