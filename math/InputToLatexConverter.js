@@ -6,11 +6,9 @@ class InputToLatexConverter {
      * */
     toLatex(text){
         text = this.convertFieldNumberStrings(text);
-        console.log(text);
         text = this.convertMatrices(text);
-        console.log(text);
         text = this.convertVectors(text);
-        console.log(text);
+        text = this.convertExponentiatedParenthesis(text);
         return text;
     }
 
@@ -67,6 +65,62 @@ class InputToLatexConverter {
         });
         return convertedSubstrings.join();
     }
+
+    /**
+     * Fixes the problem that with exponentiated expressions in brackets only the first bracket will be shown as the exponent.
+     *
+     * For example in 2^(4+6) only the '(' will be marked as an exponent. To fix this, the outermost round brackets are
+     * replaced by curly brackets, e.g. 2\^(4\*(5+6)) becomes 2\^{4\*(5+6)}.
+     *
+     * @param {string} text
+     * @returns {string}
+     * */
+    convertExponentiatedParenthesis(text){
+       const textSplitByExponentiatedParenthesis = this.splitByExponentiatedParenthesis(text);
+       const convertedSubstrings = textSplitByExponentiatedParenthesis.map(substring => {
+           if(substring.startsWith("^")){
+               return "^{" + substring.substring(2, substring.length-1) + "}";
+           } else{
+               return substring;
+           }
+       });
+       return convertedSubstrings.join('');
+    }
+
+    /**
+     * Skims a string for exponentiated expression in brackets and splits the string in a way that the exponentiation sign
+     * together with the exponentiated bracket is separated from the rest of the string. The entire string is then
+     * returned as an array consisting of normal expression parts and the extracted parts.
+     *
+     * e.g. "5+2\^(5+7)-9" will result in ["5+", "2\^(5+7)", "-9"]
+     *
+     * @param {string} text
+     * @returns {[string]}
+     * */
+    splitByExponentiatedParenthesis(text){
+        let textSplitByExponentiation = [];
+        let lastSplitPosition = 0;
+        let roundBracketLevel = 0;
+
+        for(let i = 0; i < text.length; i++){
+            let currentChar = text.charAt(i);
+            if(text.startsWith("^(", i)){
+                textSplitByExponentiation.push(text.substring(lastSplitPosition, i));
+                lastSplitPosition = i;
+            } else if(currentChar === '('){
+                roundBracketLevel++;
+            } else if(currentChar === ')'){
+                roundBracketLevel--;
+                if(roundBracketLevel === 0){
+                    textSplitByExponentiation.push(text.substring(lastSplitPosition, i+1));
+                    lastSplitPosition = i+1;
+                }
+            }
+        }
+        textSplitByExponentiation.push(text.substring(lastSplitPosition));
+        return textSplitByExponentiation;
+    }
+
 
     /**
      * splits a string at opening and closing bracket position, so that the

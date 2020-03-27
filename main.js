@@ -152,7 +152,8 @@ const interpreter = new Interpreter(Field.F8);
 // const exp = "4*5*{1,2,3;4,5,6}*{a+1, a; 0, a+1}*[1+b+bs, b+bs]";
 //const exp = "4*5*{1,2,3;4,5,6}*{9,8;7,6;5,4}*[6,7]";
 const exp = "b*(1+b)*{1+b+bs,b+bs,1+b;0,1,b}*{1+bs,bs;0,1;b+bs,b}*[1+b+bs,1]";
-print(('\\[' + converter.toLatex(exp) + " = " + interpreter.interpret(exp).calculate().toLatex() + "\\]"));
+//print(('\\[' + converter.toLatex(exp) + " = " + interpreter.interpret(exp).calculate().toLatex() + "\\]"));
+printMathDisplay(converter.toLatex("4*6/4^(2-5/(4+6))*(5+5)*{1,2,3;4,5,6}+5*[6,7,8,9,0]"));
  //console.log(converter.convertMatrices("5*{1,2;4,5}+5-{3,5,7;574,4,2}+6"));
 //console.log(converter.convertMatrices("{1,2;4,5}"));
 //print("\\[\\]");
@@ -289,4 +290,8 @@ function printMultiplicationFieldTable(fieldElements, field){
 
 function print(text){
     document.getElementById("output").textContent += text;
+}
+
+function printMathDisplay(text){
+    print("\\[" + text + "\\]");
 }
