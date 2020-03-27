@@ -131,7 +131,7 @@ var dVector = [Field.F4One, Field.F4Alpha, Field.F4One];
 // console.log(new Interpreter2(Field.F8).isVector(["[bs,1+b,1+bs]"]));
 
 //console.log(new Parser().removeEveryThingButBrackets("kljsdsf(q#ä){fdd}[sdfsa[fsdf]"));// {[()()()(())]})
-const parser = new Parser();
+//const parser = new Parser();
 //console.log(parser.containsOnlyValidNumbersAndCharacters(Field.F4, "3.5*a+1*(a-0+a+1)*a^a+1*rowReduce(a+a+a)*abs(0)"));
 
 // console.log(new Interpreter(Field.F8).completeOmittedMultiplicationOperator("b+bs(1+b+bs(bs))"));
@@ -143,8 +143,19 @@ const parser = new Parser();
 // console.log(parser.areFunctionOperatorsFollowedByBracket("(5*rowreduce(4+4+abs(5*{1,1;1,1}))"));
 //console.log(parser.areAllMatricesValid(Field.F4, ""));
 //console.log(RegExp(getVectorRegex(Field.F4)).test("[[a,a]"))
-console.log(parser.isValidMathExpression(Field.R,"5,7*5+6{5,3,5;35}*[4,2,63]*4345.3*[4,2,63]*{5,3,5;35}"));
+//console.log(parser.isValidMathExpression(Field.R,"57*5+6{5,3,5;35}*[4,2,63]*4345.3*[4,2,63]*{5,3,5;35}"));
 //console.log("Time: " + (performance.now()-time) + " ms");
+
+const converter = new InputToLatexConverter();
+const interpreter = new Interpreter(Field.F8);
+//print('\\[' + converter.convertMatrices("5*{1,2;4,5}+5-{3,5,7;574,4,2}+6") + "\\]");
+// const exp = "4*5*{1,2,3;4,5,6}*{a+1, a; 0, a+1}*[1+b+bs, b+bs]";
+//const exp = "4*5*{1,2,3;4,5,6}*{9,8;7,6;5,4}*[6,7]";
+const exp = "b*(1+b)*{1+b+bs,b+bs,1+b;0,1,b}*{1+bs,bs;0,1;b+bs,b}*[1+b+bs,1]";
+print(('\\[' + converter.toLatex(exp) + " = " + interpreter.interpret(exp).calculate().toLatex() + "\\]"));
+ //console.log(converter.convertMatrices("5*{1,2;4,5}+5-{3,5,7;574,4,2}+6"));
+//console.log(converter.convertMatrices("{1,2;4,5}"));
+//print("\\[\\]");
 
 //var mm = new MatrixManager();
 //var f4 = new Field(Field.F4);
