@@ -39,7 +39,7 @@ class RealNumber extends GeneralNumber{
     }
 
     toString() {
-        return this.value.toString();
+        return round(this.value, 4);
     }
 
     /**

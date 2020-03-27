@@ -46,7 +46,6 @@ class InputToLatexConverter {
                 return substring;
             }
         });
-        console.log(convertedSubstrings);
         return convertedSubstrings.join('');
     }
 

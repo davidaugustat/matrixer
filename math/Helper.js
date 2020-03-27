@@ -212,3 +212,12 @@ function isOpeningBracket(character){
 function isClosingBracket(character){
     return character === ')' || character === '}' || character === ']';
 }
+
+/**
+ * @param {number} number
+ * @param {number} numberOfDecimals
+ * @returns {string}
+ * */
+function round(number, numberOfDecimals){
+    return parseFloat(number.toFixed(numberOfDecimals)).toString();
+}

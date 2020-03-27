@@ -153,7 +153,7 @@ const interpreter = new Interpreter(Field.F8);
 //const exp = "4*5*{1,2,3;4,5,6}*{9,8;7,6;5,4}*[6,7]";
 const exp = "b*(1+b)*{1+b+bs,b+bs,1+b;0,1,b}*{1+bs,bs;0,1;b+bs,b}*[1+b+bs,1]";
 //print(('\\[' + converter.toLatex(exp) + " = " + interpreter.interpret(exp).calculate().toLatex() + "\\]"));
-printMathDisplay(converter.toLatex("4*6/4^(2-5/(4+6))*(5+5)*{1,2,3;4,5,6}+5*[6,7,8,9,0]"));
+//printMathDisplay(converter.toLatex("4*6/4^(2-5/(4+6))*(5+5)*{1,2,3;4,5,6}+5*[6,7,8,9,0]"));
  //console.log(converter.convertMatrices("5*{1,2;4,5}+5-{3,5,7;574,4,2}+6"));
 //console.log(converter.convertMatrices("{1,2;4,5}"));
 //print("\\[\\]");
@@ -197,6 +197,18 @@ const exp3 = "(a+1+a)*a+1*a";
 const exp4 = "1+b+bs*(b*bs*bs)";
 const exp5 = "bs*b*(1+bs*(b+bs))";
 const exp6 = "(j+j*j)*(j-1+(1+1+j))";
+
+
+const exp7 = "rowReduce({4,3,8,9;3,78,3,4;5,3,2,7})";
+const exp8 = "4(4(4(4(4(4(4))))))*rowreduce({1,1;1,1})";
+
+const time = performance.now();
+console.log(new UserIoHandler().processCalculation(Field.R, exp8));
+console.log("Time: " + (performance.now()-time) + " ms");
+
+// console.log(round(3.23430001, 10));
+
+
 //const exp6 = "(j-1+(1+1+j))";
 //const exp6 = "j-1+j-1";
 //console.log(getNumberFromNumberString("5", Field.R));
@@ -234,6 +246,7 @@ const exp6 = "(j+j*j)*(j-1+(1+1+j))";
 
 //const res =Matrix2.fromRawData(Field.R, hValues).multiplyWith(Matrix2.fromRawData(Field.R, iValues)).toString();
 //console.log(res);
+
 
 
 
