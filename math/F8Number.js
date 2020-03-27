@@ -78,6 +78,8 @@ class F8Number extends GeneralNumber{
             result = Field.F8BetaPlusBetaSquare;
         } else if(["1+b+bs", "1+bs+b", "b+1+bs", "b+bs+1", "bs+1+b", "bs+b+1"].includes(text)){
             result = Field.F8OnePlusBetaPlusBetaSquare;
+        } else{
+            throw "Invalid number!";
         }
         return new F8Number(result);
     }

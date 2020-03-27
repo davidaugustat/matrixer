@@ -57,6 +57,10 @@ class RealNumber extends GeneralNumber{
      * @returns {RealNumber}
      * */
     static fromString(field, text){
-        return new RealNumber(parseFloat(text));
+        const numberValue = parseFloat(text);
+        if(isNaN(numberValue)){
+            throw "Invalid number";
+        }
+        return new RealNumber(numberValue);
     }
 }

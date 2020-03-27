@@ -1,5 +1,12 @@
 class Parser {
 
+    /*
+    * TODO:
+    *  - check if function is followed by bracket!
+    *  - check if ',' and ';' are only used in matrices and vectors respectively
+    *  - check correctness of matrices and vectors
+    * */
+
     /**
      * Checks if text is a valid math expression. If not, an exception containing the approximate reason of failure will be thrown.
      *
@@ -12,9 +19,18 @@ class Parser {
             throw "Brackets not correct!";
         }
 
-        if(this.containsInvalidCharacters(field, text)){
-            throw "Contains invalid characters!";
+        if(!this.containsOnlyValidNumbersAndCharacters(field, text)){
+            throw "Contains invalid characters or numbers!";
         }
+
+        if(this.containsOperatorsAtWrongPosition(text)){
+            throw "Contains operators at disallowed position!";
+        }
+
+        if(!this.areFunctionOperatorsFollowedByBracket(text)){
+            throw "Function operators must be followed by opening round bracket!"
+        }
+
         return true;
     }
 
@@ -57,9 +73,59 @@ class Parser {
      * @param {string} text
      * @returns {boolean}
      * */
-    containsInvalidCharacters(field, text) {
-       return this.getValidCharactersRegex(field).test(text.toLowerCase());
+    containsOnlyValidNumbersAndCharacters(field, text) {
+       return this.getValidNumbersAndCharactersRegex(field).test(text.toLowerCase());
     }
+
+    /**
+     * Checks for several syntax errors facing operators
+     *
+     * - Checks for invalid start operators: *, /, ^  (e.g. "*5+5")
+     * - Checks for invalid end operators: +, -, *, /, ^  (e.g. "5+5+")
+     * - Checks for invalid sequences including operators: (*, (/, (^, -), +), *), /), ^), ++, --, //, ^^,....  (e.g. (*5+5), 5++ )
+     *
+     * @param  {string} text
+     * @returns {boolean}
+     * */
+    containsOperatorsAtWrongPosition(text){
+        const invalidCharacterSequences = ['(*', '(/', '(^', '-)', '+)', '*)', '/)', '^)',
+            '++','+-','+*','+/','+^', '-+', '--', '-*', '-/', '-^', '*+', '*-', '**', '*/', '*^',
+            '/+' ,'/-' ,'/*' ,'//' ,'/^' ,'^+' ,'^-' ,'^*' ,'^/' ,'^^'];
+        const invalidStartCharacters = ['*', '/', '^'];
+        const invalidEndCharacters = ['+', '-', '*', '/', '^'];
+
+        const containsInvalidCharacterSequence = invalidCharacterSequences.some(invalidCharacterSequence => {
+            return text.includes(invalidCharacterSequence);
+        });
+        const containsInvalidStartCharacter = invalidStartCharacters.some(invalidStartCharacter => {
+            return text.startsWith(invalidStartCharacter);
+        });
+        const containsInvalidEndCharacter = invalidEndCharacters.some(invalidEndCharacter => {
+            return text.endsWith(invalidEndCharacter);
+        });
+
+        return containsInvalidCharacterSequence || containsInvalidStartCharacter || containsInvalidEndCharacter;
+    }
+
+    /**
+     * Checks if all function operators are followed by a round bracket.
+     *
+     * e.g. "abs5+5" or "abs+5" return false while abs(5+5) returns true
+     *
+     * @param {string} text
+     * @returns {boolean}
+     * */
+    areFunctionOperatorsFollowedByBracket(text){
+        const functionOperatorsRegex = "(" + functionOperators.join("|") + ")";
+        const separatedByFunctionOperators = text.split(RegExp(functionOperatorsRegex))
+            .filter(substring => !functionOperators.includes(substring));
+        const expressionPartsWithoutFirst = separatedByFunctionOperators.slice(1);
+        console.log(expressionPartsWithoutFirst);
+        return expressionPartsWithoutFirst.every(substring => substring.startsWith('('));
+    }
+
+
+
 
     /**
      * @param {string} text
@@ -74,18 +140,24 @@ class Parser {
      * @param {number} field
      * @returns {[string]}
      * */
-    getValidCharacters(field){
-        const charactersUsedByAll = generalCharacters.concat(listOfAllOperators);
+    getValidNumbersAndCharacters(field){
+        // because of exponentiation, all Fields must allow real numbers as well:
+        const charactersUsedByAll = generalCharacters
+            .concat(listOfAllOperators)
+            .map(character => this.escapeCharacterForUseInRegex(character))
+            .concat(getRealNumberRegex(false));
+
+        //concat(getRealNumberRegex(false));
        if(isRealNumbersField(field)){
-           return charactersUsedByAll.concat(realNumberCharacters);
+           return charactersUsedByAll;
        } else if(isPrimeField(field)){
-           return charactersUsedByAll.concat(primeFieldNumberCharacters);
+           return charactersUsedByAll.concat(getPrimeFieldRegex(false));
        } else if(field === Field.F4){
-            return charactersUsedByAll.concat(f4NumberCharacters);
+            return charactersUsedByAll.concat(getF4Regex(false));
         } else if(field === Field.F8){
-            return charactersUsedByAll.concat(f8NumberCharacters);
+            return charactersUsedByAll.concat(getF8Regex());
         } else if(field === Field.F9){
-            return charactersUsedByAll.concat(f9NumberCharacters);
+            return charactersUsedByAll.concat(getF9Regex(false));
         }
     }
 
@@ -93,13 +165,10 @@ class Parser {
      * @param {number} field
      * @returns {RegExp}
      * */
-    getValidCharactersRegex(field){
-        let validCharactersList = this.getValidCharacters(field);
-        validCharactersList = validCharactersList.map(character => this.escapeCharacterForUseInRegex(character));
+    getValidNumbersAndCharactersRegex(field){
+        let validCharactersList = this.getValidNumbersAndCharacters(field);
         let regexString = "^(";
-        validCharactersList.forEach(character => regexString += character + '|');
-        // remove last '|' from regexString:
-        regexString = regexString.substring(0, regexString.length-1);
+        regexString += validCharactersList.join('|');
         regexString += ")+$";
         return RegExp(regexString);
         //return regexString;

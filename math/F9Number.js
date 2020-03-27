@@ -79,6 +79,8 @@ class F9Number extends GeneralNumber{
             result = Field.F9MinusIotaPlusOne;
         } else if(["-j-1", "-1-j"].includes(text)){
             result = Field.F9MinusIotaMinusOne;
+        } else{
+            throw "Invalid number!";
         }
         return new F9Number(result);
     }

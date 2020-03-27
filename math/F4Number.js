@@ -70,6 +70,8 @@ class F4Number extends GeneralNumber{
             result =  Field.F4Alpha;
         } else if(["a+1", "1+a"].includes(text)){
             result = Field.F4AlphaPlusOne;
+        } else{
+            throw "Invalid number!";
         }
         return new F4Number(result);
     }

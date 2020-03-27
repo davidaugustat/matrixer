@@ -35,6 +35,8 @@ class Interpreter {
 
         if(this.isValidNumber(expression)){
             return new ExpressionNode(null, null, null, getNumberFromNumberString(this.field, expression[0]));
+        } else if(this.isAnyNumber(expression)){
+            throw "Number is not supported on this field!";
         } else if(this.isMatrix(expression)){
             return new ExpressionNode(null, null, null, Matrix.fromString(this.field, expression[0]));
         } else if(this.isVector(expression)){
@@ -71,7 +73,7 @@ class Interpreter {
      * */
     tokenize(expression){
         expression = expression.toLowerCase();
-        expression = this.completeLeadingMinus(expression);
+        expression = this.completeLeadingPlusAndMinus(expression);
         expression = this.completeOmittedMultiplicationOperator(expression);
 
         let result = [];
@@ -166,8 +168,8 @@ class Interpreter {
      * @param {string} expression
      * @returns {string}
      */
-    completeLeadingMinus(expression){
-        if(expression.startsWith(Operators.SUBTRACT)){
+    completeLeadingPlusAndMinus(expression){
+        if(expression.startsWith(Operators.SUBTRACT) || expression.startsWith(Operators.ADD)){
             return "0" + expression;
         }
         return expression;
@@ -304,6 +306,22 @@ class Interpreter {
     isVector(expression){
         if(Array.isArray(expression) && expression.length === 1) {
             return RegExp(getVectorRegex(this.field)).test(expression[0]);
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the given expression is any number from any field.
+     *
+     * E.g. even when this.field == Field.R, this method will return true for 'a+1' because 'a+1' is a valid
+     * number from F4.
+     *
+     * @param {[string]} expression
+     * @returns {boolean}
+     * */
+    isAnyNumber(expression){
+        if(Array.isArray(expression) && expression.length === 1) {
+            return RegExp(getAnyNumberRegex()).test(expression[0]);
         }
         return false;
     }

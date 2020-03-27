@@ -59,6 +59,13 @@ function getF9Regex(hasStartStopMarkers=true){
     return prepareRegex(f9Regex, hasStartStopMarkers);
 }
 
+function getAnyNumberRegex(hasStartStopMarkers=true){
+    const anyNumberRegex ='(' + getRealNumberRegex(false) + '|' + getPrimeFieldRegex(false) + '|'
+        + getF4Regex(false) + '|' + getF8Regex(false) + '|'
+        + getF9Regex(false) + ')';
+    return prepareRegex(anyNumberRegex, hasStartStopMarkers);
+}
+
 /**
  * @param {number} field
  * @param {boolean} hasStartStopMarkers

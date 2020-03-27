@@ -92,7 +92,11 @@ class PrimeFieldNumber  extends GeneralNumber {
      * @returns {PrimeFieldNumber}
      * */
     static fromString(field, text){
-        return new PrimeFieldNumber(field, parseInt(text));
+        const numberValue = parseInt(text);
+        if(isNaN(numberValue) || numberValue !== parseFloat(text)){
+            throw "Invalid number";
+        }
+        return new PrimeFieldNumber(field, numberValue);
     }
 
 }
