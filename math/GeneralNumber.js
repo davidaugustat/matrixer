@@ -50,5 +50,4 @@ class GeneralNumber extends MathElement{
     subtractVector(subtrahend) {
         throw "Subtraction of a vector from a number is not allowed";
     }
-
 }

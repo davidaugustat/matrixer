@@ -468,5 +468,4 @@ class Matrix extends MathElement{
 
         return new Matrix(field, matrixData);
     }
-
 }

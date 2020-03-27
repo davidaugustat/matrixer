@@ -209,7 +209,6 @@ class MathElement {
      * @returns {MathElement}
      * */
     static fromString(field, text){
-
+        throw "This is not implemented!";
     }
-
 }

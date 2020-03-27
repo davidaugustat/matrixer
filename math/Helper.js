@@ -212,5 +212,3 @@ function isOpeningBracket(character){
 function isClosingBracket(character){
     return character === ')' || character === '}' || character === ']';
 }
-
-

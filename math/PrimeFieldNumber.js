@@ -98,5 +98,4 @@ class PrimeFieldNumber  extends GeneralNumber {
         }
         return new PrimeFieldNumber(field, numberValue);
     }
-
 }

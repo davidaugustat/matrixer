@@ -346,5 +346,4 @@ class Interpreter {
         rotatedList.push(operatorList[0]);
         return rotatedList;
     }
-
 }
