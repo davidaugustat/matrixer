@@ -1,16 +1,32 @@
+/**
+ * Class for storing numbers over the F4 field with the 4 elements 0, 1, a, a+1 (a is alpha).
+ *
+ * @author David Augustat
+ * */
 class F4Number extends GeneralNumber{
 
+    /**
+     * @param {number} value
+     * */
     constructor(value) {
         super(Field.F4, value);
     }
 
-    multiplyWithNumber(factor) {
+    /**
+     * @param {F4Number} factor
+     * @returns {F4Number}
+     * */
+    _multiplyWithNumber(factor) {
         const resultValue = F4MultiplicationLookup
             .find(object => object.factor1 === this.value && object.factor2 === factor.value).result;
         return new F4Number(resultValue);
     }
 
-    addNumber(summand) {
+    /**
+     * @param {F4Number} summand
+     * @returns {F4Number}
+     * */
+    _addNumber(summand) {
         const resultValue = F4AdditionLookup
             .find(object => object.summand1 === this.value && object.summand2 === summand.value).result;
         return new F4Number(resultValue);
@@ -20,32 +36,52 @@ class F4Number extends GeneralNumber{
      * @param {F4Number} subtrahend
      * @return {F4Number}
      * */
-    subtractNumber(subtrahend) {
-        return this.addNumber(subtrahend.getAdditiveInverse());
+    _subtractNumber(subtrahend) {
+        return this._addNumber(subtrahend.getAdditiveInverse());
     }
 
     /**
      * @param {F4Number} divisor
      * @returns {F4Number}
      * */
-    divideByNumber(divisor) {
-        return this.multiplyWithNumber(divisor.getMultiplicativeInverse());
+    _divideByNumber(divisor) {
+        return this._multiplyWithNumber(divisor.getMultiplicativeInverse());
     }
 
+    /**
+     * Retrieves the multiplicative inverse from a lookup table.
+     *
+     * @returns {F4Number}
+     * */
     getMultiplicativeInverse() {
         const resultValue = F4MultiplicationInverseLookup.find(object => object.number === this.value).inverse;
         return new F4Number(resultValue);
     }
 
+    /**
+     * Retrieves the additive inverse from a lookup table.
+     *
+     * @returns {F4Number}
+     * */
     getAdditiveInverse() {
         const resultValue = F4AdditionInverseLookup.find(object => object.number === this.value).inverse;
         return new F4Number(resultValue);
     }
 
+    /**
+     * Retrieves the corresponding string value from a lookup table.
+     *
+     * @returns {string}
+     * */
     toString() {
         return F4ElementsNameLookup.find(object => object.number === this.value).name;
     }
 
+    /**
+     * Retrieves the corresponding user input string value from a lookup table.
+     *
+     * @returns {string}
+     * */
     toUserInputString() {
         return F4ElementsUserInputLookup.find(object => object.number === this.value).inputString;
     }
@@ -60,6 +96,8 @@ class F4Number extends GeneralNumber{
     }
 
     /**
+     * Compares the input string with all allowed values. If none matches, an exception is thrown.
+     *
      * @param {?number} field
      * @param {string} text
      * @returns {F4Number}

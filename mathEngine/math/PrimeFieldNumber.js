@@ -1,29 +1,70 @@
 class PrimeFieldNumber  extends GeneralNumber {
 
+    /**
+     * @param {number} field
+     * @param {number} value
+     * */
     constructor(field, value) {
-        super(field, PrimeFieldNumber.valueToRepresentative(field, value));
+        super(field, PrimeFieldNumber._valueToRepresentative(field, value));
     }
 
-    multiplyWithNumber(factor) {
+    /**
+     * Factor must be a prime field number over the same field
+     *
+     * @param {PrimeFieldNumber} factor
+     * @returns {PrimeFieldNumber}
+     * */
+    _multiplyWithNumber(factor) {
         return new PrimeFieldNumber(this.field, this.value * factor.value);
     }
 
-    addNumber(summand) {
+    /**
+     * Summand must be a prime field number over the same field
+     *
+     * @param {PrimeFieldNumber} summand
+     * @returns {PrimeFieldNumber}
+     * */
+    _addNumber(summand) {
         return new PrimeFieldNumber(this.field,this.value + summand.value);
     }
 
-    subtractNumber(subtrahend) {
+    /**
+     * Subtrahend must be a prime field number over the same field
+     *
+     * @param {PrimeFieldNumber} subtrahend
+     * @returns {PrimeFieldNumber}
+     * */
+    _subtractNumber(subtrahend) {
         return new PrimeFieldNumber(this.field, this.value - subtrahend.value);
     }
 
     /**
+     * Divisor must be a prime field number over the same field
+     *
      * @param {PrimeFieldNumber} divisor
+     * @returns {PrimeFieldNumber}
      * */
-    divideByNumber(divisor) {
+    _divideByNumber(divisor) {
         //return new PrimeFieldNumber(this.value / divisor.value);
         return new PrimeFieldNumber(this.field,this.value * divisor.getMultiplicativeInverse().value)
     }
 
+    /**
+     * Calculates the multiplicative inverse of the current PrimeFieldNumber object using the extended Euclidean algorithm.
+     *
+     *
+     * This is done by first executing the Euclidean algorithm which finds the greatest common divisor
+     * of the current value and the field number (e.g. for F5 the field number is 5). During the execution
+     * all calculated multiples are stored.
+     *
+     * Afterwards the stored values are used to find values for a and b so that the Equation
+     * value * a + fieldNumber * b = gcd(value, fieldValue) is saturated.
+     *
+     * See here for more details:
+     * https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Simple_algebraic_field_extensions
+     *
+     * @returns {PrimeFieldNumber}
+     * */
     getMultiplicativeInverse() {
         // This method uses the Extended Euclidean Algorithm:
         let multiples = [1];
@@ -50,17 +91,32 @@ class PrimeFieldNumber  extends GeneralNumber {
             wPrevious = wCurrent;
             wCurrent = wPrePrevious - multiples[i+1] * wPrevious;
         }
-        return new PrimeFieldNumber(this.field, this.valueToRepresentative(wCurrent));
+        return new PrimeFieldNumber(this.field, this._valueToRepresentative(wCurrent));
     }
 
+    /**
+     * Returns the additive inverse of the current prime field number.
+     *
+     * The additive inverse can easily be calculated by subtracting the current value from the field number.
+     *
+     * E.g. for F5: 5 - 4 = 1  -> 1 is the additive inverse of 4
+     *
+     * @returns {PrimeFieldNumber}
+     * */
     getAdditiveInverse() {
         return new PrimeFieldNumber(this.field,this.field - this.value);
     }
 
+    /**
+     * @returns {string}
+     * */
     toString() {
          return this.value.toString();
     }
 
+    /**
+     * @returns {string}
+     * */
     toUserInputString() {
         return this.toString();
     }
@@ -74,7 +130,8 @@ class PrimeFieldNumber  extends GeneralNumber {
         return new PrimeFieldNumber(this.field, this.value);
     }
 
-    valueToRepresentative(value){
+
+    _valueToRepresentative(value){
         return ((value % this.field) + this.field) % this.field;
     }
 
@@ -85,7 +142,7 @@ class PrimeFieldNumber  extends GeneralNumber {
      * @param {number} value;
      * @returns {number}
      * */
-    static valueToRepresentative(field, value){
+    static _valueToRepresentative(field, value){
         return ((value % field) + field) % field;
     }
 

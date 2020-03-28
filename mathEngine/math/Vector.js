@@ -83,12 +83,12 @@ class Vector extends MathElement{
      * @param {GeneralNumber} factor
      * @returns {Vector}
      * */
-    multiplyWithNumber(factor) {
+    _multiplyWithNumber(factor) {
         const resultValue = this.value.map(number => number.multiplyWith(factor));
         return new Vector(this.field, resultValue, 0);
     }
 
-    multiplyWithMatrix(factor) {
+    _multiplyWithMatrix(factor) {
         throw "A vector cannot be multiplied with a Matrix this way around.";
     }
 
@@ -96,7 +96,7 @@ class Vector extends MathElement{
      * @param {Vector} factor
      * @returns {GeneralNumber}
      * */
-    multiplyWithVector(factor) {
+    _multiplyWithVector(factor) {
         if(this.size !== factor.size){
             throw "Both vectors must have same dimensions for multiplication";
         }
@@ -108,11 +108,11 @@ class Vector extends MathElement{
         return result;
     }
 
-    addNumber(summand) {
+    _addNumber(summand) {
         throw "Addition of numbers to a vector is not allowed";
     }
 
-    addMatrix(summand) {
+    _addMatrix(summand) {
         throw "Addition of matrices to a vector is not allowed";
     }
 
@@ -120,7 +120,7 @@ class Vector extends MathElement{
      * @param {Vector} summand
      * @return {Vector}
      * */
-    addVector(summand) {
+    _addVector(summand) {
         if(summand.size !== this.size){
             throw "Both vectors must have same dimensions for addition";
         }
@@ -132,20 +132,20 @@ class Vector extends MathElement{
         return result;
     }
 
-    subtractNumber(subtrahend) {
+    _subtractNumber(subtrahend) {
         throw "Subtraction of numbers from a vector is not allowed";
     }
 
-    subtractMatrix(subtrahend) {
+    _subtractMatrix(subtrahend) {
         throw "Subtraction of matrices from a vector is not allowed";
     }
 
     /**
      * @param {Vector} subtrahend
      * */
-    subtractVector(subtrahend) {
+    _subtractVector(subtrahend) {
         const summand2Value = subtrahend.value.map(number => number.getAdditiveInverse());
-        return this.addVector(new Vector(subtrahend.field, summand2Value));
+        return this._addVector(new Vector(subtrahend.field, summand2Value));
     }
 
     toString() {

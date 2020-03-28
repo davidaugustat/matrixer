@@ -1,3 +1,8 @@
+/**
+ * Lookup table file that contains all kinds of lookup tables for the fields F4, F8, F9.
+ *
+ * @author David Augustat
+ * */
 
 /** @type {[{number: number, name: string}]} */
 const F4ElementsNameLookup = [

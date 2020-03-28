@@ -1,9 +1,26 @@
+/**
+ * General abstract class for storing a math element over an algebraic field.
+ *
+ * Known subtypes of this class are GeneralNumber (of which RealNumber, PrimeFieldNumber, F4Number, F8Number,
+ * F9Number are subtypes), Matrix, Vector
+ *
+ * Do not create objects of this class but of their subtypes.
+ *
+ * The different available fields can be seen in Field.js
+ *
+ * @author David Augustat
+ * */
 class MathElement {
 
-    /** @type {number} */
+    /**
+     * The field on which the MathElement operates
+     *  @type {number}
+     *  */
     _field;
 
-    /** @type {number | [[GeneralNumber]] | [GeneralNumber]}*/
+    /**
+     * The value that the math element holds (float value, matrix of GeneralNumber's, array of GeneralNumber's,...)
+     * @type {number | [[GeneralNumber]] | [GeneralNumber]}*/
     _value;
 
     constructor(field, value) {
@@ -11,63 +28,91 @@ class MathElement {
         this._value = value;
     }
 
-
+    /**
+     * @returns {number} The field on which the MathElement operates
+     * */
     get field() {
         return this._field;
     }
 
+    /**
+     * @returns {number | [[GeneralNumber]] | [GeneralNumber]} The value that the math element holds
+     * (float value, matrix of GeneralNumber's, array of GeneralNumber's,...)
+     * */
     get value() {
         return this._value;
     }
 
-
+    /**
+     * @param {number} value The field on which the MathElement operates
+     * */
     set field(value) {
         this._field = value;
     }
 
+    /**
+     * @param {number | [[GeneralNumber]] | [GeneralNumber]} value The value that the math element should contain
+     * */
     set value(value) {
         this._value = value;
     }
 
     /**
-     * @param {MathElement} factor
-     * @returns {MathElement}
+     * Multiplies a MathElement by another MathElement.
+     *
+     * @param {MathElement} factor Factor to multiply the current MathElement by
+     * @returns {MathElement} Result of the multiplication
      * */
     multiplyWith(factor){
-        return this.doAccordingToElementType(factor, () => this.multiplyWithNumber(factor),
-            () => this.multiplyWithMatrix(factor), () => this.multiplyWithVector(factor));
+        return this._doAccordingToElementType(factor, () => this._multiplyWithNumber(factor),
+            () => this._multiplyWithMatrix(factor), () => this._multiplyWithVector(factor));
     }
 
     /**
-     * @param {MathElement} summand
-     * @returns {MathElement}
+     * Adds a MathElement to another MathElement.
+     *
+     * @param {MathElement} summand Summand to add to the current MathElement
+     * @returns {MathElement} Result of the addition
      * */
     add(summand){
-        return this.doAccordingToElementType(summand, () => this.addNumber(summand),
-            () => this.addMatrix(summand), () => this.addVector(summand));
+        return this._doAccordingToElementType(summand, () => this._addNumber(summand),
+            () => this._addMatrix(summand), () => this._addVector(summand));
     }
 
     /**
-     * @param {MathElement} subtrahend
-     * @returns {MathElement}
+     *  Subtracts a MathElement from another MathElement.
+     *
+     * @param {MathElement} subtrahend Subtrahend to subtract from the current MathElement
+     * @returns {MathElement} result of the division
      * */
     subtract(subtrahend){
-        return this.doAccordingToElementType(subtrahend, () => this.subtractNumber(subtrahend),
-            () => this.subtractMatrix(subtrahend), () => this.subtractVector(subtrahend));
+        return this._doAccordingToElementType(subtrahend, () => this._subtractNumber(subtrahend),
+            () => this._subtractMatrix(subtrahend), () => this._subtractVector(subtrahend));
     }
 
     /**
-     * @param {MathElement} divisor
-     * @returns {MathElement}
+     * Divides a MathElement by another MathElement.
+     *
+     * Note that division cannot be applied on matrices and vectors!
+     *
+     * @param {MathElement} divisor Divisor to divide the current MathElement by
+     * @returns {MathElement} result of the division
      * */
     divideBy(divisor){
-        return this.doAccordingToElementType(divisor, () => this.divideByNumber(divisor),
-            () => {throw "Division by matrix not supported!";}, () => {throw "Division by vector not supported!";});
+        return this._doAccordingToElementType(divisor, () => this._divideByNumber(divisor),
+            () => {
+            throw "Division by matrix not supported!";
+            }, () => {
+            throw "Division by vector not supported!";
+        });
     }
 
     /**
-     * @param {RealNumber} exponent This must be an integer >=0. Note that is must be a real number regardless of the current field.
-     * @returns {MathElement}
+     * Exponentiates a MathElement by a RealNumber
+     *
+     * @param {RealNumber} exponent This must be an integer >=0. Note that it must be a real number regardless of the current field.
+     * Exception: When the base is a RealNumber, the exponent can be any real number (also negative, float,...)
+     * @returns {MathElement} result of the exponentiation
      * */
     exponentiate(exponent){
         if(!exponent instanceof RealNumber ||exponent.value < 0 || !numberIsInteger(exponent.value)){
@@ -83,6 +128,8 @@ class MathElement {
 
 
     /**
+     * Returns a human-readable string containing the MathElement's value
+     *
      * @returns {string}
      * */
     toString(){
@@ -90,7 +137,9 @@ class MathElement {
     }
 
     /**
-     * Returns LaTeX representation of the MathElement object
+     * Returns LaTeX representation of the MathElement's value.
+     * Note that Latex math mode tags '\\(' and '\\)' or '\\[' and '\\]' are NOT included in this string
+     * to allow concatenation with other Latex string representations.
      *
      * @returns {string}
      * */
@@ -99,7 +148,11 @@ class MathElement {
     }
 
     /**
-     * Returns a string representation that can be used as an input for the Interpreter
+     * Returns a string representation of the MathElement's value that can be used as an input for the Interpreter.
+     * The string does NOT contain any special characters like greek letters.
+     *
+     * E.g. a MathElement containing Field.F4AlphaPlusOne returns "a+1".
+     *
      * @returns {string}
      * */
     toUserInputString(){
@@ -107,26 +160,37 @@ class MathElement {
     }
 
     /**
+     * Returns an equivalent MathElement object that is a copy of the current object
+     *
      * @returns {MathElement}
      * */
     getCopy(){
         throw "This is not implemented!";
     }
 
+    /**
+     * Generates an equivalent MathElement from a string representation in user-input-notation
+     *
+     * Note: This must be called on the desired subtype of MathElement! The type (number, matrix, vector)
+     * is NOT automatically detected.
+     *
+     * @param {number} field
+     * @param {string} text
+     * @returns {MathElement}
+     * */
+    static fromString(field, text){
+        throw "This is not implemented!";
+    }
+
+
     // internal functions that need to be overridden in subtypes:
-    /**
-     * @param {MathElement} factor
-     * @returns {MathElement}
-     * */
-    multiplyWithNumber(factor){
-        throw "This is not implemented!";
-    }
+    // Following functions are not intended to be used as public methods:
 
     /**
      * @param {MathElement} factor
      * @returns {MathElement}
      * */
-    multiplyWithMatrix(factor){
+    _multiplyWithNumber(factor){
         throw "This is not implemented!";
     }
 
@@ -134,7 +198,15 @@ class MathElement {
      * @param {MathElement} factor
      * @returns {MathElement}
      * */
-    multiplyWithVector(factor){
+    _multiplyWithMatrix(factor){
+        throw "This is not implemented!";
+    }
+
+    /**
+     * @param {MathElement} factor
+     * @returns {MathElement}
+     * */
+    _multiplyWithVector(factor){
         throw "This is not implemented!";
     }
 
@@ -142,7 +214,7 @@ class MathElement {
      * @param {MathElement} summand
      * @returns {MathElement}
      * */
-    addNumber(summand){
+    _addNumber(summand){
         throw "This is not implemented!";
     }
 
@@ -150,7 +222,7 @@ class MathElement {
      * @param {MathElement} summand
      * @returns {MathElement}
      * */
-    addMatrix(summand){
+    _addMatrix(summand){
         throw "This is not implemented!";
     }
 
@@ -158,7 +230,7 @@ class MathElement {
      * @param {MathElement} summand
      * @returns {MathElement}
      * */
-    addVector(summand){
+    _addVector(summand){
         throw "This is not implemented!";
     } 
     
@@ -166,7 +238,7 @@ class MathElement {
      * @param {MathElement} subtrahend
      * @returns {MathElement}
      * */
-    subtractNumber(subtrahend){
+    _subtractNumber(subtrahend){
         throw "This is not implemented!";
     }
 
@@ -174,7 +246,7 @@ class MathElement {
      * @param {MathElement} subtrahend
      * @returns {MathElement}
      * */
-    subtractMatrix(subtrahend){
+    _subtractMatrix(subtrahend){
         throw "This is not implemented!";
     }
 
@@ -182,7 +254,7 @@ class MathElement {
      * @param {MathElement} subtrahend
      * @returns {MathElement}
      * */
-    subtractVector(subtrahend){
+    _subtractVector(subtrahend){
         throw "This is not implemented!";
     }
 
@@ -190,7 +262,7 @@ class MathElement {
      * @param {MathElement} divisor
      * @returns {MathElement}
      * */
-    divideByNumber(divisor){
+    _divideByNumber(divisor){
         throw "This is not implemented!";
     }
 
@@ -201,7 +273,7 @@ class MathElement {
      * @param {function(MathElement): MathElement} vectorBehavior
      * @returns {MathElement}
      * */
-    doAccordingToElementType(element, numberBehavior, matrixBehavior, vectorBehavior){
+    _doAccordingToElementType(element, numberBehavior, matrixBehavior, vectorBehavior){
         if(element instanceof GeneralNumber){
             return numberBehavior(element);
         } else if(element instanceof Matrix){
@@ -209,14 +281,5 @@ class MathElement {
         } else if(element instanceof Vector){
             return vectorBehavior(element);
         }
-    }
-
-    /**
-     * @param {number} field
-     * @param {string} text
-     * @returns {MathElement}
-     * */
-    static fromString(field, text){
-        throw "This is not implemented!";
     }
 }

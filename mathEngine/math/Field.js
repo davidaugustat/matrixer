@@ -1,3 +1,8 @@
+/**
+ * Stores constants regarding the different fields and their values.
+ *
+ * @author David Augustat
+ * */
 class Field {
     static F2 = 2;
     static F3 = 3;
