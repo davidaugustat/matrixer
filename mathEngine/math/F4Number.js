@@ -113,7 +113,7 @@ class F4Number extends GeneralNumber{
         } else if(["a+1", "1+a"].includes(text)){
             result = Field.F4AlphaPlusOne;
         } else{
-            throw "Invalid number!";
+            throw InvalidNumberException;
         }
         return new F4Number(result);
     }

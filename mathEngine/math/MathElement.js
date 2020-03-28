@@ -101,9 +101,9 @@ class MathElement {
     divideBy(divisor){
         return this._doAccordingToElementType(divisor, () => this._divideByNumber(divisor),
             () => {
-            throw "Division by matrix not supported!";
+            throw DivisionByMatrixException;
             }, () => {
-            throw "Division by vector not supported!";
+            throw DivisionByVectorException;
         });
     }
 
@@ -116,7 +116,7 @@ class MathElement {
      * */
     exponentiate(exponent){
         if(!exponent instanceof RealNumber ||exponent.value < 0 || !numberIsInteger(exponent.value)){
-            throw "Invalid exponent";
+            throw InvalidExponentException;
         }
 
         let result = parseValueToFittingNumberObject(this.field, 1);
@@ -133,7 +133,7 @@ class MathElement {
      * @returns {string}
      * */
     toString(){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -144,7 +144,7 @@ class MathElement {
      * @returns {string}
      * */
     toLatex(){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -156,7 +156,7 @@ class MathElement {
      * @returns {string}
      * */
     toUserInputString(){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -165,7 +165,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     getCopy(){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -179,7 +179,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     static fromString(field, text){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
 
@@ -191,7 +191,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _multiplyWithNumber(factor){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -199,7 +199,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _multiplyWithMatrix(factor){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -207,7 +207,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _multiplyWithVector(factor){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -215,7 +215,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _addNumber(summand){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -223,7 +223,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _addMatrix(summand){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -231,7 +231,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _addVector(summand){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     } 
     
     /**
@@ -239,7 +239,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _subtractNumber(subtrahend){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -247,7 +247,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _subtractMatrix(subtrahend){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -255,7 +255,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _subtractVector(subtrahend){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -263,7 +263,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _divideByNumber(divisor){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**

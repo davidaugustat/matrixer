@@ -32,31 +32,31 @@ class Parser {
         text = removeSpacesAndLineBreaks(text);
 
         if(!this._isValidBracketMatching(text)){
-            throw "Brackets not correct!";
+            throw InvalidBracketsException;
         }
 
         if(!this._containsOnlyValidNumbersAndCharacters(field, text)){
-            throw "Contains invalid characters or numbers!";
+            throw InvalidNumbersOrCharactersException;
         }
 
         if(this._containsOperatorsAtWrongPosition(text)){
-            throw "Contains operators at disallowed position!";
+            throw OperatorsAtInvalidPositionException;
         }
 
         if(!this._areFunctionOperatorsFollowedByBracket(text)){
-            throw "Function operators must be followed by opening round bracket!"
+            throw FunctionOperatorNotFollowedByBracketException;
         }
 
         if(!this._areAllMatricesValid(field, text)){
-            throw "Incorrect matrix!";
+            throw InvalidMatrixException;
         }
 
         if(!this._areAllVectorsValid(field, text)){
-            throw "Incorrect vector!";
+            throw InvalidVectorException;
         }
 
         if(this._commaAndSemicolonUsedOutsideMatrixAndVector(text)){
-            throw "Use of , or ; forbidden outside of matrix or vector!"
+            throw CommaOrSemicolonOutsideOfMatrixAndVectorException;
         }
         return true;
     }

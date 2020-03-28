@@ -126,7 +126,7 @@ class Vector extends MathElement{
      * @param {Matrix} factor
      * */
     _multiplyWithMatrix(factor) {
-        throw "A vector cannot be multiplied with a Matrix this way around.";
+        throw MultiplicationOfVectorByMatrixException;
     }
 
     /**

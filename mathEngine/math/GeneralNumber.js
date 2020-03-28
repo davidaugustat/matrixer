@@ -21,7 +21,7 @@ class GeneralNumber extends MathElement{
      * @returns {GeneralNumber}
      * */
     getMultiplicativeInverse(){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -35,7 +35,7 @@ class GeneralNumber extends MathElement{
      * @returns {GeneralNumber}
      * */
     getAdditiveInverse(){
-        throw "This is not implemented!";
+        throw MethodNotImplementedException;
     }
 
     /**
@@ -67,7 +67,7 @@ class GeneralNumber extends MathElement{
      * @param {Matrix} summand
      * */
     _addMatrix(summand) {
-        throw "Addition of a matrix to a number is not allowed";
+        throw AdditionOfMatrixToNumberException;
     }
 
     /**
@@ -76,7 +76,7 @@ class GeneralNumber extends MathElement{
      * @param {Vector} summand
      * */
     _addVector(summand) {
-        throw "Addition of a vector to a number is not allowed";
+        throw AdditionOfVectorToNumberException;
     }
 
     /**
@@ -85,7 +85,7 @@ class GeneralNumber extends MathElement{
      * @param {Matrix} subtrahend
      * */
     _subtractMatrix(subtrahend) {
-        throw "Subtraction of a matrix from a number is not allowed";
+        throw SubtractionOfMatrixFromNumberException;
     }
 
     /**
@@ -94,6 +94,6 @@ class GeneralNumber extends MathElement{
      * @param {Vector} subtrahend
      * */
     _subtractVector(subtrahend) {
-        throw "Subtraction of a vector from a number is not allowed";
+        throw SubtractionOfVectorFromNumberException;
     }
 }

@@ -260,7 +260,7 @@ class Matrix extends MathElement{
      * */
     _multiplyWithMatrix(factor) {
         if(this.getColumnCount() !== factor.getRowCount()){
-            throw "Result of matrix multiplication not defined! (wrong dimensions)";
+            throw MultiplicationOfMatricesWithInvalidDimensionsException;
         }
 
         const result = new Matrix(this.field, null, this.rows, factor.columns);
@@ -287,7 +287,7 @@ class Matrix extends MathElement{
      * */
     _multiplyWithVector(factor) {
        if(this.getColumnCount() !== factor.getSize()){
-           throw "Result of multiplication of matrix with vector not defined! (wrong dimensions)"
+           throw MultiplicationOfMatrixWithVectorWithInvalidDimensionsException;
        }
 
        const result = new Vector(this.field, null, 0);
@@ -303,7 +303,7 @@ class Matrix extends MathElement{
      * @param {GeneralNumber} summand
      * */
     _addNumber(summand) {
-        throw "Addition of numbers to a matrix is not allowed";
+        throw AdditionOfNumberToMatrixException;
     }
 
     /**
@@ -319,7 +319,7 @@ class Matrix extends MathElement{
      * */
     _addMatrix(summand) {
         if(this.rows !== summand.rows || this.columns !== summand.columns){
-            throw "Addition of matrices with different dimensions is not allowed";
+            throw AdditionOrSubtractionOfMatricesWithDifferentDimensionsException;
         }
         const result = this.getEmptyCopy();
         for(let rowPos = 0; rowPos < this.rows; rowPos++){
@@ -337,7 +337,7 @@ class Matrix extends MathElement{
      * @param {GeneralNumber} summand
      * */
     _addVector(summand) {
-        throw "Addition of vector to matrix is not allowed";
+        throw AdditionOfVectorToMatrixException;
     }
 
     /**
@@ -346,7 +346,7 @@ class Matrix extends MathElement{
      * @param {GeneralNumber} subtrahend
      * */
     _subtractNumber(subtrahend) {
-        throw  "Subtraction of number from matrix is not allowed";
+        throw  SubtractionOfNumberFromMatrixException;
     }
 
     /**
@@ -610,7 +610,7 @@ class Matrix extends MathElement{
     static fromString(field, text){
         text = removeSpacesAndLineBreaks(text);
         if(!RegExp(getMatrixRegex(field)).test(text)){
-            throw "Not a valid input!";
+            throw InvalidMatrixException;
         }
         text = removeCharacter(text, "{");
         text = removeCharacter(text, "}");
@@ -627,7 +627,7 @@ class Matrix extends MathElement{
                 rowNumbers.push(numberValue);
             });
             if(numColumns > 0 && rowNumbers.length !== numColumns){
-                throw "Unequal amount of columns";
+                throw UnequalAmountOfMatrixColumnsException;
             }
             numColumns = rowNumbers.length;
             matrixData.push(rowNumbers);

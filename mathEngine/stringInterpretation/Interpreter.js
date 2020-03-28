@@ -73,7 +73,7 @@ class Interpreter {
             return new ExpressionNode(null, null, null,
                 getNumberFromNumberString(this.field, expression[0]));
         } else if(this._isAnyNumber(expression)){
-            throw "Number is not supported on this field!";
+            throw InvalidNumberException;
         } else if(this._isMatrix(expression)){
             return new ExpressionNode(null, null, null,
                 Matrix.fromString(this.field, expression[0]));

@@ -59,7 +59,7 @@ class RealNumber extends GeneralNumber{
      * */
     getMultiplicativeInverse() {
         if(this.value === 0){
-            throw "Division by 0 not allowed!";
+            throw DivisionByZeroException;
         }
         return new RealNumber(1/this.value);
     }
@@ -103,7 +103,7 @@ class RealNumber extends GeneralNumber{
     static fromString(field, text){
         const numberValue = parseFloat(text);
         if(isNaN(numberValue)){
-            throw "Invalid number";
+            throw InvalidNumberException;
         }
         return new RealNumber(numberValue);
     }
