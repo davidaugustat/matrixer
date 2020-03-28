@@ -31,31 +31,31 @@ class Parser {
     isValidMathExpression(field, text){
         text = removeSpacesAndLineBreaks(text);
 
-        if(!this.isValidBracketMatching(text)){
+        if(!this._isValidBracketMatching(text)){
             throw "Brackets not correct!";
         }
 
-        if(!this.containsOnlyValidNumbersAndCharacters(field, text)){
+        if(!this._containsOnlyValidNumbersAndCharacters(field, text)){
             throw "Contains invalid characters or numbers!";
         }
 
-        if(this.containsOperatorsAtWrongPosition(text)){
+        if(this._containsOperatorsAtWrongPosition(text)){
             throw "Contains operators at disallowed position!";
         }
 
-        if(!this.areFunctionOperatorsFollowedByBracket(text)){
+        if(!this._areFunctionOperatorsFollowedByBracket(text)){
             throw "Function operators must be followed by opening round bracket!"
         }
 
-        if(!this.areAllMatricesValid(field, text)){
+        if(!this._areAllMatricesValid(field, text)){
             throw "Incorrect matrix!";
         }
 
-        if(!this.areAllVectorsValid(field, text)){
+        if(!this._areAllVectorsValid(field, text)){
             throw "Incorrect vector!";
         }
 
-        if(this.commaAndSemicolonUsedOutsideMatrixAndVector(text)){
+        if(this._commaAndSemicolonUsedOutsideMatrixAndVector(text)){
             throw "Use of , or ; forbidden outside of matrix or vector!"
         }
         return true;
@@ -73,8 +73,8 @@ class Parser {
      * @returns {boolean} True if all bracket types are used in correct order and quantity. Otherwise false.
      * => True = Good
      * */
-    isValidBracketMatching(text){
-        text = this.removeEveryThingButBrackets(text);
+    _isValidBracketMatching(text){
+        text = this._removeEveryThingButBrackets(text);
 
         const characterStack = [];
         for(let i = 0; i < text.length; i++){
@@ -109,8 +109,8 @@ class Parser {
      * @returns {boolean} True if the expression only contains valid characters. Otherwise false.
      * => True = Good
      * */
-    containsOnlyValidNumbersAndCharacters(field, text) {
-       return this.getValidNumbersAndCharactersRegex(field).test(text.toLowerCase());
+    _containsOnlyValidNumbersAndCharacters(field, text) {
+       return this._getValidNumbersAndCharactersRegex(field).test(text.toLowerCase());
     }
 
     /**
@@ -124,7 +124,7 @@ class Parser {
      * @returns {boolean} True if an error facing operators at wrong position has been found. If the expression
      * doesn't have such issues, false will be returned. => True = Bad
      * */
-    containsOperatorsAtWrongPosition(text){
+    _containsOperatorsAtWrongPosition(text){
         const invalidCharacterSequences = ['(*', '(/', '(^', '-)', '+)', '*)', '/)', '^)',
             '++','+-','+*','+/','+^', '-+', '--', '-*', '-/', '-^', '*+', '*-', '**', '*/', '*^',
             '/+' ,'/-' ,'/*' ,'//' ,'/^' ,'^+' ,'^-' ,'^*' ,'^/' ,'^^'];
@@ -155,7 +155,7 @@ class Parser {
      * @returns {boolean} True if all function operators are followed by a round bracket or no function operator is
      * used. If an issue facing this has been found, false will be returned. => True = Good
      * */
-    areFunctionOperatorsFollowedByBracket(text){
+    _areFunctionOperatorsFollowedByBracket(text){
         const functionOperatorsRegex = "(" + functionOperators.join("|") + ")";
         const separatedByFunctionOperators = text.split(RegExp(functionOperatorsRegex))
             .filter(substring => !functionOperators.includes(substring));
@@ -176,7 +176,7 @@ class Parser {
      * @returns {boolean} True if all matrices are valid or no matrices are present. Otherwise false.
      * => True = Good
      * */
-    areAllMatricesValid(field, text){
+    _areAllMatricesValid(field, text){
         const matrixStrings = [];
         let lastOpeningCurlyBracketPosition = 0;
         let insideMatrix = false;
@@ -210,7 +210,7 @@ class Parser {
      * @returns {boolean} True if all vectors are valid or if no vectors are present. Otherwise false.
      * => True = Good
      * */
-    areAllVectorsValid(field, text){
+    _areAllVectorsValid(field, text){
         const vectorStrings = [];
         let lastOpeningSquareBracketPosition = 0;
         for(let i = 0; i < text.length; i++){
@@ -236,9 +236,9 @@ class Parser {
      * @returns {boolean} True if ',' or ';' has been found outside of matrices or vectors. Otherwise false.
      * => True = Bad
      * */
-    commaAndSemicolonUsedOutsideMatrixAndVector(text){
+    _commaAndSemicolonUsedOutsideMatrixAndVector(text){
         const commaAndSemicolon = [',', ';'];
-        const textWithoutMatricesAndVectors = this.removeMatrixAndVectorStrings(text);
+        const textWithoutMatricesAndVectors = this._removeMatrixAndVectorStrings(text);
         return commaAndSemicolon.some(character => textWithoutMatricesAndVectors.includes(character));
     }
 
@@ -252,7 +252,7 @@ class Parser {
      * @param {string} text The expression to process
      * @returns {string} The expression with matrices and vectors removed
      * */
-    removeMatrixAndVectorStrings(text){
+    _removeMatrixAndVectorStrings(text){
         const simplifiedMatrixRegex = /{[\S]*?}/g;
         const simplifiedVectorRegex = /\[[\S]*?]/g;
         const textWithoutMatrices = text.replace(simplifiedMatrixRegex, '');
@@ -267,7 +267,7 @@ class Parser {
      * @param {string} text The expression to remove brackets from
      * @returns {string} The expression with only brackets left.
      * */
-    removeEveryThingButBrackets(text){
+    _removeEveryThingButBrackets(text){
         const everyThingButBracketsRegex = /[^(){}\[\]]/g;
         return text.replace(everyThingButBracketsRegex, '');
     }
@@ -286,10 +286,10 @@ class Parser {
      * @param {number} field The field to get the valid characters and numbers for.
      * @returns {[string]} All regex parts that can be used to match valid characters and numbers
      * */
-    getValidNumbersAndCharacters(field){
+    _getValidNumbersAndCharacters(field){
         const charactersUsedByAll = generalCharacters
             .concat(listOfAllOperators)
-            .map(character => this.escapeCharacterForUseInRegex(character))
+            .map(character => this._escapeCharacterForUseInRegex(character))
             .concat(getRealNumberRegex(false));
 
        if(isRealNumbersField(field)){
@@ -314,8 +314,8 @@ class Parser {
      * @param {number} field The field to create the regex for
      * @returns {RegExp} The regex that has been created
      * */
-    getValidNumbersAndCharactersRegex(field){
-        let validCharactersList = this.getValidNumbersAndCharacters(field);
+    _getValidNumbersAndCharactersRegex(field){
+        let validCharactersList = this._getValidNumbersAndCharacters(field);
         let regexString = "^(";
         regexString += validCharactersList.join('|');
         regexString += ")+$";
@@ -330,7 +330,7 @@ class Parser {
      * @param {string} character The character without escaping
      * @returns {string} The escaped version of the character.
      * */
-    escapeCharacterForUseInRegex(character) {
+    _escapeCharacterForUseInRegex(character) {
         return character.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
     }
 }

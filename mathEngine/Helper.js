@@ -1,17 +1,32 @@
+/**
+ * This file contains several helper methods that are used by the math engine.
+ *
+ * @author David Augustat
+ * */
+
 
 /**
- * @param {number} field
- * @param {boolean} hasStartStopMarkers
+ * Returns the regex string for matching a matrix over a given field.
+ *
+ * @param {number} field The field of the numbers used inside the matrix
+ * @param {boolean} hasStartStopMarkers True if regex should include "^" at the beginning and "$" at the end so
+ * that it can directly be used as an input for RegExp(). Set to false, if this regex should be part of another regex.
  * @returns {string}
  * */
 function getMatrixRegex(field, hasStartStopMarkers=true) {
-    //const generalMatrixRegex = "\{(([a-zA-Z0-9.+-]+,)*[a-zA-Z0-9.+-]+;)*([a-zA-Z0-9.+-]+,)*[a-zA-Z0-9.+-]+\}";
-
     const templateMatrixRegex = "\{((number,)*number;)*(number,)*number\}";
     const regex = templateMatrixRegex.split("number").join(getRegexForField(field, false));
     return prepareRegex(regex, hasStartStopMarkers);
 }
 
+/**
+ * Returns the regex string for matching a vector over a given field.
+ *
+ * @param {number} field The field of the numbers used inside the vector
+ * @param {boolean} hasStartStopMarkers True if regex should include "^" at the beginning and "$" at the end so
+ * that it can directly be used as an input for RegExp(). Set to false, if this regex should be part of another regex.
+ * @returns {string}
+ * */
 function getVectorRegex(field, hasStartStopMarkers=true){
     const templateVectorRegex = "\\[(number,)*number\\]";
     const regex = templateVectorRegex.split("number").join(getRegexForField(field, false));
@@ -19,7 +34,10 @@ function getVectorRegex(field, hasStartStopMarkers=true){
 }
 
 /**
- * @param {boolean} hasStartStopMarkers;
+ * Returns the regex string for matching real numbers.
+ *
+ * @param {boolean} hasStartStopMarkers True if regex should include "^" at the beginning and "$" at the end so
+ * that it can directly be used as an input for RegExp(). Set to false, if this regex should be part of another regex.
  * @returns {string}
  * */
 function getRealNumberRegex(hasStartStopMarkers=true){
@@ -28,6 +46,10 @@ function getRealNumberRegex(hasStartStopMarkers=true){
 }
 
 /**
+ * Returns the regex string for matching prime field numbers (any prime field will be matched).
+ *
+ * @param {boolean} hasStartStopMarkers True if regex should include "^" at the beginning and "$" at the end so
+ * that it can directly be used as an input for RegExp(). Set to false, if this regex should be part of another regex.
  * @returns {string}
  * */
 function getPrimeFieldRegex(hasStartStopMarkers=true){
@@ -36,6 +58,10 @@ function getPrimeFieldRegex(hasStartStopMarkers=true){
 }
 
 /**
+ * Returns the regex string for matching numbers on the F4 field.
+ *
+ * @param {boolean} hasStartStopMarkers True if regex should include "^" at the beginning and "$" at the end so
+ * that it can directly be used as an input for RegExp(). Set to false, if this regex should be part of another regex.
  * @returns {string}
  * */
 function getF4Regex(hasStartStopMarkers=true){
@@ -44,6 +70,10 @@ function getF4Regex(hasStartStopMarkers=true){
 }
 
 /**
+ * Returns the regex string for matching numbers on the F8 field.
+ *
+ * @param {boolean} hasStartStopMarkers True if regex should include "^" at the beginning and "$" at the end so
+ * that it can directly be used as an input for RegExp(). Set to false, if this regex should be part of another regex.
  * @returns {string}
  * */
 function getF8Regex(hasStartStopMarkers=true){
@@ -52,6 +82,10 @@ function getF8Regex(hasStartStopMarkers=true){
 }
 
 /**
+ * Returns the regex string for matching numbers on the F9 field.
+ *
+ * @param {boolean} hasStartStopMarkers True if regex should include "^" at the beginning and "$" at the end so
+ * that it can directly be used as an input for RegExp(). Set to false, if this regex should be part of another regex.
  * @returns {string}
  * */
 function getF9Regex(hasStartStopMarkers=true){
@@ -59,6 +93,14 @@ function getF9Regex(hasStartStopMarkers=true){
     return prepareRegex(f9Regex, hasStartStopMarkers);
 }
 
+/**
+ * Returns the regex string for matching numbers on any field. This regex will match any number, regardless of
+ * what field the number is on.
+ *
+ * @param {boolean} hasStartStopMarkers True if regex should include "^" at the beginning and "$" at the end so
+ * that it can directly be used as an input for RegExp(). Set to false, if this regex should be part of another regex.
+ * @returns {string}
+ * */
 function getAnyNumberRegex(hasStartStopMarkers=true){
     const anyNumberRegex ='(' + getRealNumberRegex(false) + '|' + getPrimeFieldRegex(false) + '|'
         + getF4Regex(false) + '|' + getF8Regex(false) + '|'
@@ -67,8 +109,11 @@ function getAnyNumberRegex(hasStartStopMarkers=true){
 }
 
 /**
- * @param {number} field
- * @param {boolean} hasStartStopMarkers
+ * Returns a regex that matches all numbers of the provided field.
+ *
+ * @param {number} field The field the regex should match for
+ * @param {boolean} hasStartStopMarkers True if regex should include "^" at the beginning and "$" at the end so
+ * that it can directly be used as an input for RegExp(). Set to false, if this regex should be part of another regex.
  * @returns {string}
  * */
 function getRegexForField(field, hasStartStopMarkers=true){
@@ -90,8 +135,13 @@ function getRegexForField(field, hasStartStopMarkers=true){
 }
 
 /**
- * @param {string} regex
- * @param {boolean} hasStartStopMarkers
+ * Attaches start and stop markers "^" and "$" to the beginning and end to the regex string if hasStartStopMarkers is
+ * true. Otherwise, the provided regex will return as is.
+ *
+ * @param {string} regex The regex string to apply the changes to
+ * @param {boolean} hasStartStopMarkers True if regex should include "^" at the beginning and "$" at the end so
+ * that it can directly be used as an input for RegExp(). Set to false, if the provided regex should be part of
+ * another regex.
  * @returns {string}
  * */
 function prepareRegex(regex, hasStartStopMarkers){
@@ -102,6 +152,8 @@ function prepareRegex(regex, hasStartStopMarkers){
 }
 
 /**
+ * Returns true if field is Field.R.
+ *
  * @param {number} field
  * @returns {boolean}
  * */
@@ -110,6 +162,8 @@ function isRealNumbersField(field){
 }
 
 /**
+ * Returns true, if field is a prime number field (e.g. F3, F5, F7)
+ *
  * @param {number} field
  * @returns {boolean}
  * */
@@ -118,6 +172,8 @@ function isPrimeField(field){
 }
 
 /**
+ * Returns true, if field is either F4, F8 or F9.
+ *
  * @param {number} field
  * @returns {boolean}
  * */
@@ -169,19 +225,41 @@ function getNumberFromNumberString(field,numberString){
     }
 }
 
+/**
+ * Returns true if the provided number is an integer value (meaning it does not have decimals)
+ *
+ * E.g. 3.5 will return false, but 3.0 will return true.
+ *
+ * @param {number} number
+ * @returns {boolean} True when number is an integer
+ * */
 function numberIsInteger(number) {
     return number === parseInt(number);
 }
 
 /**
+ * Solves the problem, that in JavaScript there exists a positive zero (0) as well as a negative zero (-0).
+ *
+ * This method converts any negative zero to a positive zero. If the number is not 0, then the number will
+ * be returned unchanged.
+ *
  * @param {number} number
  * @returns {number}
  * */
 function preventNegativeZero(number){
-    //Yes, it's actually meant to be like that:
+    //Yes, it's actually meant to be like that, and fixes the problem:
     return number + 0;
 }
 
+/**
+ * Creates a new number object from a number value that matches the provided field.
+ *
+ * E.g. for field == Field.F4 and value == 0, the result will be new F4Number(Field.F4Zero)
+ *
+ * @param {number} field field to parse the number to
+ * @param {number} value The number value to use as a value in the number object
+ * @returns {GeneralNumber} The created fitting number object
+ * */
 function parseValueToFittingNumberObject(field, value){
     if(isRealNumbersField(field)){
         return new RealNumber(value);
@@ -200,7 +278,11 @@ function parseValueToFittingNumberObject(field, value){
 }
 
 /**
- * @param {string} character
+ * Returns true if the provided character is an opening bracket.
+ *
+ * Supported bracket types are (, { and [.
+ *
+ * @param {string} character The character to check
  * @returns {boolean}
  * */
 function isOpeningBracket(character){
@@ -208,7 +290,11 @@ function isOpeningBracket(character){
 }
 
 /**
- * @param {string} character
+ * Returns true if the provided character is a closing bracket.
+ *
+ * Supported bracket types are ), } and ].
+ *
+ * @param {string} character The character to check
  * @returns {boolean}
  * */
 function isClosingBracket(character){
@@ -216,9 +302,13 @@ function isClosingBracket(character){
 }
 
 /**
- * @param {number} number
- * @param {number} numberOfDecimals
- * @returns {string}
+ * Rounds a float number to a given number of decimals. Trailing zeros are removed.
+ *
+ * e.g. round(5.12345, 3) becomes 5.123 and round(5.1, 3) becomes 5.1
+ *
+ * @param {number} number The number to round
+ * @param {number} numberOfDecimals The maximum number of digits after the floating point
+ * @returns {string} The rounded number
  * */
 function round(number, numberOfDecimals){
     return parseFloat(number.toFixed(numberOfDecimals)).toString();
