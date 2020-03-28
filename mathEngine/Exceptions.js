@@ -2,7 +2,7 @@
 /**
  * This file contains all exceptions that can be thrown by the math engine.
  *
- * Every exception object contains an English as well as  a German text describing the error. The error strings are
+ * Every exception object contains an English as well as a German text describing the error. The error strings are
  * suited for being displayed to the user in case of an error.
  *
  * @author David Augustat
