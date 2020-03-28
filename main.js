@@ -147,7 +147,7 @@ var dVector = [Field.F4One, Field.F4Alpha, Field.F4One];
 //console.log("Time: " + (performance.now()-time) + " ms");
 
 const converter = new InputToLatexConverter();
-const interpreter = new Interpreter(Field.F8);
+const interpreter = new Interpreter(Field.R);
 //print('\\[' + converter.convertMatrices("5*{1,2;4,5}+5-{3,5,7;574,4,2}+6") + "\\]");
 // const exp = "4*5*{1,2,3;4,5,6}*{a+1, a; 0, a+1}*[1+b+bs, b+bs]";
 //const exp = "4*5*{1,2,3;4,5,6}*{9,8;7,6;5,4}*[6,7]";
@@ -203,8 +203,10 @@ const exp7 = "rowReduce({4,3,8,9;3,78,3,4;5,3,2,7})";
 const exp8 = "4(4(4(4(4(4(4))))))*rowreduce({1,1;1,1})";
 
 const time = performance.now();
-console.log(new Interpreter(Field.F8).interpret(exp).calculate());
-console.log(new UserIoHandler().processCalculation(Field.F8, exp));
+//console.log(new Interpreter(Field.F8).interpret(exp).calculate());
+//console.log(new UserIoHandler().processCalculation(Field.F8, exp));
+ console.log(interpreter._completeOmittedMultiplicationOperator("-567(4+3*(3-6))*rowreduce({1,2;3,4})*2"));
+console.log(interpreter._completeOmittedMultiplicationOperator("7(4+3)"));
 console.log("Time: " + (performance.now()-time) + " ms");
 // console.log(removeSpacesAndLineBreaks("this is \n a \r\n text!"));
 

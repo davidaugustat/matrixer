@@ -1,3 +1,11 @@
+/**
+ * Class that handles the connection between the user interface and the math engine.
+ *
+ * This includes the validation, interpretation and calculation of a mathematical expresion string as well as the
+ * feedback of the math engine to the UI including solution feedback and error feedback.
+ *
+ * @author David Augustat
+ * */
 class UserIoHandler {
 
     /**

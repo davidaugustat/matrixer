@@ -1,20 +1,39 @@
+/**
+ * Class that converts a valid string in user-input-notation into an equivalent latex representation, so that
+ * it can be displayed to the user together with the result of the calculation.
+ *
+ * @author David Augustat
+ * */
 class InputToLatexConverter {
     /**
-     * Converts a user input into an equivalent latex math expression.
+     * Converts a user input into an equivalent latex math expression and returns it.
+     *
+     * Note that the string MUST be a valid string in user-input-notation. If the string is invalid, this converter
+     * might behave unintended.
+     *
      * @param {string} text
      * @returns {string}
      * */
     toLatex(text){
         text = removeSpacesAndLineBreaks(text);
-        text = this.convertFieldNumberStrings(text);
-        text = this.convertMatrices(text);
-        text = this.convertVectors(text);
-        text = this.convertExponentiatedParenthesis(text);
+        text = this._convertFieldNumberStrings(text);
+        text = this._convertMatrices(text);
+        text = this._convertVectors(text);
+        text = this._convertExponentiatedParenthesis(text);
         return text;
     }
 
-    convertMatrices(text){
-        const textSplitByMatrices = this.splitByParenthesis(text, '{', '}');
+    /**
+     * Internal method that finds matrices in user-input-notation in a string and replaces them with the Latex
+     * notation for matrices.
+     *
+     * If no matrices are contained in the input string, the output will be equal to the input.
+     *
+     * @param {string} text String in user-input-notation
+     * @returns string String with matrices converted to Latex notation
+     * */
+    _convertMatrices(text){
+        const textSplitByMatrices = this._splitByParenthesis(text, '{', '}');
         const convertedSubstrings = textSplitByMatrices.map(substring => {
             if(substring.startsWith('{')){
                 const curlyBracketsRegex = /([{},;])/g;
@@ -24,7 +43,7 @@ class InputToLatexConverter {
                     ",":" & ",
                     ";":" \\\\ "
                 };
-                return this.replaceMultiple(substring, curlyBracketsRegex, replaceMap);
+                return this._replaceMultiple(substring, curlyBracketsRegex, replaceMap);
             } else{
                 return substring;
             }
@@ -32,8 +51,17 @@ class InputToLatexConverter {
         return convertedSubstrings.join('');
     }
 
-    convertVectors(text){
-        const textSplitByVectors = this.splitByParenthesis(text, '[', ']');
+    /**
+     * Internal method that finds vectors in user-input-notation in a string and replaces them with the Latex
+     * notation for vectors.
+     *
+     * If no vectors are contained in the input string, the output will be equal to the input.
+     *
+     * @param {string} text String in user-input-notation
+     * @returns string String with vectors converted to Latex notation
+     * */
+    _convertVectors(text){
+        const textSplitByVectors = this._splitByParenthesis(text, '[', ']');
         const convertedSubstrings = textSplitByVectors.map(substring => {
             if(substring.startsWith('[')){
                 const curlyBracketsRegex = /([\[\],])/g;
@@ -42,7 +70,7 @@ class InputToLatexConverter {
                     "]":"\\end{pmatrix}",
                     ",":" \\\\ "
                 };
-                return this.replaceMultiple(substring, curlyBracketsRegex, replaceMap);
+                return this._replaceMultiple(substring, curlyBracketsRegex, replaceMap);
             } else{
                 return substring;
             }
@@ -50,8 +78,19 @@ class InputToLatexConverter {
         return convertedSubstrings.join('');
     }
 
-    convertFieldNumberStrings(text){
-        const splitByFunctionOperators = this.splitByFunctionOperators(text);
+    /**
+     * Internal method that finds field numbers of the fields F4, F8 and F9, in user-input-notation in a string,
+     * and converts them to their equivalent Latex representation.
+     *
+     * E.g. 1*(a+1) is converted to 1*(α+1)
+     *
+     * If no such numbers are contained in the input string, the output will be equal to the input.
+     *
+     * @param {string} text String in user-input-notation
+     * @returns string String with F4, F8 and F9 numbers converted to Latex notation
+     * */
+    _convertFieldNumberStrings(text){
+        const splitByFunctionOperators = this._splitByFunctionOperators(text);
         const convertedSubstrings = splitByFunctionOperators.map(substring => {
             if(functionOperators.includes(substring)){
                 return substring;
@@ -67,16 +106,19 @@ class InputToLatexConverter {
     }
 
     /**
-     * Fixes the problem that with exponentiated expressions in brackets only the first bracket will be shown as the exponent.
+     * Fixes the problem that with exponentiated expressions in round brackets only the first bracket will be shown as
+     * the exponent.
      *
      * For example in 2^(4+6) only the '(' will be marked as an exponent. To fix this, the outermost round brackets are
      * replaced by curly brackets, e.g. 2\^(4\*(5+6)) becomes 2\^{4\*(5+6)}.
      *
-     * @param {string} text
-     * @returns {string}
+     * If no exponentiated parenthesis is contained in the input string, the output will be equal to the input.
+     *
+     * @param {string} text String in user-input-notation
+     * @returns {string} String with exponentiated parenthesis converted to Latex notation
      * */
-    convertExponentiatedParenthesis(text){
-       const textSplitByExponentiatedParenthesis = this.splitByExponentiatedParenthesis(text);
+    _convertExponentiatedParenthesis(text){
+       const textSplitByExponentiatedParenthesis = this._splitByExponentiatedParenthesis(text);
        const convertedSubstrings = textSplitByExponentiatedParenthesis.map(substring => {
            if(substring.startsWith("^")){
                return "^{" + substring.substring(2, substring.length-1) + "}";
@@ -97,7 +139,7 @@ class InputToLatexConverter {
      * @param {string} text
      * @returns {[string]}
      * */
-    splitByExponentiatedParenthesis(text){
+    _splitByExponentiatedParenthesis(text){
         let textSplitByExponentiation = [];
         let lastSplitPosition = 0;
         let roundBracketLevel = 0;
@@ -128,12 +170,12 @@ class InputToLatexConverter {
      *
      * e.g. "5\*(3+6)-7" becomes "5*", "(3+6), "-7" given that openingBracketChar == '(' and closingBracketChar == ')'
      *
-     * @param {string} text The text to split
+     * @param {string} text The text to split in user-input-notation
      * @param {string} openingBracketChar The character that should be used as opening bracket
      * @param {string} closingBracketChar The character that should be used as closing bracket
      * @returns {[string]} An array of the individual parts of the original string
      * */
-    splitByParenthesis(text, openingBracketChar, closingBracketChar){
+    _splitByParenthesis(text, openingBracketChar, closingBracketChar){
         const result = [];
         let lastSplitPosition = 0;
         for(let i = 0; i < text.length; i++){
@@ -152,12 +194,34 @@ class InputToLatexConverter {
         return result;
     }
 
-    splitByFunctionOperators(text){
+    /**
+     * Splits a string in user-input-notation by all occurring function operators (e.g. rowreduce) and returns
+     * an array of the separated string parts.
+     *
+     * For example "5*rowreduce({1,2;3,4})" will be converted to ["5*", "rowreduce", "({1,2;3,4})"]
+     *
+     * @param {string} text The text to split in user-input-notation
+     * @returns {[string]} Array of the parts that the input string consists of.
+     * */
+    _splitByFunctionOperators(text){
         const functionOperatorsRegex = "(" + functionOperators.join("|") + ")";
         return text.split(RegExp(functionOperatorsRegex));
     }
 
-    replaceMultiple(text, replaceRegex, replaceMap){
+    /**
+     * Replaces multiple substrings in a string by different replacement strings.
+     *
+     * E.g. every 'a' should be replaced with a 'b' and every 'b' should be replaced with a 'c'.
+     *
+     * @param {string} text The text to execute the replacement on
+     * @param {RegExp} replaceRegex A regex that matches every substring that should be replaced.
+     * Note that the regex must contain the global modifier (/.../g) if EVERY occurrence of the substring should be
+     * replaced. Otherwise only the first occurrence will be replaced.
+     * @param {{string:string, string:string, ...}} replaceMap A map that indicates what substring should be replaced
+     * by which replacement string. E.g. {"a":"b", "b":"c"} would be the replacement map for the example at the top.
+     * @returns {string} The input string with the substrings replaced accordingly.
+     * */
+    _replaceMultiple(text, replaceRegex, replaceMap){
         return text.replace(replaceRegex, matchedSubstring => replaceMap[matchedSubstring]);
     }
 }

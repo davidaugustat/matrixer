@@ -454,8 +454,8 @@ class Matrix extends MathElement{
     }
 
     /**
-     * Internal method that moves a row to a different position in the matrix. The row that originally was on the target position of the
-     * row that is moved, will move downwards.
+     * Internal method that moves a row to a different position in the matrix. The row that originally was on
+     * the target position of the row that is moved, will move downwards.
      *
      * Note that this method modifies the current matrix object.
      *
