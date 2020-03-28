@@ -1,8 +1,20 @@
+/**
+ * Class for storing numbers over an algebraic prime number finite field.
+ *
+ * Prime number finite fields are algebraic fields that have the same number of elements as a prime number.
+ * E.g. F5 has 5 elements and is a prime number field because 5 is a prime number.
+ *
+ * Supported prime number fields are F2, F3, F5, F7, F11, F13, F17, F19.
+ *
+ * @author David Augustat
+ * */
 class PrimeFieldNumber  extends GeneralNumber {
 
     /**
-     * @param {number} field
-     * @param {number} value
+     * @param {number} field The prime number finite field that should be used.
+     * Non-Prime-Fields like R or F4 are not allowed here!
+     * @param {number} value Can be any whole number, because it will be parsed to it's representative
+     * (e.g. 13 will be stored as 3 in F5)
      * */
     constructor(field, value) {
         super(field, PrimeFieldNumber._valueToRepresentative(field, value));

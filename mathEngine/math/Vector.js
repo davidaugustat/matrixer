@@ -1,3 +1,8 @@
+/**
+ * Class for storing and manipulating a mathematical vector over an algebraic field.
+ *
+ * @author David Augustat
+ * */
 class Vector extends MathElement{
     /** @type {number} */
     size;
@@ -18,6 +23,8 @@ class Vector extends MathElement{
     }
 
     /**
+     * Sets all row values in the vector as an array.
+     *
      * @param {[GeneralNumber]} value
      * */
     set value(value){
@@ -26,6 +33,8 @@ class Vector extends MathElement{
     }
 
     /**
+     * Returns all row values in the vector as an array.
+     *
      * @returns {[GeneralNumber]}
      * */
     get value(){
@@ -33,6 +42,8 @@ class Vector extends MathElement{
     }
 
     /**
+     * Returns the value of the given row position.
+     *
      * @returns {GeneralNumber}
      * */
     getRow(rowPos){
@@ -40,6 +51,8 @@ class Vector extends MathElement{
     }
 
     /**
+     * Sets the provided value at the given row position
+     *
      * @param {number} rowPos
      * @param {GeneralNumber} value
      * */
@@ -48,6 +61,8 @@ class Vector extends MathElement{
     }
 
     /**
+     * Returns the number of rows in the current vector.
+     *
      * @returns {number}
      * */
     getSize(){
@@ -55,6 +70,10 @@ class Vector extends MathElement{
     }
 
     /**
+     * Returns a Matrix object that is equivalent to the current vector.
+     *
+     * The matrix has 1 column and as many rows as the vector has.
+     *
      * @returns {Matrix}
      * */
     toMatrix(){
@@ -64,6 +83,10 @@ class Vector extends MathElement{
     }
 
     /**
+     * Adds a row to the vector at the bottommost position. The vector size will increase by this.
+     *
+     * Note that this method modifies the current vector object.
+     *
      * @param {GeneralNumber} value
      * */
     addRow(value){
@@ -71,6 +94,9 @@ class Vector extends MathElement{
         this.size = this.value.length;
     }
 
+    /**
+     * Prints a string representation of the current vector to the console.
+     * */
     print(){
         let output = "";
         this.value.forEach((rowElement) => {
@@ -80,6 +106,9 @@ class Vector extends MathElement{
     }
 
     /**
+     * Multiplies all values in the vector with a constant.
+     * This will not modify the current vector but only a copy of it.
+     *
      * @param {GeneralNumber} factor
      * @returns {Vector}
      * */
@@ -88,11 +117,27 @@ class Vector extends MathElement{
         return new Vector(this.field, resultValue, 0);
     }
 
+    /**
+     * The multiplication of a vector by a matrix is mathematically not possible.
+     * Therefore an exception will be thrown.
+     *
+     * Note that the other way around (Matrix * Vector) is allowed.
+     *
+     * @param {Matrix} factor
+     * */
     _multiplyWithMatrix(factor) {
         throw "A vector cannot be multiplied with a Matrix this way around.";
     }
 
     /**
+     * Multiplies the current vector with another vector.
+     *
+     * This is done by multiplying each row of the first vector by the according row of the second vector and
+     * then adding all multiplied rows together. The result will be a number.
+     *
+     * Note that this is only possible, if both vectors have the same size. If they don't, an exception will
+     * be thrown.
+     *
      * @param {Vector} factor
      * @returns {GeneralNumber}
      * */
@@ -108,15 +153,30 @@ class Vector extends MathElement{
         return result;
     }
 
+    /**
+     * Adding a number to a vector is mathematically not possible. Therefore an exception will be thrown.
+     *
+     * @param {GeneralNumber} summand
+     * */
     _addNumber(summand) {
         throw "Addition of numbers to a vector is not allowed";
     }
 
+    /**
+     * Adding a matrix to a vector is mathematically not possible. Therefore an exception will be thrown.
+     *
+     * @param {Matrix} summand
+     * */
     _addMatrix(summand) {
         throw "Addition of matrices to a vector is not allowed";
     }
 
     /**
+     * Adds one vector to another one by adding the rows accordingly. The result will be a vector of same size.
+     *
+     * Note that this is only possible, if both vectors have the same size. If they don't, an exception will
+     * be thrown.
+     *
      * @param {Vector} summand
      * @return {Vector}
      * */
@@ -132,22 +192,43 @@ class Vector extends MathElement{
         return result;
     }
 
+    /**
+     * Subtracting a number from a vector is mathematically not possible. Therefore an exception will be thrown.
+     *
+     * @param {GeneralNumber} subtrahend
+     * */
     _subtractNumber(subtrahend) {
         throw "Subtraction of numbers from a vector is not allowed";
     }
 
+    /**
+     * Subtracting a matrix from a vector is mathematically not possible. Therefore an exception will be thrown.
+     *
+     * @param {Matrix} subtrahend
+     * */
     _subtractMatrix(subtrahend) {
         throw "Subtraction of matrices from a vector is not allowed";
     }
 
     /**
+     * Subtracts a vector from another one. The result will be a vector of same size.
+     *
+     * Note that this is only possible, if both vectors have the same size. If they don't, an exception will
+     * be thrown.
+     *
      * @param {Vector} subtrahend
+     * @return {Vector}
      * */
     _subtractVector(subtrahend) {
         const summand2Value = subtrahend.value.map(number => number.getAdditiveInverse());
         return this._addVector(new Vector(subtrahend.field, summand2Value));
     }
 
+    /**
+     * Returns a human-readable string representation of the vector.
+     *
+     * @returns {string}
+     * */
     toString() {
         let output = "";
         this.value.forEach((rowElement) => {
@@ -156,6 +237,11 @@ class Vector extends MathElement{
         return output;
     }
 
+    /**
+     * Returns a Latex representation of the vector.
+     *
+     * @returns {string}
+     * */
     toLatex() {
         let output = "\\begin{pmatrix}";
         this.value.forEach(number => {
@@ -165,6 +251,11 @@ class Vector extends MathElement{
         return output;
     }
 
+    /**
+     * Returns a string representation of the vector that can be used as an input for the Interpreter.
+     *
+     * @returns {string}
+     * */
     toUserInputString() {
         let output = "[";
         this.value.forEach((number, index, array) => {
@@ -178,12 +269,20 @@ class Vector extends MathElement{
         return output;
     }
 
+    /**
+     * Returns an equivalent copy of the current Vector object.
+     *
+     * @returns {Vector}
+     * */
     getCopy() {
         const resultValue = this.value.map(value => value.getCopy());
         return new Vector(this.field, resultValue);
     }
 
     /**
+     * Creates a new Vector object from an array containing the number values
+     * (not GeneralNumber, but raw primitive values) that the vector rows should be filled with.
+     *
      * @param {number} field
      * @param {[number]} data
      * @returns {Vector}
@@ -194,6 +293,10 @@ class Vector extends MathElement{
     }
 
     /**
+     * Creates a new Vector object from a string representation of that vector in user-input-notation.
+     *
+     * E.g. [1,2,3,4] is a valid input for this method when field == Field.R
+     *
      * @param {string} text
      * @param {number} field
      * @returns {Vector}

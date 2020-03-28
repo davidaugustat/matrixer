@@ -1,3 +1,10 @@
+/**
+ * Class for storing numbers in the real-number field.
+ *
+ * The real-number field is the only non-finite field supported by this tool.
+ *
+ * @author David Augustat
+ * */
 class RealNumber extends GeneralNumber{
 
     /**

@@ -492,8 +492,17 @@ class Matrix extends MathElement{
     }
 
     /**
+     * Internal method that tries to achieve that the current cell does not contain a zero.
+     *
+     * Note that this method modifies the current matrix object.
+     *
+     * This is done by moving rows from the bottom to the current row position, until the given cell does
+     * not contain a 0 anymore. If this is not possible the current cell will continue containing a zero and false
+     * will be returned.
+     *
      * @param {number} rowPos
      * @param {number} columnPos
+     * @returns {boolean} True if removing the 0 at the current position was successful. Otherwise false.
      */
     _moveRowWithoutZeroAtCurrentPosition(rowPos, columnPos){
         let numMoves = 0;
@@ -505,6 +514,10 @@ class Matrix extends MathElement{
     }
 
     /**
+     * Internal method that solves the current matrix as an homogeneous equation system.
+     *
+     * Note that this method modifies the current matrix object.
+     *
      * @returns {{trivialSolution: Vector, vectorSolution: [Vector], rowReducedMatrix: Matrix}}
      * */
     _internalSolveHomogeneousEquationSystem(){
@@ -540,6 +553,8 @@ class Matrix extends MathElement{
     }
 
     /**
+     * Returns an equivalent copy of the current Matrix object.
+     *
      * @returns {Matrix}
      * */
     getCopy(){
@@ -553,6 +568,9 @@ class Matrix extends MathElement{
     }
 
     /**
+     * Returns a new matrix object that has the same dimensions and field as the current matrix, but the
+     * values are all 0.
+     *
      * @returns {Matrix}
      * */
     getEmptyCopy(){
@@ -561,6 +579,9 @@ class Matrix extends MathElement{
 
 
     /**
+     * Creates a new Matrix object from a 2-dimensional array containing the number values
+     * (not GeneralNumber, but raw primitive values) that the matrix cells should be filled with.
+     *
      * @param{number} field
      * @param{[[number]]} data
      * @returns {Matrix}
@@ -578,6 +599,10 @@ class Matrix extends MathElement{
     }
 
     /**
+     * Creates a new Matrix object from a string representation of that matrix in user-input-notation.
+     *
+     * E.g. {1,2,3;4,5,6} is a valid input for this method when field == Field.R.
+     *
      * @param {number} field
      * @param {string} text
      * @returns {Matrix}
