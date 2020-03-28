@@ -1,3 +1,10 @@
+/**
+ * Class that is able to convert a math expression string in user-input-notation into a binary tree
+ * consisting of ExpressionNodes. This tree can then be used to recursively calculate the result of the
+ * expression.
+ *
+ * @author David Augustat
+ * */
 class Interpreter {
     /**
      * Field on that the expressions should be interpreted

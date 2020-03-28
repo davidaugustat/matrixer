@@ -28,7 +28,8 @@ class UserIoHandler {
      *
      * @param {number} field
      * @param {string} input
-     * @returns {{isSuccessful: boolean, latexUserInput: string, latexResult: string, userInputResult: string, ?exception: Object}}
+     * @returns {{isSuccessful: boolean, latexUserInput: string, latexResult: string, userInputResult: string,
+     * ?exception: Object}}
      */
     processCalculation(field, input){
         try {

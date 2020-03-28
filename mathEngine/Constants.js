@@ -1,3 +1,9 @@
+/**
+ * This file contains several global constants that are used by the math engine.
+ *
+ * @author David Augustat
+ * */
+
 const Operators = {
     ADD: '+',
     SUBTRACT: '-',

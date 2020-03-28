@@ -131,7 +131,7 @@ var dVector = [Field.F4One, Field.F4Alpha, Field.F4One];
 // console.log(new Interpreter2(Field.F8).isVector(["[bs,1+b,1+bs]"]));
 
 //console.log(new Parser().removeEveryThingButBrackets("kljsdsf(q#ä){fdd}[sdfsa[fsdf]"));// {[()()()(())]})
-//const parser = new Parser();
+const parser = new Parser();
 //console.log(parser.containsOnlyValidNumbersAndCharacters(Field.F4, "3.5*a+1*(a-0+a+1)*a^a+1*rowReduce(a+a+a)*abs(0)"));
 
 // console.log(new Interpreter(Field.F8).completeOmittedMultiplicationOperator("b+bs(1+b+bs(bs))"));
@@ -206,7 +206,7 @@ const time = performance.now();
 //console.log(new Interpreter(Field.F8).interpret(exp).calculate());
 //console.log(new UserIoHandler().processCalculation(Field.F8, exp));
  console.log(interpreter._completeOmittedMultiplicationOperator("-567(4+3*(3-6))*rowreduce({1,2;3,4})*2"));
-console.log(interpreter._completeOmittedMultiplicationOperator("7(4+3)"));
+console.log(parser.getValidNumbersAndCharacters(Field.F4));
 console.log("Time: " + (performance.now()-time) + " ms");
 // console.log(removeSpacesAndLineBreaks("this is \n a \r\n text!"));
 
