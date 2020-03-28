@@ -143,7 +143,7 @@ class Vector extends MathElement{
      * */
     _multiplyWithVector(factor) {
         if(this.size !== factor.size){
-            throw "Both vectors must have same dimensions for multiplication";
+            throw MultiplicationOfVectorsWrongDimensionsException;
         }
 
         let result = parseValueToFittingNumberObject(this.field, 0);
@@ -159,7 +159,7 @@ class Vector extends MathElement{
      * @param {GeneralNumber} summand
      * */
     _addNumber(summand) {
-        throw "Addition of numbers to a vector is not allowed";
+        throw AdditionOfNumberToVectorException;
     }
 
     /**
@@ -168,7 +168,7 @@ class Vector extends MathElement{
      * @param {Matrix} summand
      * */
     _addMatrix(summand) {
-        throw "Addition of matrices to a vector is not allowed";
+        throw AdditionOfMatrixToVectorException;
     }
 
     /**
@@ -182,7 +182,7 @@ class Vector extends MathElement{
      * */
     _addVector(summand) {
         if(summand.size !== this.size){
-            throw "Both vectors must have same dimensions for addition";
+            throw AdditionOfVectorsWrongDimensionsException;
         }
 
         let result = new Vector(this.field, null, 0);
@@ -198,7 +198,7 @@ class Vector extends MathElement{
      * @param {GeneralNumber} subtrahend
      * */
     _subtractNumber(subtrahend) {
-        throw "Subtraction of numbers from a vector is not allowed";
+        throw SubtractionOfNumberFromVectorException;
     }
 
     /**
@@ -207,7 +207,7 @@ class Vector extends MathElement{
      * @param {Matrix} subtrahend
      * */
     _subtractMatrix(subtrahend) {
-        throw "Subtraction of matrices from a vector is not allowed";
+        throw SubtractionOfMatrixFromVectorException;
     }
 
     /**
@@ -304,7 +304,7 @@ class Vector extends MathElement{
     static fromString(field, text){
         text = removeSpacesAndLineBreaks(text);
         if(!RegExp(getVectorRegex(field)).test(text)){
-            throw "Not a valid input!";
+            throw InvalidVectorException;
         }
         text = removeCharacter(text, "[");
         text = removeCharacter(text, "]");

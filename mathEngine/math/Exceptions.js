@@ -1,7 +1,21 @@
+
+/**
+ * This file contains all exceptions that can be thrown by the math engine.
+ *
+ * Every exception object contains an English as well as  a German text describing the error. The error strings are
+ * suited for being displayed to the user in case of an error.
+ *
+ * @author David Augustat
+ * */
+
+/*
+Template exception:
+
 const Exception = {
     englishMessage: "",
     germanMessage: ""
 };
+*/
 
 const InvalidBracketsException = {
     englishMessage: "An invalid order or quantity of brackets has been detected.",
@@ -139,79 +153,45 @@ const MultiplicationOfVectorByMatrixException = {
         "(Matrix * Vektor) ist erlaubt."
 };
 
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
+const MultiplicationOfVectorsWrongDimensionsException = {
+    englishMessage: "Vectors can only be multiplied if they have the same number of rows.",
+    germanMessage: "Vektoren können nur miteinander multipliziert werden, wenn sie die gleiche Anzahl an Zeilen haben."
 };
 
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
+const AdditionOfNumberToVectorException = {
+    englishMessage: "It is not allowed to add a number to a vector.",
+    germanMessage: "Man kann keine Zahl zu einem Vektor hinzuaddieren."
 };
 
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
+const AdditionOfMatrixToVectorException = {
+    englishMessage: "It is not allowed to add a matrix to a vector.",
+    germanMessage: "Man kann keine Matrix zu einem Vektor hinzuaddieren."
 };
 
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
+const AdditionOfVectorsWrongDimensionsException = {
+    englishMessage: "Vectors can only be added if they have the same number of rows.",
+    germanMessage: "Vektoren können nur addiert werden, wenn sie die gleiche Anzahl an Zeilen haben."
 };
 
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
+const SubtractionOfNumberFromVectorException = {
+    englishMessage: "It is not allowed to subtract a number from a vector.",
+    germanMessage: "Man kann keine Zahl von einem Vektor subtrahieren."
 };
 
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
+const SubtractionOfMatrixFromVectorException = {
+    englishMessage: "It is not allowed to subtract a matrix from a vector.",
+    germanMessage: "Man kann keine Matrix von einem Vektor subtrahieren."
 };
 
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
+const InvalidOperatorException = {
+    englishMessage: "An invalid operator has been detected.",
+    germanMessage: "Ein ungültiger Operator wurde gefunden."
 };
 
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
+const RowReduceNotAMatrixException = {
+    englishMessage: "The rowreduce operator can only process matrices.",
+    germanMessage: "Der rowreduce-Operator kann nur Matrizen verarbeiten."
 };
 
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
-};
-
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
-};
-
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
-};
-
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
-};
-
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
-};
-
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
-};
-
-const Exception = {
-    englishMessage: "",
-    germanMessage: ""
-};
 
 
