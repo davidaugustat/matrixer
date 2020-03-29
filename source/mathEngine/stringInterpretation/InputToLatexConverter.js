@@ -92,7 +92,7 @@ class InputToLatexConverter {
     _convertFieldNumberStrings(text){
         const splitByFunctionOperators = this._splitByFunctionOperators(text);
         const convertedSubstrings = splitByFunctionOperators.map(substring => {
-            if(functionOperators.includes(substring)){
+            if(Constants.functionOperators.includes(substring)){
                 return substring;
             } else{
                 return substring.replace(/a/g, 'α')
@@ -204,7 +204,7 @@ class InputToLatexConverter {
      * @returns {[string]} Array of the parts that the input string consists of.
      * */
     _splitByFunctionOperators(text){
-        const functionOperatorsRegex = "(" + functionOperators.join("|") + ")";
+        const functionOperatorsRegex = "(" + Constants.functionOperators.join("|") + ")";
         return text.split(RegExp(functionOperatorsRegex));
     }
 

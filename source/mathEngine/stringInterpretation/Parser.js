@@ -156,9 +156,9 @@ class Parser {
      * used. If an issue facing this has been found, false will be returned. => True = Good
      * */
     _areFunctionOperatorsFollowedByBracket(text){
-        const functionOperatorsRegex = "(" + functionOperators.join("|") + ")";
+        const functionOperatorsRegex = "(" + Constants.functionOperators.join("|") + ")";
         const separatedByFunctionOperators = text.split(RegExp(functionOperatorsRegex))
-            .filter(substring => !functionOperators.includes(substring));
+            .filter(substring => !Constants.functionOperators.includes(substring));
         const expressionPartsWithoutFirst = separatedByFunctionOperators.slice(1);
         return expressionPartsWithoutFirst.every(substring => substring.startsWith('('));
     }
@@ -287,8 +287,8 @@ class Parser {
      * @returns {[string]} All regex parts that can be used to match valid characters and numbers
      * */
     _getValidNumbersAndCharacters(field){
-        const charactersUsedByAll = generalCharacters
-            .concat(listOfAllOperators)
+        const charactersUsedByAll = Constants.generalCharacters
+            .concat(Constants.listOfAllOperators)
             .map(character => this._escapeCharacterForUseInRegex(character))
             .concat(Helper.getRealNumberRegex(false));
 

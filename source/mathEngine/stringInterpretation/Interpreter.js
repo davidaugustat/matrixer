@@ -213,7 +213,7 @@ class Interpreter {
      * false.
      * */
     _startsWithFunctionOperator(expression, startPosition=0){
-        return functionOperators.some(operator => expression.startsWith(operator, startPosition));
+        return Constants.functionOperators.some(operator => expression.startsWith(operator, startPosition));
     }
 
     /**
@@ -223,7 +223,7 @@ class Interpreter {
      * @returns {boolean}
      * */
     _isInfixOperator(character){
-        return infixOperators.includes(character);
+        return Constants.infixOperators.includes(character);
     }
 
     /**
@@ -334,15 +334,15 @@ class Interpreter {
 
         let fieldCharacters = [];
         if(Helper.isRealNumbersField(this.field)){
-            fieldCharacters = realNumberCharactersWithoutDot;
+            fieldCharacters = Constants.realNumberCharactersWithoutDot;
         } else if(Helper.isPrimeField(this.field)){
-            fieldCharacters = primeFieldNumberCharacters;
+            fieldCharacters = Constants.primeFieldNumberCharacters;
         } else if(this.field === Field.F4){
-            fieldCharacters = f4NumberCharacters;
+            fieldCharacters = Constants.f4NumberCharacters;
         } else if(this.field === Field.F8){
-            fieldCharacters = f8NumberCharacters;
+            fieldCharacters = Constants.f8NumberCharacters;
         } else if(this.field === Field.F9){
-            fieldCharacters = f9NumberCharacters;
+            fieldCharacters = Constants.f9NumberCharacters;
         }
         fieldCharacters.forEach(character => {
             possibilities.push({value: character + '(', replacement: character + '*('});

@@ -1,9 +1,8 @@
 /**
- * This file contains several helper methods that are used by the math engine.
+ * This class contains several helper methods that are used by the math engine.
  *
  * @author David Augustat
  * */
-
 class Helper{
 
     /**

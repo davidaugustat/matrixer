@@ -17,7 +17,7 @@ class F4Number extends GeneralNumber{
      * @returns {F4Number}
      * */
     _multiplyWithNumber(factor) {
-        const resultValue = F4MultiplicationLookup
+        const resultValue = FieldLookupTables.F4MultiplicationLookup
             .find(object => object.factor1 === this.value && object.factor2 === factor.value).result;
         return new F4Number(resultValue);
     }
@@ -27,7 +27,7 @@ class F4Number extends GeneralNumber{
      * @returns {F4Number}
      * */
     _addNumber(summand) {
-        const resultValue = F4AdditionLookup
+        const resultValue = FieldLookupTables.F4AdditionLookup
             .find(object => object.summand1 === this.value && object.summand2 === summand.value).result;
         return new F4Number(resultValue);
     }
@@ -54,7 +54,8 @@ class F4Number extends GeneralNumber{
      * @returns {F4Number}
      * */
     getMultiplicativeInverse() {
-        const resultValue = F4MultiplicationInverseLookup.find(object => object.number === this.value).inverse;
+        const resultValue = FieldLookupTables.F4MultiplicationInverseLookup
+            .find(object => object.number === this.value).inverse;
         return new F4Number(resultValue);
     }
 
@@ -64,7 +65,8 @@ class F4Number extends GeneralNumber{
      * @returns {F4Number}
      * */
     getAdditiveInverse() {
-        const resultValue = F4AdditionInverseLookup.find(object => object.number === this.value).inverse;
+        const resultValue = FieldLookupTables.F4AdditionInverseLookup
+            .find(object => object.number === this.value).inverse;
         return new F4Number(resultValue);
     }
 
@@ -74,7 +76,7 @@ class F4Number extends GeneralNumber{
      * @returns {string}
      * */
     toString() {
-        return F4ElementsNameLookup.find(object => object.number === this.value).name;
+        return FieldLookupTables.F4ElementsNameLookup.find(object => object.number === this.value).name;
     }
 
     /**
@@ -83,7 +85,8 @@ class F4Number extends GeneralNumber{
      * @returns {string}
      * */
     toUserInputString() {
-        return F4ElementsUserInputLookup.find(object => object.number === this.value).inputString;
+        return FieldLookupTables.F4ElementsUserInputLookup
+            .find(object => object.number === this.value).inputString;
     }
 
     /**
