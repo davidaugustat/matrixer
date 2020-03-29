@@ -90,7 +90,7 @@ class ExpressionNode {
                 case Operators.ROW_REDUCE:
                     return this._rowReduce();
                 default:
-                    throw InvalidOperatorException;
+                    throw Exceptions.InvalidOperatorException;
             }
         }
     }
@@ -106,7 +106,7 @@ class ExpressionNode {
         if(innerValue instanceof Matrix){
             return innerValue.rowReduce();
         }
-        throw RowReduceNotAMatrixException;
+        throw Exceptions.RowReduceNotAMatrixException;
     }
 
 }

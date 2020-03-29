@@ -17,7 +17,7 @@ class Vector extends MathElement{
         if(value !== null){
             this.value = value;
         } else{
-            this.value = new Array(size).fill(parseValueToFittingNumberObject(field, 0));
+            this.value = new Array(size).fill(Helper.parseValueToFittingNumberObject(field, 0));
             this.size = size;
         }
     }
@@ -126,7 +126,7 @@ class Vector extends MathElement{
      * @param {Matrix} factor
      * */
     _multiplyWithMatrix(factor) {
-        throw MultiplicationOfVectorByMatrixException;
+        throw Exceptions.MultiplicationOfVectorByMatrixException;
     }
 
     /**
@@ -143,10 +143,10 @@ class Vector extends MathElement{
      * */
     _multiplyWithVector(factor) {
         if(this.size !== factor.size){
-            throw MultiplicationOfVectorsWrongDimensionsException;
+            throw Exceptions.MultiplicationOfVectorsWrongDimensionsException;
         }
 
-        let result = parseValueToFittingNumberObject(this.field, 0);
+        let result = Helper.parseValueToFittingNumberObject(this.field, 0);
         for(let rowPos = 0; rowPos < this.size; rowPos++){
             result = result.add(this.getRow(rowPos).multiplyWith(factor.getRow(rowPos)));
         }
@@ -159,7 +159,7 @@ class Vector extends MathElement{
      * @param {GeneralNumber} summand
      * */
     _addNumber(summand) {
-        throw AdditionOfNumberToVectorException;
+        throw Exceptions.AdditionOfNumberToVectorException;
     }
 
     /**
@@ -168,7 +168,7 @@ class Vector extends MathElement{
      * @param {Matrix} summand
      * */
     _addMatrix(summand) {
-        throw AdditionOfMatrixToVectorException;
+        throw Exceptions.AdditionOfMatrixToVectorException;
     }
 
     /**
@@ -182,7 +182,7 @@ class Vector extends MathElement{
      * */
     _addVector(summand) {
         if(summand.size !== this.size){
-            throw AdditionOfVectorsWrongDimensionsException;
+            throw Exceptions.AdditionOfVectorsWrongDimensionsException;
         }
 
         let result = new Vector(this.field, null, 0);
@@ -198,7 +198,7 @@ class Vector extends MathElement{
      * @param {GeneralNumber} subtrahend
      * */
     _subtractNumber(subtrahend) {
-        throw SubtractionOfNumberFromVectorException;
+        throw Exceptions.SubtractionOfNumberFromVectorException;
     }
 
     /**
@@ -207,7 +207,7 @@ class Vector extends MathElement{
      * @param {Matrix} subtrahend
      * */
     _subtractMatrix(subtrahend) {
-        throw SubtractionOfMatrixFromVectorException;
+        throw Exceptions.SubtractionOfMatrixFromVectorException;
     }
 
     /**
@@ -288,7 +288,7 @@ class Vector extends MathElement{
      * @returns {Vector}
      * */
     static fromRawData(field, data){
-        const resultData = data.map(number => parseValueToFittingNumberObject(field, number));
+        const resultData = data.map(number => Helper.parseValueToFittingNumberObject(field, number));
         return new Vector(field, resultData);
     }
 
@@ -302,15 +302,15 @@ class Vector extends MathElement{
      * @returns {Vector}
      * */
     static fromString(field, text){
-        text = removeSpacesAndLineBreaks(text);
-        if(!RegExp(getVectorRegex(field)).test(text)){
-            throw InvalidVectorException;
+        text = Helper.removeSpacesAndLineBreaks(text);
+        if(!RegExp(Helper.getVectorRegex(field)).test(text)){
+            throw Exceptions.InvalidVectorException;
         }
-        text = removeCharacter(text, "[");
-        text = removeCharacter(text, "]");
+        text = Helper.removeCharacter(text, "[");
+        text = Helper.removeCharacter(text, "]");
 
         const rows = text.split(",");
-        const vectorValues = rows.map(elementString => getNumberFromNumberString(field, elementString));
+        const vectorValues = rows.map(elementString => Helper.getNumberFromNumberString(field, elementString));
         return new Vector(field, vectorValues);
     }
 }

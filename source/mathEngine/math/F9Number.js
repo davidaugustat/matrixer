@@ -123,7 +123,7 @@ class F9Number extends GeneralNumber{
         } else if(["-j-1", "-1-j"].includes(text)){
             result = Field.F9MinusIotaMinusOne;
         } else{
-            throw InvalidNumberException;
+            throw Exceptions.InvalidNumberException;
         }
         return new F9Number(result);
     }

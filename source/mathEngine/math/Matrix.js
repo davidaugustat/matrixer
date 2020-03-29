@@ -260,7 +260,7 @@ class Matrix extends MathElement{
      * */
     _multiplyWithMatrix(factor) {
         if(this.getColumnCount() !== factor.getRowCount()){
-            throw MultiplicationOfMatricesWithInvalidDimensionsException;
+            throw Exceptions.MultiplicationOfMatricesWithInvalidDimensionsException;
         }
 
         const result = new Matrix(this.field, null, this.rows, factor.columns);
@@ -287,7 +287,7 @@ class Matrix extends MathElement{
      * */
     _multiplyWithVector(factor) {
        if(this.getColumnCount() !== factor.getSize()){
-           throw MultiplicationOfMatrixWithVectorWithInvalidDimensionsException;
+           throw Exceptions.MultiplicationOfMatrixWithVectorWithInvalidDimensionsException;
        }
 
        const result = new Vector(this.field, null, 0);
@@ -303,7 +303,7 @@ class Matrix extends MathElement{
      * @param {GeneralNumber} summand
      * */
     _addNumber(summand) {
-        throw AdditionOfNumberToMatrixException;
+        throw Exceptions.AdditionOfNumberToMatrixException;
     }
 
     /**
@@ -319,7 +319,7 @@ class Matrix extends MathElement{
      * */
     _addMatrix(summand) {
         if(this.rows !== summand.rows || this.columns !== summand.columns){
-            throw AdditionOrSubtractionOfMatricesWithDifferentDimensionsException;
+            throw Exceptions.AdditionOrSubtractionOfMatricesWithDifferentDimensionsException;
         }
         const result = this.getEmptyCopy();
         for(let rowPos = 0; rowPos < this.rows; rowPos++){
@@ -337,7 +337,7 @@ class Matrix extends MathElement{
      * @param {GeneralNumber} summand
      * */
     _addVector(summand) {
-        throw AdditionOfVectorToMatrixException;
+        throw Exceptions.AdditionOfVectorToMatrixException;
     }
 
     /**
@@ -346,7 +346,7 @@ class Matrix extends MathElement{
      * @param {GeneralNumber} subtrahend
      * */
     _subtractNumber(subtrahend) {
-        throw  SubtractionOfNumberFromMatrixException;
+        throw Exceptions. SubtractionOfNumberFromMatrixException;
     }
 
     /**
@@ -375,7 +375,7 @@ class Matrix extends MathElement{
      * @returns {GeneralNumber}
      * */
     _multiplyRowWithColumn(row, column){
-        let result = parseValueToFittingNumberObject(this.field, 0);
+        let result = Helper.parseValueToFittingNumberObject(this.field, 0);
         for(let pos = 0; pos < row.length; pos++){
             result = result._addNumber(row[pos].multiplyWith(column[pos]));
         }
@@ -521,8 +521,8 @@ class Matrix extends MathElement{
      * @returns {{trivialSolution: Vector, vectorSolution: [Vector], rowReducedMatrix: Matrix}}
      * */
     _internalSolveHomogeneousEquationSystem(){
-        const zeroNumber = parseValueToFittingNumberObject(this.field, 0);
-        const oneNumber = parseValueToFittingNumberObject(this.field, 1);
+        const zeroNumber = Helper.parseValueToFittingNumberObject(this.field, 0);
+        const oneNumber = Helper.parseValueToFittingNumberObject(this.field, 1);
 
         const solution = {
             trivialSolution: new Vector(this.field, null, this.rows),
@@ -591,7 +591,7 @@ class Matrix extends MathElement{
         data.forEach((row) => {
             const resultRow = [];
             row.forEach((cellValue) => {
-                resultRow.push(parseValueToFittingNumberObject(field, cellValue));
+                resultRow.push(Helper.parseValueToFittingNumberObject(field, cellValue));
             });
             resultData.push(resultRow);
         });
@@ -608,12 +608,12 @@ class Matrix extends MathElement{
      * @returns {Matrix}
      * */
     static fromString(field, text){
-        text = removeSpacesAndLineBreaks(text);
-        if(!RegExp(getMatrixRegex(field)).test(text)){
-            throw InvalidMatrixException;
+        text = Helper.removeSpacesAndLineBreaks(text);
+        if(!RegExp(Helper.getMatrixRegex(field)).test(text)){
+            throw Exceptions.InvalidMatrixException;
         }
-        text = removeCharacter(text, "{");
-        text = removeCharacter(text, "}");
+        text = Helper.removeCharacter(text, "{");
+        text = Helper.removeCharacter(text, "}");
 
         const rows = text.split(";");
         const matrixData = [];
@@ -623,11 +623,11 @@ class Matrix extends MathElement{
             const rowStringValues =  rowString.split(",");
             const rowNumbers = [];
             rowStringValues.forEach(stringValue => {
-                const numberValue = getNumberFromNumberString(field, stringValue);
+                const numberValue = Helper.getNumberFromNumberString(field, stringValue);
                 rowNumbers.push(numberValue);
             });
             if(numColumns > 0 && rowNumbers.length !== numColumns){
-                throw UnequalAmountOfMatrixColumnsException;
+                throw Exceptions.UnequalAmountOfMatrixColumnsException;
             }
             numColumns = rowNumbers.length;
             matrixData.push(rowNumbers);

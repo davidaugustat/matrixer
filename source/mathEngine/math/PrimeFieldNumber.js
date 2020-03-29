@@ -166,7 +166,7 @@ class PrimeFieldNumber  extends GeneralNumber {
     static fromString(field, text){
         const numberValue = parseInt(text);
         if(isNaN(numberValue) || numberValue !== parseFloat(text)){
-            throw InvalidNumberException;
+            throw Exceptions.InvalidNumberException;
         }
         return new PrimeFieldNumber(field, numberValue);
     }

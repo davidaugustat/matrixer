@@ -59,7 +59,7 @@ class RealNumber extends GeneralNumber{
      * */
     getMultiplicativeInverse() {
         if(this.value === 0){
-            throw DivisionByZeroException;
+            throw Exceptions.DivisionByZeroException;
         }
         return new RealNumber(1/this.value);
     }
@@ -68,14 +68,14 @@ class RealNumber extends GeneralNumber{
      * @returns {RealNumber}
      * */
     getAdditiveInverse() {
-        return new RealNumber(preventNegativeZero(-this.value));
+        return new RealNumber(Helper.preventNegativeZero(-this.value));
     }
 
     /**
      * @returns {string}
      * */
     toString() {
-        return round(this.value, 4);
+        return Helper.round(this.value, 4);
     }
 
     /**
@@ -103,7 +103,7 @@ class RealNumber extends GeneralNumber{
     static fromString(field, text){
         const numberValue = parseFloat(text);
         if(isNaN(numberValue)){
-            throw InvalidNumberException;
+            throw Exceptions.InvalidNumberException;
         }
         return new RealNumber(numberValue);
     }

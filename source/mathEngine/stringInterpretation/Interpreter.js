@@ -40,7 +40,7 @@ class Interpreter {
      * @returns {ExpressionNode} Root-Node of an expression binary tree
      * */
     interpret(expression){
-        expression = removeSpacesAndLineBreaks(expression);
+        expression = Helper.removeSpacesAndLineBreaks(expression);
         const expressionParts = this._tokenize(expression);
         return this._interpretOperator(expressionParts, this.operatorsInCorrectOrder);
     }
@@ -71,9 +71,9 @@ class Interpreter {
 
         if(this._isValidNumber(expression)){
             return new ExpressionNode(null, null, null,
-                getNumberFromNumberString(this.field, expression[0]));
+                Helper.getNumberFromNumberString(this.field, expression[0]));
         } else if(this._isAnyNumber(expression)){
-            throw InvalidNumberException;
+            throw Exceptions.InvalidNumberException;
         } else if(this._isMatrix(expression)){
             return new ExpressionNode(null, null, null,
                 Matrix.fromString(this.field, expression[0]));
@@ -333,9 +333,9 @@ class Interpreter {
             ];
 
         let fieldCharacters = [];
-        if(isRealNumbersField(this.field)){
+        if(Helper.isRealNumbersField(this.field)){
             fieldCharacters = realNumberCharactersWithoutDot;
-        } else if(isPrimeField(this.field)){
+        } else if(Helper.isPrimeField(this.field)){
             fieldCharacters = primeFieldNumberCharacters;
         } else if(this.field === Field.F4){
             fieldCharacters = f4NumberCharacters;
@@ -399,7 +399,7 @@ class Interpreter {
      * */
     _isValidNumber(expression){
         if(Array.isArray(expression) && expression.length === 1){
-            return RegExp(getRegexForField(this.field)).test(expression[0]);
+            return RegExp(Helper.getRegexForField(this.field)).test(expression[0]);
         }
         return false;
     }
@@ -413,7 +413,7 @@ class Interpreter {
      * */
     _isMatrix(expression){
         if(Array.isArray(expression) && expression.length === 1) {
-            return RegExp(getMatrixRegex(this.field)).test(expression[0]);
+            return RegExp(Helper.getMatrixRegex(this.field)).test(expression[0]);
         }
         return false;
     }
@@ -427,7 +427,7 @@ class Interpreter {
      * */
     _isVector(expression){
         if(Array.isArray(expression) && expression.length === 1) {
-            return RegExp(getVectorRegex(this.field)).test(expression[0]);
+            return RegExp(Helper.getVectorRegex(this.field)).test(expression[0]);
         }
         return false;
     }
@@ -443,7 +443,7 @@ class Interpreter {
      * */
     _isAnyNumber(expression){
         if(Array.isArray(expression) && expression.length === 1) {
-            return RegExp(getAnyNumberRegex()).test(expression[0]);
+            return RegExp(Helper.getAnyNumberRegex()).test(expression[0]);
         }
         return false;
     }

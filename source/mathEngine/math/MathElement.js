@@ -101,9 +101,9 @@ class MathElement {
     divideBy(divisor){
         return this._doAccordingToElementType(divisor, () => this._divideByNumber(divisor),
             () => {
-            throw DivisionByMatrixException;
+            throw Exceptions.DivisionByMatrixException;
             }, () => {
-            throw DivisionByVectorException;
+            throw Exceptions.DivisionByVectorException;
         });
     }
 
@@ -115,11 +115,11 @@ class MathElement {
      * @returns {MathElement} result of the exponentiation
      * */
     exponentiate(exponent){
-        if(!exponent instanceof RealNumber ||exponent.value < 0 || !numberIsInteger(exponent.value)){
-            throw InvalidExponentException;
+        if(!exponent instanceof RealNumber ||exponent.value < 0 || !Helper.numberIsInteger(exponent.value)){
+            throw Exceptions.InvalidExponentException;
         }
 
-        let result = parseValueToFittingNumberObject(this.field, 1);
+        let result = Helper.parseValueToFittingNumberObject(this.field, 1);
         for(let i = 0; i < exponent.value; i++){
             result = result.multiplyWith(this);
         }
@@ -133,7 +133,7 @@ class MathElement {
      * @returns {string}
      * */
     toString(){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -144,7 +144,7 @@ class MathElement {
      * @returns {string}
      * */
     toLatex(){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -156,7 +156,7 @@ class MathElement {
      * @returns {string}
      * */
     toUserInputString(){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -165,7 +165,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     getCopy(){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -179,7 +179,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     static fromString(field, text){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
 
@@ -191,7 +191,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _multiplyWithNumber(factor){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -199,7 +199,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _multiplyWithMatrix(factor){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -207,7 +207,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _multiplyWithVector(factor){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -215,7 +215,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _addNumber(summand){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -223,7 +223,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _addMatrix(summand){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -231,7 +231,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _addVector(summand){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     } 
     
     /**
@@ -239,7 +239,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _subtractNumber(subtrahend){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -247,7 +247,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _subtractMatrix(subtrahend){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -255,7 +255,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _subtractVector(subtrahend){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**
@@ -263,7 +263,7 @@ class MathElement {
      * @returns {MathElement}
      * */
     _divideByNumber(divisor){
-        throw MethodNotImplementedException;
+        throw Exceptions.MethodNotImplementedException;
     }
 
     /**

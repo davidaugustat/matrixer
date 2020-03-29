@@ -29,34 +29,34 @@ class Parser {
      * @returns {boolean} Returns true if the provided string matches every if the listed criteria. Otherwise false.
      * */
     isValidMathExpression(field, text){
-        text = removeSpacesAndLineBreaks(text);
+        text = Helper.removeSpacesAndLineBreaks(text);
 
         if(!this._isValidBracketMatching(text)){
-            throw InvalidBracketsException;
+            throw Exceptions.InvalidBracketsException;
         }
 
         if(!this._containsOnlyValidNumbersAndCharacters(field, text)){
-            throw InvalidNumbersOrCharactersException;
+            throw Exceptions.InvalidNumbersOrCharactersException;
         }
 
         if(this._containsOperatorsAtWrongPosition(text)){
-            throw OperatorsAtInvalidPositionException;
+            throw Exceptions.OperatorsAtInvalidPositionException;
         }
 
         if(!this._areFunctionOperatorsFollowedByBracket(text)){
-            throw FunctionOperatorNotFollowedByBracketException;
+            throw Exceptions.FunctionOperatorNotFollowedByBracketException;
         }
 
         if(!this._areAllMatricesValid(field, text)){
-            throw InvalidMatrixException;
+            throw Exceptions.InvalidMatrixException;
         }
 
         if(!this._areAllVectorsValid(field, text)){
-            throw InvalidVectorException;
+            throw Exceptions.InvalidVectorException;
         }
 
         if(this._commaAndSemicolonUsedOutsideMatrixAndVector(text)){
-            throw CommaOrSemicolonOutsideOfMatrixAndVectorException;
+            throw Exceptions.CommaOrSemicolonOutsideOfMatrixAndVectorException;
         }
         return true;
     }
@@ -79,9 +79,9 @@ class Parser {
         const characterStack = [];
         for(let i = 0; i < text.length; i++){
             const currentChar = text.charAt(i);
-            if(isOpeningBracket(currentChar)){
+            if(Helper.isOpeningBracket(currentChar)){
                 characterStack.push(currentChar);
-            } else if(isClosingBracket(currentChar)){
+            } else if(Helper.isClosingBracket(currentChar)){
                 const respectiveOpeningBracket = characterStack[characterStack.length-1];
                 if((currentChar === ')' && respectiveOpeningBracket === '(')
                     || (currentChar === '}' && respectiveOpeningBracket === '{')
@@ -195,7 +195,7 @@ class Parser {
             }
         }
 
-        const matrixRegex = RegExp(getMatrixRegex(field));
+        const matrixRegex = RegExp(Helper.getMatrixRegex(field));
         return matrixStrings.every(matrixString => matrixRegex.test(matrixString));
     }
 
@@ -223,7 +223,7 @@ class Parser {
             }
         }
 
-        const vectorRegex = RegExp(getVectorRegex(field));
+        const vectorRegex = RegExp(Helper.getVectorRegex(field));
         return vectorStrings.every(vectorString => vectorRegex.test(vectorString));
     }
 
@@ -290,18 +290,18 @@ class Parser {
         const charactersUsedByAll = generalCharacters
             .concat(listOfAllOperators)
             .map(character => this._escapeCharacterForUseInRegex(character))
-            .concat(getRealNumberRegex(false));
+            .concat(Helper.getRealNumberRegex(false));
 
-       if(isRealNumbersField(field)){
+       if(Helper.isRealNumbersField(field)){
            return charactersUsedByAll;
-       } else if(isPrimeField(field)){
-           return charactersUsedByAll.concat(getPrimeFieldRegex(false));
+       } else if(Helper.isPrimeField(field)){
+           return charactersUsedByAll.concat(Helper.getPrimeFieldRegex(false));
        } else if(field === Field.F4){
-            return charactersUsedByAll.concat(getF4Regex(false));
+            return charactersUsedByAll.concat(Helper.getF4Regex(false));
         } else if(field === Field.F8){
-            return charactersUsedByAll.concat(getF8Regex(false));
+            return charactersUsedByAll.concat(Helper.getF8Regex(false));
         } else if(field === Field.F9){
-            return charactersUsedByAll.concat(getF9Regex(false));
+            return charactersUsedByAll.concat(Helper.getF9Regex(false));
         }
     }
 
