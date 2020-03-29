@@ -4,7 +4,7 @@
  * @author David Augustat
  * */
 
-const Operators = {
+export const Operators = {
     ADD: '+',
     SUBTRACT: '-',
     MULTIPLY: '*',
@@ -16,7 +16,7 @@ const Operators = {
     ABSOLUTE_VALUE: 'abs'
 };
 
-const Constants = {
+export const Constants = {
     listOfAllOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.EXPONENTIATE,
         Operators.DIVIDE, Operators.ROW_REDUCE, Operators.DETERMINANT, Operators.ABSOLUTE_VALUE],
 

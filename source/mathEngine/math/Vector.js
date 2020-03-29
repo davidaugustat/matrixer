@@ -1,9 +1,11 @@
+import {GeneralNumber, Matrix, MathElement, Field, Exceptions, Helper} from 'mathEngine/imports.js';
+
 /**
  * Class for storing and manipulating a mathematical vector over an algebraic field.
  *
  * @author David Augustat
  * */
-class Vector extends MathElement{
+export default class Vector extends MathElement{
     /** @type {number} */
     size;
 

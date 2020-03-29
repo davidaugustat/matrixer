@@ -1,9 +1,11 @@
+import {GeneralNumber, Vector, MathElement, Field, Exceptions, Helper} from 'mathEngine/imports.js';
+
 /**
  A class that can store and manipulate a mathematical matrix over several fields.
 
  @author David Augustat
  */
-class Matrix extends MathElement{
+export default class Matrix extends MathElement{
 
     /** @type {number} */
     rows;

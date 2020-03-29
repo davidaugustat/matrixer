@@ -1,3 +1,5 @@
+import {GeneralNumber,Field, Exceptions, Helper} from 'mathEngine/imports.js';
+
 /**
  * Class for storing numbers in the real-number field.
  *
@@ -5,7 +7,7 @@
  *
  * @author David Augustat
  * */
-class RealNumber extends GeneralNumber{
+export default class RealNumber extends GeneralNumber{
 
     /**
      * @param {number} value

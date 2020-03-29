@@ -1,3 +1,5 @@
+import {Vector, Matrix, MathElement, Exceptions} from 'mathEngine/imports.js';
+
 /**
  * General (abstract) class for storing a number over a field.
  *
@@ -7,7 +9,7 @@
  *
  * @author David Augustat
  * */
-class GeneralNumber extends MathElement{
+export default class GeneralNumber extends MathElement{
 
 
     /**

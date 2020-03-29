@@ -1,3 +1,5 @@
+import {RealNumber, GeneralNumber, Vector, Matrix, Exceptions, Helper} from 'mathEngine/imports.js';
+
 /**
  * General abstract class for storing a math element over an algebraic field.
  *
@@ -10,7 +12,7 @@
  *
  * @author David Augustat
  * */
-class MathElement {
+export default class MathElement {
 
     /**
      * The field on which the MathElement operates

@@ -1,3 +1,5 @@
+import {Vector, Matrix, Field, ExpressionNode, Exceptions, Helper, Constants, Operators} from 'mathEngine/imports.js';
+
 /**
  * Class that is able to convert a math expression string in user-input-notation into a binary tree
  * consisting of ExpressionNodes. This tree can then be used to recursively calculate the result of the
@@ -5,7 +7,7 @@
  *
  * @author David Augustat
  * */
-class Interpreter {
+export default class Interpreter {
     /**
      * Field on that the expressions should be interpreted
      * @type{number} */

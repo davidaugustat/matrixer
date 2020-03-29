@@ -1,10 +1,12 @@
+import {Helper, Constants} from 'mathEngine/imports.js';
+
 /**
  * Class that converts a valid string in user-input-notation into an equivalent latex representation, so that
  * it can be displayed to the user together with the result of the calculation.
  *
  * @author David Augustat
  * */
-class InputToLatexConverter {
+export default class InputToLatexConverter {
     /**
      * Converts a user input into an equivalent latex math expression and returns it.
      *

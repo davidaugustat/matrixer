@@ -17,7 +17,7 @@ const Exception = {
 };
 */
 
-const Exceptions = {
+export const Exceptions = {
     InvalidBracketsException: {
         englishMessage: "An invalid order or quantity of brackets has been detected.",
         germanMessage: "Eine falsche Anordnung oder Anzahl von Klammern wurde erkannt."

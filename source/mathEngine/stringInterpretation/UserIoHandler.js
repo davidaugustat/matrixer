@@ -1,3 +1,5 @@
+import {Interpreter, Parser, InputToLatexConverter} from 'mathEngine/imports.js';
+
 /**
  * Class that handles the connection between the user interface and the math engine.
  *
@@ -6,7 +8,7 @@
  *
  * @author David Augustat
  * */
-class UserIoHandler {
+export default class UserIoHandler {
 
     /**
      * Handles the entire process of validating and evaluating the user input and calculating the result.

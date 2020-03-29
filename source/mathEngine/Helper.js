@@ -1,9 +1,11 @@
+import {F4Number, F8Number, F9Number, PrimeFieldNumber, RealNumber, GeneralNumber, Field} from 'mathEngine/imports.js';
+
 /**
  * This class contains several helper methods that are used by the math engine.
  *
  * @author David Augustat
  * */
-class Helper{
+export default class Helper{
 
     /**
      * Returns the regex string for matching a matrix over a given field.

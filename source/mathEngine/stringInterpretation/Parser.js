@@ -1,10 +1,12 @@
+import {Field, Exceptions, Helper, Constants} from 'mathEngine/imports.js';
+
 /**
  * A class that serves the purpose of checking if a mathematical expression is lexically correct.
  * Semantic errors are not checked however.
  *
  * @author David Augustat
  * */
-class Parser {
+export default class Parser {
 
     /**
      * Checks if text is a valid math expression. If not, an exception containing the approximate reason of failure

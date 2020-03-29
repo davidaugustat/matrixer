@@ -204,7 +204,7 @@ const exp8 = "4(4(4(4(4(4(4))))))*rowreduce({1,1;1,1})";
 
 const time = performance.now();
 //console.log(new Interpreter(Field.F8).interpret(exp).calculate());
-console.log(new UserIoHandler().processCalculation(Field.R, "{1,2,3;4,5}"));
+console.log(new UserIoHandler().processCalculation(Field.R, exp1));
 // console.log(interpreter._completeOmittedMultiplicationOperator("-567(4+3*(3-6))*rowreduce({1,2;3,4})*2"));
 // console.log(parser._getValidNumbersAndCharacters(Field.F4));
 console.log("Time: " + (performance.now()-time) + " ms");

@@ -1,3 +1,5 @@
+import {GeneralNumber, Exceptions} from 'mathEngine/imports.js';
+
 /**
  * Class for storing numbers over an algebraic prime number finite field.
  *
@@ -8,7 +10,7 @@
  *
  * @author David Augustat
  * */
-class PrimeFieldNumber  extends GeneralNumber {
+export default class PrimeFieldNumber  extends GeneralNumber {
 
     /**
      * @param {number} field The prime number finite field that should be used.

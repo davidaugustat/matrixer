@@ -3,7 +3,7 @@
  *
  * @author David Augustat
  * */
-class Field {
+export default class Field {
     static F2 = 2;
     static F3 = 3;
     static F4 = 4;

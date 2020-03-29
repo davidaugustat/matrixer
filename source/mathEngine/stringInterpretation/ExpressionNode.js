@@ -1,3 +1,5 @@
+import {Matrix, MathElement, Exceptions, Operators} from 'mathEngine/imports.js';
+
 /**
  * Class that represents a node of a binary tree that can store mathematical expressions.
  * Each node can have one of the following structures:
@@ -17,7 +19,7 @@
  *
  * @author David Augustat
  * */
-class ExpressionNode {
+export default class ExpressionNode {
 
     /**
      * The left ExpressionNode containing the sub-expression before the operator

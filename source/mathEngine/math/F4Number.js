@@ -1,9 +1,11 @@
+import {GeneralNumber, FieldLookupTables, Field, Exceptions} from 'mathEngine/imports.js';
+
 /**
  * Class for storing numbers over the F4 field with the 4 elements 0, 1, a, a+1 (a is alpha).
  *
  * @author David Augustat
  * */
-class F4Number extends GeneralNumber{
+export default class F4Number extends GeneralNumber{
 
     /**
      * @param {number} value
