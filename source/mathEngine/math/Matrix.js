@@ -168,15 +168,17 @@ export default class Matrix extends MathElement{
      * */
     toUserInputString() {
         let output = "{";
-        this.value.forEach((row) => {
-            row.forEach((cellElement, index, array) => {
-                if(index < array.length-1) {
+        this.value.forEach((row, rowIndex, outerArray) => {
+            row.forEach((cellElement, columnIndex, innerArray) => {
+                if(columnIndex < innerArray.length-1) {
                     output += cellElement.toUserInputString() + ", ";
                 } else{
                     output += cellElement.toUserInputString();
                 }
             });
-            output += "; ";
+            if(rowIndex < outerArray.length-1){
+                output += "; ";
+            }
         });
         output += "}";
         return output;

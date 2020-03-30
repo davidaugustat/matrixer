@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Matrixer - Finite Field and Matrix Calculator</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="d-flex flex-column h-100">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light">
+            <a class="navbar-brand" href="#">
+                <img class="logo" src="matrixer-logo.svg">
+            </a>
+<!--            <ul class="navbar-nav ml-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a href="#">Info</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+            <div class="ml-auto" id="github-logo-link">
+                <a href="https://github.com/davidaugustat/matrixer" title="View Code on GitHub">
+                    <img id="github-icon" alt="GitHub icon" src="github-logo.png">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="flex-shrink-0">
+        <div class="container main-content">
+
+            <p class="lead text-muted" id="introduction-text">
+                Matrixer is a simple calculator that can not only calculate with real numbers, but also with several finite fields like F3, F4 or F8.
+                Additionally as the name suggests, Matrixer is able to calculate with matrices as well as vectors.
+            </p>
+
+            <div class="text-center" id="expression-input-area">
+                <form id="expression-input-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="expression-input" placeholder="Enter your expression....">
+                    </div>
+                    <div class="form-group row justify-content-center">
+                        <label class="col-sm-2 col-form-label" for="field-select">Field: </label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="field-select">
+                                <option>R (real numbers)</option>
+                                <option>F2 (2 elements)</option>
+                                <option>F3 (3 elements)</option>
+                                <option>F4 (4 elements)</option>
+                                <option>F5 (5 elements)</option>
+                                <option>F7 (7 elements)</option>
+                                <option>F8 (8 elements)</option>
+                                <option>F9 (9 elements)</option>
+                                <option>F11 (11 elements)</option>
+                                <option>F13 (13 elements)</option>
+                                <option>F17 (17 elements)</option>
+                                <option>F19 (19 elements)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block col-sm-4" id="calculate-btn">Calculate</button>
+                    </div>
+                </form>
+
+
+                </form>
+            </div>
+
+            <div id="result-div">
+                <div class="alert alert-danger">
+                    <p><b>Oh no! Matrixer has detected an error:</b></p>
+                    <p>Vectors cannot be multiplied by matrices. However, the other way around (matrix * vector) is allowed.</p>
+                    <p>You think this is an error? <a href="#">Report it!</a></p>
+                </div>
+
+                <div class="result-box" id="input-feedback-div">
+                    <span><b>Your Input:</b></span>
+                    <p>
+                        \[5*(2-1)*\begin{pmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{pmatrix}*\begin{pmatrix}9 \\ 8 \\ 7\end{pmatrix}*5*(2-1)*\begin{pmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{pmatrix}*\begin{pmatrix}9 \\ 8 \\ 7\end{pmatrix}\]
+                    </p>
+                </div>
+                <div class="result-box" id="expression-result-div">
+                    <span><b>Result:</b></span>
+                    <p>
+                        \[\begin{pmatrix}12 & 13 & 14 & 15 \\ 16 & 17 & 18 & 19 \\ 20 & 21 & 22 & 23\end{pmatrix}\]
+                    </p>
+                </div>
+            </div>
+
+            <div id="documentation-div">
+                <h2>Instructions</h2>
+                <h4>How do I enter a math expression?</h4>
+                <ul>
+                    <li>
+                        <b>Usual math expressions:</b> Just like on any calculator: <br>
+                        <span class="input-example">-5*(3+4.5)/6-5^3</span> represents \(-5*(3+4.5)/6-5^3\)
+                    </li>
+                    <li>
+                        <b>F4 Numbers:</b>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Input</th>
+                                    <th>Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0</td>
+                                    <td>\(0\)</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>\(1\)</td>
+                                </tr>
+                                <tr>
+                                    <td>a</td>
+                                    <td>\(\alpha\)</td>
+                                </tr>
+                                <tr>
+                                    <td>a+1</td>
+                                    <td>\(\alpha+1\)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                    <li>
+                        <b>F8 Numbers:</b>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Input</th>
+                                    <th>Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0</td>
+                                    <td>\(0\)</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>\(1\)</td>
+                                </tr>
+                                <tr>
+                                    <td>b</td>
+                                    <td>\(\beta\)</td>
+                                </tr>
+                                <tr>
+                                    <td>1+b</td>
+                                    <td>\(1+\beta\)</td>
+                                </tr>
+                                <tr>
+                                    <td>bs</td>
+                                    <td>\(\beta^2\)</td>
+                                </tr>
+                                <tr>
+                                    <td>1+bs</td>
+                                    <td>\(1+\beta^2\)</td>
+                                </tr>
+                                <tr>
+                                    <td>b+bs</td>
+                                    <td>\(\beta+\beta^2\)</td>
+                                </tr>
+                                <tr>
+                                    <td>1+b+bs</td>
+                                    <td>\(1+\beta+\beta^2\)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                    <li>
+                        <b>F9 Numbers:</b>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Input</th>
+                                    <th>Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0</td>
+                                    <td>\(0\)</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>\(1\)</td>
+                                </tr>
+                                <tr>
+                                    <td>-1</td>
+                                    <td>\(-1\)</td>
+                                </tr>
+                                <tr>
+                                    <td>j</td>
+                                    <td>\(\iota\)</td>
+                                </tr>
+                                <tr>
+                                    <td>j+1</td>
+                                    <td>\(\iota+1\)</td>
+                                </tr>
+                                <tr>
+                                    <td>j-1</td>
+                                    <td>\(\iota-1\)</td>
+                                </tr>
+                                <tr>
+                                    <td>-j</td>
+                                    <td>\(-\iota\)</td>
+                                </tr>
+                                <tr>
+                                    <td>-j+1</td>
+                                    <td>\(-\iota+1\)</td>
+                                </tr>
+                                <tr>
+                                    <td>-j-1</td>
+                                    <td>\(-\iota-1\)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                    <li>
+                        <b>Matrices:</b> Surrounded by curly brackets, rows separated by a semicolon and columns by a comma.<br>
+                        <span class="input-example">{1,2,3;4,5,6}</span> represents
+                        \(\begin{pmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{pmatrix}\)
+                    </li>
+                    <li>
+                        <b>Vectors:</b> Surrounded by square brackets, rows separated by a comma.<br>
+                        <span class="input-example">[1,2,3,4]</span> represents
+                        \(\begin{pmatrix}1 \\ 2 \\ 3 \\ 4\end{pmatrix}\)
+                    </li>
+                </ul>
+                <!--
+                \(\)
+                \begin{pmatrix}\end{pmatrix}
+                \(\begin{pmatrix}\end{pmatrix}\)
+                -->
+                <h4>What can I do with Matrixer?</h4>
+                <ul>
+                    <li>
+                        <b>Make calculations with fields:</b>
+                        <p><span class="input-example">bs*(1+b+bs)-b</span> \(=\beta^2*(1+\beta*\beta^2)-\beta = \beta\)</p>
+                        <p><span class="input-example">(a+1)^2</span> \(=(\alpha+1)^2 = \alpha\)</p>
+                        <p>Supported operations are multiplying (*), dividing(/), adding (+) subtracting (-) and exponentiation (^)</p>
+                        <div class="alert alert-primary">
+                            <p>Note that the exponent of an exponentiation must always be a <b>whole real number \(\geq\) 0</b> when exponentiating numbers from finite fields:</p>
+                            <p>\((\alpha+1)^2\) is allowed, but \((\alpha+1)^\alpha\) and \((\alpha+1)^{0.5}\) are not allowed.</p>
+                            <p>Using decimal numbers as exponents for <b>real</b> numbers is fine however: \(4^{0.5} = \sqrt{4} = 2\)</p>
+                        </div>
+                    </li>
+                    <li>
+                        <b>Multiply, add and subtract matrices:</b>
+                        <p>E.g. in F5: <span class="input-example">{0,4,3;1,2,4}*{1,3;0,2;4,2}</span>
+                            \(=\begin{pmatrix}0&4&3\\1&2&4\end{pmatrix}*\begin{pmatrix}1&3\\0&2\\4&2\end{pmatrix} = \begin{pmatrix}2&4\\2&0\end{pmatrix}\)</p>
+                        <p>E.g. in F4:<span class="input-example">{a,a+1;0,1}+{0,1;a,a}</span>
+                            \(=\begin{pmatrix}\alpha&\alpha+1\\0&1\end{pmatrix}+\begin{pmatrix}0&1\\\alpha&\alpha\end{pmatrix} = \begin{pmatrix}\alpha&\alpha\\\alpha&\alpha+1\end{pmatrix}\)</p>
+                    </li>
+                    <li>
+                        <b>Multiply a matrix with a vector:</b>
+                        <p>E.g. in F5: <span class="input-example">{0,4,3;1,2,4}*[1,0,4]</span>
+                            \(=\begin{pmatrix}0&4&3\\1&2&4\end{pmatrix}*\begin{pmatrix}1\\0\\4\end{pmatrix} = \begin{pmatrix}2\\2\end{pmatrix}\)</p>
+                    </li>
+                    <li>
+                        <b>Multiply a matrix with a number</b>
+                        <p>E.g. in F4: <span class="input-example">a*{1,1;1,1}</span>
+                            \(=\alpha*\begin{pmatrix}1&1\\1&1\end{pmatrix}=\begin{pmatrix}\alpha&\alpha\\\alpha&\alpha\end{pmatrix}\)</p>
+                    </li>
+                    <li>
+                        <b>Multiply, add and subtract vectors:</b>
+                        <p>E.g. in F3: <span class="input-example">[2,1,2]*[2,2,0]</span>
+                            \(=\begin{pmatrix}2\\1\\2\end{pmatrix}*\begin{pmatrix}2\\2\\0\end{pmatrix} = 0\)</p>
+                        <p>E.g. in R: <span class="input-example">[1,2,3]*[4,5,6]</span>
+                            \(=\begin{pmatrix}1\\2\\3\end{pmatrix}-\begin{pmatrix}4\\5\\6\end{pmatrix} = \begin{pmatrix}-3\\-3\\-3\end{pmatrix}\)
+                        </p>
+                    </li>
+                    <li>
+                        <b>Everything together:</b>
+                        <p>E.g. in R: <span class="input-example">3*(3+6)*{1,2,3;4,5,6}*[9,8,7]</span>
+                            \(=3*(3+6)*\begin{pmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{pmatrix}*\begin{pmatrix}9 \\ 8 \\ 7\end{pmatrix}=\begin{pmatrix}1242\\3186\end{pmatrix}\)
+                        </p>
+                    </li>
+                    <li>
+                        <b>Convert a matrix to <a href="https://en.wikipedia.org/wiki/Row_echelon_form#Reduced_row_echelon_form">reduced row-echelon-form:</a></b>
+                        <p>E.g. in R: <span class="input-example">rowreduce({1,2,3,4;5,6,7,8;9,0,1,2})</span>
+                            \(=rowreduce(\begin{pmatrix}1&2&3&4\\5&6&7&8\\9&0&1&2\end{pmatrix}) = \begin{pmatrix}1&0&0&0\\0&1&0&-1\\0&0&1&2\end{pmatrix}\)
+                        </p>
+                        <p>Note that the round brackets surrounding the curly matrix brackets may <b>not</b> be omitted.</p>
+                    </li>
+                </ul>
+                <h4>What can't I do with Matrixer?</h4>
+                <ul>
+                    <li>
+                        <b>Calculations inside of matrices or vectors:</b>
+                        <p>E.g. \(\begin{pmatrix}3*4&5+6\\2^2&7\end{pmatrix}\) or \(\begin{pmatrix}3*4\\5-2\\4/3\end{pmatrix}\)is not allowed</p>
+
+                        <div class="alert alert-primary">
+                            Note that this means, that you can't enter the F8 number \(\beta^2\) as
+                            <span class="input-example">b^2</span> inside a matrix or vector. Use <span class="input-example">bs</span>  instead.
+                        </div>
+                        I know that this isn't ideal, and I might improve this later.
+                    </li>
+                    <li>
+                        <b>Understand function operators without round brackets:</b>
+                        <p>Function operators are operators that are structured like this: myoperator(some numbers)</p>
+                        <p>For example <span class="input-example">rowreduce({1,2;3,4})</span>  is allowed, but
+                            <span class="input-example">rowreduce{1,2;3,4}</span> is <b>not</b> allowed because of the missing round brackets.
+                        </p>
+                    </li>
+                    <li>
+                        <b>Something else is missing?</b><br> If you know a feature that might be helpful, just <a href="">contact me</a> and maybe I'll add that feature.
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer mt-auto py3 bg-dark">
+        <div class="container">
+            <div class="nav justify-content-center" id="footer-nav">
+                <a class="nav-link text-light" href="https://github.com/davidaugustat/matrixer">View Code on GitHub</a>
+                <a class="nav-link text-light" href="#">About this Website</a>
+                <a class="nav-link text-light" href="#">Contact</a>
+                <a class="nav-link text-light" href="#">Privacy</a>
+            </div>
+            <p class="text-light footer-text text-center">
+                You found an error? Something doesn't work? <a class="text-light" href="">Report it to me!</a>
+            </p>
+            <p class="text-light footer-text text-center">
+                © 2020 David Augustat
+            </p>
+        </div>
+    </footer>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
