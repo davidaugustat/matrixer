@@ -1,11 +1,18 @@
 const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+
+const fs = require("fs");
+
+// html template files:
+const htmlHeader = fs.readFileSync(path.resolve(__dirname, "source/html/templates/header.html"));
+const htmlFooter = fs.readFileSync(path.resolve(__dirname, "source/html/templates/footer.html"));
 
 module.exports = {
-  mode: "production",
+  mode: "development",
     entry: path.resolve(__dirname, "source/main2.js"),
-    //entry: "./source/main2.js",
     output: {
-        filename: "bundle.js",
+        filename: "main.js",
         path: path.resolve(__dirname, "distribution")
     },
     resolve: {
@@ -28,5 +35,18 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            hash: true,
+            filename: "index.html",
+            template: path.resolve(__dirname, "source/html/index.html"),
+            chunks: ['main'],
+            header: htmlHeader,
+            footer: htmlFooter
+        }),
+        new CopyPlugin([
+            {from: path.resolve(__dirname, "source/css"), to: "css"}
+        ])
+    ]
 };
