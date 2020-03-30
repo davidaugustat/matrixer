@@ -1,4 +1,8 @@
-import {RealNumber, GeneralNumber, Vector, Matrix, Exceptions, Helper} from 'mathEngine/imports.js';
+import {Exceptions} from "../Exceptions";
+import RealNumber from "./RealNumber";
+import Helper from "../Helper";
+import GeneralNumber from "./GeneralNumber";
+import {MathElementType} from "../Constants";
 
 /**
  * General abstract class for storing a math element over an algebraic field.
@@ -25,9 +29,22 @@ export default class MathElement {
      * @type {number | [[GeneralNumber]] | [GeneralNumber]}*/
     _value;
 
-    constructor(field, value) {
+    /**
+     * Indicates if the math element is a number, a vector or a matrix (see MathElementType in Constants.js).
+     *
+     * This is necessary, because the method this._doAccordingToElementType needs to know which type of math element
+     * is present. However, instanceof cannot be used there unfortunately, because it would create a circular
+     * dependency on Matrix and Vector, which causes the entire code not to work after being compiled to ES5 by Babel.
+     * Therefore this solution should be considered as an ugly workaround and not as decent code.
+     *
+     * @type {number}
+     * */
+    _type;
+
+    constructor(field, value, type) {
         this._field = field;
         this._value = value;
+        this._type = type;
     }
 
     /**
@@ -43,6 +60,10 @@ export default class MathElement {
      * */
     get value() {
         return this._value;
+    }
+
+    get type(){
+        return this._type;
     }
 
     /**
@@ -269,18 +290,33 @@ export default class MathElement {
     }
 
     /**
-     * @param {MathElement} element
-     * @param {function(MathElement): MathElement} numberBehavior
-     * @param {function(MathElement): MathElement} matrixBehavior
-     * @param {function(MathElement): MathElement} vectorBehavior
+     * Checks the type of the provided MathElement element, and executes one of the provided methods based
+     * on that.
+     *
+     * The type checking is done by comparing the attribute "_type", whose value determines, of which type the
+     * element is. _tape can either be MathElementType.NUMBER, MathElementType.MATRIX or MathElementType.VECTOR.
+     * (see Constants.js for MathElementType)
+     *
+     * In an earlier implementation of this method instanceof was used instead of _type to determine the type of
+     * element. However, this turned out to be incompatible with JavaScript ES5 (after transpilation using Babel),
+     * since it creates a circular dependency on Matrix and Vector, which both depend on MathElement. To solve this
+     * problem, _type has been introduced as a workaround.
+     *
+     * @param {MathElement} element The element to check for it's type
+     * @param {function(MathElement): MathElement} numberBehavior The code that should be executed, when element
+     * is a GeneralNumber
+     * @param {function(MathElement): MathElement} matrixBehavior The code that should be executed, when element
+     * is a Matrix
+     * @param {function(MathElement): MathElement} vectorBehavior The code that should be executed, when element
+     * is a Vector
      * @returns {MathElement}
      * */
     _doAccordingToElementType(element, numberBehavior, matrixBehavior, vectorBehavior){
-        if(element instanceof GeneralNumber){
+       if(element.type === MathElementType.NUMBER){
             return numberBehavior(element);
-        } else if(element instanceof Matrix){
+        } else if(element.type === MathElementType.MATRIX){
             return matrixBehavior(element);
-        } else if(element instanceof Vector){
+        } else if(element.type === MathElementType.VECTOR){
             return vectorBehavior(element);
         }
     }

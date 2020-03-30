@@ -1,11 +1,10 @@
-import {Field} from 'mathEngine/imports.js';
+import Field from "./Field";
 
 /**
  * Lookup table file that contains all kinds of lookup tables for the fields F4, F8, F9.
  *
  * @author David Augustat
  * */
-
 export const FieldLookupTables = {
 
     /** @type {[{number: number, name: string}]} */

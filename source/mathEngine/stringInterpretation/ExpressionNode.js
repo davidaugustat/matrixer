@@ -1,4 +1,6 @@
-import {Matrix, MathElement, Exceptions, Operators} from 'mathEngine/imports.js';
+import {Operators} from "../Constants";
+import {Exceptions} from "../Exceptions";
+import Matrix from "../math/Matrix";
 
 /**
  * Class that represents a node of a binary tree that can store mathematical expressions.

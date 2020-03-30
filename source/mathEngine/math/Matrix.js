@@ -1,4 +1,8 @@
-import {GeneralNumber, Vector, MathElement, Field, Exceptions, Helper} from 'mathEngine/imports.js';
+import MathElement from "./MathElement";
+import {Exceptions} from "../Exceptions";
+import Vector from "./Vector";
+import Helper from "../Helper";
+import {MathElementType} from "../Constants";
 
 /**
  A class that can store and manipulate a mathematical matrix over several fields.
@@ -25,7 +29,7 @@ export default class Matrix extends MathElement{
      * @param {?number} columns Number of columns of the matrix (if not set, default value is 0)
      * */
     constructor(field = Field.R, value, rows = 0, columns = 0){
-        super(field, value);
+        super(field, value, MathElementType.MATRIX);
         if(value !== null){
             this.value = value;
         } else{

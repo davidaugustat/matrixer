@@ -1,4 +1,9 @@
-import {F4Number, F8Number, F9Number, PrimeFieldNumber, RealNumber, GeneralNumber, Field} from 'mathEngine/imports.js';
+import RealNumber from "./math/RealNumber";
+import PrimeFieldNumber from "./math/PrimeFieldNumber";
+import F4Number from "./math/F4Number";
+import F8Number from "./math/F8Number";
+import F9Number from "./math/F9Number";
+import Field from "./math/Field";
 
 /**
  * This class contains several helper methods that are used by the math engine.

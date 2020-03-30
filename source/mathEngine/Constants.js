@@ -16,6 +16,12 @@ export const Operators = {
     ABSOLUTE_VALUE: 'abs'
 };
 
+export const MathElementType = {
+    NUMBER: 1,
+    MATRIX: 2,
+    VECTOR: 3,
+};
+
 export const Constants = {
     listOfAllOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.EXPONENTIATE,
         Operators.DIVIDE, Operators.ROW_REDUCE, Operators.DETERMINANT, Operators.ABSOLUTE_VALUE],

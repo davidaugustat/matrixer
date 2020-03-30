@@ -1,4 +1,6 @@
-import {Vector, Matrix, MathElement, Exceptions} from 'mathEngine/imports.js';
+import MathElement from "./MathElement";
+import {Exceptions} from "../Exceptions";
+import {MathElementType} from "../Constants";
 
 /**
  * General (abstract) class for storing a number over a field.
@@ -11,6 +13,9 @@ import {Vector, Matrix, MathElement, Exceptions} from 'mathEngine/imports.js';
  * */
 export default class GeneralNumber extends MathElement{
 
+    constructor(field, value) {
+        super(field, value, MathElementType.NUMBER);
+    }
 
     /**
      * Calculates and returns a GeneralNumber containing the multiplicative inverse of the value in the current

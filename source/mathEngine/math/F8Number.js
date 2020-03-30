@@ -1,4 +1,8 @@
-import {GeneralNumber, FieldLookupTables, Field, Exceptions} from 'mathEngine/imports.js';
+
+import GeneralNumber from "./GeneralNumber";
+import {FieldLookupTables} from "./FieldLookupTables";
+import {Exceptions} from "../Exceptions";
+import Field from "./Field";
 
 /**
  * Class for storing numbers over the F8 field with the 8 elements 0, 1, b, 1+b, b², 1+b², b+b², 1+b+b² (b is beta).

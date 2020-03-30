@@ -1,4 +1,7 @@
-import {Field, Exceptions, Helper, Constants} from 'mathEngine/imports.js';
+import {Exceptions} from "../Exceptions";
+import Helper from "../Helper";
+import {Constants} from "../Constants";
+import Field from "../math/Field";
 
 /**
  * A class that serves the purpose of checking if a mathematical expression is lexically correct.

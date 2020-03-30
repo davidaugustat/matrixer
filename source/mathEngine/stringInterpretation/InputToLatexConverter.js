@@ -1,4 +1,5 @@
-import {Helper, Constants} from 'mathEngine/imports.js';
+import Helper from "../Helper";
+import {Constants} from "../Constants";
 
 /**
  * Class that converts a valid string in user-input-notation into an equivalent latex representation, so that

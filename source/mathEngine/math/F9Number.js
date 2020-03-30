@@ -1,4 +1,7 @@
-import {GeneralNumber, FieldLookupTables, Field, Exceptions} from 'mathEngine/imports.js';
+import GeneralNumber from "./GeneralNumber";
+import {FieldLookupTables} from "./FieldLookupTables";
+import {Exceptions} from "../Exceptions";
+import Field from "./Field";
 
 /**
  * Class for storing numbers over the F9 field with the 9 elements 0, 1, -1, j, j+1, j-1, -j, -j+1, -j-1 (j is iota).

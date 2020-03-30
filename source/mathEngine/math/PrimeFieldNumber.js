@@ -1,4 +1,5 @@
-import {GeneralNumber, Exceptions} from 'mathEngine/imports.js';
+import GeneralNumber from "./GeneralNumber";
+import {Exceptions} from "../Exceptions";
 
 /**
  * Class for storing numbers over an algebraic prime number finite field.

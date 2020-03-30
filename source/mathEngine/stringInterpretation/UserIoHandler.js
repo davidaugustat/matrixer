@@ -1,4 +1,6 @@
-import {Interpreter, Parser, InputToLatexConverter} from 'mathEngine/imports.js';
+import Parser from "./Parser";
+import InputToLatexConverter from "./InputToLatexConverter";
+import Interpreter from "./Interpreter";
 
 /**
  * Class that handles the connection between the user interface and the math engine.

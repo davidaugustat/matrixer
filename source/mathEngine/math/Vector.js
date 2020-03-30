@@ -1,4 +1,8 @@
-import {GeneralNumber, Matrix, MathElement, Field, Exceptions, Helper} from 'mathEngine/imports.js';
+import MathElement from "./MathElement";
+import Helper from "../Helper";
+import Matrix from "./Matrix";
+import {Exceptions} from "../Exceptions";
+import {MathElementType} from "../Constants";
 
 /**
  * Class for storing and manipulating a mathematical vector over an algebraic field.
@@ -15,7 +19,7 @@ export default class Vector extends MathElement{
      * @param {number} size
      * */
     constructor(field=Field.R, value, size=0){
-        super(field, value);
+        super(field, value, MathElementType.VECTOR);
         if(value !== null){
             this.value = value;
         } else{

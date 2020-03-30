@@ -1,4 +1,7 @@
-import {GeneralNumber,Field, Exceptions, Helper} from 'mathEngine/imports.js';
+import GeneralNumber from "./GeneralNumber";
+import {Exceptions} from "../Exceptions";
+import Helper from "../Helper";
+import Field from "./Field";
 
 /**
  * Class for storing numbers in the real-number field.

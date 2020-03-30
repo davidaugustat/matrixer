@@ -1,4 +1,10 @@
-import {Vector, Matrix, Field, ExpressionNode, Exceptions, Helper, Constants, Operators} from 'mathEngine/imports.js';
+import {Constants, Operators} from "../Constants";
+import Helper from "../Helper";
+import {Exceptions} from "../Exceptions";
+import Matrix from "../math/Matrix";
+import Vector from "../math/Vector";
+import ExpressionNode from "./ExpressionNode";
+import Field from "../math/Field";
 
 /**
  * Class that is able to convert a math expression string in user-input-notation into a binary tree
