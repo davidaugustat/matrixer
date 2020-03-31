@@ -7,6 +7,10 @@ const fs = require("fs");
 // html template files:
 const htmlHeader = fs.readFileSync(path.resolve(__dirname, "source/html/templates/header.html"));
 const htmlFooter = fs.readFileSync(path.resolve(__dirname, "source/html/templates/footer.html"));
+const htmlHeadTag= fs.readFileSync(path.resolve(__dirname, "source/html/templates/head-tag.html"));
+const htmlBodyTag = fs.readFileSync(path.resolve(__dirname, "source/html/templates/body-tag.html"));
+const htmlInputOutputFormEn = fs.readFileSync(path.resolve(__dirname, "source/html/templates/input-output-form-en.html"));
+const htmlInstructionsEn = fs.readFileSync(path.resolve(__dirname, "source/html/templates/instructions-en.html"));
 
 module.exports = {
   mode: "development",
@@ -43,10 +47,15 @@ module.exports = {
             template: path.resolve(__dirname, "source/html/index.html"),
             chunks: ['main'],
             header: htmlHeader,
-            footer: htmlFooter
+            footer: htmlFooter,
+            headTag: htmlHeadTag,
+            bodyTag: htmlBodyTag,
+            inputOutputFormEn: htmlInputOutputFormEn,
+            instructionsEn: htmlInstructionsEn
         }),
         new CopyPlugin([
-            {from: path.resolve(__dirname, "source/css"), to: "css"}
+            {from: path.resolve(__dirname, "source/css"), to: "css"},
+            {from: path.resolve(__dirname, "source/img"), to: "img"}
         ])
     ]
 };

@@ -1,5 +1,178 @@
 body{
-    background-color: #03ffcc;
-    color: black;
+    font-family: 'Roboto', sans-serif;
+}
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.15);
+}
+.logo{
+    height: 30px;
+    margin: 10px 10px 10px 15px;
+}
+
+#github-icon{
+    height: 35px;
+}
+
+.main-content{
+    padding-top: 30px;
+    padding-bottom: 50px;
+    /*background-color: #d1d1d1;*/
+}
+
+.footer{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#introduction-text{
+}
+
+#expression-input{
+
+}
+
+#expression-input-area{
+    max-width: 900px;
+    margin: 60px auto 0;
+}
+
+#expression-input-form{
+}
+
+#field-select{
+    /*width: 200px;*/
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#calculate-btn{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#result-div{
+    margin-top: 40px;
+    display: none;
+}
+
+#input-feedback-div{
+    margin-bottom: 20px;
+}
+
+#expression-result-div{
+
+}
+
+.result-box{
+    padding: 20px;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+}
+
+#result-code-area{
+    margin-top: 50px;
+}
+
+#code-copy-btn{
+    margin: 5px;
+}
+
+#documentation-div{
+    padding-top: 50px;
+}
+
+#documentation-div p{
+    overflow-x: auto;
+    /*overflow-y: hidden;*/
+    overflow-y: hidden;
+}
+
+ul li{
+    margin-bottom: 10px;
+}
+
+.MathJax{
+    overflow-x: auto;
+}
+
+
+.MathJax:focus{
+    outline: 0;
+}
+
+.input-example{
     font-family: monospace;
+    background-color: #e6e6e6;
+    padding: 5px;
+}
+
+#footer-nav{
+    padding-bottom: 30px;
+}
+
+.footer-text{
+    padding-left: 1rem;
+}
+
+.footer-text a{
+    text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+    .logo{
+        height: 20px;
+        margin: 10px 10px 10px 10px;
+    }
+
+    #github-icon{
+        height: 25px;
+    }
+}
+
+@media (max-width: 575px){
+    /*Fix padding on field select input on mobile devices: */
+    #field-select{
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 1200px) {
+    legend {
+        font-size: calc(1.275rem + 0.3vw);
+    }
+    h1,
+    .h1 {
+        font-size: calc(1.375rem + 1.5vw);
+    }
+    h2,
+    .h2 {
+        font-size: calc(1.325rem + 0.9vw);
+    }
+    h3,
+    .h3 {
+        font-size: calc(1.3rem + 0.6vw);
+    }
+    h4,
+    .h4 {
+        font-size: calc(1.275rem + 0.3vw);
+    }
+    .display-1 {
+        font-size: calc(1.725rem + 5.7vw);
+    }
+    .display-2 {
+        font-size: calc(1.675rem + 5.1vw);
+    }
+    .display-3 {
+        font-size: calc(1.575rem + 3.9vw);
+    }
+    .display-4 {
+        font-size: calc(1.475rem + 2.7vw);
+    }
+    .close {
+        font-size: calc(1.275rem + 0.3vw);
+    }
+    .lead{
+        font-size: calc(1.0rem + 0.3vw);
+    }
 }

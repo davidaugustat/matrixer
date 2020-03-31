@@ -1,13 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
-    <meta charset="UTF-8">
-    <title>Matrixer</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css" >
+
+    <%= htmlWebpackPlugin.options.headTag %>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <title>Matrixer - Finite Field and Matrix Calculator</title>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
+
     <%= htmlWebpackPlugin.options.header %>
-    <p>Here is the content!</p>
+
+    <main role="main" class="flex-shrink-0">
+        <div class="container main-content">
+
+            <p class="lead text-muted" id="introduction-text">
+                Matrixer is a simple calculator that can not only calculate with real numbers, but also with several finite fields like F3, F4 or F8.
+                Additionally as the name suggests, Matrixer is able to calculate with matrices as well as vectors.
+            </p>
+
+            <%= htmlWebpackPlugin.options.inputOutputFormEn %>
+
+            <%= htmlWebpackPlugin.options.instructionsEn %>
+
+        </div>
+    </main>
+
     <%= htmlWebpackPlugin.options.footer %>
+
+    <%= htmlWebpackPlugin.options.bodyTag %>
+
 </body>
 </html>

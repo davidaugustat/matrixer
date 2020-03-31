@@ -1,0 +1,51 @@
+<div class="text-center" id="expression-input-area">
+    <form id="expression-input-form">
+        <div class="form-group">
+            <input type="text" class="form-control" id="expression-input" placeholder="Enter your expression....">
+        </div>
+        <div class="form-group row justify-content-center">
+            <label class="col-sm-2 col-form-label" for="field-select">Field: </label>
+            <div class="col-sm-4">
+                <select class="form-control" id="field-select">
+                    <option>R (real numbers)</option>
+                    <option>F2 (2 elements)</option>
+                    <option>F3 (3 elements)</option>
+                    <option>F4 (4 elements)</option>
+                    <option>F5 (5 elements)</option>
+                    <option>F7 (7 elements)</option>
+                    <option>F8 (8 elements)</option>
+                    <option>F9 (9 elements)</option>
+                    <option>F11 (11 elements)</option>
+                    <option>F13 (13 elements)</option>
+                    <option>F17 (17 elements)</option>
+                    <option>F19 (19 elements)</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <button type="button" class="btn btn-primary btn-lg btn-block col-sm-4" id="calculate-btn">Calculate</button>
+        </div>
+    </form>
+
+</div>
+
+<div id="result-div">
+    <div class="alert alert-danger" id="result-error-box">
+        <p><b>Oh no! Matrixer has detected an error:</b></p>
+        <p id="result-error-info-paragraph"></p>
+        <p>You are sure that your input is correct? <a href="#">Report an error!</a></p>
+    </div>
+
+    <div class="result-box" id="input-feedback-div">
+        <span><b>Your Input:</b></span>
+        <p id="user-input-latex-paragraph"></p>
+    </div>
+    <div class="result-box" id="expression-result-div">
+        <span><b>Result:</b></span>
+        <p id="result-output-latex-paragraph"></p>
+        <p class="text-center" id="result-code-area">
+            Code: <span class="input-example" id="result-output-code-span"></span>
+            <button type="button" class="btn btn-sm btn-outline-primary" id="result-code-copy-btn">Copy</button>
+        </p>
+    </div>
+</div>

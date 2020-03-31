@@ -20,6 +20,6 @@ const time = performance.now();
 const sol = new UserIoHandler().processCalculation(Field.R, exp10);
 const time2 = performance.now();
 
-document.write("Input: " + sol.latexUserInput + "<br>");
-document.write("Result: " + sol.userInputResult + "<br><br>");
-document.write("Time: " + (time2 - time) + " ms<br>");
+// document.write("Input: " + sol.latexUserInput + "<br>");
+// document.write("Result: " + sol.userInputResult + "<br><br>");
+// document.write("Time: " + (time2 - time) + " ms<br>");
