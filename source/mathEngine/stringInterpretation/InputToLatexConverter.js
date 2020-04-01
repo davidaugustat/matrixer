@@ -23,6 +23,7 @@ export default class InputToLatexConverter {
         text = this._convertMatrices(text);
         text = this._convertVectors(text);
         text = this._convertExponentiatedParenthesis(text);
+        text = this._convertExponentiatedNumbers(text);
         return text;
     }
 
@@ -98,10 +99,19 @@ export default class InputToLatexConverter {
             if(Constants.functionOperators.includes(substring)){
                 return substring;
             } else{
-                return substring.replace(/a/g, 'α')
-                    .replace(/bs/g, 'β^2')
-                    .replace(/b/g, 'β')
-                    .replace(/j/g, 'ι');
+                const extendedFieldGreekCharacterRegex = /(a|bs|b|j)/g;
+                const replaceMap = {
+                    "a":"\\alpha",
+                    "bs":"\\beta^2",
+                    "b":"\\beta",
+                    "j":"\\iota"
+                };
+                return this._replaceMultiple(substring, extendedFieldGreekCharacterRegex, replaceMap);
+
+                // return substring.replace(/a/g, '\\alpha')
+                //     .replace(/bs/g, '\\beta^2')
+                //     .replace(/b/g, '\\beta')
+                //     .replace(/j/g, '\\iota');
 
             }
         });
@@ -109,11 +119,35 @@ export default class InputToLatexConverter {
     }
 
     /**
+     * Fixes the problem that with exponentiated numbers that have more than 1 digit, only the first digit will
+     * be shown as the exponent.
+     *
+     * The problem is fixed by wrapping the entire exponent number in curly brackets.
+     * E.g. 2^34 becomes 2^{34}.
+     *
+     * If no exponentiated number is contained in the string, the output will be equal to the input.
+     *
+     * @param {string} text String in user-input-notation
+     * @returns {string} String with exponentiated numbers wrapped in curly brackets.
+     * */
+    _convertExponentiatedNumbers(text){
+        const textSplitByExponentiatedNumbers = this._splitByExponentiatedNumbers(text);
+        const convertedSubstrings = textSplitByExponentiatedNumbers.map(substring => {
+            if(substring.startsWith('^') && Helper.isDigit(substring.charAt(1))){
+                return "^{" + substring.substring(1, substring.length) + '}';
+            } else{
+                return substring;
+            }
+        });
+        return convertedSubstrings.join('');
+    }
+
+    /**
      * Fixes the problem that with exponentiated expressions in round brackets only the first bracket will be shown as
      * the exponent.
      *
      * For example in 2^(4+6) only the '(' will be marked as an exponent. To fix this, the outermost round brackets are
-     * replaced by curly brackets, e.g. 2\^(4\*(5+6)) becomes 2\^{4\*(5+6)}.
+     * replaced by curly brackets, e.g. 2^(4*(5+6)) becomes 2^{4*(5+6)}.
      *
      * If no exponentiated parenthesis is contained in the input string, the output will be equal to the input.
      *
@@ -123,7 +157,7 @@ export default class InputToLatexConverter {
     _convertExponentiatedParenthesis(text){
        const textSplitByExponentiatedParenthesis = this._splitByExponentiatedParenthesis(text);
        const convertedSubstrings = textSplitByExponentiatedParenthesis.map(substring => {
-           if(substring.startsWith("^")){
+           if(substring.startsWith("^(")){
                return "^{" + substring.substring(2, substring.length-1) + "}";
            } else{
                return substring;
@@ -133,11 +167,44 @@ export default class InputToLatexConverter {
     }
 
     /**
-     * Skims a string for exponentiated expression in brackets and splits the string in a way that the exponentiation sign
-     * together with the exponentiated bracket is separated from the rest of the string. The entire string is then
+     * Skims a string for exponentiated numbers (not brackets!) and splits the string in a way that the exponentiation
+     * sign together with the exponent is separated from the rest of the string. The entire string is then returned
+     * as an array consisting of normal expression parts and the extracted parts.
+     *
+     * E.g. "5*34^10-6" will result in ["5*34" + "^10" + "-6"]
+     *
+     * @param {string} text
+     * @returns {[string]}
+     * */
+    _splitByExponentiatedNumbers(text){
+        let result = [];
+
+        let lastSplitPosition = 0;
+        let insideExponentiatedNumber = false;
+
+        for(let i = 0; i < text.length; i++){
+            const currentChar = text.charAt(i);
+            const nextChar = text.charAt(i+1);
+            if(currentChar === '^' && Helper.isDigit(nextChar)){
+                result.push(text.substring(lastSplitPosition, i));
+                lastSplitPosition = i;
+                insideExponentiatedNumber = true;
+            } else if(insideExponentiatedNumber && !Helper.isDigit(currentChar)){
+                result.push(text.substring(lastSplitPosition, i));
+                lastSplitPosition = i;
+                insideExponentiatedNumber = false;
+            }
+        }
+        result.push(text.substring(lastSplitPosition, text.length));
+        return result;
+    }
+
+    /**
+     * Skims a string for exponentiated expression in brackets and splits the string in a way that the exponentiation
+     * sign together with the exponentiated bracket is separated from the rest of the string. The entire string is then
      * returned as an array consisting of normal expression parts and the extracted parts.
      *
-     * e.g. "5+2\^(5+7)-9" will result in ["5+", "2\^(5+7)", "-9"]
+     * e.g. "5+2^(5+7)-9" will result in ["5+2", "^(5+7)", "-9"]
      *
      * @param {string} text
      * @returns {[string]}

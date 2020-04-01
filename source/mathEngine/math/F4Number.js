@@ -85,6 +85,15 @@ export default class F4Number extends GeneralNumber{
     }
 
     /**
+     * Retrieves the corresponding Latex notation from a lookup table.
+     *
+     * @returns {string}
+     * */
+    toLatex() {
+        return FieldLookupTables.F4ElementsLatexLookup.find(object => object.number === this.value).latex;
+    }
+
+    /**
      * Retrieves the corresponding user input string value from a lookup table.
      *
      * @returns {string}

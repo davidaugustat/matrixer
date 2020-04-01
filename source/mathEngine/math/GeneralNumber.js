@@ -46,13 +46,6 @@ export default class GeneralNumber extends MathElement{
     }
 
     /**
-     * @returns {string}
-     * */
-    toLatex() {
-        return this.toString();
-    }
-
-    /**
      * @param {Matrix} factor
      * @returns {Matrix}
      * */

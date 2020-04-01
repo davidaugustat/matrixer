@@ -132,6 +132,13 @@ export default class PrimeFieldNumber  extends GeneralNumber {
     /**
      * @returns {string}
      * */
+    toLatex() {
+        return this.toString();
+    }
+
+    /**
+     * @returns {string}
+     * */
     toUserInputString() {
         return this.toString();
     }

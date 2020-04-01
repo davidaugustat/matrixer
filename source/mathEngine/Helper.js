@@ -309,4 +309,13 @@ export default class Helper{
         return parseFloat(number.toFixed(numberOfDecimals)).toString();
     }
 
+    /**
+     * Returns true, when the provided character is a number between 0 and 9 (both inclusive).
+     *
+     * @param {string} character
+     * */
+    static isDigit(character){
+        return /^\d$/.test(character);
+    }
+
 }

@@ -36,6 +36,10 @@ export default class Parser {
     isValidMathExpression(field, text){
         text = Helper.removeSpacesAndLineBreaks(text);
 
+        if(text.length === 0){
+            throw Exceptions.EmptyInputException;
+        }
+
         if(!this._isValidBracketMatching(text)){
             throw Exceptions.InvalidBracketsException;
         }

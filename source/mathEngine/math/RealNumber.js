@@ -84,6 +84,13 @@ export default class RealNumber extends GeneralNumber{
     }
 
     /**
+     * @returns {string}
+     * */
+    toLatex() {
+        return this.toString();
+    }
+
+    /**
      * Note: Number will NOT be rounded here to maximize precision when using this output as an input again.
      * @returns {string}
      * */

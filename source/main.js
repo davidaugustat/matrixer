@@ -61,9 +61,10 @@ $(document).ready(function () {
         // make MathJax render the updated text:
         MathJax.typeset();
 
-        errorBox.hide();
-        resultBoxes.show();
-        animateUpdateResultBox();
+        animateUpdateResultBox(() => {
+            errorBox.hide();
+            resultBoxes.show();
+        });
     }
 
     /**
@@ -74,14 +75,20 @@ $(document).ready(function () {
      * */
     function displayErrorResult(result){
         errorOutput.text(result.exception.englishMessage);
-
-        errorBox.show();
-        resultBoxes.hide();
-        animateUpdateResultBox();
+        animateUpdateResultBox(() => {
+            errorBox.show();
+            resultBoxes.hide();
+        });
     }
 
-    function animateUpdateResultBox(){
+    /**
+     * Lets the old result fade out. Then the provided callback is executed. Afterwards the new result fades in.
+     *
+     * @param {function()} updateLayout What should be done when the layout is invisible
+     * */
+    function animateUpdateResultBox(updateLayout){
         resultArea.fadeOut("fast", function () {
+            updateLayout();
             resultArea.fadeIn("fast");
         })
     }
