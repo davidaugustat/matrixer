@@ -58,13 +58,14 @@ $(document).ready(function () {
         resultLatexOutput.html("\\[" + result.latexResult + "\\]");
         resultCodeOutput.text(result.codeResult);
 
-        // make MathJax render the updated text:
-        MathJax.typeset();
-
         animateUpdateResultBox(() => {
             errorBox.hide();
             resultBoxes.show();
         });
+
+        // make MathJax render the updated text:
+        //MathJax.typesetPromise();
+        renderMathInElement(document.getElementById("result-div"));
     }
 
     /**

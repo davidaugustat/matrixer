@@ -17,7 +17,6 @@ body{
 .main-content{
     padding-top: 30px;
     padding-bottom: 50px;
-    /*background-color: #d1d1d1;*/
 }
 
 .footer{
@@ -41,7 +40,6 @@ body{
 }
 
 #field-select{
-    /*width: 200px;*/
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -83,7 +81,6 @@ body{
 
 #documentation-div p{
     overflow-x: auto;
-    /*overflow-y: hidden;*/
     overflow-y: hidden;
 }
 
@@ -95,14 +92,9 @@ ul li{
     margin-bottom: 10px;
 }
 
-.MathJax{
+.katex-display{
     overflow-x: auto;
     overflow-y: hidden;
-}
-
-
-.MathJax:focus{
-    outline: 0;
 }
 
 .input-example{

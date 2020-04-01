@@ -10,5 +10,7 @@
     <orderEntry type="library" name="jquery-3.4.1.slim" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="tex-mml-chtml" level="application" />
+    <orderEntry type="library" name="katex" level="application" />
+    <orderEntry type="library" name="auto-render" level="application" />
   </component>
 </module>
