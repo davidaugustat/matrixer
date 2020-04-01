@@ -233,18 +233,6 @@ export default class Helper{
     }
     
     /**
-     * Returns true if the provided number is an integer value (meaning it does not have decimals)
-     *
-     * E.g. 3.5 will return false, but 3.0 will return true.
-     *
-     * @param {number} number
-     * @returns {boolean} True when number is an integer
-     * */
-    static numberIsInteger(number) {
-        return number === parseInt(Helper.number);
-    }
-    
-    /**
      * Solves the problem, that in JavaScript there exists a positive zero (0) as well as a negative zero (-0).
      *
      * This method converts any negative zero to a positive zero. If the number is not 0, then the number will
