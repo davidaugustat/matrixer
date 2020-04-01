@@ -93,19 +93,19 @@ export default class Interpreter {
         }
 
         if(this._expressionContainsOperator(expression, operator)){
-            const expressionSeparatedByOperator = this._splitListByFirstOperatorOccurrence(expression, operator);
+            const expressionSeparatedByOperator = this._splitListByLastOperatorOccurrence(expression, operator);
             const expressionBeforeOperator = expressionSeparatedByOperator[0];
             const expressionAfterOperator = expressionSeparatedByOperator[1];
 
-            const leftNode = this._interpretOperator(expressionBeforeOperator, this._getRotatedOperators(operatorsList));
+            const leftNode = this._interpretOperator(expressionBeforeOperator, operatorsList);
 
             let rightNode;
             if(operator === Operators.EXPONENTIATE){
-                // right node MUST be a real number. Therefore parse it using a real number interpreter:
-                rightNode = new Interpreter(Field.R)._interpretOperator(expressionAfterOperator, operatorsList);
-            } else {
-                rightNode = this._interpretOperator(expressionAfterOperator, operatorsList);
+                rightNode = new Interpreter(Field.R)._interpretOperator(expressionAfterOperator, this._getRotatedOperators(operatorsList));
+            } else{
+                rightNode = this._interpretOperator(expressionAfterOperator, this._getRotatedOperators(operatorsList));
             }
+
             return new ExpressionNode(leftNode, rightNode, operator, null);
         }
 
@@ -374,7 +374,8 @@ export default class Interpreter {
     }
 
     /**
-     * Skims a string array for the first occurrence of string that contains only the provided operator symbol.
+     * Skims a string array from end to start for the last occurrence of string that contains only the provided
+     * operator symbol.
      * When such an element is found, the array is split in two parts:
      * - Part of the array before the operator
      * - Part of the array after the operator
@@ -386,9 +387,9 @@ export default class Interpreter {
      * @param {string} operatorSymbol The operator to split by
      * @returns {[[string]]} The two parts of the splitting contained in an outer array
      * */
-    _splitListByFirstOperatorOccurrence(list, operatorSymbol){
+    _splitListByLastOperatorOccurrence(list, operatorSymbol){
         let result = Array();
-        for(let i = 0; i < list.length; i++){
+        for(let i = list.length-1; i >= 0; i--){
             if(list[i] === operatorSymbol){
                 result.push(list.slice(0, i));
                 result.push(list.slice(i+1));
