@@ -105,7 +105,7 @@ export default class InputToLatexConverter {
 
             }
         });
-        return convertedSubstrings.join();
+        return convertedSubstrings.join("");
     }
 
     /**

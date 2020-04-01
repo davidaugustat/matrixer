@@ -14,7 +14,7 @@ const htmlInstructionsEn = fs.readFileSync(path.resolve(__dirname, "source/html/
 
 module.exports = {
   mode: "development",
-    entry: path.resolve(__dirname, "source/main2.js"),
+    entry: path.resolve(__dirname, "source/main.js"),
     output: {
         filename: "main.js",
         path: path.resolve(__dirname, "distribution")

@@ -32,8 +32,8 @@ export default class UserIoHandler {
      *
      * @param {number} field
      * @param {string} input
-     * @returns {{isSuccessful: boolean, latexUserInput: string, latexResult: string, userInputResult: string,
-     * ?exception: Object}}
+     * @returns {{isSuccessful: boolean, latexUserInput: string, latexResult: string, codeResult: string,
+     * userInputResult: string, ?exception: Object}}
      */
     processCalculation(field, input){
         try {
@@ -41,6 +41,7 @@ export default class UserIoHandler {
                 const resultNode = new Interpreter(field).interpret(input);
                 const mathElementResult = resultNode.calculate();
                 const latexResult = mathElementResult.toLatex();
+                const codeResult = mathElementResult.toUserInputString();
                 const userInputResult = mathElementResult.toUserInputString();
 
                 const latexUserInput = new InputToLatexConverter().toLatex(input);
@@ -49,6 +50,7 @@ export default class UserIoHandler {
                     isSuccessful: true,
                     latexUserInput: latexUserInput,
                     latexResult: latexResult,
+                    codeResult: codeResult,
                     userInputResult: userInputResult,
                     exception: null
                 };
@@ -59,6 +61,7 @@ export default class UserIoHandler {
                 isSuccessful: false,
                 latexUserInput: "",
                 latexResult: "",
+                codeResult: "",
                 userInputResult: "",
                 exception: exception
             };

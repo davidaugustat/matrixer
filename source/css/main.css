@@ -87,12 +87,17 @@ body{
     overflow-y: hidden;
 }
 
+ul{
+    padding-left: 1.2em;
+}
+
 ul li{
     margin-bottom: 10px;
 }
 
 .MathJax{
     overflow-x: auto;
+    overflow-y: hidden;
 }
 
 
