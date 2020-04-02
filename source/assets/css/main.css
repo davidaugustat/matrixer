@@ -10,6 +10,18 @@ body{
     margin: 10px 10px 10px 15px;
 }
 
+.header-link:hover{
+    text-decoration: none;
+}
+
+#language-icon{
+    height: 30px;
+}
+
+#language-header-link{
+    margin-right: 25px;
+}
+
 #github-icon{
     height: 35px;
 }
@@ -60,6 +72,12 @@ body{
 
 #expression-result-div{
 
+}
+
+.btn:focus{
+    outline: none !important;
+    box-shadow: none;
+    background-color: #007bff;
 }
 
 .result-box{
@@ -121,7 +139,15 @@ ul li{
         margin: 10px 10px 10px 10px;
     }
 
+    #language-header-link{
+        margin-right: 20px;
+    }
+
     #github-icon{
+        height: 25px;
+    }
+
+    #language-icon{
         height: 25px;
     }
 }

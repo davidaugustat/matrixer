@@ -5,8 +5,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 const fs = require("fs");
 
 // html template files:
-const htmlHeader = fs.readFileSync(path.resolve(__dirname, "source/html/templates/header.html"));
-const htmlFooter = fs.readFileSync(path.resolve(__dirname, "source/html/templates/footer.html"));
+const htmlHeaderEn = fs.readFileSync(path.resolve(__dirname, "source/html/templates/header-en.html"));
+const htmlFooterEn = fs.readFileSync(path.resolve(__dirname, "source/html/templates/footer-en.html"));
 const htmlHeadTag= fs.readFileSync(path.resolve(__dirname, "source/html/templates/head-tag.html"));
 const htmlBodyTag = fs.readFileSync(path.resolve(__dirname, "source/html/templates/body-tag.html"));
 const htmlInputOutputFormEn = fs.readFileSync(path.resolve(__dirname, "source/html/templates/input-output-form-en.html"));
@@ -46,8 +46,8 @@ module.exports = {
             filename: "index.html",
             template: path.resolve(__dirname, "source/html/index.html"),
             chunks: ['main'],
-            header: htmlHeader,
-            footer: htmlFooter,
+            header: htmlHeaderEn,
+            footer: htmlFooterEn,
             headTag: htmlHeadTag,
             bodyTag: htmlBodyTag,
             inputOutputFormEn: htmlInputOutputFormEn,
