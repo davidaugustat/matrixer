@@ -187,6 +187,17 @@ export default class Helper{
     static isExtendedField(field){
         return [Field.F4, Field.F8, Field.F9].includes(field);
     }
+
+    /**
+     * Returns true if the provided field number is a valid field.
+     *
+     * @param {number} field
+     * @return {boolean}
+     * */
+    static isField(field){
+        return [Field.F2, Field.F3, Field.F4, Field.F5, Field.F7, Field.F8, Field.F9, Field.F11, Field.F13, Field.F17,
+        Field.F19, Field.R].includes(field);
+    }
     
     /**
      * Removes all spaces from a string.
