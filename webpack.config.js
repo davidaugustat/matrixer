@@ -21,7 +21,7 @@ const htmlFooterDe = fs.readFileSync(path.resolve(__dirname, "source/html/templa
 
 
 module.exports = {
-  mode: "development",
+  mode: "production",
     entry: path.resolve(__dirname, "source/main.js"),
     output: {
         filename: "main.js",

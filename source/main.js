@@ -100,6 +100,7 @@ $(document).ready(function () {
         } else{
             displayErrorResult(result);
         }
+        sendCalculateEventToAnalytics(result);
     }
 
     /**
@@ -119,6 +120,26 @@ $(document).ready(function () {
 
             errorBox.hide();
             resultBoxes.show();
+        });
+    }
+
+    /**
+     * Sends an event to Google Analytics
+     *
+     * @param {{isSuccessful: boolean, latexUserInput: string, latexResult: string, codeResult: string,
+     * userInputResult: string, ?exception: Object}} result
+     * */
+    function sendCalculateEventToAnalytics(result){
+        const action = "Matrixer Calculate Button";
+        const category = "button click";
+        const label = "Matrixer";
+        // since value must be an integer, 1 means successful and 0 means unsuccessful:
+        const value = result.isSuccessful ? 1 : 0;
+
+        gtag('event', action, {
+            'event_category': category,
+            'event_label': label,
+            'value': value
         });
     }
 

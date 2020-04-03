@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Analytics Opt-Out</title>
+</head>
+<body>
+    <script>
+        function __gaTrackerOptout() {
+            const disableStr = 'ga-disable-UA-125032530-1';
+            document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+            window[disableStr] = true;
+        }
+
+        __gaTrackerOptout();
+        document.write("<p>Successfully opted out of Google Analytics!</p>");
+    </script>
+</body>
+</html>

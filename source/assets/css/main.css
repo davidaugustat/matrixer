@@ -6,7 +6,7 @@ body{
     box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.15);
 }
 .logo{
-    height: 30px;
+    height: 25px;
     margin: 10px 10px 10px 15px;
 }
 
@@ -15,7 +15,7 @@ body{
 }
 
 #language-icon{
-    height: 30px;
+    height: 25px;
 }
 
 #language-header-link{
@@ -23,7 +23,7 @@ body{
 }
 
 #github-icon{
-    height: 35px;
+    height: 30px;
 }
 
 .main-content{
@@ -34,13 +34,6 @@ body{
 .footer{
     padding-top: 20px;
     padding-bottom: 20px;
-}
-
-#introduction-text{
-}
-
-#expression-input{
-
 }
 
 #expression-input-area{
@@ -68,10 +61,6 @@ body{
 
 #input-feedback-div{
     margin-bottom: 20px;
-}
-
-#expression-result-div{
-
 }
 
 .btn:focus{
