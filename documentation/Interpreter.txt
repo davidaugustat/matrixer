@@ -1,6 +1,0 @@
-Operator hierarchy:
-
-Addition | Subtraction
-Multiplication | Division
-Exponentiation
-Function
