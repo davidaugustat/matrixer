@@ -24,7 +24,6 @@ $(document).ready(function () {
 
     const userIoHandler = new UserIoHandler();
 
-
     evaluateUrlParameters();
     setupCalculateButton();
     setupEnterKey();

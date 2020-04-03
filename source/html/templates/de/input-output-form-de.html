@@ -1,0 +1,54 @@
+<div class="text-center" id="expression-input-area">
+    <form id="expression-input-form">
+        <div class="form-group">
+            <input type="text" class="form-control" id="expression-input"
+                   placeholder="Gib einen mathematischen Ausdruck ein...">
+        </div>
+        <div class="form-group row justify-content-center">
+            <label class="col-sm-2 col-form-label" for="field-select">Körper: </label>
+            <div class="col-sm-4">
+                <select class="form-control" id="field-select">
+                    <option value="100">R (reelle Zahlen)</option>
+                    <option value="2">F2 (2 Elemente)</option>
+                    <option value="3">F3 (3 Elemente)</option>
+                    <option value="4">F4 (4 Elemente)</option>
+                    <option value="5">F5 (5 Elemente)</option>
+                    <option value="7">F7 (7 Elemente)</option>
+                    <option value="8">F8 (8 Elemente)</option>
+                    <option value="9">F9 (9 Elemente)</option>
+                    <option value="11">F11 (11 Elemente)</option>
+                    <option value="13">F13 (13 Elemente)</option>
+                    <option value="17">F17 (17 Elemente)</option>
+                    <option value="19">F19 (19 Elemente)</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <button type="button" class="btn btn-primary btn-lg btn-block col-sm-4" id="calculate-btn">Berechnen
+            </button>
+        </div>
+    </form>
+
+</div>
+
+<div id="result-div">
+    <div class="alert alert-danger" id="result-error-box">
+        <p><b>Matrixer hat einen Fehler erkannt:</b></p>
+        <p id="result-error-info-paragraph"></p>
+        <p>Du bist dir sicher, dass deine Eingabe korrekt ist?
+            <a href="/de/report-error" target="_blank">Fehler melden!</a></p>
+    </div>
+
+    <div class="result-box" id="input-feedback-div">
+        <span><b>Deine Eingabe:</b></span>
+        <p id="user-input-latex-paragraph"></p>
+    </div>
+    <div class="result-box" id="expression-result-div">
+        <span><b>Ergebnis:</b></span>
+        <p id="result-output-latex-paragraph"></p>
+        <p class="text-center" id="result-code-area">
+            Code: <span class="input-example" id="result-output-code-span"></span>
+            <button type="button" class="btn btn-sm btn-outline-primary" id="result-code-copy-btn">Kopieren</button>
+        </p>
+    </div>
+</div>

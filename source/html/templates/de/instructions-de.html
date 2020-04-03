@@ -1,18 +1,18 @@
 <div id="documentation-div">
-    <h2>Instructions</h2>
-    <h4>How do I enter a math expression?</h4>
+    <h2>Anleitung</h2>
+    <h4>Wie gebe ich einen mathematischen Ausdruck ein?</h4>
     <ul>
         <li>
-            <b>Usual math expressions:</b> Just like on any calculator: <br>
-            <span class="input-example">-5*(3+4.5)/6-5^3</span> represents \(-5*(3+4.5)/6-5^3\)
+            <b>Gewöhnliche mathematische Ausdrücke:</b> Wie bei jedem Taschenrechner: <br>
+            <span class="input-example">-5*(3+4.5)/6-5^3</span> steht für \(-5*(3+4.5)/6-5^3\)
         </li>
         <li>
-            <b>F4 Numbers:</b>
+            <b>F4-Elemente:</b>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Input</th>
-                    <th>Number</th>
+                    <th>Eingabe</th>
+                    <th>Element</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,12 +36,12 @@
             </table>
         </li>
         <li>
-            <b>F8 Numbers:</b>
+            <b>F8-Elemente:</b>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Input</th>
-                    <th>Number</th>
+                    <th>Eingabe</th>
+                    <th>Element</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -81,12 +81,12 @@
             </table>
         </li>
         <li>
-            <b>F9 Numbers:</b>
+            <b>F9-Elemente:</b>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Input</th>
-                    <th>Number</th>
+                    <th>Eingabe</th>
+                    <th>Element</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -130,14 +130,18 @@
             </table>
         </li>
         <li>
-            <b>Matrices:</b> Surrounded by curly brackets, rows separated by a semicolon and columns by a comma.<br>
-            <span class="input-example">{1,2,3;4,5,6}</span> represents
+            <b>Matrizen:</b> Umgeben von geschweiften Klammern, Zeilen mit Semikolon und Spalten mit Komma getrennt.<br>
+            <span class="input-example">{1,2,3;4,5,6}</span> steht für
             \(\begin{pmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{pmatrix}\)
         </li>
         <li>
-            <b>Vectors:</b> Surrounded by square brackets, rows separated by a comma.<br>
-            <span class="input-example">[1,2,3,4]</span> represents
+            <b>Vektoren:</b> Umgeben von eckigen Klammern, Zeilen mit Komma getrennt.<br>
+            <span class="input-example">[1,2,3,4]</span> steht für
             \(\begin{pmatrix}1 \\ 2 \\ 3 \\ 4\end{pmatrix}\)
+        </li>
+        <li>
+            Leerzeichen sind egal. Du kannst sie an beliebigen Stellen hinschreiben oder weglassen - es macht keinen
+            Unterschied.
         </li>
     </ul>
     <!--
@@ -145,114 +149,122 @@
     \begin{pmatrix}\end{pmatrix}
     \(\begin{pmatrix}\end{pmatrix}\)
     -->
-    <h4>What can I do with Matrixer?</h4>
+    <h4>Was kann man mit Matrixer machen?</h4>
     <ul>
         <li>
-            <b>Make calculations with fields:</b>
+            <b>Auf Körpern rechnen:</b>
             <p><span class="input-example">bs*(1+b+bs)-b</span> \(=\beta^2*(1+\beta*\beta^2)-\beta = \beta\)</p>
             <p><span class="input-example">(a+1)^2</span> \(=(\alpha+1)^2 = \alpha\)</p>
-            <p>Supported operations are multiplying <span class="input-example">*</span>,
-                dividing <span class="input-example">/</span>, adding <span class="input-example">+</span>
-                subtracting <span class="input-example">-</span> and exponentiation <span class="input-example">^</span>.
+            <p>Unterstütze Operationen sind Multiplikation <span class="input-example">*</span>,
+                Division <span class="input-example">/</span>, Addition <span class="input-example">+</span>
+                Subtraktion <span class="input-example">-</span> und Potenzieren <span class="input-example">^</span>.
             </p>
             <div class="alert alert-primary">
                 <p>
-                    Note that the exponent of an exponentiation must always be a <b>whole real number \(\geq\) 0</b> when exponentiating numbers from finite fields:
+                    Beachte, dass Exponenten immer <b>ganze Zahlen \(\geq\) 0</b> sein müssen, wenn auf endlichen
+                    Körpern gerechnet wird.
                 </p>
                 <p>
-                    \((\alpha+1)^2\) is allowed, but \((\alpha+1)^\alpha\) and \((\alpha+1)^{0.5}\) are not allowed.
+                    \((\alpha+1)^2\) ist erlaubt, aber \((\alpha+1)^\alpha\) und \((\alpha+1)^{0.5}\) sind nicht
+                    erlaubt.
                 </p>
                 <p>
-                    Using decimal numbers as exponents for <b>real</b> numbers is fine however: \(4^{0.5} = \sqrt{4} = 2\)
+                    Kommazahlen als Exponenten für <b>reelle Zahlen</b> sind allerdings erlaubt: \(4^{0.5} = \sqrt{4} = 2\)
                 </p>
             </div>
         </li>
         <li>
-            <b>Multiply, add and subtract matrices:</b>
+            <b>Multiplizieren, addieren, subtrahieren und potenzieren von Matrizen:</b>
             <p>
-                E.g. in F5: <span class="input-example">{0,4,3;1,2,4}*{1,3;0,2;4,2}</span>
+                Z.B. in F5: <span class="input-example">{0,4,3;1,2,4}*{1,3;0,2;4,2}</span>
                 \(=\begin{pmatrix}0&4&3\\1&2&4\end{pmatrix}*\begin{pmatrix}1&3\\0&2\\4&2\end{pmatrix} = \begin{pmatrix}2&4\\2&0\end{pmatrix}\)
             </p>
             <p>
-                E.g. in F4:<span class="input-example">{a,a+1;0,1}+{0,1;a,a}</span>
+                Z.B. in F4: <span class="input-example">{a,a+1;0,1}+{0,1;a,a}</span>
                 \(=\begin{pmatrix}\alpha&\alpha+1\\0&1\end{pmatrix}+\begin{pmatrix}0&1\\\alpha&\alpha\end{pmatrix} = \begin{pmatrix}\alpha&\alpha\\\alpha&\alpha+1\end{pmatrix}\)
             </p>
         </li>
         <li>
-            <b>Multiply a matrix with a vector:</b>
+            <b>Matrizen mit Vektoren multiplizieren:</b>
             <p>
-                E.g. in F5: <span class="input-example">{0,4,3;1,2,4}*[1,0,4]</span>
+                Z.B. in F5: <span class="input-example">{0,4,3;1,2,4}*[1,0,4]</span>
                 \(=\begin{pmatrix}0&4&3\\1&2&4\end{pmatrix}*\begin{pmatrix}1\\0\\4\end{pmatrix} = \begin{pmatrix}2\\2\end{pmatrix}\)
             </p>
         </li>
         <li>
-            <b>Multiply a matrix with a number</b>
+            <b>Matrizen mit Konstanten multiplizieren:</b>
             <p>
                 E.g. in F4: <span class="input-example">a*{1,1;1,1}</span>
                 \(=\alpha*\begin{pmatrix}1&1\\1&1\end{pmatrix}=\begin{pmatrix}\alpha&\alpha\\\alpha&\alpha\end{pmatrix}\)
             </p>
         </li>
         <li>
-            <b>Multiply, add and subtract vectors:</b>
+            <b>Multiplizieren, addieren, subtrahieren und potenzieren von Vektoren:</b>
             <p>
-                E.g. in F3: <span class="input-example">[2,1,2]*[2,2,0]</span>
+                Z.B. in F3: <span class="input-example">[2,1,2]*[2,2,0]</span>
                 \(=\begin{pmatrix}2\\1\\2\end{pmatrix}*\begin{pmatrix}2\\2\\0\end{pmatrix} = 0\)
             </p>
             <p>
-                E.g. in R: <span class="input-example">[1,2,3]*[4,5,6]</span>
+                Z.B. in R: <span class="input-example">[1,2,3]*[4,5,6]</span>
                 \(=\begin{pmatrix}1\\2\\3\end{pmatrix}-\begin{pmatrix}4\\5\\6\end{pmatrix} = \begin{pmatrix}-3\\-3\\-3\end{pmatrix}\)
             </p>
         </li>
         <li>
-            <b>Everything together:</b>
+            <b>Alles miteinander kombiniert:</b>
             <p>
-                E.g. in R: <span class="input-example">3*(3+6)*{1,2,3;4,5,6}*[9,8,7]</span>
+                Z.B. in R: <span class="input-example">3*(3+6)*{1,2,3;4,5,6}*[9,8,7]</span>
                 \(=3*(3+6)*\begin{pmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{pmatrix}*\begin{pmatrix}9 \\ 8 \\ 7\end{pmatrix}=\begin{pmatrix}1242\\3186\end{pmatrix}\)
             </p>
         </li>
         <li>
-            <b>Convert a matrix to <a href="https://en.wikipedia.org/wiki/Row_echelon_form#Reduced_row_echelon_form" target="_blank">reduced row-echelon-form:</a></b>
+            <b>Matrix in Zeilen-Stufen-Form umwandeln mittels Gauß-Algorithmus:</b>
             <p>
-                E.g. in R: <span class="input-example">rowreduce({1,2,3,4;5,6,7,8;9,0,1,2})</span>
+                Z.B. in R: <span class="input-example">rowreduce({1,2,3,4;5,6,7,8;9,0,1,2})</span>
                 \(=rowreduce(\begin{pmatrix}1&2&3&4\\5&6&7&8\\9&0&1&2\end{pmatrix}) = \begin{pmatrix}1&0&0&0\\0&1&0&-1\\0&0&1&2\end{pmatrix}\)
             </p>
             <p>
-                Note that the round brackets surrounding the curly matrix brackets may <b>not</b> be omitted.
+                Beachte, dass die runden Klammern um die Matrix <b>nicht</b> weggelassen werden dürfen.
             </p>
         </li>
     </ul>
-    <h4>What can't Matrixer do?</h4>
+    <h4>Was kann Matrixer nicht?</h4>
     <ul>
         <li>
-            <b>Calculations inside of matrices or vectors:</b>
+            <b>Berechnungen innerhalb von Matrizen oder Vektoren durchführen:</b>
             <p>
-                E.g. \(\begin{pmatrix}3*4&5+6\\2^2&7\end{pmatrix}\) or \(\begin{pmatrix}3*4\\5-2\\4/3\end{pmatrix}\)is not allowed.
+                Z.B. \(\begin{pmatrix}3*4&5+6\\2^2&7\end{pmatrix}\) oder \(\begin{pmatrix}3*4\\5-2\\4/3\end{pmatrix}\)
+                sind nicht erlaubt.
             </p>
 
             <div class="alert alert-primary">
-                Note that this means, that you can't enter the F8 number \(\beta^2\) as
-                <span class="input-example">b^2</span> inside a matrix or vector. Use <span class="input-example">bs</span>  instead.
+                Beachte, dass man daher in Matrizen und Vektoren das F8-Element \(\beta^2\) nicht als
+                <span class="input-example">b^2</span> schreiben kann. Verwende stattdessen
+                <span class="input-example">bs</span>.
             </div>
-            I know that this isn't ideal, and I might improve this later.
+            Ich weiß, dass das nicht ideal ist. Eventuell verbessere ich es später.
         </li>
         <li>
-            <b>Understand function operators without round brackets:</b>
+            <b>Funktionsoperatoren ohne runde Klammern verstehen:</b>
             <p>
-                Function operators are operators that are structured like this: myoperator(some numbers)
+                Funktionsoperatoren sind Operatoren mit dieser Struktur: meinoperator(irgendetwas)
             </p>
             <p>
-                For example <span class="input-example">rowreduce({1,2;3,4})</span>  is allowed, but
-                <span class="input-example">rowreduce{1,2;3,4}</span> is <b>not</b> allowed because of the missing round brackets.
-            </p>
-        </li>
-        <li>
-            <b>Run in Internet Explorer.</b>
-            <p>
-                This is because of a JavaScript incompatibility. Use Chrome or Firefox instead.
+                Zum Beispiel ist <span class="input-example">rowreduce({1,2;3,4})</span>  erlaubt, aber
+                <span class="input-example">rowreduce{1,2;3,4}</span> ist <b>nicht</b> erlaubt, da die runden
+                Klammern fehlen.
             </p>
         </li>
         <li>
-            <b>Something else is missing?</b><br> If you know a feature that might be helpful, just <a href="/en/report-error" target="_blank">contact me</a> and maybe I'll add that feature.
+            <b>In Internet Explorer funktionieren.</b>
+            <p>
+                Das liegt an einer JavaScript-Inkompatibilität. Verwende stattdessen Chrome oder Firefox.
+            </p>
+        </li>
+        <li>
+            <b>Etwas anderes fehlt noch?</b><br>
+            Wenn dir eine Funktion einfällt, die hilfreich sein könnte, dann
+            <a href="/de/report-error" target="_blank">lass es mich wissen</a>. Vielleicht ergänze ich Matrixer dann um
+            diese Funktion.
         </li>
     </ul>
 </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="de" class="h-100">
 <head>
 
     <%= htmlWebpackPlugin.options.headTag %>
@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css"
           integrity="sha256-V8SV2MO1FUb63Bwht5Wx9x6PVHNa02gv8BgH/uH3ung=" crossorigin="anonymous" />
 
-    <title>Matrixer - Finite Field and Matrix Calculator</title>
+    <title>Matrixer - Körper- und Matrizen-Rechner</title>
 </head>
 <body class="d-flex flex-column h-100">
 
@@ -17,8 +17,9 @@
         <div class="container main-content">
 
             <p class="lead text-muted" id="introduction-text">
-                Matrixer is a simple calculator that can not only calculate with real numbers, but also with several finite fields like F3, F4 or F8.
-                Additionally as the name suggests, Matrixer is able to calculate with matrices as well as vectors.
+                Matrixer ist ein Online-Rechner, der nicht nur mit reellen Zahlen, sondern auch über
+                endlichen Körpern wie z.B. F3, F4 oder F8 rechnen kann. Wie der Name schon sagt, kann Matrixer
+                zusätzlich auch mit Matrizen sowie Vektoren rechnen.
             </p>
 
             <%= htmlWebpackPlugin.options.inputOutputForm %>
