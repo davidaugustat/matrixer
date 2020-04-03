@@ -109,14 +109,14 @@ $(document).ready(function () {
      * userInputResult: string, ?exception: Object}} result
      * */
     function displayCorrectResult(result){
-        userInputLatexOutput.empty().append("\\[" + result.latexUserInput + "\\]");
-        resultLatexOutput.html("\\[" + result.latexResult + "\\]");
-        resultCodeOutput.text(result.codeResult);
-
-        // make Katex render the math expressions:
-        renderMathInElement(document.getElementById("result-div"));
-
         animateUpdateResultBox(() => {
+            userInputLatexOutput.empty().append("\\[" + result.latexUserInput + "\\]");
+            resultLatexOutput.html("\\[" + result.latexResult + "\\]");
+            resultCodeOutput.text(result.codeResult);
+
+            // make Katex render the math expressions:
+            renderMathInElement(document.getElementById("result-div"));
+
             errorBox.hide();
             resultBoxes.show();
         });
@@ -125,12 +125,25 @@ $(document).ready(function () {
     /**
      * Displays the result in case there was an error.
      *
+     * This method checks the current language (German or English) and outputs the error message in the according
+     * language.
+     *
      * @param {{isSuccessful: boolean, latexUserInput: string, latexResult: string, codeResult: string,
      * userInputResult: string, ?exception: Object}} result
      * */
     function displayErrorResult(result){
-        errorOutput.text(result.exception.englishMessage);
+        let errorMessage;
+        if(isGermanLanguage() && result.exception.germanMessage != null){
+            errorMessage = result.exception.germanMessage;
+        } else if(result.exception.englishMessage != null){
+            errorMessage = result.exception.englishMessage;
+        } else {
+            // Fallback if system-exception has been thrown:
+            errorMessage = result.exception.message;
+        }
+
         animateUpdateResultBox(() => {
+            errorOutput.text(errorMessage);
             errorBox.show();
             resultBoxes.hide();
         });
@@ -213,6 +226,16 @@ $(document).ready(function () {
             const result = userIoHandler.processCalculation(field, expression);
             displayResult(result);
         }
+    }
+
+    /**
+     * Obtains the language from the html "lang" element and returns true, if lang="de". Otherwise returns false.
+     *
+     * @returns {boolean}
+     * */
+    function isGermanLanguage(){
+        const language = document.documentElement.lang;
+        return language === "de";
     }
 });
 
