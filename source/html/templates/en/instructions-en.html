@@ -223,6 +223,38 @@
                 Note that the round brackets surrounding the curly matrix brackets may <b>not</b> be omitted.
             </p>
         </li>
+        <li>
+            <b>Solve a homogeneous equation system:</b>
+            <p>A homogeneous equation system is defined as \(A*x=0\) where \(A\) is a given matrix and \(x\) is an
+                unknown vector.
+            </p>
+            <p>
+                E.g. in F9: <span class="input-example">solvehom({1,j,-j;1-j,0,-1})</span>
+                \(=solvehom(\begin{pmatrix}1&\iota&-\iota\\1-\iota&0&-1\end{pmatrix})\) results in
+            </p>
+            <div>
+                <div>
+                    <div class="hom-es-box">
+                        <span>Span:</span>
+                        <div>
+                            \[\langle\begin{pmatrix}-\iota-1\\-\iota-1\\1\end{pmatrix}\rangle\]
+                        </div>
+                    </div>
+                    <div class="hom-es-box">
+                        <span>Trivial Solution:</span>
+                        <div>
+                            \[\begin{pmatrix}0\\0\\0\end{pmatrix}\]
+                        </div>
+                    </div>
+                    <div class="hom-es-box">
+                        <span>Row-Reduced Matrix:</span>
+                        <div>
+                            \[\begin{pmatrix}1&0&\iota+1\\0&1&\iota+1\end{pmatrix}\]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
     </ul>
     <h4>What can't Matrixer do?</h4>
     <ul>

@@ -94,7 +94,6 @@ $(document).ready(function () {
         const field = getField();
         const input = expressionInput.val();
         const result = userIoHandler.processCalculation(field, input);
-        console.log(result);
         setUrlParameters(field, input);
         displayResult(result);
     }

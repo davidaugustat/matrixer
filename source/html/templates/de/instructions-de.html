@@ -226,6 +226,38 @@
                 Beachte, dass die runden Klammern um die Matrix <b>nicht</b> weggelassen werden dürfen.
             </p>
         </li>
+        <li>
+            <b>Ein homogenes Gleichungssystem lösen:</b>
+            <p>Ein homogenes Gleichungssystem ist definiert als \(A*x=0\) wobei \(A\) eine gegebene Matrix und \(x\)
+                ein unbekannter Vektor ist.
+            </p>
+            <p>
+                Z.B. in F9: <span class="input-example">solvehom({1,j,-j;1-j,0,-1})</span>
+                \(=solvehom(\begin{pmatrix}1&\iota&-\iota\\1-\iota&0&-1\end{pmatrix})\) ergibt
+            </p>
+            <div>
+                <div>
+                    <div class="hom-es-box">
+                        <span>Aufspann:</span>
+                        <div>
+                            \[\langle\begin{pmatrix}-\iota-1\\-\iota-1\\1\end{pmatrix}\rangle\]
+                        </div>
+                    </div>
+                    <div class="hom-es-box">
+                        <span>Triviale Lösung:</span>
+                        <div>
+                            \[\begin{pmatrix}0\\0\\0\end{pmatrix}\]
+                        </div>
+                    </div>
+                    <div class="hom-es-box">
+                        <span>Matrix in Zeilen-Stufen-Form:</span>
+                        <div>
+                            \[\begin{pmatrix}1&0&\iota+1\\0&1&\iota+1\end{pmatrix}\]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
     </ul>
     <h4>Was kann Matrixer nicht?</h4>
     <ul>

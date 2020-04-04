@@ -45,10 +45,28 @@
     </div>
     <div class="result-box" id="math-element-result-div">
         <span><b>Ergebnis:</b></span>
-        <p id="result-output-latex-paragraph"></p>
-        <p class="text-center" id="math-element-result-code-output">
-            Code: <span class="input-example" id="result-output-code-span"></span>
+        <p id="math-element-latex-result-output"></p>
+        <p class="text-center" id="math-element-result-code-area">
+            Code: <span class="input-example" id="math-element-result-code-output"></span>
             <button type="button" class="btn btn-sm btn-outline-primary" id="result-code-copy-btn">Kopieren</button>
         </p>
+    </div>
+
+    <div class="result-box" id="homogeneous-equation-system-result-div">
+        <span><b>Ergebnis:</b></span>
+        <div class="text-center">
+            <div class="hom-es-box">
+                <span>Aufspann:</span>
+                <div id="hom-es-non-trivial-solution-output"></div>
+            </div>
+            <div class="hom-es-box">
+                <span>Triviale Lösung:</span>
+                <div id="hom-es-trivial-solution-output"></div>
+            </div>
+            <div class="hom-es-box">
+                <span>Matrix in Zeilen-Stufen-Form:</span>
+                <div id="hom-es-matrix-output"></div>
+            </div>
+        </div>
     </div>
 </div>
