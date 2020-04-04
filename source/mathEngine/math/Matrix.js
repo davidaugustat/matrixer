@@ -538,7 +538,7 @@ export default class Matrix extends MathElement{
         const oneNumber = Helper.parseValueToFittingNumberObject(this.field, 1);
 
         const solution = {
-            trivialSolution: new Vector(this.field, null, this.rows),
+            trivialSolution: new Vector(this.field, null, this.columns),
             vectorSolution: [], // Array of vectors
             rowReducedMatrix: this
         };

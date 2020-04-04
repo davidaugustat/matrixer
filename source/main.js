@@ -24,6 +24,7 @@ $(document).ready(function () {
 
 
     const homogeneousEquationSystemVectorSolutionOutput = $("#hom-es-non-trivial-solution-output");
+    const homogeneousEquationSystemTrivialSolutionOutput = $("#hom-es-trivial-solution-output");
     const homogeneousEquationSystemMatrixOutput = $("#hom-es-matrix-output");
 
     const userInputLatexOutputArea = $("#input-feedback-div");
@@ -146,8 +147,6 @@ $(document).ready(function () {
      * @param {Result} result
      * */
     function displayErrorResult(result){
-        throw result.exception;
-
         let errorMessage;
         if(isGermanLanguage() && result.exception.germanMessage != null){
             errorMessage = result.exception.germanMessage;
@@ -185,6 +184,7 @@ $(document).ready(function () {
         } else {
             homogeneousEquationSystemVectorSolutionOutput.html(getNoSolutionText());
         }
+        homogeneousEquationSystemTrivialSolutionOutput.html("\\[" + result.trivialSolutionLatex + "\\]");
         homogeneousEquationSystemMatrixOutput.html("\\[" + result.rowReducedMatrixLatex + "\\]");
 
         mathElementResultArea.hide();

@@ -114,6 +114,11 @@ ul li{
     overflow-y: hidden;
 }
 
+#homogeneous-equation-system-result-div .katex-display{
+    overflow-x: visible;
+    overflow-y: visible;
+}
+
 .input-example{
     font-family: monospace;
     background-color: #e6e6e6;
