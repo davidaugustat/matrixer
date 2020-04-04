@@ -12,8 +12,7 @@ export const Operators = {
     DIVIDE: '/',
     TERMINAL: '€',
     ROW_REDUCE: 'rowreduce',
-    DETERMINANT: 'det',
-    ABSOLUTE_VALUE: 'abs'
+    SOLVE_HOMOGENEOUS: 'solvehom'
 };
 
 export const MathElementType = {
@@ -22,13 +21,21 @@ export const MathElementType = {
     VECTOR: 3,
 };
 
+export const ResultType = {
+    MATH_ELEMENT: 0,
+    HOMOGENEOUS_ES: 1
+}
+
 export const Constants = {
     listOfAllOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.EXPONENTIATE,
-        Operators.DIVIDE, Operators.ROW_REDUCE, Operators.DETERMINANT, Operators.ABSOLUTE_VALUE],
+        Operators.DIVIDE, Operators.ROW_REDUCE, Operators.SOLVE_HOMOGENEOUS],
 
     infixOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.DIVIDE, Operators.EXPONENTIATE],
 
-    functionOperators: [Operators.ROW_REDUCE, Operators.DETERMINANT, Operators.ABSOLUTE_VALUE],
+    functionOperators: [Operators.ROW_REDUCE],
+
+    // Operators, that don't return a MathElement:
+    nonMathElementOperators: [Operators.SOLVE_HOMOGENEOUS],
 
     generalCharacters: [',', ';','(', ')', '{', '}', '[', ']'],
     realNumberCharacters: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'],

@@ -102,9 +102,10 @@ export const Exceptions = {
 
     InvalidExponentException: {
         englishMessage: "Invalid exponent detected. Exponents must always be a real number, even when another field " +
-            "than R is used.",
+            "than R is used. Additionally, when calculating on finite fields, exponent may only be whole numbers >= 0.",
         germanMessage: "Ein ungültiger Exponent wurde erkannt. Exponenten müssen immer reelle Zahlen sein, egal in " +
-            "welchem Körper man rechnet."
+            "welchem Körper man rechnet. Beim Rechnen auf endlichen Körpern darf der Exponent zudem nur eine" +
+            " Ganzzahl >= 0 sein."
     },
 
     AdditionOfNumberToMatrixException: {
@@ -202,5 +203,10 @@ export const Exceptions = {
     EmptyInputException: {
         englishMessage: "No input has been entered. Please enter an expression in the text field.",
         germanMessage: "Es wurde nichts eingegeben. Bitte gib einen mathematischen Ausdruck in das Textfeld ein."
+    },
+
+    NoMatrixInHomogeneousEquationOperatorException: {
+        englishMessage: "Only a matrix can be solved as an homogeneous equation system.",
+        germanMessage: "Nur eine Matrix kann als homogenes Gleichungssystem gelöst werden."
     },
 };

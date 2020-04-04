@@ -40,12 +40,27 @@
         <span><b>Your Input:</b></span>
         <p id="user-input-latex-paragraph"></p>
     </div>
-    <div class="result-box" id="expression-result-div">
+
+    <div class="result-box" id="math-element-result-div">
         <span><b>Result:</b></span>
-        <p id="result-output-latex-paragraph"></p>
-        <p class="text-center" id="result-code-area">
-            Code: <span class="input-example" id="result-output-code-span"></span>
+        <p id="math-element-latex-result-output"></p>
+        <p class="text-center" id="math-element-result-code-area">
+            Code: <span class="input-example" id="math-element-result-code-output"></span>
             <button type="button" class="btn btn-sm btn-outline-primary" id="result-code-copy-btn">Copy</button>
         </p>
+    </div>
+
+    <div class="result-box" id="homogeneous-equation-system-result-div">
+        <span><b>Result:</b></span>
+        <div class="text-center">
+            <div class="hom-es-box">
+                <span>Span:</span>
+                <div id="hom-es-non-trivial-solution-output"></div>
+            </div>
+            <div class="hom-es-box">
+                <span>Row-Reduced Matrix:</span>
+                <div id="hom-es-matrix-output"></div>
+            </div>
+        </div>
     </div>
 </div>

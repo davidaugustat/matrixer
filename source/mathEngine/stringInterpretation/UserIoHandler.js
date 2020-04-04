@@ -1,6 +1,9 @@
 import Parser from "./Parser";
 import InputToLatexConverter from "./InputToLatexConverter";
 import Interpreter from "./Interpreter";
+import NonMathElementInterpreter from "./NonMathElementInterpreter";
+import Result from "./result/Result";
+import MathElementResult from "./result/MathElementResult";
 
 /**
  * Class that handles the connection between the user interface and the math engine.
@@ -32,39 +35,45 @@ export default class UserIoHandler {
      *
      * @param {number} field
      * @param {string} input
-     * @returns {{isSuccessful: boolean, latexUserInput: string, latexResult: string, codeResult: string,
-     * userInputResult: string, ?exception: Object}}
+     * @returns {Result}
      */
     processCalculation(field, input){
         try {
             if(new Parser().isValidMathExpression(field, input)){
-                const resultNode = new Interpreter(field).interpret(input);
-                const mathElementResult = resultNode.calculate();
-                const latexResult = mathElementResult.toLatex();
-                const codeResult = mathElementResult.toUserInputString();
-                const userInputResult = mathElementResult.toUserInputString();
-
-                const latexUserInput = new InputToLatexConverter().toLatex(input);
-
-                return {
-                    isSuccessful: true,
-                    latexUserInput: latexUserInput,
-                    latexResult: latexResult,
-                    codeResult: codeResult,
-                    userInputResult: userInputResult,
-                    exception: null
-                };
+                if(NonMathElementInterpreter.isNonMathElementExpression(input)){
+                    return this._processNonMathElementExpression(field, input);
+                } else {
+                    return this._processMathElementExpression(field, input);
+                }
             }
 
         } catch (exception) {
-            return {
-                isSuccessful: false,
-                latexUserInput: "",
-                latexResult: "",
-                codeResult: "",
-                userInputResult: "",
-                exception: exception
-            };
+            return new Result(false, exception);
         }
+    }
+
+    /**
+     * @param {number} field
+     * @param {string} input
+     * @returns {Result}
+     * */
+    _processNonMathElementExpression(field, input){
+        return new NonMathElementInterpreter(field).interpret(input);
+    }
+
+    /**
+     * @param {number} field
+     * @param {string} input
+     * @returns {MathElementResult}
+     * */
+    _processMathElementExpression(field, input){
+        const resultNode = new Interpreter(field).interpret(input);
+        const mathElementResult = resultNode.calculate();
+
+        const latexResult = mathElementResult.toLatex();
+        const codeResult = mathElementResult.toUserInputString();
+        const latexUserInput = new InputToLatexConverter().toLatex(input);
+
+        return new MathElementResult(true, latexUserInput, latexResult, codeResult);
     }
 }

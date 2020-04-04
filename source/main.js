@@ -1,5 +1,7 @@
 import UserIoHandler from "./mathEngine/stringInterpretation/UserIoHandler";
 import Helper from "./mathEngine/Helper";
+import MathElementResult from "./mathEngine/stringInterpretation/result/MathElementResult";
+import HomogeneousEquationSystemResult from "./mathEngine/stringInterpretation/result/HomogeneousEquationSystemResult";
 
 $(document).ready(function () {
 
@@ -14,12 +16,21 @@ $(document).ready(function () {
 
     const errorOutput = $("#result-error-info-paragraph");
     const userInputLatexOutput = $("#user-input-latex-paragraph");
-    const resultLatexOutput = $("#result-output-latex-paragraph");
-    const resultCodeOutput = $("#result-output-code-span");
+
+
+    const mathElementLatexResultOutput = $("#math-element-latex-result-output");
+    const mathElementResultCodeOutput = $("#math-element-result-code-output");
     const resultCodeCopyButton = $("#result-code-copy-btn");
 
-    const resultArea = $("#result-div");
+
+    const homogeneousEquationSystemVectorSolutionOutput = $("#hom-es-non-trivial-solution-output");
+    const homogeneousEquationSystemMatrixOutput = $("#hom-es-matrix-output");
+
+    const userInputLatexOutputArea = $("#input-feedback-div");
+    const mathElementResultArea = $("#math-element-result-div");
+    const homogeneousEquationSystemResultArea = $("#homogeneous-equation-system-result-div");
     const errorBox = $("#result-error-box");
+    const resultArea = $("#result-div");
     const resultBoxes = $(".result-box");
 
     const userIoHandler = new UserIoHandler();
@@ -62,7 +73,7 @@ $(document).ready(function () {
      * */
     function setupCodeCopyButton(){
         resultCodeCopyButton.click(function () {
-            copyToClipBoard(resultCodeOutput.text());
+            copyToClipBoard(mathElementResultCodeOutput.text());
         });
     }
 
@@ -82,6 +93,7 @@ $(document).ready(function () {
         const field = getField();
         const input = expressionInput.val();
         const result = userIoHandler.processCalculation(field, input);
+        console.log(result);
         setUrlParameters(field, input);
         displayResult(result);
     }
@@ -91,8 +103,7 @@ $(document).ready(function () {
      *
      * Error messages are also displayed.
      *
-     * @param {{isSuccessful: boolean, latexUserInput: string, latexResult: string, codeResult: string,
-     * userInputResult: string, ?exception: Object}} result
+     * @param {Result} result
      * */
     function displayResult(result){
         if(result.isSuccessful){
@@ -106,21 +117,86 @@ $(document).ready(function () {
     /**
      * Displays the result in case there was no error and a result is available.
      *
-     * @param {{isSuccessful: boolean, latexUserInput: string, latexResult: string, codeResult: string,
-     * userInputResult: string, ?exception: Object}} result
+     * @param {Result} result
      * */
     function displayCorrectResult(result){
         animateUpdateResultBox(() => {
             userInputLatexOutput.empty().append("\\[" + result.latexUserInput + "\\]");
-            resultLatexOutput.html("\\[" + result.latexResult + "\\]");
-            resultCodeOutput.text(result.codeResult);
+
+            if(result instanceof MathElementResult){
+                displayMathElementResult(result);
+            } else if(result instanceof HomogeneousEquationSystemResult){
+                displayHomogeneousEquationSystemResult(result);
+            }
 
             // make Katex render the math expressions:
             renderMathInElement(document.getElementById("result-div"));
 
             errorBox.hide();
-            resultBoxes.show();
+            userInputLatexOutputArea.show();
         });
+    }
+
+    /**
+     * Displays the result in case there was an error.
+     *
+     * This method checks the current language (German or English) and outputs the error message in the according
+     * language.
+     *
+     * @param {Result} result
+     * */
+    function displayErrorResult(result){
+        throw result.exception;
+
+        let errorMessage;
+        if(isGermanLanguage() && result.exception.germanMessage != null){
+            errorMessage = result.exception.germanMessage;
+        } else if(result.exception.englishMessage != null){
+            errorMessage = result.exception.englishMessage;
+        } else {
+            // Fallback if system-exception has been thrown:
+            errorMessage = result.exception.message;
+        }
+
+        animateUpdateResultBox(() => {
+            errorOutput.text(errorMessage);
+            errorBox.show();
+            resultBoxes.hide();
+        });
+    }
+
+    /**
+     * @param {MathElementResult} result
+     * */
+    function displayMathElementResult(result){
+        mathElementLatexResultOutput.html("\\[" + result.latexResult + "\\]");
+        mathElementResultCodeOutput.text(result.codeResult);
+
+        mathElementResultArea.show();
+        homogeneousEquationSystemResultArea.hide();
+    }
+
+    /**
+     * @param {HomogeneousEquationSystemResult} result
+     * */
+    function displayHomogeneousEquationSystemResult(result){
+        if(result.hasNonTrivialSolution) {
+            homogeneousEquationSystemVectorSolutionOutput.html("\\[" + result.nonTrivialSolutionLatex + "\\]");
+        } else {
+            homogeneousEquationSystemVectorSolutionOutput.html(getNoSolutionText());
+        }
+        homogeneousEquationSystemMatrixOutput.html("\\[" + result.rowReducedMatrixLatex + "\\]");
+
+        mathElementResultArea.hide();
+        homogeneousEquationSystemResultArea.show();
+    }
+
+    function getNoSolutionText(){
+        if(isGermanLanguage()){
+            return "Keine Lösung";
+        } else {
+            return "No Solution";
+        }
     }
 
     /**
@@ -143,32 +219,6 @@ $(document).ready(function () {
         });
     }
 
-    /**
-     * Displays the result in case there was an error.
-     *
-     * This method checks the current language (German or English) and outputs the error message in the according
-     * language.
-     *
-     * @param {{isSuccessful: boolean, latexUserInput: string, latexResult: string, codeResult: string,
-     * userInputResult: string, ?exception: Object}} result
-     * */
-    function displayErrorResult(result){
-        let errorMessage;
-        if(isGermanLanguage() && result.exception.germanMessage != null){
-            errorMessage = result.exception.germanMessage;
-        } else if(result.exception.englishMessage != null){
-            errorMessage = result.exception.englishMessage;
-        } else {
-            // Fallback if system-exception has been thrown:
-            errorMessage = result.exception.message;
-        }
-
-        animateUpdateResultBox(() => {
-            errorOutput.text(errorMessage);
-            errorBox.show();
-            resultBoxes.hide();
-        });
-    }
 
     /**
      * Lets the old result fade out. Then the provided callback is executed. Afterwards the new result fades in.

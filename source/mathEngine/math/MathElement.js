@@ -62,6 +62,9 @@ export default class MathElement {
         return this._value;
     }
 
+    /**
+     * @returns {number}
+     * */
     get type(){
         return this._type;
     }

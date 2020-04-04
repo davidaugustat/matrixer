@@ -83,7 +83,7 @@
                         \[5*(2-1)*\begin{pmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{pmatrix}*\begin{pmatrix}9 \\ 8 \\ 7\end{pmatrix}*5*(2-1)*\begin{pmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{pmatrix}*\begin{pmatrix}9 \\ 8 \\ 7\end{pmatrix}\]
                     </p>
                 </div>
-                <div class="result-box" id="expression-result-div">
+                <div class="result-box" id="math-element-result-div">
                     <span><b>Result:</b></span>
                     <p>
                         \[\begin{pmatrix}12 & 13 & 14 & 15 \\ 16 & 17 & 18 & 19 \\ 20 & 21 & 22 & 23\end{pmatrix}\]
@@ -92,6 +92,30 @@
                         Code: <span class="input-example">{12,13,14,15;16,17,18,19;20,21,22,23}*{12,13,14,15;16,17,18,19;20,21,22,23}</span>
                         <button type="button" class="btn btn-sm btn-outline-primary" id="code-copy-btn">Copy</button>
                     </p>
+                </div>
+
+                <div class="result-box" id="homogeneous-equation-system-result-div">
+                    <span><b>Result:</b></span>
+                    <div class="text-center">
+                        <div class="hom-es-box">
+                            <span>Span:</span>
+                            <div id="hom-es-non-trivial-solution">
+                                \[\langle\begin{pmatrix}1\\2\\3\end{pmatrix},\begin{pmatrix}4\\5\\6\end{pmatrix},\begin{pmatrix}7\\8\\9\end{pmatrix}\rangle\]
+                            </div>
+                        </div>
+                        <div class="hom-es-box">
+                            <span>Trivial Solution:</span>
+                            <div id="hom-es-trivial-solution">
+                                \[\begin{pmatrix}0\\0\\0\end{pmatrix}\]
+                            </div>
+                        </div>
+                        <div class="hom-es-box">
+                            <span>Row-Reduced Matrix:</span>
+                            <div id="hom-es-matrix">
+                                \[\begin{pmatrix}1&0&3\\0&1&0\\0&0&2\end{pmatrix}\]
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

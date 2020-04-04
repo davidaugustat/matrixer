@@ -194,9 +194,9 @@ export default class Interpreter {
      * The function operator will be the operator of the expression node.
      *
      * Note that this method can only deal with input strings, that contain nothing else but a single expression
-     * wrapped into a function operator.
+     * wrapped into a function operator. It is also important, that the closing round bracket has already been removed.
      *
-     * E.g. "rowreduce(5*{1,2;3,4})" is a valid input.
+     * E.g. "rowreduce(5*{1,2;3,4}" is a valid input but "rowreduce(5*{1,2;3,4})" is not.
      *
      * @param {String} expression
      * @returns {ExpressionNode} The node of a binary tree containing the expression.
@@ -205,6 +205,8 @@ export default class Interpreter {
         const splitExpression = expression.split('(', 2);
         const functionName = splitExpression[0];
         const innerExpression = splitExpression[1];
+        console.log(expression);
+        console.log(splitExpression);
 
         const innerResult = this.interpret(innerExpression).calculate();
         const innerResultNode = new ExpressionNode(null, null, null, innerResult);
