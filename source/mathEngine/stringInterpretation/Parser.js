@@ -44,6 +44,10 @@ export default class Parser {
             throw Exceptions.InvalidBracketsException;
         }
 
+        if(this._hasEmptyBrackets(text)){
+            throw  Exceptions.EmptyBracketsException;
+        }
+
         if(!this._containsOnlyValidNumbersAndCharacters(field, text)){
             throw Exceptions.InvalidNumbersOrCharactersException;
         }
@@ -102,6 +106,20 @@ export default class Parser {
             }
         }
         return characterStack.length === 0;
+    }
+
+    /**
+     * Returns true if the text contains empty brackets
+     *
+     * E.g. 5*()+4 would return true, but 5*(3+4)+4 would return false.
+     *
+     * @param {string} text The text to check for empty brackets
+     * @returns {boolean} true if empty brackets are contained, otherwise false
+     * => True = Bad
+     * */
+    _hasEmptyBrackets(text){
+        const emptyBracketsPossibilities = ["()", "{}", "[]"];
+        return emptyBracketsPossibilities.some(element => text.includes(element));
     }
 
     /**

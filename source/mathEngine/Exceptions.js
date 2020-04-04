@@ -23,6 +23,11 @@ export const Exceptions = {
         germanMessage: "Eine falsche Anordnung oder Anzahl von Klammern wurde erkannt."
     },
 
+    EmptyBracketsException: {
+        englishMessage: "An empty pair of brackets has been detected.",
+        germanMessage: "Ein leeres Klammerpaar wurde erkannt."
+    },
+
     InvalidNumbersOrCharactersException: {
         englishMessage: "Invalid characters or numbers has been detected.",
         germanMessage: "Ungültige Zeichen oder Zahlen wurden erkannt."
