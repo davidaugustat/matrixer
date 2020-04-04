@@ -24,17 +24,14 @@
 <script>
     const disableStr = 'ga-disable-UA-125032530-1';
 
-    /* Function to detect opted out users */
     function __gaTrackerIsOptedOut() {
         return document.cookie.indexOf(disableStr + '=true') > -1;
     }
 
-    /* Disable tracking if the opt-out cookie exists. */
     if ( __gaTrackerIsOptedOut() ) {
         window[disableStr] = true;
     }
 
-    /* Opt-out function */
     function __gaTrackerOptout() {
         document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
         window[disableStr] = true;
@@ -44,6 +41,6 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'UA-125032530-1');
+    gtag('config', 'UA-125032530-1', {'anonymize_ip': true});
 </script>
 
