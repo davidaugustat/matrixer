@@ -107,15 +107,9 @@ export default class InputToLatexConverter {
                     "j":"\\iota"
                 };
                 return this._replaceMultiple(substring, extendedFieldGreekCharacterRegex, replaceMap);
-
-                // return substring.replace(/a/g, '\\alpha')
-                //     .replace(/bs/g, '\\beta^2')
-                //     .replace(/b/g, '\\beta')
-                //     .replace(/j/g, '\\iota');
-
             }
         });
-        return convertedSubstrings.join("");
+        return convertedSubstrings.join('');
     }
 
     /**
@@ -189,7 +183,7 @@ export default class InputToLatexConverter {
                 result.push(text.substring(lastSplitPosition, i));
                 lastSplitPosition = i;
                 insideExponentiatedNumber = true;
-            } else if(insideExponentiatedNumber && !Helper.isDigit(currentChar)){
+            } else if(insideExponentiatedNumber && !(Helper.isDigit(currentChar) || currentChar === '.')){
                 result.push(text.substring(lastSplitPosition, i));
                 lastSplitPosition = i;
                 insideExponentiatedNumber = false;
