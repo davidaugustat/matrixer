@@ -497,6 +497,11 @@ export default class Matrix extends MathElement{
                 }
             }
         }
+        // Add all unchecked columns as non-step-columns, since they must be non-step-columns
+        while(column < this.columns){
+            this._nonStepColumns.push(column);
+            column++;
+        }
     }
 
     /**
@@ -539,7 +544,6 @@ export default class Matrix extends MathElement{
         };
 
         this._internalRowReduce();
-
         this._nonStepColumns.forEach((currentNonStepColumnPos) => {
             let rowPos = 0;
             const solutionVector = new Vector(this.field, null, 0);
