@@ -3,6 +3,11 @@ import Helper from "./mathEngine/Helper";
 import MathElementResult from "./mathEngine/stringInterpretation/result/MathElementResult";
 import HomogeneousEquationSystemResult from "./mathEngine/stringInterpretation/result/HomogeneousEquationSystemResult";
 
+/**
+ * Main JavaScript file handling everything on the GUI of the website.
+ *
+ * @author David Augustat
+ * */
 $(document).ready(function () {
 
     // Constants:
@@ -217,7 +222,6 @@ $(document).ready(function () {
             'value': value
         });
     }
-
 
     /**
      * Lets the old result fade out. Then the provided callback is executed. Afterwards the new result fades in.

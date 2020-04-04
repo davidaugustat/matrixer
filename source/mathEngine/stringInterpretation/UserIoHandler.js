@@ -20,7 +20,8 @@ export default class UserIoHandler {
      *
      * Takes in a math expression entered by the user. The math expression is then checked for several
      * lexical and syntactical errors by Parser.js.
-     * If the parser didn't find any errors, the string will be passed to the interpreter, which interprets the
+     * If the parser didn't find any errors, the string will be passed to the interpreter (Interpreter.js for
+     * expressions that return a MathElement, NonMathElementInterpreter.js for those who not), which interprets the
      * input and creates a tree structure consisting of TreeNode.js objects. The created tree is equivalent to
      * the user input.
      * When this tree has been created, it's mathematical solution is calculated recursively. The output of the
@@ -35,7 +36,8 @@ export default class UserIoHandler {
      *
      * @param {number} field
      * @param {string} input
-     * @returns {Result}
+     * @returns {Result} The result object containing all Latex strings, Exception and other parameters related to
+     * the input and result of the calculation.
      */
     processCalculation(field, input){
         try {
@@ -53,18 +55,24 @@ export default class UserIoHandler {
     }
 
     /**
-     * @param {number} field
-     * @param {string} input
-     * @returns {Result}
+     * Processes calculations for operators that do NOT return a MathElement and can't therefore be used in further
+     * calculations.
+     *
+     * @param {number} field The field to calculate on
+     * @param {string} input The complete input string from the user input
+     * @returns {Result} A result object that can directly be passed to the GUI and contains all important result data.
      * */
     _processNonMathElementExpression(field, input){
         return new NonMathElementInterpreter(field).interpret(input);
     }
 
     /**
-     * @param {number} field
-     * @param {string} input
-     * @returns {MathElementResult}
+     * Processes calculations for operators that return a MathElement. This is the regular case.
+     *
+     * @param {number} field The field to calculate on
+     * @param {string} input The complete input string from the user input
+     * @returns {MathElementResult} An object that includes the result in latex and user-input-notation, as well as
+     * the user input as a latex representation and a boolean that tells that the calculation was successful.
      * */
     _processMathElementExpression(field, input){
         const resultNode = new Interpreter(field).interpret(input);
@@ -74,6 +82,6 @@ export default class UserIoHandler {
         const codeResult = mathElementResult.toUserInputString();
         const latexUserInput = new InputToLatexConverter().toLatex(input);
 
-        return new MathElementResult(true, latexUserInput, latexResult, codeResult);
+        return new MathElementResult(latexUserInput, latexResult, codeResult);
     }
 }

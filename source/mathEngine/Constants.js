@@ -21,11 +21,6 @@ export const MathElementType = {
     VECTOR: 3,
 };
 
-export const ResultType = {
-    MATH_ELEMENT: 0,
-    HOMOGENEOUS_ES: 1
-}
-
 export const Constants = {
     listOfAllOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.EXPONENTIATE,
         Operators.DIVIDE, Operators.ROW_REDUCE, Operators.SOLVE_HOMOGENEOUS],
