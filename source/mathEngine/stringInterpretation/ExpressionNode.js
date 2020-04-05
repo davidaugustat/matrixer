@@ -126,7 +126,7 @@ export default class ExpressionNode {
         if(innerValue instanceof Matrix){
             return innerValue.transpose();
         }
-        throw Exceptions.RowReduceNotAMatrixException;
+        throw Exceptions.TransposeNotAMatrixException;
     }
 
 }
