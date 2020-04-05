@@ -56,7 +56,7 @@ export default class Parser {
             throw Exceptions.OperatorsAtInvalidPositionException;
         }
 
-        if(!this._areFunctionOperatorsFollowedByBracket(text)){
+        if(!this._areBracketOperatorsFollowedByBracket(text)){
             throw Exceptions.FunctionOperatorNotFollowedByBracketException;
         }
 
@@ -177,21 +177,23 @@ export default class Parser {
     }
 
     /**
-     * Checks if all function operators are followed by a round bracket.
+     * Checks if all bracket operators (= function operators + non-math-element operators) are followed by a round
+     * bracket.
      *
      * e.g. "abs5+5" or "abs+5" return false while abs(5+5) returns true
      *
-     * Note that true will be returned, if no function operator is used.
+     * Note that true will be returned, if no bracket operator is used.
      *
      * @param {string} text The math expression to check
-     * @returns {boolean} True if all function operators are followed by a round bracket or no function operator is
-     * used. If an issue facing this has been found, false will be returned. => True = Good
+     * @returns {boolean} True if all bracket operators are followed by a round bracket or no bracket operator is
+     * used. If an issue facing this has been found, false will be returned.
+     * => True = Good
      * */
-    _areFunctionOperatorsFollowedByBracket(text){
-        const functionOperatorsRegex = "(" + Constants.functionOperators.join("|") + ")";
-        const separatedByFunctionOperators = text.split(RegExp(functionOperatorsRegex))
-            .filter(substring => !Constants.functionOperators.includes(substring));
-        const expressionPartsWithoutFirst = separatedByFunctionOperators.slice(1);
+    _areBracketOperatorsFollowedByBracket(text){
+        const bracketOperatorsRegex = "(" + Constants.bracketOperators.join("|") + ")";
+        const separatedByBracketOperators = text.split(RegExp(bracketOperatorsRegex))
+            .filter(substring => !Constants.bracketOperators.includes(substring));
+        const expressionPartsWithoutFirst = separatedByBracketOperators.slice(1);
         return expressionPartsWithoutFirst.every(substring => substring.startsWith('('));
     }
 

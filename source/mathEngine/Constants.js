@@ -28,6 +28,9 @@ export const Constants = {
 
     infixOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.DIVIDE, Operators.EXPONENTIATE],
 
+    // bracket operators are function operators AND non-math-element operators
+    bracketOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.SOLVE_HOMOGENEOUS],
+
     functionOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE],
 
     // Operators, that don't return a MathElement:
