@@ -359,7 +359,12 @@ export default class Interpreter {
             possibilities.push({value: ')' + character, replacement: ')*' + character});
             possibilities.push({value: '}' + character, replacement: '}*' + character});
             possibilities.push({value: ']' + character, replacement: ']*' + character});
+
+            Constants.functionOperators.forEach(operatorName => {
+                possibilities.push({value: character + operatorName, replacement: character + '*' + operatorName});
+            });
         });
+
         return possibilities;
     }
 

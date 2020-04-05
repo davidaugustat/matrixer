@@ -102,10 +102,10 @@ export default class InputToLatexConverter {
             } else{
                 const extendedFieldGreekCharacterRegex = /(a|bs|b|j)/g;
                 const replaceMap = {
-                    "a":"\\alpha",
-                    "bs":"\\beta^2",
-                    "b":"\\beta",
-                    "j":"\\iota"
+                    "a":"\\alpha ",
+                    "bs":"\\beta^2 ",
+                    "b":"\\beta ",
+                    "j":"\\iota "
                 };
                 return this._replaceMultiple(substring, extendedFieldGreekCharacterRegex, replaceMap);
             }

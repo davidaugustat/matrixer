@@ -19,8 +19,8 @@ export const FieldLookupTables = {
     F4ElementsLatexLookup: [
         {number: Field.F4Zero, latex: "0"},
         {number: Field.F4One, latex: "1"},
-        {number: Field.F4Alpha, latex: "\\alpha"},
-        {number: Field.F4AlphaPlusOne, latex: "\\alpha+1"}
+        {number: Field.F4Alpha, latex: "\\alpha "},
+        {number: Field.F4AlphaPlusOne, latex: "\\alpha+1 "}
     ],
 
     /** @type {[{number: number, inputString: string}]} */
@@ -103,12 +103,12 @@ export const FieldLookupTables = {
     F8ElementsLatexLookup: [
         {number: Field.F8Zero, latex: "0"},
         {number: Field.F8One, latex: "1"},
-        {number: Field.F8Beta, latex: "\\beta"},
-        {number: Field.F8OnePlusBeta, latex: "1+\\beta"},
+        {number: Field.F8Beta, latex: "\\beta "},
+        {number: Field.F8OnePlusBeta, latex: "1+\\beta "},
         {number: Field.F8BetaSquare, latex: "\\beta^2"},
-        {number: Field.F8OnePlusBetaSquare, latex: "1+\\beta^2"},
-        {number: Field.F8BetaPlusBetaSquare, latex: "\\beta+\\beta^2"},
-        {number: Field.F8OnePlusBetaPlusBetaSquare, latex: "1+\\beta+\\beta^2"}
+        {number: Field.F8OnePlusBetaSquare, latex: "1+\\beta^2 "},
+        {number: Field.F8BetaPlusBetaSquare, latex: "\\beta+\\beta^2 "},
+        {number: Field.F8OnePlusBetaPlusBetaSquare, latex: "1+\\beta+\\beta^2 "}
     ],
 
     /** @type {[{number: number, inputString: string}]} */
@@ -301,12 +301,12 @@ export const FieldLookupTables = {
         {number: Field.F9Zero, latex: "0"},
         {number: Field.F9One, latex: "1"},
         {number: Field.F9MinusOne, latex: "-1"},
-        {number: Field.F9Iota, latex: "\\iota"},
-        {number: Field.F9IotaPlusOne, latex: "\\iota+1"},
-        {number: Field.F9IotaMinusOne, latex: "\\iota-1"},
-        {number: Field.F9MinusIota, latex: "-\\iota"},
-        {number: Field.F9MinusIotaPlusOne, latex: "-\\iota+1"},
-        {number: Field.F9MinusIotaMinusOne, latex: "-\\iota-1"}
+        {number: Field.F9Iota, latex: "\\iota "},
+        {number: Field.F9IotaPlusOne, latex: "\\iota+1 "},
+        {number: Field.F9IotaMinusOne, latex: "\\iota-1 "},
+        {number: Field.F9MinusIota, latex: "-\\iota "},
+        {number: Field.F9MinusIotaPlusOne, latex: "-\\iota+1 "},
+        {number: Field.F9MinusIotaMinusOne, latex: "-\\iota-1 "}
     ],
 
     /** @type {[{number: number, inputString: string}]} */
