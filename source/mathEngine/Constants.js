@@ -12,6 +12,7 @@ export const Operators = {
     DIVIDE: '/',
     TERMINAL: '€',
     ROW_REDUCE: 'rowreduce',
+    TRANSPOSE: 'transpose',
     SOLVE_HOMOGENEOUS: 'solvehom'
 };
 
@@ -23,11 +24,11 @@ export const MathElementType = {
 
 export const Constants = {
     listOfAllOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.EXPONENTIATE,
-        Operators.DIVIDE, Operators.ROW_REDUCE, Operators.SOLVE_HOMOGENEOUS],
+        Operators.DIVIDE, Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.SOLVE_HOMOGENEOUS],
 
     infixOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.DIVIDE, Operators.EXPONENTIATE],
 
-    functionOperators: [Operators.ROW_REDUCE],
+    functionOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE],
 
     // Operators, that don't return a MathElement:
     nonMathElementOperators: [Operators.SOLVE_HOMOGENEOUS],

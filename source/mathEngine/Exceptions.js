@@ -200,6 +200,11 @@ export const Exceptions = {
         germanMessage: "Der rowreduce-Operator kann nur Matrizen verarbeiten."
     },
 
+    TransposeNotAMatrixException: {
+        englishMessage: "The transpose operator can only process matrices.",
+        germanMessage: "Der transpose-Operator kann nur Matrizen verarbeiten."
+    },
+
     EmptyInputException: {
         englishMessage: "No input has been entered. Please enter an expression in the text field.",
         germanMessage: "Es wurde nichts eingegeben. Bitte gib einen mathematischen Ausdruck in das Textfeld ein."

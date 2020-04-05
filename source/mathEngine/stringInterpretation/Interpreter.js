@@ -205,8 +205,6 @@ export default class Interpreter {
         const splitExpression = expression.split('(', 2);
         const functionName = splitExpression[0];
         const innerExpression = splitExpression[1];
-        console.log(expression);
-        console.log(splitExpression);
 
         const innerResult = this.interpret(innerExpression).calculate();
         const innerResultNode = new ExpressionNode(null, null, null, innerResult);
@@ -462,14 +460,24 @@ export default class Interpreter {
     /**
      *  Checks if the provided array contains only one element which is a valid function (e.g. rowreduce).
      *
-     *  E.g. ["rowreduce({1,2;3,4})"] returns true, but ["5*rowreduce({1,2;3,4})"] or ["5+6"] returns false.
+     *  Note that for a valid function the closing bracket belonging to the function operator MUST be missing,
+     *  e.g. rowreduce(.. and not rowreduce(..)
+     *
+     *  E.g. ["rowreduce({1,2;3,4}"] returns true, but ["rowreduce({1,2;3,4})"] ["5*rowreduce({1,2;3,4}"] or ["5+6"]
+     *  returns false.
      *
      * @param {[string]} expression
      * @returns {boolean} True if the expression is a valid function, otherwise false.
      * */
     _isFunction(expression){
         if(Array.isArray(expression) && expression.length === 1){
-            return this._startsWithFunctionOperator(expression[0], 0);
+            const startsWithFunctionOperator = this._startsWithFunctionOperator(expression[0], 0);
+
+            const openingBracketCount =  Helper.numberOfOccurrences(expression[0], '(');
+            const closingBracketCount =  Helper.numberOfOccurrences(expression[0], ')');
+            const isBracketCountCorrect = openingBracketCount === closingBracketCount+1;
+
+            return startsWithFunctionOperator && isBracketCountCorrect;
         }
         return false;
     }

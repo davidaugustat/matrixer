@@ -403,7 +403,6 @@ export default class Matrix extends MathElement{
             }
         }
         this.value = transposed;
-        [this.rows, this.columns] = [this.columns, this.rows];
     }
 
     /**
@@ -417,7 +416,6 @@ export default class Matrix extends MathElement{
     _multiplyRow(rowPos, factor){
         const row = this.value[rowPos];
         for(let column = 0; column < this.columns; column++){
-            //row[column] = this.field.multiply(row[column], factor);
             row[column] = row[column].multiplyWith(factor);
         }
     }

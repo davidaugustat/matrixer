@@ -93,6 +93,8 @@ export default class ExpressionNode {
                     return this.leftNode.calculate().exponentiate(this.rightNode.calculate());
                 case Operators.ROW_REDUCE:
                     return this._rowReduce();
+                case Operators.TRANSPOSE:
+                    return this._transpose();
                 default:
                     throw Exceptions.InvalidOperatorException;
             }
@@ -109,6 +111,20 @@ export default class ExpressionNode {
         const innerValue = this.leftNode.calculate();
         if(innerValue instanceof Matrix){
             return innerValue.rowReduce();
+        }
+        throw Exceptions.RowReduceNotAMatrixException;
+    }
+
+    /**
+     * Internal method to check if the left node is a matrix. If it is, a copy of the matrix in row-echelon-form
+     * will be returned. Otherwise an exception will be thrown, because only matrices can be row-reduced.
+     *
+     * @returns {Matrix}
+     * */
+    _transpose(){
+        const innerValue = this.leftNode.calculate();
+        if(innerValue instanceof Matrix){
+            return innerValue.transpose();
         }
         throw Exceptions.RowReduceNotAMatrixException;
     }

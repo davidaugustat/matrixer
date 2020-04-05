@@ -329,4 +329,14 @@ export default class Helper{
         return /^\d$/.test(character);
     }
 
+    /**
+     * Returns the number of occurrences of a character in a given string.
+     *
+     * @param {string} text The text to check for the occurrences of the character
+     * @param {string} character The character whose occurrences should be counted
+     * */
+    static numberOfOccurrences(text, character){
+        return text.split(character).length-1;
+    }
+
 }
