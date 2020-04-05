@@ -71,6 +71,11 @@ export default class Parser {
         if(this._commaAndSemicolonUsedOutsideMatrixAndVector(text)){
             throw Exceptions.CommaOrSemicolonOutsideOfMatrixAndVectorException;
         }
+
+        if(!this._nonMathElementOperatorUsedCorrectly(text)){
+            throw Exceptions.NonMathElementOperatorUsedIncorrectlyException;
+        }
+
         return true;
     }
 
@@ -267,6 +272,94 @@ export default class Parser {
         const commaAndSemicolon = [',', ';'];
         const textWithoutMatricesAndVectors = this._removeMatrixAndVectorStrings(text);
         return commaAndSemicolon.some(character => textWithoutMatricesAndVectors.includes(character));
+    }
+
+    /**
+     * Checks if non-math-element operators are used correctly and returns true if so.
+     *
+     * This returns true when ALL of the following conditions are fulfilled:
+     * - 0 or 1 non-math-element operator occurs
+     * - If one occurs:
+     *     - Expression starts with the non-math-element operator
+     *     - Expression ends with the closing bracket of the non-math-element operator
+     *
+     * This ensures, that a non-math-element operator is never nested inside or combined with any other operators.
+     *
+     * E.g. solvehom({1,2;3,4}) and solvehom(5*{1,2;3,4}) return true, but
+     * 5*solvehom({1,2;3,4}), solvehom({1,2;3,4})*5 or solvehom(solvehom({1,2;3,4})) return false.
+     *
+     * @param {string} text The expression to check
+     * @returns {boolean} True if no non-math-element operator occurs or exactly one occurs and it is used correctly.
+     * => True = Good
+     * */
+    _nonMathElementOperatorUsedCorrectly(text){
+        const hasNonMathElementOperator = Constants.nonMathElementOperators.some(operator => text.includes(operator));
+       if(!hasNonMathElementOperator){
+           return true;
+       }
+       if(!this._isNonMathElementOperatorCountAndStartPositionCorrect(text)){
+           return false;
+       }
+        return this._endsWithNonMathElementOperatorClosingBracket(text);
+    }
+
+    /**
+     * Checks if the at most one non-math-element operator is used and if it's starting position is position 0.
+     *
+     * @param {string} text The expression to check
+     * @returns {boolean} True if 0 or 1 non-math-element operators are used AND the starting position of an
+     * occurring non-math-element operator is 0. Otherwise false.
+     * => True = Good
+     * */
+    _isNonMathElementOperatorCountAndStartPositionCorrect(text){
+        let nonMathElementOperatorCount = 0;
+        let nonMathElementOperatorStartPosition = 0;
+
+        Constants.nonMathElementOperators.forEach(operator => {
+            const operatorPosition = text.indexOf(operator);
+            if(operatorPosition >= 0){
+                nonMathElementOperatorCount++;
+                nonMathElementOperatorStartPosition = operatorPosition;
+                // check for second occurrence:
+                if(text.indexOf(operator, operatorPosition+1) >= 0){
+                    nonMathElementOperatorCount++;
+                }
+            }
+        });
+        return !(nonMathElementOperatorCount > 1 || nonMathElementOperatorStartPosition !== 0);
+    }
+
+    /**
+     * Checks if an existing non-math-element operator's closing bracket is the last element in the expression.
+     *
+     * E.g. solvehom({1,2;3,4}) returns true, but solvehom({1,2;3,4})*2 returns false.
+     *
+     * Note that this method expects, that the expression contains EXACTLY 1 non-math-element operator at the
+     * starting position and that the bracket matching is valid.
+     *
+     * @param {string} text The expression to check
+     * @returns {boolean} True if the expression ends with the operator' closing bracket, otherwise false.
+     * => True = Good
+     * */
+    _endsWithNonMathElementOperatorClosingBracket(text){
+        let isInsideOperatorBrackets = false;
+        let bracketLevel = 0;
+
+        for(let i = 0; i < text.length; i++){
+            const currentChar = text.charAt(i);
+            if(currentChar === '('){
+                bracketLevel++;
+                if(!isInsideOperatorBrackets){
+                    isInsideOperatorBrackets = true;
+                }
+            } else if(currentChar === ')'){
+                bracketLevel--;
+                if(bracketLevel === 0 && i < text.length-1){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**

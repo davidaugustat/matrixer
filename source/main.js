@@ -22,11 +22,9 @@ $(document).ready(function () {
     const errorOutput = $("#result-error-info-paragraph");
     const userInputLatexOutput = $("#user-input-latex-paragraph");
 
-
     const mathElementLatexResultOutput = $("#math-element-latex-result-output");
     const mathElementResultCodeOutput = $("#math-element-result-code-output");
     const resultCodeCopyButton = $("#result-code-copy-btn");
-
 
     const homogeneousEquationSystemVectorSolutionOutput = $("#hom-es-non-trivial-solution-output");
     const homogeneousEquationSystemTrivialSolutionOutput = $("#hom-es-trivial-solution-output");
@@ -38,6 +36,7 @@ $(document).ready(function () {
     const errorBox = $("#result-error-box");
     const resultArea = $("#result-div");
     const resultBoxes = $(".result-box");
+
 
     const userIoHandler = new UserIoHandler();
 

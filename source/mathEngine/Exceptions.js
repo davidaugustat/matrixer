@@ -209,4 +209,14 @@ export const Exceptions = {
         englishMessage: "Only a matrix can be solved as an homogeneous equation system.",
         germanMessage: "Nur eine Matrix kann als homogenes Gleichungssystem gelöst werden."
     },
+
+    NonMathElementOperatorUsedIncorrectlyException: {
+        englishMessage: "An operator that does not directly return a math element (Number, Matrix, Vector) has been" +
+            " used in a disallowed manner. Note that operators that do not return a math element, cannot be" +
+            " nested inside other operators and cannot be combined with other operators since their return value" +
+            " can't directly be used in calculations.",
+        germanMessage: "Ein Operator, der kein mathematisches Element (Zahl, Matrix, Vektor) zurückliefert, wurde in" +
+            " einer unerlaubten Weise verwendet. Beachte, dass man solche Operatoren nicht mit anderen Operatoren" +
+            " kombinieren kann, da man mit ihrem Ergebnis nicht mehr direkt weiterrechnen kann."
+    },
 };

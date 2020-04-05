@@ -44,6 +44,7 @@ export default class NonMathElementInterpreter {
      * */
     static isNonMathElementExpression(expression){
         expression = Helper.removeSpacesAndLineBreaks(expression);
+        expression = expression.toLowerCase();
         return Constants.nonMathElementOperators.some(operator => expression.startsWith(operator));
     }
 
@@ -64,6 +65,8 @@ export default class NonMathElementInterpreter {
      * HomogeneousEquationSystemResult in case of the operator being "solvehom"
      * */
     interpret(expression){
+        expression = Helper.removeSpacesAndLineBreaks(expression);
+        expression = expression.toLowerCase();
         const innerMathElement = new Interpreter(this.field).interpret(this._getInnerExpression(expression)).calculate();
         const operator = this._getOperatorName(expression);
         switch(operator){

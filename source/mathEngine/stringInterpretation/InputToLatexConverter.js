@@ -19,6 +19,7 @@ export default class InputToLatexConverter {
      * */
     toLatex(text){
         text = Helper.removeSpacesAndLineBreaks(text);
+        text = text.toLowerCase();
         text = this._convertFieldNumberStrings(text);
         text = this._convertMatrices(text);
         text = this._convertVectors(text);
