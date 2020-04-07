@@ -21,6 +21,7 @@ const htmlFooterDe = fs.readFileSync(path.resolve(__dirname, "source/html/templa
 
 
 module.exports = {
+    // mode: "production",
     mode: "development",
     devtool: 'inline-source-map', // <-- comment this line out when building for production
     entry: path.resolve(__dirname, "source/main.js"),
