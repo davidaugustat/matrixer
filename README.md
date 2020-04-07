@@ -19,7 +19,7 @@ Doing calculations in F8:
 ## Functionality:
 **All functions work with real numbers and on the finite fields F2, F3, F4, F5, F7, F8, F9, F11, F13, F17 and F19.**
 
-- Doing **basic math** (addition, subtraction, multiplication, division exponentiation) with numbers
+- Doing **basic math** (addition, subtraction, multiplication, division, exponentiation) with numbers
 - Calculating the **multiplicative inverse** of a number
 - Calculating the **additive inverse** of a number
 - **Multiplication, addition and subtraction of matrices**
@@ -39,12 +39,12 @@ meaning that all calculations are executed in the user's web browser.
 
 Here you can find the different parts of the project:
 
-- Mathematical code: [source/mathEngine/math](source/mathEngine/math): 
+- **Mathematical code:** [source/mathEngine/math](source/mathEngine/math): 
 All the code that does the mathematical calculations in the background
-- String interpretation: [source/mathEngine/stringInterpretation](source/mathEngine/stringInterpretation): 
+- **String interpretation:** [source/mathEngine/stringInterpretation](source/mathEngine/stringInterpretation): 
 Code that validates and interprets the user input and converts it into a binary tree used for the calculations
-- HTML code: [source/html](source/html): The layout and design of the website
-- Assets (CSS, images, ...): [source/assets](source/assets)
+- **HTML code:** [source/html](source/html): The layout and design of the website
+- **Assets** (CSS, images, ...): [source/assets](source/assets)
 
 This project uses [Webpack](https://webpack.js.org/) to bundle all the individual files in the source folder into a
  small number of output files, which are then saved in the distribution folder. The output files are however not
