@@ -149,7 +149,7 @@ export const Exceptions = {
     },
 
     DivisionByZeroException: {
-        englishMessage: "Division by Zero is not allowed.",
+        englishMessage: "Division by zero is not allowed.",
         germanMessage: "Man darf nicht durch Null teilen."
     },
 

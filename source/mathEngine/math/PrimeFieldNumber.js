@@ -1,5 +1,6 @@
 import GeneralNumber from "./GeneralNumber";
 import {Exceptions} from "../Exceptions";
+import Field from "./Field";
 
 /**
  * Class for storing numbers over an algebraic prime number finite field.
@@ -60,7 +61,9 @@ export default class PrimeFieldNumber  extends GeneralNumber {
      * @returns {PrimeFieldNumber}
      * */
     _divideByNumber(divisor) {
-        //return new PrimeFieldNumber(this.value / divisor.value);
+        if(divisor.value === 0){
+            throw Exceptions.DivisionByZeroException;
+        }
         return new PrimeFieldNumber(this.field,this.value * divisor.getMultiplicativeInverse().value)
     }
 

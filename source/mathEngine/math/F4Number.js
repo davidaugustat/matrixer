@@ -50,6 +50,9 @@ export default class F4Number extends GeneralNumber{
      * @returns {F4Number}
      * */
     _divideByNumber(divisor) {
+        if(divisor.value === Field.F4Zero){
+            throw Exceptions.DivisionByZeroException;
+        }
         return this._multiplyWithNumber(divisor.getMultiplicativeInverse());
     }
 

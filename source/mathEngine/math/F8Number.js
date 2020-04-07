@@ -51,6 +51,9 @@ export default class F8Number extends GeneralNumber{
      * @returns {F8Number}
      * */
     _divideByNumber(divisor) {
+        if(divisor.value === Field.F8Zero){
+            throw Exceptions.DivisionByZeroException;
+        }
         return this._multiplyWithNumber(divisor.getMultiplicativeInverse());
     }
 

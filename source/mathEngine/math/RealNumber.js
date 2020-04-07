@@ -48,6 +48,9 @@ export default class RealNumber extends GeneralNumber{
      * @returns {RealNumber}
      * */
     _divideByNumber(divisor) {
+        if(divisor.value === 0){
+            throw Exceptions.DivisionByZeroException;
+        }
         return new RealNumber(this.value / divisor.value);
     }
 
