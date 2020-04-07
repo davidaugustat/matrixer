@@ -140,15 +140,11 @@
             \(\begin{pmatrix}1 \\ 2 \\ 3 \\ 4\end{pmatrix}\)
         </li>
         <li>
-            Leerzeichen sind egal. Du kannst sie an beliebigen Stellen hinschreiben oder weglassen - es macht keinen
-            Unterschied.
+            Leerzeichen sowie Groß- und Kleinschreibung sind egal. Du kannst Leerzeichen an beliebigen Stellen
+            hinschreiben oder weglassen - es macht keinen Unterschied. Selbiges gilt für Großbuchstaben.
         </li>
     </ul>
-    <!--
-    \(\)
-    \begin{pmatrix}\end{pmatrix}
-    \(\begin{pmatrix}\end{pmatrix}\)
-    -->
+
     <h4>Was kann man mit Matrixer machen?</h4>
     <ul>
         <li>
@@ -263,6 +259,30 @@
             <p>
                 Z.B. in R: <span class="input-example">transpose({1,2,3;4,5,6})</span>
                 \(= transpose(\begin{pmatrix}1&2&3\\4&5&6\end{pmatrix}) = \begin{pmatrix}1&4\\2&5\\3&6\end{pmatrix}\)
+            </p>
+        </li>
+        <li>
+            <b>Das multiplikativ inverse Element einer Zahl berechnen:</b>
+            <p>
+                Das multiplikativ inverse Element \(y\) einer Zahl \(x\) ist definiert als \(x*y=1\).
+            </p>
+            <p>
+                Z.B. in F4: <span class="input-example">multinverse(a)</span> \(=multinverse(\alpha) = \alpha+1\)
+            </p>
+            <p>
+                Z.B. in R: <span class="input-example">multinverse(2)</span> \(=multinverse(2) = 0.5\)
+            </p>
+        </li>
+        <li>
+            <b>Das additiv inverse Element einer Zahl berechnen:</b>
+            <p>
+                Das additiv inverse Element \(y\) einer Zahl \(x\) ist definiert als \(x+y=0\).
+            </p>
+            <p>
+                Z.B. in F5: <span class="input-example">additiveinverse(2)</span> \(=additiveinverse(2) = 3 \)
+            </p>
+            <p>
+                Z.B. in R: <span class="input-example">additiveinverse(4)</span> \(=additiveinverse(4) = -4\)
             </p>
         </li>
     </ul>
