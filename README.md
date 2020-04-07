@@ -3,7 +3,7 @@
 
 **Website: [matrixer.davidaugustat.com](https://matrixer.davidaugustat.com/)**
 
-## Screenshots:
+## Screenshots
 Solving a homogeneous equation system in F9:
 
 ![Matrixer solving a homogeneous equation system in the F9 field](other/screenshots/screenshot1.png)
@@ -16,7 +16,7 @@ Doing calculations in F8:
 
 ![Matrixer doing calculations in the F8 field](other/screenshots/screenshot3.png)
 
-## Functionality:
+## Functionality
 **All functions work with real numbers and on the finite fields F2, F3, F4, F5, F7, F8, F9, F11, F13, F17 and F19.**
 
 - Doing **basic math** (addition, subtraction, multiplication, division, exponentiation) with numbers
