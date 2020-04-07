@@ -114,6 +114,17 @@ body{
     overflow-y: hidden;
 }
 
+#documentation-div table{
+    width: auto;
+}
+
+.field-number-container{
+    display: inline-grid;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+}
+
 ul li{
     margin-bottom: 10px;
 }

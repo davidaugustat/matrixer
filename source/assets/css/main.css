@@ -109,6 +109,17 @@ ul li{
     margin-bottom: 10px;
 }
 
+#documentation-div table{
+    width: auto;
+}
+
+.field-number-container{
+    display: inline-grid;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+}
+
 .katex-display{
     overflow-x: auto;
     overflow-y: hidden;
@@ -161,6 +172,16 @@ ul li{
     #field-select{
         margin-left: 0;
         margin-right: 0;
+    }
+
+    #documentation-div table{
+        width: 100%;
+    }
+
+    .field-number-container{
+        display: block;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
