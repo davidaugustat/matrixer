@@ -224,4 +224,25 @@ export const Exceptions = {
             " einer unerlaubten Weise verwendet. Beachte, dass man solche Operatoren nicht mit anderen Operatoren" +
             " kombinieren kann, da man mit ihrem Ergebnis nicht mehr direkt weiterrechnen kann."
     },
+
+    MultiplicativeInverseNoNumberException: {
+        englishMessage: "The multiplicative inverse element can only be calculated from a number, not a matrix or" +
+            " vector.",
+        germanMessage: "Das multiplikativ inverse Element kann nur von einer Zahl berechnet werden, nicht von einer" +
+            " Matrix oder einem Vektor."
+    },
+
+    AdditiveInverseNoNumberException: {
+        englishMessage: "The additive inverse element can only be calculated from a number, not a matrix or vector.",
+        germanMessage: "Das additiv inverse Element kann nur von einer Zahl berechnet werden, nicht von einer Matrix" +
+            " oder einem Vektor."
+    },
+
+    MultiplicativeInverseOfZeroException: {
+        englishMessage: "A multiplicative inverse element of zero doesn't exist.",
+        germanMessage: "Ein multiplikativ inverses Element zur Null existiert nicht."
+    },
+
+
+
 };

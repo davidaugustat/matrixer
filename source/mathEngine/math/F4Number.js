@@ -62,6 +62,9 @@ export default class F4Number extends GeneralNumber{
      * @returns {F4Number}
      * */
     getMultiplicativeInverse() {
+        if(this.value === Field.F4Zero){
+            throw Exceptions.MultiplicativeInverseOfZeroException;
+        }
         const resultValue = FieldLookupTables.F4MultiplicationInverseLookup
             .find(object => object.number === this.value).inverse;
         return new F4Number(resultValue);

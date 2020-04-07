@@ -63,6 +63,9 @@ export default class F8Number extends GeneralNumber{
      * @returns {F8Number}
      * */
     getMultiplicativeInverse() {
+        if(this.value === Field.F8Zero){
+            throw Exceptions.MultiplicativeInverseOfZeroException;
+        }
         const resultValue = FieldLookupTables.F8MultiplicationInverseLookup
             .find(object => object.number === this.value).inverse;
         return new F8Number(resultValue);

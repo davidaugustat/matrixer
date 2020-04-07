@@ -84,6 +84,10 @@ export default class PrimeFieldNumber  extends GeneralNumber {
      * @returns {PrimeFieldNumber}
      * */
     getMultiplicativeInverse() {
+        if(this.value === 0){
+            throw Exceptions.MultiplicativeInverseOfZeroException;
+        }
+
         // This method uses the Extended Euclidean Algorithm:
         let multiples = [1];
         // calculate greatest common divider while storing all used multiples:

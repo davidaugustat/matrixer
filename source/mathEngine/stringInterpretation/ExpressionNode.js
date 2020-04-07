@@ -1,6 +1,7 @@
 import {Operators} from "../Constants";
 import {Exceptions} from "../Exceptions";
 import Matrix from "../math/Matrix";
+import GeneralNumber from "../math/GeneralNumber";
 
 /**
  * Class that represents a node of a binary tree that can store mathematical expressions.
@@ -95,6 +96,10 @@ export default class ExpressionNode {
                     return this._rowReduce();
                 case Operators.TRANSPOSE:
                     return this._transpose();
+                case Operators.MULTIPLICATIVE_INVERSE:
+                    return this._getMultiplicativeInverse();
+                case Operators.ADDITIVE_INVERSE:
+                    return this._getAdditiveInverse();
                 default:
                     throw Exceptions.InvalidOperatorException;
             }
@@ -102,8 +107,9 @@ export default class ExpressionNode {
     }
 
     /**
-     * Internal method to check if the left node is a matrix. If it is, a copy of the matrix in row-echelon-form
-     * will be returned. Otherwise an exception will be thrown, because only matrices can be row-reduced.
+     * Internal method to check if the result of the left node is a matrix. If it is, a copy of the matrix in
+     * row-echelon-form will be returned. Otherwise an exception will be thrown, because only matrices can be
+     * row-reduced.
      *
      * @returns {Matrix}
      * */
@@ -116,8 +122,8 @@ export default class ExpressionNode {
     }
 
     /**
-     * Internal method to check if the left node is a matrix. If it is, a copy of the matrix in row-echelon-form
-     * will be returned. Otherwise an exception will be thrown, because only matrices can be row-reduced.
+     * Internal method to check if the result of left node is a matrix. If it is, a transposed copy of the matrix
+     * will be returned. Otherwise an exception will be thrown, because only matrices can be transposed.
      *
      * @returns {Matrix}
      * */
@@ -127,6 +133,36 @@ export default class ExpressionNode {
             return innerValue.transpose();
         }
         throw Exceptions.TransposeNotAMatrixException;
+    }
+
+    /**
+     * Internal method to check if the result of the left node is a subtype of GeneralNumber. If it is, a GeneralNumber
+     * object of the same field containing the multiplicative inverse of the given GeneralNumber will be returned.
+     * Otherwise an exception will be thrown.
+     *
+     * @returns {GeneralNumber}
+     * */
+    _getMultiplicativeInverse(){
+       const innerValue = this.leftNode.calculate();
+       if(innerValue instanceof GeneralNumber){
+           return innerValue.getMultiplicativeInverse();
+       }
+       throw  Exceptions.MultiplicativeInverseNoNumberException;
+    }
+
+    /**
+     * Internal method to check if the result of the left node is a subtype of GeneralNumber. If it is, a GeneralNumber
+     * object of the same field containing the additive inverse of the given GeneralNumber will be returned.
+     * Otherwise an exception will be thrown.
+     *
+     * @returns {GeneralNumber}
+     * */
+    _getAdditiveInverse(){
+        const innerValue = this.leftNode.calculate();
+        if(innerValue instanceof GeneralNumber){
+            return innerValue.getAdditiveInverse();
+        }
+        throw Exceptions.AdditiveInverseNoNumberException;
     }
 
 }

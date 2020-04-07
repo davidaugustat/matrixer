@@ -13,6 +13,8 @@ export const Operators = {
     TERMINAL: '€',
     ROW_REDUCE: 'rowreduce',
     TRANSPOSE: 'transpose',
+    MULTIPLICATIVE_INVERSE: 'multinverse',
+    ADDITIVE_INVERSE: 'additiveinverse',
     SOLVE_HOMOGENEOUS: 'solvehom'
 };
 
@@ -24,14 +26,17 @@ export const MathElementType = {
 
 export const Constants = {
     listOfAllOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.EXPONENTIATE,
-        Operators.DIVIDE, Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.SOLVE_HOMOGENEOUS],
+        Operators.DIVIDE, Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.MULTIPLICATIVE_INVERSE,
+        Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS],
 
     infixOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.DIVIDE, Operators.EXPONENTIATE],
 
     // bracket operators are function operators AND non-math-element operators
-    bracketOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.SOLVE_HOMOGENEOUS],
+    bracketOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.MULTIPLICATIVE_INVERSE,
+        Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS, Operators.SOLVE_HOMOGENEOUS],
 
-    functionOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE],
+    functionOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.MULTIPLICATIVE_INVERSE,
+        Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS],
 
     // Operators, that don't return a MathElement:
     nonMathElementOperators: [Operators.SOLVE_HOMOGENEOUS],

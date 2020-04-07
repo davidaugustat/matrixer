@@ -67,7 +67,7 @@ export default class RealNumber extends GeneralNumber{
      * */
     getMultiplicativeInverse() {
         if(this.value === 0){
-            throw Exceptions.DivisionByZeroException;
+            throw Exceptions.MultiplicativeInverseOfZeroException;
         }
         return new RealNumber(1/this.value);
     }

@@ -62,6 +62,10 @@ export default class F9Number extends GeneralNumber{
      * @returns {F9Number}
      * */
     getMultiplicativeInverse() {
+        if(this.value === Field.F9Zero){
+            throw Exceptions.MultiplicativeInverseOfZeroException;
+        }
+
         const resultValue = FieldLookupTables.F9MultiplicationInverseLookup
             .find(object => object.number === this.value).inverse;
         return new F9Number(resultValue);
