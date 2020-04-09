@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /assets/other/analytics-optout.html
+
+Sitemap: https://matrixer.davidaugustat.com/assets/other/sitemap.txt
