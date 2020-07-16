@@ -17,29 +17,3 @@
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
 <meta name="theme-color" content="#ffffff">
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125032530-1"></script>
-<script>
-    var disableStr = 'ga-disable-UA-125032530-1';
-
-    function __gaTrackerIsOptedOut() {
-        return document.cookie.indexOf(disableStr + '=true') > -1;
-    }
-
-    if ( __gaTrackerIsOptedOut() ) {
-        window[disableStr] = true;
-    }
-
-    function __gaTrackerOptout() {
-        document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
-        window[disableStr] = true;
-    }
-
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-125032530-1', {'anonymize_ip': true});
-</script>
-
