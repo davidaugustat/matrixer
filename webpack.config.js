@@ -121,17 +121,21 @@ module.exports = {
             headTag: htmlHeadTag,
             bodyTag: htmlBodyTag
         }),
-        new CopyPlugin([
-            {
-                from: path.resolve(__dirname, "source/assets"),
-                to: "assets",
-                ignore: [ "other/robots.txt" ]
-            },
-            {
-                from: path.resolve(__dirname, "source/assets/other/robots.txt"),
-                to: "robots.txt"
-            }
-        ])
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "source/assets"),
+                    to: "assets",
+                    globOptions: {
+                        ignore: [ "**/other/robots.txt" ]
+                    }
+                },
+                {
+                    from: path.resolve(__dirname, "source/assets/other/robots.txt"),
+                    to: "robots.txt"
+                }
+            ]
+        })
     ],
     devServer: {
         contentBase: "./source/html/templates",

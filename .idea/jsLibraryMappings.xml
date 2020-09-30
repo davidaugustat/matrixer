@@ -2,6 +2,5 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="PROJECT" libraries="{auto-render, bootstrap, jquery, jquery-3.4.1.slim, katex, tex-mml-chtml}" />
-    <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>
