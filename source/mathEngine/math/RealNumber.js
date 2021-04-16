@@ -102,9 +102,15 @@ export default class RealNumber extends GeneralNumber{
 
     /**
      * Note: Number will NOT be rounded here to maximize precision when using this output as an input again.
+     * Note: If the number is considered zero according to this.EPSILON, then "0" will be returned instead of the
+     * exact number to avoid follow-up errors when the user re-inputs the string.
+     *
      * @returns {string}
      * */
     toUserInputString() {
+        if(this.equalsValue(0)){
+            return "0";
+        }
         return this.value.toString();
     }
 
