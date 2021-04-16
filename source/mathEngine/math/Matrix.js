@@ -482,7 +482,7 @@ export default class Matrix extends MathElement{
         let row = 0;
         let column = 0;
         while(row < this.rows && column < this.columns){
-            if(this.value[row][column].value !== 0){
+            if(!this.value[row][column].equalsValue(0)){
                 this._reduceColumn(row, column);
                 row++;
                 column++;
@@ -517,11 +517,11 @@ export default class Matrix extends MathElement{
      */
     _moveRowWithoutZeroAtCurrentPosition(rowPos, columnPos){
         let numMoves = 0;
-        while(this.value[rowPos][columnPos].value === 0 && numMoves < this.rows-rowPos-1){
+        while(this.value[rowPos][columnPos].equalsValue(0) && numMoves < this.rows-rowPos-1){
             this._moveRow(rowPos, this.rows-1);
             numMoves++;
         }
-        return this.value[rowPos][columnPos].value !== 0;
+        return !this.value[rowPos][columnPos].equalsValue(0) !== 0;
     }
 
     /**

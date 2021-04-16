@@ -96,4 +96,14 @@ export default class GeneralNumber extends MathElement{
     _subtractVector(subtrahend) {
         throw Exceptions.SubtractionOfVectorFromNumberException;
     }
+
+    /**
+     * Checks if the value stored in the GeneralNumber object equals the provided value
+     *
+     * @param {number} value The value to compare to
+     * @returns {boolean} true if the values are equal, otherwise false
+     */
+    equalsValue(value){
+        return this.value === value;
+    }
 }
