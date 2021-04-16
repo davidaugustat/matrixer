@@ -4,7 +4,7 @@
 
     <%= htmlWebpackPlugin.options.headTag %>
 
-    <link rel="stylesheet" href="/assets/katex/katex.min.css" />
+    <link rel="stylesheet" href="https://static.davidaugustat.com/katex-0.13.1/katex.min.css">
 
     <title>Matrixer - Calculator for Finite Fields and Linear Algebra</title>
 
@@ -34,8 +34,9 @@
 
     <%= htmlWebpackPlugin.options.bodyTag %>
 
-    <script src="/assets/katex/katex.min.js"></script>
-    <script src="/assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    <script defer src="https://static.davidaugustat.com/katex-0.13.1/katex.min.js"></script>
+    <script defer src="https://static.davidaugustat.com/katex-0.13.1/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body);"></script>
 
 </body>
 </html>
