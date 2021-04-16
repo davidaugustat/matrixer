@@ -203,23 +203,20 @@ $(document).ready(function () {
     }
 
     /**
-     * Sends an event to Google Analytics
+     * Sends an event to Matomo Analytics
      *
      * @param {{isSuccessful: boolean, latexUserInput: string, latexResult: string, codeResult: string,
      * userInputResult: string, ?exception: Object}} result
      * */
     function sendCalculateEventToAnalytics(result){
-        const action = "Matrixer Calculate Button";
         const category = "button click";
-        const label = "Matrixer";
+        const action = "Matrixer Calculate Button";
+        const name = "Matrixer";
+
         // since value must be an integer, 1 means successful and 0 means unsuccessful:
         const value = result.isSuccessful ? 1 : 0;
 
-        gtag('event', action, {
-            'event_category': category,
-            'event_label': label,
-            'value': value
-        });
+        _paq.push(['trackEvent', category, action, name, value]);
     }
 
     /**

@@ -13,6 +13,13 @@ import Field from "./Field";
 export default class RealNumber extends GeneralNumber{
 
     /**
+     * The epsilon used as the rounding error to compare two numbers
+     *
+     * @type {number}
+     */
+    EPSILON = 1e-9;
+
+    /**
      * @param {number} value
      * */
     constructor(value) {
@@ -95,9 +102,15 @@ export default class RealNumber extends GeneralNumber{
 
     /**
      * Note: Number will NOT be rounded here to maximize precision when using this output as an input again.
+     * Note: If the number is considered zero according to this.EPSILON, then "0" will be returned instead of the
+     * exact number to avoid follow-up errors when the user re-inputs the string.
+     *
      * @returns {string}
      * */
     toUserInputString() {
+        if(this.equalsValue(0)){
+            return "0";
+        }
         return this.value.toString();
     }
 
@@ -121,5 +134,16 @@ export default class RealNumber extends GeneralNumber{
             throw Exceptions.InvalidNumberException;
         }
         return new RealNumber(numberValue);
+    }
+
+    /**
+     * Checks if value equals this.value. As real numbers are stored as floating point numbers, the constant
+     * this.EPSILON is used to mitigate errors due to rounding.
+     *
+     * @param value
+     * @returns {boolean}
+     */
+    equalsValue(value) {
+        return Math.abs(this.value - value) < this.EPSILON;
     }
 }
