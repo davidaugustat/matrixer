@@ -521,7 +521,7 @@ export default class Matrix extends MathElement{
             this._moveRow(rowPos, this.rows-1);
             numMoves++;
         }
-        return !this.value[rowPos][columnPos].equalsValue(0) !== 0;
+        return !this.value[rowPos][columnPos].equalsValue(0);
     }
 
     /**
