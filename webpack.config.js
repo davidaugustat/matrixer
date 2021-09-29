@@ -138,7 +138,12 @@ module.exports = {
         })
     ],
     devServer: {
-        contentBase: "./source/html/templates",
-        watchContentBase: true
+        client: {
+            overlay: {
+                errors: true,
+                warnings: false
+            }
+        }
     }
 };
+
