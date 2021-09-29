@@ -59,9 +59,12 @@ There are plenty of tutorials on that online.
 3. Run `npm install` to automatically install all dependencies.
 4. Set the webpack.config.js file to production mode (this reduces output file size) by **un**commenting the line 
 `mode: "production",` and commenting out the lines `mode: "development",` and `devtool: 'inline-source-map',` below.
-5. Run `webpack` to build the output. You can find all output files in the "distribution" folder.
+5. Run `npm run build` to build the output. You can find all output files in the "distribution" folder.
 
 The files in "distribution" can then directly be uploaded to a web server, and you're done.
+
+## Firing up a web server
+You can also fire up a local web server using the [webpack-dev-server](https://github.com/webpack/webpack-dev-server) tool. Just clone this repository and run `npm install` to install the dependencies. Then run `npm start` and a web server serving Matrixer will be launched at port 8080 of your machine.
 
 ## License
 This project is licensed under the GNU General Public License, Version 3. You can find the license [here](LICENSE.txt).
