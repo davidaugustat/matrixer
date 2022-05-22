@@ -205,6 +205,16 @@ export const Exceptions = {
         germanMessage: "Der transpose-Operator kann nur Matrizen verarbeiten."
     },
 
+    InvertNotAMatrixException: {
+        englishMessage: "The invert operator can only process square matrices.",
+        germanMessage: "Der invert-Operator kann nur quadratische Matrizen verarbeiten."
+    },
+
+    InvertNotInvertable: {
+        englishMessage: "The matrix does not have an inverse matrix.",
+        germanMessage: "Die Matrix besitzt keine inverse Matrix."
+    },
+
     EmptyInputException: {
         englishMessage: "No input has been entered. Please enter an expression in the text field.",
         germanMessage: "Es wurde nichts eingegeben. Bitte gib einen mathematischen Ausdruck in das Textfeld ein."
