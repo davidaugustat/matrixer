@@ -96,6 +96,8 @@ export default class ExpressionNode {
                     return this._rowReduce();
                 case Operators.TRANSPOSE:
                     return this._transpose();
+                case Operators.INVERT:
+                    return this._invert();
                 case Operators.MULTIPLICATIVE_INVERSE:
                     return this._getMultiplicativeInverse();
                 case Operators.ADDITIVE_INVERSE:
@@ -134,6 +136,21 @@ export default class ExpressionNode {
         }
         throw Exceptions.TransposeNotAMatrixException;
     }
+
+    /**
+     * Internal method to check if the result of left node is a square matrix. If it is, the inverted matrix
+     * will be returned. Otherwise an exception will be thrown, because only square matrices can be inverted.
+     *
+     * @returns {Matrix}
+     * */
+     _invert(){
+        const innerValue = this.leftNode.calculate();
+        if(innerValue instanceof Matrix && (innerValue.columns == innerValue.rows)){
+            return innerValue.invert();
+        }
+        throw Exceptions.InvertNotAMatrixException;
+    }
+
 
     /**
      * Internal method to check if the result of the left node is a subtype of GeneralNumber. If it is, a GeneralNumber
