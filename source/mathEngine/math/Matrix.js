@@ -3,6 +3,9 @@ import {Exceptions} from "../Exceptions";
 import Vector from "./Vector";
 import Helper from "../Helper";
 import {MathElementType} from "../Constants";
+import GeneralNumber from "./GeneralNumber";
+import RealNumber from "./RealNumber";
+import PrimeFieldNumber from "./PrimeFieldNumber";
 
 /**
  A class that can store and manipulate a mathematical matrix over several fields.
@@ -221,6 +224,23 @@ export default class Matrix extends MathElement{
         return copy;
     }
 
+
+    /**
+     * Inverts the matrix
+     * 
+     *  More information on invertable matrices: https://en.wikipedia.org/wiki/Invertible_matrix
+     * 
+     * The matrix itself will not be modified by this, but only a copy of the current Matrix object.
+     *
+     *
+     * @returns {Matrix}
+     * */
+     getMultiplicativeInverse(){
+        const copy = this.getCopy();
+        copy._internalGetMultiplicativeInverse();
+        return copy;
+    }
+
     /**
      * Solves the matrix as an homogeneous equation system.
      *
@@ -403,6 +423,72 @@ export default class Matrix extends MathElement{
             }
         }
         this.value = transposed;
+    }
+
+    /**
+     * Internal method to invert the matrix.
+     *
+     * Note that this method modifies the current matrix object.
+     * 
+     * If the matrix is not invertible, an exception will be thrown.
+     * */
+     _internalGetMultiplicativeInverse(){
+        // Define one and zero for the current field
+        let one;
+        let zero;
+        if(this.field == 100){
+            one = new RealNumber(1);
+            zero = new RealNumber(0);
+        } else {
+            one = new PrimeFieldNumber(this.field, 1);
+            zero = new PrimeFieldNumber(this.field, 0);
+        }
+        
+        // Check if matrix is invertable
+        if(this.rows != this.columns) {
+            throw Exceptions.InvertNotInvertable;
+        }
+        let reducedOriginal = this.rowReduce();
+        for(let n = 0; n < this.rows; n++){
+            if(reducedOriginal.value[n][n].value != one.value){
+                throw Exceptions.InvertNotInvertable;
+            }
+        }
+
+        // For the given n x n matrix A row-reduce the new matrix (A|E) with E being the n-th identity matrix
+        let toReduceValue = new Array(this.rows).fill(0).map(() => new Array(2*this.columns).fill(0));
+        
+        // Insert original values
+        for(let row = 0; row<this.rows; row++){
+            for(let column = 0; column <this.columns; column++){
+                toReduceValue[row][column] = this.value[row][column];
+            }
+        }
+        
+        // Insert identity matrix to the right
+        for(let row = 0; row<this.rows; row++){
+            for(let column = this.columns; column <(2*this.columns); column++){
+                if((column-this.columns) == row){
+                    toReduceValue[row][column] = one;
+                } else {
+                    toReduceValue[row][column] = zero;
+                }
+            }
+        }
+
+        // Row-reduce the new matrix
+        let toReduce = new Matrix(this.field, toReduceValue, this.rows, (2*this.columns));
+        toReduce._internalRowReduce();
+
+        // The inverse matrix is the right part of the result
+        const inverted = new Array(this.columns).fill(0).map(() => new Array(this.rows).fill(0));
+        for(let row = 0; row<this.rows; row++){
+            for(let column = 0; column <this.columns; column++){
+                inverted[row][column] = toReduce.value[row][(this.columns + column)];
+            }
+        }
+
+        this.value = inverted;
     }
 
     /**

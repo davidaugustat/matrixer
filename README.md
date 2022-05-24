@@ -20,7 +20,7 @@ Doing calculations in F8:
 **All functions work with real numbers and on the finite fields F2, F3, F4, F5, F7, F8, F9, F11, F13, F17 and F19.**
 
 - Doing **basic math** (addition, subtraction, multiplication, division, exponentiation) with numbers
-- Calculating the **multiplicative inverse** of a number
+- Calculating the **multiplicative inverse** of a number or invertible matrix
 - Calculating the **additive inverse** of a number
 - **Multiplication, addition and subtraction of matrices**
 - **Transposing** matrices
