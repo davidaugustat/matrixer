@@ -265,15 +265,24 @@
             </p>
         </li>
         <li>
-            <b>Das multiplikativ inverse Element einer Zahl berechnen:</b>
+            <b>Das multiplikativ inverse Element einer Zahl oder Matrix berechnen:</b>
             <p>
                 Das multiplikativ inverse Element \(y\) einer Zahl \(x\) ist definiert als \(x*y=1\).
+                <br>
+                Die multiplikativ inverse Matrix \(B\) einer quadratischen Matrix \(A\) ist definiert als
+                \(A*B = \begin{pmatrix}1 & 0 & \dots & 0\\ 0 & 1 & \dots & 0\\ \vdots & \vdots & \ddots & \vdots\\ 0 & 0 & \dots & 1\end{pmatrix}\).
+                <br>
+                Bei Matrizen ist zu beachten, dass nicht jede Matrix invertierbar ist. Bei nicht invertierbaren Matrizen wird ein Fehler ausgegeben.
             </p>
             <p>
                 Z.B. in F4: <span class="input-example">multinverse(a)</span> \(=multinverse(\alpha) = \alpha+1\)
             </p>
             <p>
                 Z.B. in R: <span class="input-example">multinverse(2)</span> \(=multinverse(2) = 0.5\)
+            </p>
+            <p>
+                Z.B. in F7: <span class="input-example">multinverse({1,5,3;3,4,1;6,2,5})</span>
+                \(=multinverse(\begin{pmatrix}1&5&3\\3&4&1\\6&2&5\end{pmatrix}) = \begin{pmatrix}6&3&0\\ 4&5&5\\ 1&0&1\end{pmatrix} \)
             </p>
         </li>
         <li>
