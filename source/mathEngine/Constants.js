@@ -13,7 +13,6 @@ export const Operators = {
     TERMINAL: '€',
     ROW_REDUCE: 'rowreduce',
     TRANSPOSE: 'transpose',
-    INVERT: 'invert' ,
     MULTIPLICATIVE_INVERSE: 'multinverse',
     ADDITIVE_INVERSE: 'additiveinverse',
     SOLVE_HOMOGENEOUS: 'solvehom'
