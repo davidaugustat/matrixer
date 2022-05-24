@@ -446,7 +446,7 @@ export default class Matrix extends MathElement{
         
         // Check if matrix is invertable
         if(this.rows != this.columns) {
-            throw new Exceptions.InvertNotInvertable;
+            throw Exceptions.InvertNotInvertable;
         }
         let reducedOriginal = this.rowReduce();
         for(let n = 0; n < this.rows; n++){
