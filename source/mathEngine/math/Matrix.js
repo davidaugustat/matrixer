@@ -235,9 +235,9 @@ export default class Matrix extends MathElement{
      *
      * @returns {Matrix}
      * */
-     invert(){
+     getMultiplicativeInverse(){
         const copy = this.getCopy();
-        copy._internalInvert();
+        copy._internalGetMultiplicativeInverse();
         return copy;
     }
 
@@ -429,8 +429,10 @@ export default class Matrix extends MathElement{
      * Internal method to invert the matrix.
      *
      * Note that this method modifies the current matrix object.
+     * 
+     * If the matrix is not invertible, an exception will be thrown.
      * */
-     _internalInvert(){
+     _internalGetMultiplicativeInverse(){
         // Define one and zero for the current field
         let one;
         let zero;
@@ -441,16 +443,17 @@ export default class Matrix extends MathElement{
             one = new PrimeFieldNumber(this.field, 1);
             zero = new PrimeFieldNumber(this.field, 0);
         }
-
         
         // Check if matrix is invertable
+        if(this.rows != this.columns) {
+            throw new Exceptions.InvertNotInvertable;
+        }
         let reducedOriginal = this.rowReduce();
         for(let n = 0; n < this.rows; n++){
             if(reducedOriginal.value[n][n].value != one.value){
                 throw Exceptions.InvertNotInvertable;
             }
         }
-
 
         // For the given n x n matrix A row-reduce the new matrix (A|E) with E being the n-th identity matrix
         let toReduceValue = new Array(this.rows).fill(0).map(() => new Array(2*this.columns).fill(0));

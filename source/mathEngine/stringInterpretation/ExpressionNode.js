@@ -96,8 +96,6 @@ export default class ExpressionNode {
                     return this._rowReduce();
                 case Operators.TRANSPOSE:
                     return this._transpose();
-                case Operators.INVERT:
-                    return this._invert();
                 case Operators.MULTIPLICATIVE_INVERSE:
                     return this._getMultiplicativeInverse();
                 case Operators.ADDITIVE_INVERSE:
@@ -138,33 +136,20 @@ export default class ExpressionNode {
     }
 
     /**
-     * Internal method to check if the result of left node is a square matrix. If it is, the inverted matrix
-     * will be returned. Otherwise an exception will be thrown, because only square matrices can be inverted.
-     *
-     * @returns {Matrix}
-     * */
-     _invert(){
-        const innerValue = this.leftNode.calculate();
-        if(innerValue instanceof Matrix && (innerValue.columns == innerValue.rows)){
-            return innerValue.invert();
-        }
-        throw Exceptions.InvertNotAMatrixException;
-    }
-
-
-    /**
-     * Internal method to check if the result of the left node is a subtype of GeneralNumber. If it is, a GeneralNumber
-     * object of the same field containing the multiplicative inverse of the given GeneralNumber will be returned.
+     * Internal method to check if the result of the left node is a subtype of GeneralNumber or Matrix. If it is, a GeneralNumber
+     * or Matrix object of the same field containing the multiplicative inverse of the given value will be returned.
      * Otherwise an exception will be thrown.
+     * 
+     * If the value is a matrix which is not invertible, an exeception will be thrown too.
      *
-     * @returns {GeneralNumber}
+     * @returns {(GeneralNumber|Matrix)}
      * */
     _getMultiplicativeInverse(){
        const innerValue = this.leftNode.calculate();
-       if(innerValue instanceof GeneralNumber){
+       if(innerValue instanceof GeneralNumber || innerValue instanceof Matrix){
            return innerValue.getMultiplicativeInverse();
        }
-       throw  Exceptions.MultiplicativeInverseNoNumberException;
+       throw  Exceptions.MultiplicativeInverseNoNumberOrMatrixException;
     }
 
     /**

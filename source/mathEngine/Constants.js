@@ -27,16 +27,16 @@ export const MathElementType = {
 
 export const Constants = {
     listOfAllOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.EXPONENTIATE,
-        Operators.DIVIDE, Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.INVERT, Operators.MULTIPLICATIVE_INVERSE,
+        Operators.DIVIDE, Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.MULTIPLICATIVE_INVERSE,
         Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS],
 
     infixOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.DIVIDE, Operators.EXPONENTIATE],
 
     // bracket operators are function operators AND non-math-element operators
-    bracketOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.INVERT, Operators.MULTIPLICATIVE_INVERSE,
+    bracketOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.MULTIPLICATIVE_INVERSE,
         Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS, Operators.SOLVE_HOMOGENEOUS],
 
-    functionOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.INVERT, Operators.MULTIPLICATIVE_INVERSE,
+    functionOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.MULTIPLICATIVE_INVERSE,
         Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS],
 
     // Operators, that don't return a MathElement:

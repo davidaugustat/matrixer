@@ -205,11 +205,6 @@ export const Exceptions = {
         germanMessage: "Der transpose-Operator kann nur Matrizen verarbeiten."
     },
 
-    InvertNotAMatrixException: {
-        englishMessage: "The invert operator can only process square matrices.",
-        germanMessage: "Der invert-Operator kann nur quadratische Matrizen verarbeiten."
-    },
-
     InvertNotInvertable: {
         englishMessage: "The matrix does not have an inverse matrix.",
         germanMessage: "Die Matrix besitzt keine inverse Matrix."
@@ -235,11 +230,11 @@ export const Exceptions = {
             " kombinieren kann, da man mit ihrem Ergebnis nicht mehr direkt weiterrechnen kann."
     },
 
-    MultiplicativeInverseNoNumberException: {
-        englishMessage: "The multiplicative inverse element can only be calculated from a number, not a matrix or" +
+    MultiplicativeInverseNoNumberOrMatrixException: {
+        englishMessage: "The multiplicative inverse element can only be calculated from a number or matrix, not a" +
             " vector.",
-        germanMessage: "Das multiplikativ inverse Element kann nur von einer Zahl berechnet werden, nicht von einer" +
-            " Matrix oder einem Vektor."
+        germanMessage: "Das multiplikativ inverse Element kann nur von einer Zahl oder Matrix berechnet werden, nicht von" +
+            "einem Vektor."
     },
 
     AdditiveInverseNoNumberException: {
