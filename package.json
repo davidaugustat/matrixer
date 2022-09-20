@@ -38,6 +38,6 @@
     "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
-    "npm-check-updates": "^13.0.3"
+    "npm-check-updates": "^16.2.1"
   }
 }
