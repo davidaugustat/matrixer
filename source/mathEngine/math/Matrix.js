@@ -6,6 +6,9 @@ import {MathElementType} from "../Constants";
 import GeneralNumber from "./GeneralNumber";
 import RealNumber from "./RealNumber";
 import PrimeFieldNumber from "./PrimeFieldNumber";
+import F4Number from "./F4Number";
+import F8Number from "./F8Number";
+import F9Number from "./F9Number";
 
 /**
  A class that can store and manipulate a mathematical matrix over several fields.
@@ -434,15 +437,7 @@ export default class Matrix extends MathElement{
      * */
      _internalGetMultiplicativeInverse(){
         // Define one and zero for the current field
-        let one;
-        let zero;
-        if(this.field == 100){
-            one = new RealNumber(1);
-            zero = new RealNumber(0);
-        } else {
-            one = new PrimeFieldNumber(this.field, 1);
-            zero = new PrimeFieldNumber(this.field, 0);
-        }
+        const { one, zero } = this._getOneAndZeroInField();
         
         // Check if matrix is invertable
         if(this.rows != this.columns) {
@@ -489,6 +484,38 @@ export default class Matrix extends MathElement{
         }
 
         this.value = inverted;
+    }
+
+    /**
+     * Returns one and zero in the current field of the matrix.
+     * 
+     * @returns {{ one: GeneralNumber, zero: GeneralNumber }}
+     */
+    _getOneAndZeroInField(){
+        let one, zero;
+        switch(this.field){
+            case 100:
+                one = new RealNumber(1);
+                zero = new RealNumber(0);
+                break;
+            case 4:
+                one = new F4Number(1);
+                zero = new F4Number(0);
+                break;
+            case 8:
+                one = new F8Number(1);
+                zero = new F8Number(0);
+                break;
+            case 9:
+                one = new F9Number(1);
+                zero = new F9Number(0);
+                break;
+            default:
+                one = new PrimeFieldNumber(this.field, 1);
+                zero = new PrimeFieldNumber(this.field, 0);
+                break;
+        }
+        return { one, zero };
     }
 
     /**
