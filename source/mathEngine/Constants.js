@@ -15,7 +15,8 @@ export const Operators = {
     TRANSPOSE: 'transpose',
     MULTIPLICATIVE_INVERSE: 'multinverse',
     ADDITIVE_INVERSE: 'additiveinverse',
-    SOLVE_HOMOGENEOUS: 'solvehom'
+    SOLVE_HOMOGENEOUS: 'solvehom',
+    DETERMINANT: 'determinant'
 };
 
 export const MathElementType = {
@@ -27,16 +28,16 @@ export const MathElementType = {
 export const Constants = {
     listOfAllOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.EXPONENTIATE,
         Operators.DIVIDE, Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.MULTIPLICATIVE_INVERSE,
-        Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS],
+        Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS, Operators.DETERMINANT],
 
     infixOperators: [Operators.ADD, Operators.SUBTRACT, Operators.MULTIPLY, Operators.DIVIDE, Operators.EXPONENTIATE],
 
     // bracket operators are function operators AND non-math-element operators
     bracketOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.MULTIPLICATIVE_INVERSE,
-        Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS, Operators.SOLVE_HOMOGENEOUS],
+        Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS, Operators.SOLVE_HOMOGENEOUS, Operators.DETERMINANT],
 
     functionOperators: [Operators.ROW_REDUCE, Operators.TRANSPOSE, Operators.MULTIPLICATIVE_INVERSE,
-        Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS],
+        Operators.ADDITIVE_INVERSE, Operators.SOLVE_HOMOGENEOUS, Operators.DETERMINANT],
 
     // Operators, that don't return a MathElement:
     nonMathElementOperators: [Operators.SOLVE_HOMOGENEOUS],
