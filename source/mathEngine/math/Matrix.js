@@ -455,10 +455,8 @@ export default class Matrix extends MathElement{
             throw Exceptions.InvertNotInvertable;
         }
         let reducedOriginal = this.rowReduce();
-        for(let n = 0; n < this.rows; n++){
-            if(reducedOriginal.value[n][n].value != one.value){
-                throw Exceptions.InvertNotInvertable;
-            }
+        if (reducedOriginal._nonStepColumns.length != 0) {
+            throw Exceptions.InvertNotInvertable;
         }
 
         // For the given n x n matrix A row-reduce the new matrix (A|E) with E being the n-th identity matrix
