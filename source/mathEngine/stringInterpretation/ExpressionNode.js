@@ -100,6 +100,8 @@ export default class ExpressionNode {
                     return this._getMultiplicativeInverse();
                 case Operators.ADDITIVE_INVERSE:
                     return this._getAdditiveInverse();
+                case Operators.DETERMINANT:
+                    return this._getDeterminant();
                 default:
                     throw Exceptions.InvalidOperatorException;
             }
@@ -167,4 +169,17 @@ export default class ExpressionNode {
         throw Exceptions.AdditiveInverseNoNumberException;
     }
 
+    /**
+     * Internal method to check if the result of left node is a matrix. If it is, the determinant of the matrix
+     * will be returned. Otherwise an exception will be thrown, because only matrices have a determinant.
+     *
+     * @returns {GeneralNumber}
+     * */
+    _getDeterminant(){
+        const innerValue = this.leftNode.calculate();
+        if(innerValue instanceof Matrix){
+            return innerValue.getDeterminant();
+        }
+        throw Exceptions.DeterminantNotAMatrixException;
+    }
 }

@@ -29,6 +29,7 @@ Doing calculations in F8:
 - Solving **homogeneous equation systems**
 - Converting a matrix to 
 **[reduced row echelon form](https://en.wikipedia.org/wiki/Row_echelon_form#Reduced_row_echelon_form)**
+- Calculating the **determinant** of a matrix
 
 Details and instructions for all described functions can be found on the 
 [website of this project](https://matrixer.davidaugustat.com/).

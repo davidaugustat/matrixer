@@ -262,6 +262,17 @@ export default class Matrix extends MathElement{
     }
 
     /**
+     * Calculates the determinant of the matrix
+     *
+     * The matrix itself will not be modified by this, but only a copy of the current Matrix object.
+     * @returns {GeneralNumber}
+     * */
+    getDeterminant(){
+        const copy = this.getCopy();
+        return copy._internalGetDeterminant();
+    }
+
+    /**
      * Internal method that multiplies the matrix with a constant.
      *
      * The matrix itself will not be modified by this, but only a copy of the current Matrix object.
@@ -673,6 +684,78 @@ export default class Matrix extends MathElement{
             solution.vectorSolution.push(solutionVector);
         });
         return solution;
+    }
+
+    /**
+     * Internal method that switches two rows with each other in the matrix.
+     *
+     * Note that this method modifies the current matrix object.
+     *
+     * @param {number} rowPos1
+     * @param {number} rowPos2
+     */
+    _switchRows(rowPos1, rowPos2) {
+        const row1 = this.value[rowPos1];
+        const row2 = this.value.splice(rowPos2, 1, row1)[0];
+        this.value.splice(rowPos1, 1, row2);
+    }
+
+    /**
+     * Internal method that calculates the determinant of the current matrix.
+     *
+     * Note that this method modifies the current matrix object.
+     *
+     * @returns {GeneralNumber}
+     * */
+    _internalGetDeterminant(){
+        // Define one and zero for the current field
+        const { one, zero } = this._getOneAndZeroInField();
+
+        // Check if matrix is a square matrix
+        if(this.rows != this.columns) {
+            throw Exceptions.DeterminantNotASquareMatrixException;
+        }
+
+        const n = this.rows;
+        let evenSwaps = true;
+
+        // convert the matrix to a upper-triangular matrix
+        for (let column = 0; column < n - 1; column++) {
+            // check if the current diagonal element is zero
+            if (this.value[column][column].equalsValue(0)) {
+                // get the first lower row with a non-zero element in the current column
+                let pivotRow = -1;
+                for (let row = column; row < n; row++) {
+                    if (!this.value[row][column].equalsValue(0)) {
+                        pivotRow = row;
+                        break;
+                    }
+                }
+
+                // there is no row with a non-zero element → determinant is zero
+                if (pivotRow == -1) {
+                    return zero;
+                }
+
+                evenSwaps = !evenSwaps;
+                this._switchRows(column, pivotRow);
+            }
+
+            // eliminate elements in the current column of the lower rows
+            const multInverse = this.value[column][column].getMultiplicativeInverse();
+            for (let row = column + 1; row < n; row++) {
+                const factor = this.value[row][column].getAdditiveInverse().multiplyWith(multInverse);
+                this._addRowToOther(column, row, factor);
+            }
+        }
+
+        // calculate the determinant by multiplying the diagonal elements
+        let det = evenSwaps ? one : one.getAdditiveInverse();
+        for (let i = 0; i < n; i++) {
+            det = det.multiplyWith(this.value[i][i]);
+        }
+
+        return det;
     }
 
     /**

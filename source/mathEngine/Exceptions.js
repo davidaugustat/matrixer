@@ -210,6 +210,16 @@ export const Exceptions = {
         germanMessage: "Die Matrix besitzt keine inverse Matrix."
     },
 
+    DeterminantNotAMatrixException: {
+        englishMessage: "The determinant operator (det) can only process matrices.",
+        germanMessage: "Der Determinanten-Operator (det) kann nur Matrizen verarbeiten."
+    },
+
+    DeterminantNotASquareMatrixException: {
+        englishMessage: "The matrix does not have a determinant since it's not a square matrix.",
+        germanMessage: "Die Matrix hat keine Determinante, da sie keine quadratische Matrix ist."
+    },
+
     EmptyInputException: {
         englishMessage: "No input has been entered. Please enter an expression in the text field.",
         germanMessage: "Es wurde nichts eingegeben. Bitte gib einen mathematischen Ausdruck in das Textfeld ein."
