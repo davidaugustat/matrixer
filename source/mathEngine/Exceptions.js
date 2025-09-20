@@ -211,8 +211,8 @@ export const Exceptions = {
     },
 
     DeterminantNotAMatrixException: {
-        englishMessage: "The determinant operator can only process matrices.",
-        germanMessage: "Der determinant-Operator kann nur Matrizen verarbeiten."
+        englishMessage: "The determinant operator (det) can only process matrices.",
+        germanMessage: "Der Determinanten-Operator (det) kann nur Matrizen verarbeiten."
     },
 
     DeterminantNotASquareMatrixException: {

@@ -16,7 +16,7 @@ export const Operators = {
     MULTIPLICATIVE_INVERSE: 'multinverse',
     ADDITIVE_INVERSE: 'additiveinverse',
     SOLVE_HOMOGENEOUS: 'solvehom',
-    DETERMINANT: 'determinant'
+    DETERMINANT: 'det'
 };
 
 export const MathElementType = {
