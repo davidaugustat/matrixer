@@ -56,7 +56,16 @@ body{
 
 #result-div{
     margin-top: 40px;
-    display: none;
+}
+
+.result-fade-enter-active,
+.result-fade-leave-active{
+    transition: opacity 200ms ease;
+}
+
+.result-fade-enter-from,
+.result-fade-leave-to{
+    opacity: 0;
 }
 
 #input-feedback-div{
