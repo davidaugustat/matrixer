@@ -1,3 +1,9 @@
+<script setup>
+/**
+ * @file Provides the English error-reporting instructions.
+ */
+</script>
+
 <template>
     <div>
         <h1>Report an Error</h1>

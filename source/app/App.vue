@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @file Selects the requested localized page and wraps it in Matrixer's shared header and footer.
+ */
+
 import { computed, defineAsyncComponent } from "vue";
 import SiteFooter from "./components/SiteFooter.vue";
 import SiteHeader from "./components/SiteHeader.vue";

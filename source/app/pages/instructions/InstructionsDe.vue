@@ -1,3 +1,9 @@
+<script setup>
+/**
+ * @file Provides the German calculator syntax and feature instructions.
+ */
+</script>
+
 <template>
 <div id="documentation-div" v-katex>
     <h2>Anleitung</h2>

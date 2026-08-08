@@ -1,3 +1,7 @@
+/**
+ * @file Integrates KaTeX auto-rendering with Vue through a reusable custom directive.
+ */
+
 import renderMathInElement from "katex/contrib/auto-render";
 
 const renderOptions = Object.freeze({

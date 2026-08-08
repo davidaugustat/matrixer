@@ -1,3 +1,7 @@
+/**
+ * @file Boots the localized Vue application selected by the current Vite HTML entry point.
+ */
+
 import { createApp } from "vue";
 import "katex/dist/katex.min.css";
 import "../assets/css/main.css";

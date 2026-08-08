@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @file Renders the localized site header and state-preserving language switch.
+ */
+
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { getLanguageSwitchUrl, getPagePath, URL_CHANGE_EVENT } from "../routing";

@@ -1,3 +1,9 @@
+<script setup>
+/**
+ * @file Provides the German About page content.
+ */
+</script>
+
 <template>
     <div>
         <h1>Über diese Webseite</h1>
@@ -28,11 +34,10 @@
                 vereinfacht. Bootstrap hat mir daher viel Arbeit beim Erstellen der Benutzeroberfläche erspart.
             </li>
             <li>
-                <a href="https://jquery.com" target="_blank"><b>jQuery:</b></a><br>
-                jQuery ist eine JavaScript-Bibliothek, welche Zugriffe auf die grafische Benutzeroberfläche
-                deutlich einfacher gestaltet, als es in reinem JavaScript der Fall ist. Ich benutze jQuery,
-                um die Eingaben des Benutzers (gewählter Körper und mathematischer Ausdruck) von der GUI
-                einzulesen und um das Ergebnis auszugeben.
+                <a href="https://vuejs.org/" target="_blank"><b>Vue.js:</b></a><br>
+                Vue.js ist ein JavaScript-Framework zum Erstellen von Benutzeroberflächen. Ich benutze Vue.js, um
+                Benutzereingaben von der GUI einzulesen, Berechnungsergebnisse auszugeben und die englische sowie
+                deutsche Benutzeroberfläche bereitzustellen.
             </li>
             <li>
                 <a href="https://katex.org" target="_blank"><b>KaTeX:</b></a><br>
@@ -43,20 +48,10 @@
                 wird, um den Code auf dem Bildschirm darzustellen.
             </li>
             <li>
-                <a href="https://webpack.js.org" target="_blank"><b>Webpack:</b></a><br>
-                Webpack ist ein <a href="https://www.npmjs.com" target="_blank">NPM</a>-basierender
-                JavaScript-Modul-Bündler. Ich benutze Webpack hauptsächlich, um die vielen einzelnen
-                JavaScript-Dateien des Rechners zu einer einzigen minimierten JavaScript-Datei umzuwandeln.
-                Das erleichtert die Handhabung und verringert die Ladezeit der Webseite.
-            </li>
-            <li>
-                <a href="https://babeljs.io" target="_blank"><b>Babel:</b></a><br>
-                Babel ist ein Werkzeug, das ECMAScript 6, eine moderne Variante von JavaScript, zu ECMAScript
-                5 (einer älteren Variante) umzuwandeln. Während Version 6 viele Funktionen hat, die das
-                Programmieren einfacher und intuitiver machen, wird sie leider nicht von allen Browsern
-                unterstützt. Um die Webseite trotzdem auch mit anderen Browsern kompatibel zu machen, nutze
-                ich Babel. Somit kann ich modernen ECMAScript-6-Code schreiben, aber die Webseite trotzdem
-                mit ECMAScript 5 anbieten.
+                <a href="https://vite.dev/" target="_blank"><b>Vite:</b></a><br>
+                Vite ist ein <a href="https://www.npmjs.com" target="_blank">NPM</a>-basiertes Frontend-Build-Tool.
+                Ich benutze Vite, um die JavaScript- und Vue.js-Dateien des Rechners zu optimierten statischen
+                Dateien zu bündeln. Das erleichtert die Entwicklung und verringert die Ladezeit der Webseite.
             </li>
             <li>
                 <a href="https://www.namecheap.com/logo-maker/" target="_blank"><b>Namecheap Logo Maker:</b></a><br>

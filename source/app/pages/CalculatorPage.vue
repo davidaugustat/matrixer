@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @file Composes the localized introduction, calculator and language-specific instructions.
+ */
+
 import { computed, defineAsyncComponent } from "vue";
 import { useI18n } from "vue-i18n";
 import Calculator from "../components/Calculator.vue";

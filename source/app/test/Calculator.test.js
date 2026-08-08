@@ -1,3 +1,7 @@
+/**
+ * @file Exercises localized calculator behavior, results, history, clipboard and analytics.
+ */
+
 import { mount } from "@vue/test-utils";
 import { nextTick } from "vue";
 import { beforeEach, describe, expect, it, vi } from "vitest";

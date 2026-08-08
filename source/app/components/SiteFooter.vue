@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @file Renders Matrixer's localized footer navigation and copyright notice.
+ */
+
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { getPagePath } from "../routing";

@@ -1,3 +1,7 @@
+/**
+ * @file Verifies that the KaTeX integration renders supported math delimiters.
+ */
+
 import { describe, expect, it } from "vitest";
 import { renderElementMath } from "../katex";
 

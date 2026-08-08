@@ -1,3 +1,7 @@
+/**
+ * @file Initializes Matomo and records calculator-specific analytics events.
+ */
+
 const MATOMO_SCRIPT_ID = "matomo-tracker-script";
 
 /**

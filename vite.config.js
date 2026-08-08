@@ -1,3 +1,7 @@
+/**
+ * @file Configures Vite's Vue plugin, multi-page production build and Vitest environment.
+ */
+
 import { resolve } from "node:path";
 import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";

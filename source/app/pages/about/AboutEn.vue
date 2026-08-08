@@ -1,3 +1,9 @@
+<script setup>
+/**
+ * @file Provides the English About page content.
+ */
+</script>
+
 <template>
     <div>
         <h1>About This Website</h1>
@@ -28,10 +34,9 @@
                 website.
             </li>
             <li>
-                <a href="https://jquery.com" target="_blank"><b>jQuery:</b></a><br>
-                jQuery is a library which makes manipulating the graphical user interface a lot easier than
-                it is in pure JavaScript. I use jQuery to obtain the user input (selected field and the
-                expression string) from the GUI and to output the result on the GUI.
+                <a href="https://vuejs.org/" target="_blank"><b>Vue.js:</b></a><br>
+                Vue.js is a JavaScript framework for building user interfaces. I use Vue.js to obtain the user input
+                from the GUI, to display calculation results and to provide the English and German interfaces.
             </li>
             <li>
                 <a href="https://katex.org" target="_blank"><b>KaTeX:</b></a><br>
@@ -41,19 +46,10 @@
                 display the result on screen.
             </li>
             <li>
-                <a href="https://webpack.js.org" target="_blank"><b>Webpack:</b></a><br>
-                Webpack is a <a href="https://www.npmjs.com" target="_blank">NPM</a>-based JavaScript module
-                bundler. I mainly use it to convert the many JavaScript files used by my calculator to a single
-                minified output file. This makes it easier to handle and reduces the loading time of the
-                website.
-            </li>
-            <li>
-                <a href="https://babeljs.io" target="_blank"><b>Babel:</b></a><br>
-                Babel is a tool that converts ECMAScript 6, which is a modern flavor of JavaScript, into
-                ECMAScript 5, an older version of JavaScript. While version 6 has a lot of features that make
-                coding easier and more intuitive, it is not supported by all browsers. To make the website
-                compatible with older browsers too, I use Babel. That way I can write ECMAScript 6 code but
-                actually deploy more compatible ECMAScript 5 code.
+                <a href="https://vite.dev/" target="_blank"><b>Vite:</b></a><br>
+                Vite is an <a href="https://www.npmjs.com" target="_blank">NPM</a>-based frontend build tool. I use
+                it to bundle the JavaScript and Vue.js files used by the calculator into optimized static files.
+                This makes the website easier to develop and reduces its loading time.
             </li>
             <li>
                 <a href="https://www.namecheap.com/logo-maker/" target="_blank"><b>Namecheap Logo Maker:</b></a><br>

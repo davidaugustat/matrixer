@@ -1,3 +1,7 @@
+/**
+ * @file Verifies localized route mappings and calculator-query preservation.
+ */
+
 import { describe, expect, it } from "vitest";
 import { getLanguageSwitchUrl, getPagePath } from "../routing";
 

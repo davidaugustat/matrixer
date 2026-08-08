@@ -1,3 +1,9 @@
+<script setup>
+/**
+ * @file Provides the German error-reporting instructions.
+ */
+</script>
+
 <template>
     <div>
         <h1>Fehler melden</h1>

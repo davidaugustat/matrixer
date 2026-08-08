@@ -1,3 +1,7 @@
+/**
+ * @file Exercises the localized application shell, content pages and language-switch behavior.
+ */
+
 import { flushPromises, mount } from "@vue/test-utils";
 import { nextTick } from "vue";
 import { describe, expect, it, vi } from "vitest";
@@ -33,7 +37,12 @@ describe("application shell", () => {
 
         expect(english.get("h1").text()).toBe("About This Website");
         expect(english.text()).toContain("My math class at university involves a lot of calculations on finite fields.");
-        expect(english.text()).toContain("jQuery is a library which makes manipulating the graphical user interface");
+        expect(english.text()).toContain("Vue.js is a JavaScript framework for building user interfaces.");
+        expect(english.text()).toContain("Vite is an NPM-based frontend build tool.");
+        expect(english.text()).toContain("Bootstrap is a CSS framework");
+        expect(english.text()).not.toContain("jQuery is a library");
+        expect(english.text()).not.toContain("Webpack is an");
+        expect(english.text()).not.toContain("Babel is a tool");
         expect(german.get("h1").text()).toBe("Fehler melden");
         expect(german.text()).toContain("Der Text, den du versucht hast, einzugeben");
     });
@@ -62,5 +71,11 @@ describe("application shell", () => {
         expect(german.get("#language-header-link").attributes("title")).toBe("Switch to English");
         expect(german.get("#language-icon").attributes("alt")).toBe("English website");
         expect(german.get("#github-header-link").attributes("title")).toBe("Code auf GitHub");
+        expect(german.text()).toContain("Vue.js ist ein JavaScript-Framework zum Erstellen von Benutzeroberflächen.");
+        expect(german.text()).toContain("Vite ist ein NPM-basiertes Frontend-Build-Tool.");
+        expect(german.text()).toContain("Boostrap ist ein CSS-Framework");
+        expect(german.text()).not.toContain("jQuery ist eine JavaScript-Bibliothek");
+        expect(german.text()).not.toContain("Webpack ist ein");
+        expect(german.text()).not.toContain("Babel ist ein Werkzeug");
     });
 });

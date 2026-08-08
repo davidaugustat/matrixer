@@ -1,3 +1,7 @@
+/**
+ * @file Maps page identifiers to stable localized URLs and builds language-switch links.
+ */
+
 /** @typedef {"en" | "de"} Locale */
 /** @typedef {"calculator" | "about" | "report-error"} PageId */
 

@@ -1,3 +1,7 @@
+/**
+ * @file Defines shared English and German interface messages and creates Vue I18n instances.
+ */
+
 import { createI18n } from "vue-i18n";
 
 const messages = {

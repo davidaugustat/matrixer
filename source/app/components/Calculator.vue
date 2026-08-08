@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @file Implements the reactive calculator form, result display, URL history and copy behavior.
+ */
+
 import { computed, onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
 import { useI18n } from "vue-i18n";
 import Helper from "../../mathEngine/Helper";
