@@ -24,6 +24,7 @@ The input syntax is described in `./source/app/pages/instructions/InstructionsEn
 ## Repository Structure
 ```
 .
+├── plugins                       # Vite plugins
 ├── README.md                     # README file
 ├── source                        # all the code
 │   ├── app                       # Vue components, pages, localization and UI-related logic
@@ -33,9 +34,9 @@ The input syntax is described in `./source/app/pages/instructions/InstructionsEn
 │   │   ├── math                  # actual calculation logic
 │   │   └── stringInterpretation  # input string parsing and output string generation
 │   │       └── result            # classes to represent and format the final result of a calculation
-│   ├── de                        # German HTML entry files
-│   ├── en                        # English HTML entry files
-│   └── index.html                # English calculator HTML entry file
+│   ├── de                        # minimal German HTML entry files
+│   ├── en                        # minimal English HTML entry files
+│   └── index.html                # minimal English calculator HTML entry file
 ├── distribution                  # Output of the bundler. Only contains generated code and is gitignored.
 ├── other                         # Nothing important. Some screenshots and logo images for the Readme and some unused code.
 ├── vite.config.js                # Vite configuration file
@@ -44,7 +45,9 @@ The input syntax is described in `./source/app/pages/instructions/InstructionsEn
 ```
 
 ## Build System
-This project uses Vite to bundle the code into static files. The files are then hosted on a static HTTP server.
+This project uses Vite to bundle the code into static files. Page-specific metadata is stored in the physical
+multi-page HTML entries, while a local Vite plugin injects tags shared by every page. The files are then hosted on a
+static HTTP server.
 
 ## Coding Style
 - Clean code: Code must be well-structured. Create methods and classes where appropriate.
