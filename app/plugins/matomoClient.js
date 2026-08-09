@@ -5,12 +5,27 @@
 import { nextTick } from "vue";
 
 /**
+ * Checks whether analytics may run on the current host.
+ *
+ * @param {string} hostEnableAnalytics Hostname on which analytics is enabled.
+ * @returns {boolean} Whether the browser is on the configured analytics hostname.
+ */
+function isMatomoTrackingEnabled(hostEnableAnalytics) {
+    return window.location.hostname === hostEnableAnalytics;
+}
+
+/**
  * Sends the unchanged calculator event to Matomo Analytics.
  *
  * @param {{isSuccessful: boolean}} result Calculation result.
+ * @param {string} hostEnableAnalytics Hostname on which analytics is enabled.
  * @returns {void}
  */
-function sendCalculateEventToAnalytics(result) {
+function sendCalculateEventToAnalytics(result, hostEnableAnalytics) {
+    if (!isMatomoTrackingEnabled(hostEnableAnalytics)) {
+        return;
+    }
+
     const value = result.isSuccessful ? 1 : 0;
     window._paq = window._paq || [];
     window._paq.push(["trackEvent", "button click", "Matrixer Calculate Button", "Matrixer", value]);
@@ -96,14 +111,18 @@ function registerMatomoPageTracking(nuxtApp) {
  *     Nuxt injection for calculator analytics.
  */
 function configureMatomoClient(nuxtApp) {
-    if (import.meta.client) {
+    const { hostEnableAnalytics } = nuxtApp.$config.public;
+
+    if (import.meta.client && isMatomoTrackingEnabled(hostEnableAnalytics)) {
         registerMatomoPageTracking(nuxtApp);
     }
 
     return {
         provide: {
             matomoClient: {
-                sendCalculateEventToAnalytics
+                sendCalculateEventToAnalytics: (result) => {
+                    sendCalculateEventToAnalytics(result, hostEnableAnalytics);
+                }
             }
         }
     };

@@ -4,6 +4,12 @@
 
 import { fileURLToPath } from "node:url";
 
+// URL where Matomo instance is hosted:
+const MATOMO_BASE_URL = "https://analytics.davidaugustat.com/";
+
+// Matomo is only activated when Matrixer is served from this domain:
+const HOST_ENABLE_ANALYTICS = "matrixer.davidaugustat.com";
+
 /**
  * Resolves a project-relative path to an absolute filesystem path.
  *
@@ -16,6 +22,12 @@ export default defineNuxtConfig({
     compatibilityDate: "2026-08-09",
     devtools: { enabled: false },
     telemetry: false,
+    runtimeConfig: {
+        public: {
+            matomoBaseUrl: MATOMO_BASE_URL,
+            hostEnableAnalytics: HOST_ENABLE_ANALYTICS
+        }
+    },
     alias: {
         "@mathEngine": projectPath("./source/mathEngine")
     },

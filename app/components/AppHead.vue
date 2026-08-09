@@ -3,18 +3,24 @@
  * @file Defines site-wide document metadata, stylesheets, favicons, and initial Matomo setup.
  */
 
+const runtimeConfig = useRuntimeConfig();
+const matomoBaseUrl = runtimeConfig.public.matomoBaseUrl.endsWith("/")
+    ? runtimeConfig.public.matomoBaseUrl
+    : `${runtimeConfig.public.matomoBaseUrl}/`;
 const matomoScript = `
-    var _paq = window._paq = window._paq || [];
-    _paq.push(['trackPageView']);
-    _paq.push(['enableHeartBeatTimer', 15]);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-        var u="https://analytics.davidaugustat.com/";
-        _paq.push(['setTrackerUrl', u+'matomo.php']);
-        _paq.push(['setSiteId', '2']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
+    if (window.location.hostname === ${JSON.stringify(runtimeConfig.public.hostEnableAnalytics)}) {
+        var _paq = window._paq = window._paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableHeartBeatTimer', 15]);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u=${JSON.stringify(matomoBaseUrl)};
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '2']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    }
 `;
 
 useHead({
