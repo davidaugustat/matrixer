@@ -35,6 +35,7 @@ The English input syntax is described in `./app/components/content/InstructionsE
 │   ├── plugins                   # client-side integrations such as SPA analytics tracking
 │   └── utils                     # browser UI utilities
 ├── public                        # assets copied unchanged to the generated site
+├── server                        # build-time routes for generated robots and sitemap text files
 ├── source
 │   └── mathEngine                # expression parsing, calculation and result string generation
 │       ├── math                  # actual calculation logic
@@ -50,6 +51,8 @@ The English input syntax is described in `./app/components/content/InstructionsE
 ## Build System
 This project uses Nuxt 4 with Vue and Vite. `npm run build` runs `nuxt generate` and writes the complete static site
 to `distribution`. Production hosting must serve that directory as static files; it does not run Nuxt or Node.js.
+The production base URL is configured by `BASE_URL` in `nuxt.config.js`; it supplies page metadata, analytics host
+matching, and the generated `robots.txt` and plain-text sitemap.
 
 ## Internals
 The URL structure is intentionally asymmetric and must remain unchanged: English calculator content is at

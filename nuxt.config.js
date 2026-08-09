@@ -4,6 +4,9 @@
 
 import { fileURLToPath } from "node:url";
 
+// Public base URL where Matrixer is hosted, without a trailing slash:
+const BASE_URL = "https://matrixer.davidaugustat.com";
+
 // URL where Matomo instance is hosted:
 const MATOMO_BASE_URL = "https://analytics.davidaugustat.com/";
 
@@ -24,6 +27,7 @@ export default defineNuxtConfig({
     telemetry: false,
     runtimeConfig: {
         public: {
+            baseUrl: BASE_URL,
             matomoBaseUrl: MATOMO_BASE_URL,
             hostEnableAnalytics: HOST_ENABLE_ANALYTICS
         }
@@ -47,7 +51,9 @@ export default defineNuxtConfig({
                 "/en/about/",
                 "/de/about/",
                 "/en/report-error/",
-                "/de/report-error/"
+                "/de/report-error/",
+                "/robots.txt",
+                "/assets/other/sitemap.txt"
             ]
         }
     }
