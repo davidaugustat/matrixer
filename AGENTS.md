@@ -19,28 +19,41 @@ This is an online calculator built using JavaScript. It is a pure frontend appli
 **[reduced row echelon form](https://en.wikipedia.org/wiki/Row_echelon_form#Reduced_row_echelon_form)**
 - Calculating the **determinant** of a matrix
 
-The input syntax is described in `./source/html/templates/en/instructions-en.html`
+The English input syntax is described in `./app/components/content/InstructionsEn.vue`.
 
 ## Repository Structure
 ```
 .
 ├── README.md                     # README file
-├── source                        # all the code
-│   ├── assets                    # CSS, images, other resources
-│   ├── html                      # HTML template files
-│   ├── mathEngine                # all code related to expression parsing, calculation and result string generation
-│   │   ├── math                  # actual calculation logic
-│   │   └── stringInterpretation  # input string parsing and output string generation
-│   │       └── result            # classes to represent and format the final result of a calculation
-│   └── main.js                   # UI-related logic. Connects the UI with the logic.
-├── distribution                  # Output of the bundler. Only contains generated code and is gitignored.
+├── app                           # Nuxt application code
+│   ├── assets                    # CSS processed by Vite
+│   ├── components                # shared Vue UI and localized content components
+│   ├── layouts                   # shared page shell
+│   ├── locales                   # English and German UI copy
+│   ├── pages                     # explicit routes for the six existing URLs
+│   └── utils                     # browser UI utilities
+├── public                        # assets copied unchanged to the generated site
+├── source
+│   └── mathEngine                # expression parsing, calculation and result string generation
+│       ├── math                  # actual calculation logic
+│       └── stringInterpretation  # input string parsing and output string generation
+│           └── result            # classes to represent and format the final result of a calculation
+├── distribution                  # Static Nuxt output. Generated and gitignored.
 ├── other                         # Nothing important. Some screenshots and logo images for the Readme and some unused code.
+├── nuxt.config.js                # Nuxt, SSG, asset, metadata and math-engine alias configuration
 ├── package.json                  # node.js package file
 └── package-lock.json             # node.js package lock file
 ```
 
 ## Build System
-This project uses Webpack to bundle the code into static files. The files are then hosted on a static HTTP server.
+This project uses Nuxt 4 with Vue and Vite. `npm run build` runs `nuxt generate` and writes the complete static site
+to `distribution`. Production hosting must serve that directory as static files; it does not run Nuxt or Node.js.
+
+The legacy URL structure is intentionally asymmetric and must remain unchanged: English calculator content is at
+`/`, English secondary pages are below `/en/`, and all German pages are below `/de/`. Localization uses explicit
+pages and shared locale data rather than an i18n routing module. Bootstrap 4 CSS and Roboto remain externally hosted,
+while KaTeX is bundled from NPM. The Vue UI may import `source/mathEngine`, but mathematical logic and expression
+parsing code must not be changed as part of UI work.
 
 ## Coding Style
 - Clean code: Code must be well-structured. Create methods and classes where appropriate.
