@@ -1,3 +1,9 @@
+<script setup>
+/**
+ * @file Provides the unchanged English calculator instructions.
+ */
+</script>
+
 <template>
 <div id="documentation-div">
     <h2>Instructions</h2>
@@ -335,7 +341,7 @@
             </p>
         </li>
         <li>
-            <b>Something else is missing?</b><br> If you know a feature that might be helpful, just <a href="/en/report-error" target="_blank">contact me</a> and maybe I'll add that feature.
+            <b>Something else is missing?</b><br> If you know a feature that might be helpful, just <NuxtLink to="/en/report-error/" target="_blank">contact me</NuxtLink> and maybe I'll add that feature.
         </li>
     </ul>
 </div>

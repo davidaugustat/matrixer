@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @file Defines site-wide document metadata, stylesheets, favicons, and initial Matomo setup.
+ */
+
 const matomoScript = `
     var _paq = window._paq = window._paq || [];
     _paq.push(['trackPageView']);

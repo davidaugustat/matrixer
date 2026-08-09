@@ -1,3 +1,9 @@
+<script setup>
+/**
+ * @file Provides the unchanged German calculator instructions.
+ */
+</script>
+
 <template>
 <div id="documentation-div">
     <h2>Anleitung</h2>
@@ -342,7 +348,7 @@
         <li>
             <b>Etwas anderes fehlt noch?</b><br>
             Wenn dir eine Funktion einfällt, die hilfreich sein könnte, dann
-            <a href="/de/report-error" target="_blank">lass es mich wissen</a>. Vielleicht ergänze ich Matrixer dann um
+            <NuxtLink to="/de/report-error/" target="_blank">lass es mich wissen</NuxtLink>. Vielleicht ergänze ich Matrixer dann um
             diese Funktion.
         </li>
     </ul>

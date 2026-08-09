@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @file Defines the German calculator route and its SEO metadata.
+ */
+
 definePageMeta({ locale: "de" });
 
 const description = "Ein Online-Rechner der endliche algebraische Körper (F2, F3, F4, ...) und lineare Algebra wie z.B. Matrizen, Vektoren und Lineare Gleichungssysteme unterstützt.";

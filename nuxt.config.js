@@ -1,3 +1,7 @@
+/**
+ * @file Configures Nuxt static generation, global assets, aliases, and legacy public routes.
+ */
+
 import { fileURLToPath } from "node:url";
 
 /**

@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @file Defines the English calculator route and its SEO metadata.
+ */
+
 definePageMeta({ locale: "en" });
 
 const description = "An online calculator that supports finite fields (F2, F3, F4, ...) and linear algebra like matrices, vectors and linear equation systems";

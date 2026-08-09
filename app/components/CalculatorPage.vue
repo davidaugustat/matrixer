@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @file Composes the localized calculator, introduction, and instruction content.
+ */
+
 import { getSiteLocale } from "~/locales/site";
 import { renderMath } from "~/utils/renderMath";
 

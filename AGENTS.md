@@ -28,9 +28,11 @@ The English input syntax is described in `./app/components/content/InstructionsE
 ├── app                           # Nuxt application code
 │   ├── assets                    # CSS processed by Vite
 │   ├── components                # shared Vue UI and localized content components
+│   ├── composables               # calculator state and Vue Router query synchronization
 │   ├── layouts                   # shared page shell
 │   ├── locales                   # English and German UI copy
 │   ├── pages                     # explicit routes for the six existing URLs
+│   ├── plugins                   # client-side integrations such as SPA analytics tracking
 │   └── utils                     # browser UI utilities
 ├── public                        # assets copied unchanged to the generated site
 ├── source
@@ -40,7 +42,7 @@ The English input syntax is described in `./app/components/content/InstructionsE
 │           └── result            # classes to represent and format the final result of a calculation
 ├── distribution                  # Static Nuxt output. Generated and gitignored.
 ├── other                         # Nothing important. Some screenshots and logo images for the Readme and some unused code.
-├── nuxt.config.js                # Nuxt, SSG, asset, metadata and math-engine alias configuration
+├── nuxt.config.js                # Nuxt static-generation, asset and math-engine alias configuration
 ├── package.json                  # node.js package file
 └── package-lock.json             # node.js package lock file
 ```
@@ -49,11 +51,12 @@ The English input syntax is described in `./app/components/content/InstructionsE
 This project uses Nuxt 4 with Vue and Vite. `npm run build` runs `nuxt generate` and writes the complete static site
 to `distribution`. Production hosting must serve that directory as static files; it does not run Nuxt or Node.js.
 
+## Internals
 The URL structure is intentionally asymmetric and must remain unchanged: English calculator content is at
 `/`, English secondary pages are below `/en/`, and all German pages are below `/de/`. Localization uses explicit
 pages and shared locale data rather than an i18n routing module. Bootstrap 4 CSS and Roboto remain externally hosted,
-while KaTeX is bundled from NPM. The Vue UI may import `source/mathEngine`, but mathematical logic and expression
-parsing code must not be changed as part of UI work.
+while KaTeX is bundled from NPM. Internal navigation uses Vue Router through `NuxtLink`, and calculator query state is
+synchronized through a composable rather than direct History API access.
 
 ## Coding Style
 - Clean code: Code must be well-structured. Create methods and classes where appropriate.

@@ -1,3 +1,7 @@
+/**
+ * @file Renders escaped LaTeX text in mounted UI elements with the bundled KaTeX auto-render extension.
+ */
+
 import renderMathInElement from "katex/contrib/auto-render";
 
 /**

@@ -44,7 +44,8 @@ Here you can find the different parts of the project:
 All the code that does the mathematical calculations in the background
 - **String interpretation:** [source/mathEngine/stringInterpretation](source/mathEngine/stringInterpretation): 
 Code that validates and interprets the user input and converts it into a binary tree used for the calculations
-- **Nuxt application:** [app](app): Vue components, localized pages, UI logic and processed CSS
+- **Nuxt application:** [app](app): Vue components, localized pages, router/calculator composables, browser plugins,
+UI utilities and processed CSS
 - **Public assets:** [public](public): Images, favicons, robots.txt and the sitemap copied into the static output
 
 This project uses [Nuxt](https://nuxt.com/) with Vue and Vite. All six public routes are pre-rendered during the

@@ -1,11 +1,31 @@
+/**
+ * @file Defines deeply immutable English and German copy shared by the Nuxt UI.
+ */
+
 const fieldValues = [100, 2, 3, 4, 5, 7, 8, 9, 11, 13, 17, 19];
 
-export const siteLocales = Object.freeze({
+/**
+ * Recursively freezes a locale data structure.
+ *
+ * @template T
+ * @param {T} value Value to freeze.
+ * @returns {Readonly<T>} Deeply frozen value.
+ */
+function deepFreeze(value) {
+    for (const child of Object.values(value)) {
+        if (child != null && typeof child === "object" && !Object.isFrozen(child)) {
+            deepFreeze(child);
+        }
+    }
+    return Object.freeze(value);
+}
+
+export const siteLocales = deepFreeze({
     en: {
         code: "en",
         homeHref: "/",
         logoAlt: "Matrixer logo",
-        languageHref: "/de",
+        languageHref: "/de/",
         languageTitle: "Switch to German",
         languageIcon: "/assets/img/germany-flag.svg",
         languageAlt: "German website",
@@ -35,18 +55,18 @@ export const siteLocales = Object.freeze({
         footer: {
             github: "View Code on GitHub",
             about: "About this Website",
-            aboutHref: "/en/about",
+            aboutHref: "/en/about/",
             contact: "Contact",
             contactHref: "https://davidaugustat.com/contact",
             privacy: "Privacy",
             reportPrefix: "You found an error? Something doesn't work?",
             reportText: "Report it to me!",
-            reportHref: "/en/report-error"
+            reportHref: "/en/report-error/"
         }
     },
     de: {
         code: "de",
-        homeHref: "/de",
+        homeHref: "/de/",
         logoAlt: "Matrixer Logo",
         languageHref: "/",
         languageTitle: "Switch to English",
@@ -78,13 +98,13 @@ export const siteLocales = Object.freeze({
         footer: {
             github: "Code auf GitHub",
             about: "Über diese Webseite",
-            aboutHref: "/de/about",
+            aboutHref: "/de/about/",
             contact: "Kontakt",
             contactHref: "https://davidaugustat.com/kontakt",
             privacy: "Datenschutz",
             reportPrefix: "Fehler gefunden? Etwas funktioniert nicht?",
             reportText: "Melde es mir!",
-            reportHref: "/de/report-error"
+            reportHref: "/de/report-error/"
         }
     }
 });

@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @file Renders the localized site header and its internal Nuxt navigation.
+ */
+
 import { getSiteLocale } from "~/locales/site";
 
 const props = defineProps({
@@ -14,13 +18,13 @@ const copy = computed(() => getSiteLocale(props.locale));
 <template>
     <header>
         <nav class="navbar navbar-expand-md navbar-light">
-            <a class="navbar-brand" :href="copy.homeHref">
+            <NuxtLink class="navbar-brand" :to="copy.homeHref">
                 <img class="logo" :alt="copy.logoAlt" src="/assets/img/matrixer-logo.svg">
-            </a>
+            </NuxtLink>
             <div class="ml-auto">
-                <a :href="copy.languageHref" :title="copy.languageTitle" class="header-link" id="language-header-link">
+                <NuxtLink :to="copy.languageHref" :title="copy.languageTitle" class="header-link" id="language-header-link">
                     <img id="language-icon" :alt="copy.languageAlt" :src="copy.languageIcon">
-                </a>
+                </NuxtLink>
                 <a href="https://github.com/davidaugustat/matrixer" :title="copy.githubTitle" class="header-link"
                    id="github-header-link" target="_blank">
                     <img id="github-icon" :alt="copy.githubAlt" src="/assets/img/github-logo.png">

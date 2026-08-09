@@ -1,3 +1,9 @@
+<script setup>
+/**
+ * @file Provides the unchanged German About-page content.
+ */
+</script>
+
 <template>
     <div>
         <h1>Über diese Webseite</h1>

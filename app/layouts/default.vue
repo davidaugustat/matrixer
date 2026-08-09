@@ -1,4 +1,8 @@
 <script setup>
+/**
+ * @file Defines the shared localized header, content area, footer, and document language.
+ */
+
 import { getSiteLocale } from "~/locales/site";
 
 const route = useRoute();
