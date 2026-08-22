@@ -273,6 +273,34 @@ export default class Matrix extends MathElement{
     }
 
     /**
+     * Exponentiates this matrix by a non-negative integer.
+     *
+     * The zeroth power of a square matrix is its identity matrix. Positive powers continue to use the shared
+     * repeated-multiplication implementation.
+     *
+     * @param {RealNumber} exponent Non-negative integer exponent.
+     * @returns {Matrix} Exponentiated matrix.
+     */
+    exponentiate(exponent){
+        if(!(exponent instanceof RealNumber) || exponent.value < 0 || !Number.isInteger(exponent.value)){
+            throw Exceptions.InvalidExponentException;
+        }
+
+        if(exponent.value !== 0){
+            return super.exponentiate(exponent);
+        }
+
+        if(this.rows !== this.columns){
+            throw Exceptions.MultiplicationOfMatricesWithInvalidDimensionsException;
+        }
+
+        const identityData = Array.from({ length: this.rows }, (_, row) =>
+            Array.from({ length: this.columns }, (_, column) => row === column ? 1 : 0)
+        );
+        return Matrix.fromRawData(this.field, identityData);
+    }
+
+    /**
      * Internal method that multiplies the matrix with a constant.
      *
      * The matrix itself will not be modified by this, but only a copy of the current Matrix object.
