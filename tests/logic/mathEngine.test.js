@@ -92,7 +92,7 @@ describe("supported fields", () => {
         [13, "5*3", "2"],
         [17, "16+2", "1"],
         [19, "10*2", "1"]
-    ])("calculates on field %i", (field, expression, expectedCode) => {
+    ])("field %i: %s = %s", (field, expression, expectedCode) => {
         expectCodeResult(field, expression, expectedCode);
     });
 });
@@ -105,7 +105,7 @@ describe("scalar expressions", () => {
         [5, "2^4", "1"],
         [4, "multinverse(a)", "a+1"],
         [5, "additiveinverse(2)", "3"]
-    ])("supports scalar operation %#", (field, expression, expectedCode) => {
+    ])("field %i: %s = %s", (field, expression, expectedCode) => {
         expectCodeResult(field, expression, expectedCode);
     });
 
@@ -132,7 +132,7 @@ describe("matrix expressions", () => {
         [100, "rowreduce({1,2,3,4;5,6,7,8;9,0,1,2})", "{1, 0, 0, 0; 0, 1, 0, -1; 0, 0, 1, 2}"],
         [7, "multinverse({1,5,3;3,4,1;6,2,5})", "{6, 3, 0; 4, 5, 5; 1, 0, 1}"],
         [100, "det({1,2,3;4,5,7;8,9,10})", "7"]
-    ])("supports matrix operation %#", (field, expression, expectedCode) => {
+    ])("field %i: %s = %s", (field, expression, expectedCode) => {
         expectCodeResult(field, expression, expectedCode);
     });
 
@@ -150,7 +150,7 @@ describe("vector expressions", () => {
         [5, "[4,3]+[3,4]", "[2, 2]"],
         [100, "2*[1,2,3]", "[2, 4, 6]"],
         [5, "{0,4,3;1,2,4}*[1,0,4]", "[2, 2]"]
-    ])("supports vector operation %#", (field, expression, expectedCode) => {
+    ])("field %i: %s = %s", (field, expression, expectedCode) => {
         expectCodeResult(field, expression, expectedCode);
     });
 
@@ -206,7 +206,7 @@ describe("invalid expressions", () => {
         [100, "det({1,2,3;4,5,6})", Exceptions.DeterminantNotASquareMatrixException],
         [5, "solvehom(1)", Exceptions.NoMatrixInHomogeneousEquationOperatorException],
         [5, "1+solvehom({1})", Exceptions.NonMathElementOperatorUsedIncorrectlyException]
-    ])("classifies invalid expression %#", (field, expression, expectedException) => {
+    ])("field %i rejects %j", (field, expression, expectedException) => {
         const result = calculate(field, expression);
 
         expect(result.isSuccessful).toBe(false);
