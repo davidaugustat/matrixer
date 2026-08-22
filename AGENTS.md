@@ -41,6 +41,9 @@ The English input syntax is described in `./app/components/content/InstructionsE
 │       ├── math                  # actual calculation logic
 │       └── stringInterpretation  # input string parsing and output string generation
 │           └── result            # classes to represent and format the final result of a calculation
+├── tests
+│   ├── logic                     # Vitest regression tests for the public math-engine facade
+│   └── e2e                       # Playwright tests against the generated static site
 ├── distribution                  # Static Nuxt output. Generated and gitignored.
 ├── other                         # Nothing important. Some screenshots and logo images for the Readme and some unused code.
 ├── nuxt.config.js                # Nuxt static-generation, asset and math-engine alias configuration
@@ -53,6 +56,14 @@ This project uses Nuxt 4 with Vue and Vite. `npm run build` runs `nuxt generate`
 to `distribution`. Production hosting must serve that directory as static files; it does not run Nuxt or Node.js.
 The production base URL is configured by `BASE_URL` in `nuxt.config.js`; it supplies page metadata, analytics host
 matching, and the generated `robots.txt` and plain-text sitemap.
+
+## Test System
+`npm run test:logic` runs the Node-based Vitest math-engine suite. `npm run test:coverage` runs the same suite and writes
+text, HTML and JSON coverage reports to `coverage`. `npm run test:e2e` runs Chromium through Playwright against an
+existing build in `distribution`; install the browser once with `npx playwright install chromium`.
+`npm test` runs the logic suite, generates the production site, and then runs the browser suite. GitHub Actions uses
+separate math-engine, production-build, and browser-test jobs for every pull request and for pushes to `master`. The
+browser job consumes the build artifact and does not depend on the math-engine job; any failed job fails the workflow.
 
 ## Internals
 The URL structure is intentionally asymmetric and must remain unchanged: English calculator content is at

@@ -3,4 +3,7 @@
 /\.output/
 /dist/
 /distribution/
+/coverage/
+/playwright-report/
+/test-results/
 /upload.sh
