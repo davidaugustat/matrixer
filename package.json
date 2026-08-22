@@ -12,6 +12,10 @@
     "build": "nuxt generate",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "serve:test": "node tests/staticServer.js",
+    "test:logic": "vitest run",
+    "test:e2e": "playwright test",
+    "test": "npm run test:logic && npm run build && npm run test:e2e",
     "postinstall": "nuxt prepare"
   },
   "repository": {
@@ -35,5 +39,10 @@
     "nuxt": "^4.5.1",
     "vue": "^3.5.21",
     "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "serve-handler": "^6.1.7",
+    "vitest": "^4.1.11"
   }
 }

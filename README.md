@@ -47,6 +47,7 @@ Code that validates and interprets the user input and converts it into a binary 
 - **Nuxt application:** [app](app): Vue components, localized pages, router/calculator composables, browser plugins,
 UI utilities and processed CSS
 - **Public assets:** [public](public): Images, favicons, robots.txt and the sitemap copied into the static output
+- **Automated tests:** [tests](tests): Vitest math-engine regressions and Playwright tests for the generated website
 
 This project uses [Nuxt](https://nuxt.com/) with Vue and Vite. All six public routes are pre-rendered during the
 build and saved in the `distribution` folder. The generated site only contains static HTML, JavaScript, CSS and
@@ -65,6 +66,22 @@ The files in "distribution" can then directly be uploaded to a web server, and y
 ## Firing up a web server
 Run `npm run dev` to start the Nuxt development server. After generating the static site with `npm run build`, use
 `npm run preview` to preview the production output locally.
+
+## Test Suite
+There are logic tests for the math engine and Playwright tests for the web interface.
+
+Install the project dependencies and the Chromium test browser once:
+
+```shell
+npm install
+npx playwright install chromium
+```
+
+Then the following commands are available:
+
+- `npm run test:logic` runs the math-engine regression suite with Vitest.
+- `npm run build && npm run test:e2e` runs the Playwright browser tests.
+- `npm test` runs the logic tests, generates the site, and runs the browser tests in sequence.
 
 ## License
 This project is licensed under the GNU General Public License, Version 3. You can find the license [here](LICENSE.txt).
