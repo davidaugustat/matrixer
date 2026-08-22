@@ -60,8 +60,9 @@ matching, and the generated `robots.txt` and plain-text sitemap.
 ## Test System
 `npm run test:logic` runs the Node-based Vitest math-engine suite. `npm run test:e2e` runs Chromium through Playwright
 against an existing build in `distribution`; install the browser once with `npx playwright install chromium`.
-`npm test` runs the logic suite, generates the production site, and then runs the browser suite. GitHub Actions runs
-the same stages for every pull request and for pushes to `master`, and any non-zero command fails the workflow.
+`npm test` runs the logic suite, generates the production site, and then runs the browser suite. GitHub Actions uses
+separate math-engine, production-build, and browser-test jobs for every pull request and for pushes to `master`. The
+browser job consumes the build artifact and does not depend on the math-engine job; any failed job fails the workflow.
 
 ## Internals
 The URL structure is intentionally asymmetric and must remain unchanged: English calculator content is at
