@@ -29,8 +29,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run math-engine tests
-        run: npm run test:logic
+      - name: Run math-engine tests with coverage
+        run: npm run test:coverage
+
+      - name: Upload math-engine coverage report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: math-engine-coverage
+          path: coverage/
+          if-no-files-found: ignore
+          retention-days: 14
 
   build:
     name: Production build
@@ -81,7 +90,7 @@ jobs:
         run: npm ci
 
       - name: Download generated site
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: generated-site
           path: distribution/

@@ -193,6 +193,22 @@ test.describe("calculator", () => {
         );
     });
 
+    test("renders localized matrix and vector results", async ({ page }) => {
+        await openPage(page, "/de/?field=5&exp=%7B1%2C2%3B3%2C4%7D%2B%7B4%2C3%3B2%2C1%7D");
+
+        await expect(page.locator("#input-feedback-div")).toContainText("Deine Eingabe:");
+        await expect(page.locator("#math-element-result-div")).toContainText("Ergebnis:");
+        await expect(page.locator("#math-element-result-code-output")).toHaveText("{0, 0; 0, 0}");
+        await expect(page.locator("#math-element-latex-result-output .katex")).toBeVisible();
+        await expect(page.locator("#result-code-copy-btn")).toHaveText("Kopieren");
+
+        await page.locator("#expression-input").fill("[1,2,3]+[3,2,1]");
+        await page.locator("#calculate-btn").click();
+
+        await expect(page.locator("#math-element-result-code-output")).toHaveText("[4, 4, 4]");
+        await expect(page.locator("#math-element-latex-result-output .katex")).toBeVisible();
+    });
+
     test("copies reusable result code", async ({ browser }) => {
         const context = await browser.newContext({
             permissions: ["clipboard-read", "clipboard-write"]

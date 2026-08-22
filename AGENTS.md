@@ -58,8 +58,9 @@ The production base URL is configured by `BASE_URL` in `nuxt.config.js`; it supp
 matching, and the generated `robots.txt` and plain-text sitemap.
 
 ## Test System
-`npm run test:logic` runs the Node-based Vitest math-engine suite. `npm run test:e2e` runs Chromium through Playwright
-against an existing build in `distribution`; install the browser once with `npx playwright install chromium`.
+`npm run test:logic` runs the Node-based Vitest math-engine suite. `npm run test:coverage` runs the same suite and writes
+text, HTML and JSON coverage reports to `coverage`. `npm run test:e2e` runs Chromium through Playwright against an
+existing build in `distribution`; install the browser once with `npx playwright install chromium`.
 `npm test` runs the logic suite, generates the production site, and then runs the browser suite. GitHub Actions uses
 separate math-engine, production-build, and browser-test jobs for every pull request and for pushes to `master`. The
 browser job consumes the build artifact and does not depend on the math-engine job; any failed job fails the workflow.

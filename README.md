@@ -80,6 +80,7 @@ npx playwright install chromium
 Then the following commands are available:
 
 - `npm run test:logic` runs the math-engine regression suite with Vitest.
+- `npm run test:coverage` runs the math-engine suite and writes text, HTML and JSON coverage reports to `coverage`.
 - `npm run build && npm run test:e2e` runs the Playwright browser tests.
 - `npm test` runs the logic tests, generates the site, and runs the browser tests in sequence.
 

@@ -14,6 +14,7 @@
     "preview": "nuxt preview",
     "serve:test": "node tests/staticServer.js",
     "test:logic": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test": "npm run test:logic && npm run build && npm run test:e2e",
     "postinstall": "nuxt prepare"
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
+    "@vitest/coverage-v8": "^4.1.11",
     "serve-handler": "^6.1.7",
     "vitest": "^4.1.11"
   }
