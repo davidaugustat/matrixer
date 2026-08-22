@@ -46,7 +46,7 @@ All the code that does the mathematical calculations in the background
 Code that validates and interprets the user input and converts it into a binary tree used for the calculations
 - **Nuxt application:** [app](app): Vue components, localized pages, router/calculator composables, browser plugins,
 UI utilities and processed CSS
-- **Public assets:** [public](public): Images, favicons, robots.txt and the sitemap copied into the static output
+- **Public assets:** [public](public): Images and favicons copied into the static output
 - **Automated tests:** [tests](tests): Vitest math-engine regressions and Playwright tests for the generated website
 
 This project uses [Nuxt](https://nuxt.com/) with Vue and Vite. All six public routes are pre-rendered during the
