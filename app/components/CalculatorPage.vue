@@ -22,7 +22,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <p class="lead text-muted" id="introduction-text">{{ copy.introduction }}</p>
+    <p class="lead text-body-secondary" id="introduction-text">{{ copy.introduction }}</p>
     <CalculatorForm :locale="locale" />
     <div ref="documentation">
         <ContentInstructionsDe v-if="locale === 'de'" />

@@ -26,6 +26,23 @@ export default defineNuxtConfig({
     compatibilityDate: "2026-08-09",
     devtools: { enabled: false },
     telemetry: false,
+    modules: [
+        "@nuxt/fonts"
+    ],
+    fonts: {
+        provider: "google",
+        families: [
+            {
+                name: "Roboto",
+                provider: "google",
+                weights: [300, 400, 500, 700],
+                styles: ["normal"],
+                subsets: ["latin"],
+                global: true,
+                preload: true
+            }
+        ]
+    },
     runtimeConfig: {
         public: {
             baseUrl: BASE_URL,
@@ -37,6 +54,7 @@ export default defineNuxtConfig({
         "@mathEngine": projectPath("./source/mathEngine")
     },
     css: [
+        "bootstrap/dist/css/bootstrap.min.css",
         "katex/dist/katex.min.css",
         "~/assets/css/main.css"
     ],

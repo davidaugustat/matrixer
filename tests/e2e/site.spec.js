@@ -18,7 +18,6 @@ const test = base.extend({
     page: async ({ page }, use) => {
         const pageErrors = [];
         page.on("pageerror", (error) => pageErrors.push(error.message));
-        await page.route("https://static.davidaugustat.com/**", (route) => route.abort());
 
         await use(page);
 
@@ -27,7 +26,7 @@ const test = base.extend({
 });
 
 /**
- * Navigates after blocking externally hosted stylesheets that are irrelevant to browser behavior tests.
+ * Navigates to a generated page and waits for the Nuxt application to hydrate.
  *
  * @param {import("@playwright/test").Page} page Browser page to navigate.
  * @param {string} path Site-relative URL.
@@ -80,6 +79,67 @@ test.describe("generated routes", () => {
         const sitemap = await sitemapResponse.text();
         for (const route of PUBLIC_PAGES) {
             expect(sitemap).toContain(`https://matrixer.davidaugustat.com${route.path}`);
+        }
+    });
+
+    test("serves Bootstrap and Roboto from generated same-origin assets", async ({ page }) => {
+        await openPage(page, "/");
+        await page.evaluate(() => document.fonts.ready);
+
+        const assetDetails = await page.evaluate(() => {
+            const fontFaces = [];
+
+            for (const stylesheet of document.styleSheets) {
+                for (const rule of stylesheet.cssRules) {
+                    if (rule.type !== CSSRule.FONT_FACE_RULE) {
+                        continue;
+                    }
+
+                    const family = rule.style.getPropertyValue("font-family").replaceAll(/["']/g, "").trim();
+                    if (family !== "Roboto") {
+                        continue;
+                    }
+
+                    const source = rule.style.getPropertyValue("src");
+                    const sourceUrl = source.match(/url\(["']?([^"')]+)["']?\)/)?.[1];
+                    fontFaces.push({
+                        style: rule.style.getPropertyValue("font-style"),
+                        weight: rule.style.getPropertyValue("font-weight"),
+                        url: sourceUrl == null ? null : new URL(sourceUrl, stylesheet.href ?? location.href).href
+                    });
+                }
+            }
+
+            return {
+                bodyFontFamily: getComputedStyle(document.body).fontFamily,
+                bootstrapPrimary: getComputedStyle(document.documentElement).getPropertyValue("--bs-primary").trim(),
+                fontFaces,
+                resourceUrls: performance.getEntriesByType("resource").map((entry) => entry.name),
+                stylesheetUrls: [...document.querySelectorAll('link[rel="stylesheet"]')].map((link) => link.href)
+            };
+        });
+
+        expect(assetDetails.bodyFontFamily).toContain("Roboto");
+        expect(assetDetails.bootstrapPrimary).toBe("#0d6efd");
+        expect(assetDetails.fontFaces.map((fontFace) => fontFace.weight)).toEqual(["300", "400", "500", "700"]);
+        expect(assetDetails.fontFaces.every((fontFace) => fontFace.style === "normal")).toBe(true);
+
+        const providerPattern = /(?:static\.davidaugustat\.com|fonts\.(?:googleapis|gstatic)\.com)/;
+        expect([...assetDetails.stylesheetUrls, ...assetDetails.resourceUrls].filter((url) => providerPattern.test(url)))
+            .toEqual([]);
+
+        const applicationOrigin = new URL(page.url()).origin;
+        const fontUrls = [...new Set(assetDetails.fontFaces.map((fontFace) => fontFace.url))];
+        expect(fontUrls.length).toBeGreaterThan(0);
+
+        for (const fontUrl of fontUrls) {
+            expect(fontUrl).not.toBeNull();
+            expect(new URL(fontUrl).origin).toBe(applicationOrigin);
+            expect(new URL(fontUrl).pathname).toMatch(/^\/_fonts\/.*\.woff2$/);
+
+            const response = await page.request.get(fontUrl);
+            expect(response.ok()).toBe(true);
+            expect(response.headers()["content-type"]).toContain("font/woff2");
         }
     });
 
