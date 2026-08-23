@@ -3,6 +3,7 @@ import Helper from "../Helper";
 import Matrix from "./Matrix";
 import {Exceptions} from "../Exceptions";
 import {MathElementType} from "../Constants";
+import Field from "./Field";
 
 /**
  * Class for storing and manipulating a mathematical vector over an algebraic field.

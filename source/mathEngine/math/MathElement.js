@@ -141,7 +141,7 @@ export default class MathElement {
      * @returns {MathElement} result of the exponentiation
      * */
     exponentiate(exponent){
-        if(!exponent instanceof RealNumber ||exponent.value < 0 || !Number.isInteger(exponent.value)){
+        if(!(exponent instanceof RealNumber) || exponent.value < 0 || !Number.isInteger(exponent.value)){
             throw Exceptions.InvalidExponentException;
         }
 

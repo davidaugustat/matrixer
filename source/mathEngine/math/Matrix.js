@@ -3,6 +3,7 @@ import {Exceptions} from "../Exceptions";
 import Vector from "./Vector";
 import Helper from "../Helper";
 import {MathElementType} from "../Constants";
+import Field from "./Field";
 import GeneralNumber from "./GeneralNumber";
 import RealNumber from "./RealNumber";
 import PrimeFieldNumber from "./PrimeFieldNumber";
