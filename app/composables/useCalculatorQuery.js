@@ -8,12 +8,6 @@ const FIELD_PARAM_NAME = "field";
 const EXPRESSION_PARAM_NAME = "exp";
 
 /**
- * @typedef {object} CalculatorQuery
- * @property {number} fieldNumber Selected field number.
- * @property {string} expressionString Expression stored in the URL.
- */
-
-/**
  * Selects one value from a Vue Router query parameter.
  *
  * @param {string|string[]|null|undefined} value Query parameter value.
@@ -26,7 +20,7 @@ function getSingleQueryValue(value) {
 /**
  * Creates calculator query synchronization for the current route.
  *
- * @param {function(CalculatorQuery|null): void} onQueryChange Handles valid or cleared calculator queries.
+ * @param {function(object|null): void} onQueryChange Handles valid or cleared calculator queries.
  * @returns {{setCalculatorQuery: function(number, string): Promise<void>}} Query update action.
  */
 export function useCalculatorQuery(onQueryChange) {

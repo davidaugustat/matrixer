@@ -48,9 +48,6 @@ body{
     margin: 60px auto 0;
 }
 
-#expression-input-form{
-}
-
 #field-select{
     margin-left: 10px;
     margin-right: 10px;
@@ -83,6 +80,11 @@ body{
     outline: none !important;
     box-shadow: none;
     background-color: #007bff;
+}
+
+.btn:focus-visible{
+    outline: 3px solid #212529 !important;
+    outline-offset: 2px;
 }
 
 .result-box{

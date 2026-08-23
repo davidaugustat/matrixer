@@ -3,8 +3,10 @@
  * @file Defines the legacy English error-reporting route and title.
  */
 
+import { getPublicPage } from "#shared/publicRoutes";
+
 definePageMeta({ locale: "en" });
-useHead({ title: "Report an Error - Matrixer" });
+useHead({ title: getPublicPage("/en/report-error/").title });
 </script>
 
 <template>

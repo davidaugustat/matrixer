@@ -3,11 +3,22 @@
  */
 
 import { expect, test as base } from "@playwright/test";
+import { PUBLIC_PAGES } from "../../shared/publicRoutes.js";
+
+const DISTINGUISHING_TEXT_BY_PATH = {
+    "/": "Matrixer is a simple calculator",
+    "/de/": "Matrixer ist ein Online-Rechner",
+    "/en/about/": "About This Website",
+    "/de/about/": "Über diese Webseite",
+    "/en/report-error/": "Report an Error",
+    "/de/report-error/": "Fehler melden"
+};
 
 const test = base.extend({
     page: async ({ page }, use) => {
         const pageErrors = [];
         page.on("pageerror", (error) => pageErrors.push(error.message));
+        await page.route("https://static.davidaugustat.com/**", (route) => route.abort());
 
         await use(page);
 
@@ -15,54 +26,15 @@ const test = base.extend({
     }
 });
 
-const PUBLIC_ROUTES = [
-    {
-        path: "/",
-        title: "Matrixer - Calculator for Finite Fields and Linear Algebra",
-        language: "en",
-        distinguishingText: "Matrixer is a simple calculator"
-    },
-    {
-        path: "/de/",
-        title: "Matrixer - Rechner für endliche Körper und lineare Algebra",
-        language: "de",
-        distinguishingText: "Matrixer ist ein Online-Rechner"
-    },
-    {
-        path: "/en/about/",
-        title: "About - Matrixer",
-        language: "en",
-        distinguishingText: "About This Website"
-    },
-    {
-        path: "/de/about/",
-        title: "Über diese Webseite - Matrixer",
-        language: "de",
-        distinguishingText: "Über diese Webseite"
-    },
-    {
-        path: "/en/report-error/",
-        title: "Report an Error - Matrixer",
-        language: "en",
-        distinguishingText: "Report an Error"
-    },
-    {
-        path: "/de/report-error/",
-        title: "Fehler melden - Matrixer",
-        language: "de",
-        distinguishingText: "Fehler melden"
-    }
-];
-
 /**
- * Navigates without waiting for externally hosted stylesheet requests.
+ * Navigates after blocking externally hosted stylesheets that are irrelevant to browser behavior tests.
  *
  * @param {import("@playwright/test").Page} page Browser page to navigate.
  * @param {string} path Site-relative URL.
  * @returns {Promise<import("@playwright/test").Response|null>} Main-document response.
  */
 async function openPage(page, path) {
-    const response = await page.goto(path, { waitUntil: "domcontentloaded" });
+    const response = await page.goto(path, { waitUntil: "load" });
     await page.waitForFunction(() => Boolean(document.querySelector("#__nuxt")?.__vue_app__));
     return response;
 }
@@ -82,14 +54,14 @@ function getCalculatorQuery(page) {
 }
 
 test.describe("generated routes", () => {
-    for (const route of PUBLIC_ROUTES) {
+    for (const route of PUBLIC_PAGES) {
         test(`${route.path} loads its localized page`, async ({ page }) => {
             const response = await openPage(page, route.path);
 
             expect(response?.status()).toBe(200);
             await expect(page).toHaveTitle(route.title);
             await expect(page.locator("html")).toHaveAttribute("lang", route.language);
-            await expect(page.getByText(route.distinguishingText, { exact: false }).first()).toBeVisible();
+            await expect(page.getByText(DISTINGUISHING_TEXT_BY_PATH[route.path], { exact: false }).first()).toBeVisible();
             await expect(page.locator("header .navbar-brand img")).toBeVisible();
             await expect(page.locator("footer")).toBeVisible();
         });
@@ -106,7 +78,7 @@ test.describe("generated routes", () => {
         expect(sitemapResponse.status()).toBe(200);
 
         const sitemap = await sitemapResponse.text();
-        for (const route of PUBLIC_ROUTES) {
+        for (const route of PUBLIC_PAGES) {
             expect(sitemap).toContain(`https://matrixer.davidaugustat.com${route.path}`);
         }
     });
@@ -125,6 +97,19 @@ test.describe("generated routes", () => {
 });
 
 test.describe("calculator", () => {
+    test("shows a visible focus indicator for keyboard users", async ({ page }) => {
+        await openPage(page, "/");
+
+        await page.locator("#expression-input").focus();
+        await page.keyboard.press("Tab");
+        await page.keyboard.press("Tab");
+
+        const calculateButton = page.locator("#calculate-btn");
+        await expect(calculateButton).toBeFocused();
+        await expect(calculateButton).toHaveCSS("outline-style", "solid");
+        await expect(calculateButton).toHaveCSS("outline-width", "3px");
+    });
+
     test("calculates real and finite-field expressions through both submit controls", async ({ page }) => {
         await openPage(page, "/");
 
