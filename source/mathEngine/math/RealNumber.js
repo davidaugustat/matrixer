@@ -140,7 +140,7 @@ export default class RealNumber extends GeneralNumber{
      * Checks if value equals this.value. As real numbers are stored as floating point numbers, the constant
      * this.EPSILON is used to mitigate errors due to rounding.
      *
-     * @param value
+     * @param {number} value
      * @returns {boolean}
      */
     equalsValue(value) {

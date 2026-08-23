@@ -2,14 +2,7 @@
  * @file Generates the plain-text sitemap using the configured public base URL.
  */
 
-const ROUTES = [
-    "/",
-    "/en/about/",
-    "/en/report-error/",
-    "/de/",
-    "/de/about/",
-    "/de/report-error/"
-];
+import { PUBLIC_ROUTE_PATHS } from "#shared/publicRoutes";
 
 /**
  * Returns the sitemap containing every public page URL.
@@ -22,5 +15,5 @@ export default defineEventHandler((event) => {
 
     setResponseHeader(event, "content-type", "text/plain; charset=utf-8");
 
-    return `${ROUTES.map((route) => `${baseUrl}${route}`).join("\n")}\n`;
+    return `${PUBLIC_ROUTE_PATHS.map((route) => `${baseUrl}${route}`).join("\n")}\n`;
 });

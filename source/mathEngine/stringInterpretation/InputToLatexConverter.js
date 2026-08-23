@@ -35,7 +35,7 @@ export default class InputToLatexConverter {
      * If no matrices are contained in the input string, the output will be equal to the input.
      *
      * @param {string} text String in user-input-notation
-     * @returns string String with matrices converted to Latex notation
+     * @returns {string} String with matrices converted to Latex notation
      * */
     _convertMatrices(text){
         const textSplitByMatrices = this._splitByParenthesis(text, '{', '}');
@@ -63,13 +63,13 @@ export default class InputToLatexConverter {
      * If no vectors are contained in the input string, the output will be equal to the input.
      *
      * @param {string} text String in user-input-notation
-     * @returns string String with vectors converted to Latex notation
+     * @returns {string} String with vectors converted to Latex notation
      * */
     _convertVectors(text){
         const textSplitByVectors = this._splitByParenthesis(text, '[', ']');
         const convertedSubstrings = textSplitByVectors.map(substring => {
             if(substring.startsWith('[')){
-                const curlyBracketsRegex = /([\[\],])/g;
+                const curlyBracketsRegex = /(?:\[|\]|,)/g;
                 const replaceMap = {
                     "[":"\\begin{pmatrix}",
                     "]":"\\end{pmatrix}",
@@ -92,7 +92,7 @@ export default class InputToLatexConverter {
      * If no such numbers are contained in the input string, the output will be equal to the input.
      *
      * @param {string} text String in user-input-notation
-     * @returns string String with F4, F8 and F9 numbers converted to Latex notation
+     * @returns {string} String with F4, F8 and F9 numbers converted to Latex notation
      * */
     _convertFieldNumberStrings(text){
         const splitByFunctionOperators = this._splitByFunctionOperators(text);
@@ -282,7 +282,7 @@ export default class InputToLatexConverter {
      * @param {RegExp} replaceRegex A regex that matches every substring that should be replaced.
      * Note that the regex must contain the global modifier (/.../g) if EVERY occurrence of the substring should be
      * replaced. Otherwise only the first occurrence will be replaced.
-     * @param {{string:string, string:string, ...}} replaceMap A map that indicates what substring should be replaced
+     * @param {{[key: string]: string}} replaceMap A map that indicates what substring should be replaced
      * by which replacement string. E.g. {"a":"b", "b":"c"} would be the replacement map for the example at the top.
      * @returns {string} The input string with the substrings replaced accordingly.
      * */

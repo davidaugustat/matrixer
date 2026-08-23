@@ -3,6 +3,7 @@
  */
 
 import { fileURLToPath } from "node:url";
+import { PUBLIC_ROUTE_PATHS } from "./shared/publicRoutes.js";
 
 // Public base URL where Matrixer is hosted, without a trailing slash:
 const BASE_URL = "https://matrixer.davidaugustat.com";
@@ -46,12 +47,7 @@ export default defineNuxtConfig({
         prerender: {
             crawlLinks: false,
             routes: [
-                "/",
-                "/de/",
-                "/en/about/",
-                "/de/about/",
-                "/en/report-error/",
-                "/de/report-error/",
+                ...PUBLIC_ROUTE_PATHS,
                 "/robots.txt",
                 "/assets/other/sitemap.txt"
             ]

@@ -35,6 +35,7 @@ The English input syntax is described in `./app/components/content/InstructionsE
 │   ├── plugins                   # client-side integrations such as SPA analytics tracking
 │   └── utils                     # browser UI utilities
 ├── public                        # assets copied unchanged to the generated site
+├── shared                        # public route metadata shared by generation, sitemap output and tests
 ├── server                        # build-time routes for generated robots and sitemap text files
 ├── source
 │   └── mathEngine                # expression parsing, calculation and result string generation
@@ -54,23 +55,27 @@ The English input syntax is described in `./app/components/content/InstructionsE
 ## Build System
 This project uses Nuxt 4 with Vue and Vite. `npm run build` runs `nuxt generate` and writes the complete static site
 to `distribution`. Production hosting must serve that directory as static files; it does not run Nuxt or Node.js.
-The production base URL is configured by `BASE_URL` in `nuxt.config.js`; it supplies page metadata, analytics host
-matching, and the generated `robots.txt` and plain-text sitemap.
+The production base URL is configured by `BASE_URL` in `nuxt.config.js`; it supplies page metadata and the generated
+`robots.txt` and plain-text sitemap. `HOST_ENABLE_ANALYTICS` separately defines the hostname on which Matomo tracking
+is enabled.
 
 ## Test System
+`npm run lint` checks JavaScript and Vue files with ESLint, including lightweight JSDoc validation.
 `npm run test:logic` runs the Node-based Vitest math-engine suite. `npm run test:coverage` runs the same suite and writes
-text, HTML and JSON coverage reports to `coverage`. `npm run test:e2e` runs Chromium through Playwright against an
-existing build in `distribution`; install the browser once with `npx playwright install chromium`.
-`npm test` runs the logic suite, generates the production site, and then runs the browser suite. GitHub Actions uses
-separate math-engine, production-build, and browser-test jobs for every pull request and for pushes to `master`. The
-browser job consumes the build artifact and does not depend on the math-engine job; any failed job fails the workflow.
+text, HTML and JSON coverage reports to `coverage`. `npm run test:e2e` runs Chromium through Playwright against a build
+in `distribution`; Playwright manages the static test server, and the browser can be installed once with
+`npx playwright install chromium`. `npm test` runs the logic suite, production generation and the browser suite;
+linting remains a separate `npm run lint` command. GitHub Actions uses separate code-quality, math-engine,
+production-build and browser-test jobs for every pull request and for pushes to `master`. The browser job consumes the
+build artifact; any failed job fails the workflow.
 
 ## Internals
 The URL structure is intentionally asymmetric and must remain unchanged: English calculator content is at
 `/`, English secondary pages are below `/en/`, and all German pages are below `/de/`. Localization uses explicit
-pages and shared locale data rather than an i18n routing module. Bootstrap 4 CSS and Roboto remain externally hosted,
-while KaTeX is bundled from NPM. Internal navigation uses Vue Router through `NuxtLink`, and calculator query state is
-synchronized through a composable rather than direct History API access.
+pages and shared locale data rather than an i18n routing module. Public route metadata is centralized in
+`shared/publicRoutes.js` for generation, sitemap output and browser tests. Bootstrap 4 CSS and Roboto remain externally
+hosted, while KaTeX is bundled from NPM. Internal navigation uses Vue Router through `NuxtLink`, and calculator query
+state is synchronized through a composable rather than direct History API access.
 
 ## Coding Style
 - Clean code: Code must be well-structured. Create methods and classes where appropriate.

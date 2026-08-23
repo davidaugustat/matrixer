@@ -21,7 +21,7 @@ export default class Helper{
      * @returns {string}
      * */
     static getMatrixRegex(field, hasStartStopMarkers=true) {
-        const templateMatrixRegex = "\{((number,)*number;)*(number,)*number\}";
+        const templateMatrixRegex = "{((number,)*number;)*(number,)*number}";
         const regex = templateMatrixRegex.split("number").join(Helper.getRegexForField(field, false));
         return Helper.prepareRegex(regex, hasStartStopMarkers);
     }
@@ -203,7 +203,7 @@ export default class Helper{
      * Removes all spaces from a string.
      *
      * @param {string} text The string with spaces
-     * @returns string The string without spaces
+     * @returns {string} The string without spaces
      * */
     static removeSpacesAndLineBreaks(text){
         let result = Helper.removeCharacter(text, ' ');
@@ -216,7 +216,7 @@ export default class Helper{
      *
      * @param {string} text The string with the character
      * @param {string} characterToRemove The character to remove
-     * @returns string The string without character
+     * @returns {string} The string without character
      * */
     static removeCharacter(text, characterToRemove){
         return text.split(characterToRemove).join('');
@@ -225,8 +225,8 @@ export default class Helper{
     /**
      * Converts a string into a number. Works for every available field.
      *
-     * @param {string} numberString The string representation of the number. This must NOT contain spaces!
      * @param {number} field The field in which the number should be parsed
+     * @param {string} numberString The string representation of the number. This must NOT contain spaces!
      * @returns {GeneralNumber} The number equivalent to numberString
      * */
     static getNumberFromNumberString(field,numberString){

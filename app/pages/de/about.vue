@@ -3,8 +3,10 @@
  * @file Defines the legacy German About-page route and title.
  */
 
+import { getPublicPage } from "#shared/publicRoutes";
+
 definePageMeta({ locale: "de" });
-useHead({ title: "Über diese Webseite - Matrixer" });
+useHead({ title: getPublicPage("/de/about/").title });
 </script>
 
 <template>

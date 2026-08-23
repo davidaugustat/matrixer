@@ -2,7 +2,15 @@
  * @file Provides Matomo calculation events and client-side Nuxt page-navigation tracking.
  */
 
-import { nextTick } from "vue";
+/**
+ * Returns the shared Matomo command queue.
+ *
+ * @returns {Array} Matomo command queue.
+ */
+function getMatomoQueue() {
+    window._paq = window._paq || [];
+    return window._paq;
+}
 
 /**
  * Checks whether analytics may run on the current host.
@@ -12,6 +20,43 @@ import { nextTick } from "vue";
  */
 function isMatomoTrackingEnabled(hostEnableAnalytics) {
     return window.location.hostname === hostEnableAnalytics;
+}
+
+/**
+ * Ensures the configured Matomo URL can be safely extended with resource paths.
+ *
+ * @param {string} matomoBaseUrl Configured Matomo base URL.
+ * @returns {string} Matomo URL ending in a slash.
+ */
+function normalizeMatomoBaseUrl(matomoBaseUrl) {
+    return matomoBaseUrl.endsWith("/") ? matomoBaseUrl : `${matomoBaseUrl}/`;
+}
+
+/**
+ * Initializes Matomo and loads its tracker script once.
+ *
+ * @param {string} matomoBaseUrl Configured Matomo base URL.
+ * @returns {void}
+ */
+function initializeMatomo(matomoBaseUrl) {
+    const normalizedBaseUrl = normalizeMatomoBaseUrl(matomoBaseUrl);
+    const queue = getMatomoQueue();
+
+    queue.push(["setTrackerUrl", `${normalizedBaseUrl}matomo.php`]);
+    queue.push(["setSiteId", "2"]);
+    queue.push(["enableHeartBeatTimer", 15]);
+    queue.push(["enableLinkTracking"]);
+    queue.push(["trackPageView"]);
+
+    if (document.querySelector("script[data-matomo-tracker]") != null) {
+        return;
+    }
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.dataset.matomoTracker = "";
+    script.src = `${normalizedBaseUrl}matomo.js`;
+    document.head.append(script);
 }
 
 /**
@@ -27,8 +72,13 @@ function sendCalculateEventToAnalytics(result, hostEnableAnalytics) {
     }
 
     const value = result.isSuccessful ? 1 : 0;
-    window._paq = window._paq || [];
-    window._paq.push(["trackEvent", "button click", "Matrixer Calculate Button", "Matrixer", value]);
+    getMatomoQueue().push([
+        "trackEvent",
+        "button click",
+        "Matrixer Calculate Button",
+        "Matrixer",
+        value
+    ]);
 }
 
 /**
@@ -37,16 +87,16 @@ function sendCalculateEventToAnalytics(result, hostEnableAnalytics) {
  * @returns {void}
  */
 function trackPageNavigation() {
-    window._paq = window._paq || [];
-    window._paq.push(["setCustomUrl", window.location.href]);
-    window._paq.push(["setDocumentTitle", document.title]);
-    window._paq.push(["trackPageView"]);
+    const queue = getMatomoQueue();
+    queue.push(["setCustomUrl", window.location.href]);
+    queue.push(["setDocumentTitle", document.title]);
+    queue.push(["trackPageView"]);
 }
 
 /**
- * Waits for Unhead to apply document metadata after Nuxt finishes rendering a page.
+ * Waits for Unhead to apply the destination page title to the document.
  *
- * @returns {Promise<void>} Resolves in the next browser task.
+ * @returns {Promise<void>} Resolves during the next browser task.
  */
 function waitForDocumentHeadUpdate() {
     return new Promise((resolve) => setTimeout(resolve, 0));
@@ -60,47 +110,27 @@ function waitForDocumentHeadUpdate() {
  */
 function registerMatomoPageTracking(nuxtApp) {
     const router = nuxtApp.$router;
-    let hasPendingPageNavigation = false;
+    let trackedPath = router.currentRoute.value.path;
 
     /**
-     * Marks completed page-path changes without treating calculator query updates as page views.
+     * Tracks completed page-path changes without treating calculator query updates as page views.
      *
-     * @param {import("vue-router").RouteLocationNormalized} to Destination route.
-     * @param {import("vue-router").RouteLocationNormalized} from Previous route.
-     * @param {import("vue-router").NavigationFailure|void} failure Navigation failure, when present.
-     * @returns {void}
-     */
-    function markPageNavigation(to, from, failure) {
-        if (failure == null && to.path !== from.path) {
-            hasPendingPageNavigation = true;
-        }
-    }
-
-    /**
-     * Tracks a pending page navigation after Nuxt has rendered its content and document title.
-     *
-     * @returns {Promise<void>} Resolves after the document head update and tracking call.
+     * @returns {Promise<void>} Resolves after any destination title has been applied and tracked.
      */
     async function trackFinishedPage() {
-        if (hasPendingPageNavigation) {
-            hasPendingPageNavigation = false;
-            await nextTick();
+        const currentPath = router.currentRoute.value.path;
+
+        if (currentPath !== trackedPath) {
+            trackedPath = currentPath;
             await waitForDocumentHeadUpdate();
-            trackPageNavigation();
+
+            if (router.currentRoute.value.path === currentPath) {
+                trackPageNavigation();
+            }
         }
     }
 
-    /**
-     * Starts observing navigation after the server-rendered page has mounted.
-     *
-     * @returns {void}
-     */
-    function startTrackingNavigation() {
-        router.afterEach(markPageNavigation);
-        nuxtApp.hook("page:finish", trackFinishedPage);
-    }
-
-    nuxtApp.hook("app:mounted", startTrackingNavigation);
+    nuxtApp.hook("page:finish", trackFinishedPage);
 }
 
 /**
@@ -111,9 +141,10 @@ function registerMatomoPageTracking(nuxtApp) {
  *     Nuxt injection for calculator analytics.
  */
 function configureMatomoClient(nuxtApp) {
-    const { hostEnableAnalytics } = nuxtApp.$config.public;
+    const { hostEnableAnalytics, matomoBaseUrl } = nuxtApp.$config.public;
 
     if (import.meta.client && isMatomoTrackingEnabled(hostEnableAnalytics)) {
+        initializeMatomo(matomoBaseUrl);
         registerMatomoPageTracking(nuxtApp);
     }
 

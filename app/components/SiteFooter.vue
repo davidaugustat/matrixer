@@ -13,11 +13,15 @@ const props = defineProps({
 });
 
 const copy = computed(() => getSiteLocale(props.locale));
-const currentYear = new Date().getFullYear();
+const currentYear = ref(null);
+
+onMounted(() => {
+    currentYear.value = new Date().getFullYear();
+});
 </script>
 
 <template>
-    <footer class="footer mt-auto py3 bg-dark">
+    <footer class="footer mt-auto py-3 bg-dark">
         <div class="container">
             <div class="nav justify-content-center" id="footer-nav">
                 <a class="nav-link text-light" href="https://github.com/davidaugustat/matrixer" target="_blank">{{ copy.footer.github }}</a>
@@ -29,7 +33,7 @@ const currentYear = new Date().getFullYear();
                 {{ copy.footer.reportPrefix }} <NuxtLink class="text-light" :to="copy.footer.reportHref" target="_blank">{{ copy.footer.reportText }}</NuxtLink>
             </p>
             <p class="text-light footer-text text-center">
-                ©&nbsp;{{ currentYear }}&nbsp;David Augustat
+                ©<span v-if="currentYear != null">&nbsp;{{ currentYear }}</span>&nbsp;David Augustat
             </p>
         </div>
     </footer>

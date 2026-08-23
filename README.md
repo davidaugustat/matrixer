@@ -46,7 +46,8 @@ All the code that does the mathematical calculations in the background
 Code that validates and interprets the user input and converts it into a binary tree used for the calculations
 - **Nuxt application:** [app](app): Vue components, localized pages, router/calculator composables, browser plugins,
 UI utilities and processed CSS
-- **Public assets:** [public](public): Images, favicons, robots.txt and the sitemap copied into the static output
+- **Public assets:** [public](public): Images and favicons copied into the static output
+- **Shared configuration:** [shared](shared): Public route metadata reused by generation, sitemap output and tests
 - **Automated tests:** [tests](tests): Vitest math-engine regressions and Playwright tests for the generated website
 
 This project uses [Nuxt](https://nuxt.com/) with Vue and Vite. All six public routes are pre-rendered during the
@@ -79,6 +80,7 @@ npx playwright install chromium
 
 Then the following commands are available:
 
+- `npm run lint` checks JavaScript and Vue files with ESLint and validates JSDoc.
 - `npm run test:logic` runs the math-engine regression suite with Vitest.
 - `npm run test:coverage` runs the math-engine suite and writes text, HTML and JSON coverage reports to `coverage`.
 - `npm run build && npm run test:e2e` runs the Playwright browser tests.

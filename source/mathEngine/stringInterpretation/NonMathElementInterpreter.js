@@ -2,7 +2,6 @@ import {Constants, MathElementType, Operators} from "../Constants";
 import Helper from "../Helper";
 import Interpreter from "./Interpreter";
 import {Exceptions} from "../Exceptions";
-import Matrix from "../math/Matrix";
 import HomogeneousEquationSystemResult from "./result/HomogeneousEquationSystemResult";
 import InputToLatexConverter from "./InputToLatexConverter";
 
