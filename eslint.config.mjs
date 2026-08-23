@@ -24,6 +24,10 @@ export default [
     {
         files: ["**/*.{js,mjs,vue}"],
         rules: {
+            // Allow unused parameters when they start with an underscore
+            "no-unused-vars": ["error", {
+                argsIgnorePattern: "^_"
+            }],
             "vue/multi-word-component-names": "off"
         }
     },
