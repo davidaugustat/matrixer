@@ -38,9 +38,27 @@ body{
     padding-bottom: 50px;
 }
 
+.main-content a{
+    text-decoration: none;
+}
+
+.main-content a:hover{
+    text-decoration: underline;
+}
+
 .footer{
     padding-top: 20px;
     padding-bottom: 20px;
+    background-color: #343a40;
+}
+
+.footer .nav-link{
+    transition: none;
+}
+
+.footer a.text-light:hover,
+.footer a.text-light:focus{
+    color: #cbd3da !important;
 }
 
 #expression-input-area{
