@@ -44,3 +44,4 @@ useHead({
     ]
 });
 </script>
+<template></template>
