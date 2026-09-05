@@ -1,4 +1,4 @@
-name: Build and test (and deploy when on master)
+name: CI/CD
 
 on:
   push:
