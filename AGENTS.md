@@ -53,7 +53,8 @@ The English input syntax is described in `./app/components/content/InstructionsE
 ```
 
 ## Build System
-This project uses Nuxt 4 with Vue and Vite. `npm run build` runs `nuxt generate` and writes the complete static site
+This project uses Nuxt 4 with Vue and Vite and requires Node.js 24.15 or newer within the 24.x line.
+`npm run build` runs `nuxt generate` and writes the complete static site
 to `distribution`. Production hosting must serve that directory as static files; it does not run Nuxt or Node.js.
 The production base URL is configured by `BASE_URL` in `nuxt.config.js`; it supplies page metadata and the generated
 `robots.txt` and plain-text sitemap. `HOST_ENABLE_ANALYTICS` separately defines the hostname on which Matomo tracking

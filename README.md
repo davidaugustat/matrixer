@@ -55,7 +55,7 @@ build and saved in the `distribution` folder. The generated site only contains s
 assets; no server-side runtime is required after deployment. The output files are not included in this repository.
 
 ## Building the output files yourself
-The build requires Node.js 22.19 or newer and [NPM](https://www.npmjs.com/).
+The build requires Node.js 24.15 or newer within the 24.x line, plus [NPM](https://www.npmjs.com/).
 
 1. Run `git clone https://github.com/davidaugustat/matrixer.git` to clone the repository.
 2. Run `cd matrixer` to go to the project directory.

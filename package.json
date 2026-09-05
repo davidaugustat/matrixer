@@ -5,7 +5,10 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22.19.0"
+    "node": "^24.15.0"
+  },
+  "overrides": {
+    "esbuild": "^0.28.2"
   },
   "scripts": {
     "dev": "nuxt dev",
@@ -40,21 +43,24 @@
   "dependencies": {
     "@nuxt/fonts": "^0.14.0",
     "bootstrap": "^5.3.8",
-    "katex": "^0.16.22",
-    "nuxt": "^4.5.1",
-    "vue": "^3.5.21",
-    "vue-router": "^4.5.1"
+    "katex": "^0.18.6",
+    "nuxt": "^4.5.2",
+    "vue": "^3.5.42",
+    "vue-router": "^5.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@playwright/test": "^1.62.1",
-    "@vitest/coverage-v8": "^4.1.11",
-    "eslint": "^10.9.0",
-    "eslint-plugin-jsdoc": "^63.3.3",
+    "@playwright/test": "^1.63.0",
+    "@vitest/coverage-v8": "^5.0.0",
+    "eslint": "^10.10.0",
+    "eslint-plugin-jsdoc": "^64.3.6",
     "eslint-plugin-vue": "^10.10.0",
-    "globals": "^17.11.0",
+    "globals": "^17.12.0",
     "serve-handler": "^6.1.7",
-    "vitest": "^4.1.11",
+    "vitest": "^5.0.0",
     "vue-eslint-parser": "^10.4.1"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }
