@@ -132,3 +132,126 @@ jobs:
             test-results/
           if-no-files-found: ignore
           retention-days: 14
+
+  deploy:
+    name: Deploy production
+    # Deploy only on master
+    if: github.ref == 'refs/heads/master'
+    # A release is allowed only after every existing quality, build and browser job succeeds.
+    needs:
+      - code-quality
+      - logic-tests
+      - build
+      - ui-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Serialize deployments so two pushes cannot modify the hosting directory at the same time.
+    concurrency:
+      group: production-deployment
+      cancel-in-progress: false
+    env:
+      SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+      SSH_PORT: ${{ secrets.DEPLOY_SSH_PORT }}
+      SSH_USER: ${{ secrets.DEPLOY_SSH_USER }}
+      DEPLOY_TARGET_DIRECTORY: ${{ secrets.DEPLOY_TARGET_DIRECTORY }}
+      REMOTE_ARCHIVE_NAME: .matrixer-deploy.tar.gz
+
+    steps:
+      # Reuse the exact static site that passed the browser tests instead of building it again.
+      - name: Download generated site
+        uses: actions/download-artifact@v8
+        with:
+          name: generated-site
+          path: distribution/
+
+      - name: Configure SSH authentication
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+
+          # Keep the deployment key and trusted host keys private to this ephemeral runner.
+          install -m 700 -d "$HOME/.ssh"
+          printf '%s\n' "$SSH_PRIVATE_KEY" > "$HOME/.ssh/deploy_key"
+          chmod 600 "$HOME/.ssh/deploy_key"
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+      - name: Package generated site
+        run: |
+          set -euo pipefail
+
+          # Transfer one compressed archive rather than opening a connection for every output file.
+          tar -czf "$RUNNER_TEMP/generated-site.tar.gz" -C distribution .
+
+      - name: Upload generated site archive
+        run: |
+          set -euo pipefail
+
+          # Restrict the secret path to shell-safe website-directory characters before using it remotely.
+          if [[ -z "$DEPLOY_TARGET_DIRECTORY" || "$DEPLOY_TARGET_DIRECTORY" == *[!A-Za-z0-9_./-]* ]]; then
+              echo "DEPLOY_TARGET_DIRECTORY must use only letters, digits, dots, underscores, slashes and hyphens." >&2
+              exit 1
+          fi
+
+          # Store the archive in the hosting root so it is never exposed by the website being replaced.
+          scp \
+              -i "$HOME/.ssh/deploy_key" \
+              -P "$SSH_PORT" \
+              -o BatchMode=yes \
+              -o StrictHostKeyChecking=yes \
+              "$RUNNER_TEMP/generated-site.tar.gz" \
+              "$SSH_USER@$SSH_HOST:$REMOTE_ARCHIVE_NAME"
+
+      - name: Replace hosted files
+        run: |
+          set -euo pipefail
+
+          # Run the cleanup and extraction in one remote shell, passing only the validated target path.
+          ssh \
+              -i "$HOME/.ssh/deploy_key" \
+              -p "$SSH_PORT" \
+              -o BatchMode=yes \
+              -o StrictHostKeyChecking=yes \
+              "$SSH_USER@$SSH_HOST" \
+              "bash -s -- '$DEPLOY_TARGET_DIRECTORY' '$REMOTE_ARCHIVE_NAME'" <<'REMOTE_SCRIPT'
+          set -euo pipefail
+
+          requested_target=$1
+          archive_name=$2
+
+          # Locate the archive in the hosting root where the SSH session starts.
+          login_directory=$(pwd -P)
+          archive_path="${login_directory%/}/$archive_name"
+
+          # Remove the uploaded archive on both successful and failed deployment attempts.
+          cleanup_archive() {
+              rm -f -- "$archive_path"
+          }
+          trap cleanup_archive EXIT
+
+          # Resolve the existing target so aliases cannot bypass the root-directory safety checks.
+          target_directory=$(cd -- "$requested_target" && pwd -P)
+
+          # Never allow a bad secret to erase the hosting root or the SSH login directory.
+          if [[ "$target_directory" == "/" || "$target_directory" == "$login_directory" ]]; then
+              echo "Refusing to deploy into the hosting root or SSH login directory." >&2
+              exit 1
+          fi
+
+          # Do not remove the current site unless the uploaded replacement is available.
+          if [[ ! -f "$archive_path" ]]; then
+              echo "The uploaded deployment archive was not found." >&2
+              exit 1
+          fi
+
+          # Remove every old website file, including hidden entries; the archive is outside this directory.
+          find "$target_directory" \
+              -mindepth 1 \
+              -maxdepth 1 \
+              -exec rm -rf -- {} +
+
+          # Extract the new static site directly into the now-empty website directory.
+          tar -xzf "$archive_path" -C "$target_directory"
+          REMOTE_SCRIPT
