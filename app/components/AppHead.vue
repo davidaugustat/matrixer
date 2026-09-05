@@ -1,6 +1,6 @@
 <script setup>
 /**
- * @file Defines site-wide document metadata, stylesheets, and favicons.
+ * @file Defines site-wide document metadata and favicons.
  */
 
 useHead({
@@ -17,16 +17,6 @@ useHead({
         { name: "theme-color", content: "#ffffff" }
     ],
     link: [
-        {
-            rel: "stylesheet",
-            href: "https://static.davidaugustat.com/fonts/roboto/roboto-font.css",
-            tagPriority: "high"
-        },
-        {
-            rel: "stylesheet",
-            href: "https://static.davidaugustat.com/bootstrap-4.6.0/css/bootstrap.min.css",
-            tagPriority: "high"
-        },
         {
             rel: "apple-touch-icon",
             sizes: "180x180",

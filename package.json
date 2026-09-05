@@ -38,6 +38,8 @@
   },
   "homepage": "https://github.com/davidaugustat/matrixer#readme",
   "dependencies": {
+    "@nuxt/fonts": "^0.14.0",
+    "bootstrap": "^5.3.8",
     "katex": "^0.16.22",
     "nuxt": "^4.5.1",
     "vue": "^3.5.21",

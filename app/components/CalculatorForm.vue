@@ -57,23 +57,25 @@ async function executeCalculateButtonAction() {
 <template>
     <div class="text-center" id="expression-input-area">
         <form id="expression-input-form">
-            <div class="form-group">
+            <div class="mb-3">
                 <input v-model="expression" type="text" class="form-control" id="expression-input"
                        :placeholder="copy.placeholder" @keydown.enter.prevent="executeCalculateButtonAction">
             </div>
-            <div class="form-group row justify-content-center">
+            <div class="row justify-content-center mb-3">
                 <label class="col-sm-2 col-form-label" for="field-select">{{ copy.fieldLabel }}</label>
                 <div class="col-sm-4">
-                    <select v-model.number="field" class="form-control" id="field-select">
+                    <select v-model.number="field" class="form-select" id="field-select">
                         <option v-for="option in copy.fieldOptions" :key="option.value" :value="option.value">
                             {{ option.label }}
                         </option>
                     </select>
                 </div>
             </div>
-            <div class="form-group row justify-content-center">
-                <button type="button" class="btn btn-primary btn-lg btn-block col-sm-4" id="calculate-btn"
-                        @click="executeCalculateButtonAction">{{ copy.calculate }}</button>
+            <div class="row justify-content-center mb-3">
+                <div class="d-grid col-sm-4 px-sm-0">
+                    <button type="button" class="btn btn-primary btn-lg" id="calculate-btn"
+                            @click="executeCalculateButtonAction">{{ copy.calculate }}</button>
+                </div>
             </div>
         </form>
     </div>

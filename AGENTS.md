@@ -73,9 +73,10 @@ build artifact; any failed job fails the workflow.
 The URL structure is intentionally asymmetric and must remain unchanged: English calculator content is at
 `/`, English secondary pages are below `/en/`, and all German pages are below `/de/`. Localization uses explicit
 pages and shared locale data rather than an i18n routing module. Public route metadata is centralized in
-`shared/publicRoutes.js` for generation, sitemap output and browser tests. Bootstrap 4 CSS and Roboto remain externally
-hosted, while KaTeX is bundled from NPM. Internal navigation uses Vue Router through `NuxtLink`, and calculator query
-state is synchronized through a composable rather than direct History API access.
+`shared/publicRoutes.js` for generation, sitemap output and browser tests. Bootstrap 5 CSS is bundled from NPM, Roboto
+is downloaded at build time through Nuxt Fonts and emitted as a same-origin static asset, and KaTeX is bundled from NPM.
+Internal navigation uses Vue Router through `NuxtLink`, and calculator query state is synchronized through a composable
+rather than direct History API access.
 
 ## Coding Style
 - Clean code: Code must be well-structured. Create methods and classes where appropriate.

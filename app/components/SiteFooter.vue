@@ -21,7 +21,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <footer class="footer mt-auto py-3 bg-dark">
+    <footer class="footer mt-auto py-3">
         <div class="container">
             <div class="nav justify-content-center" id="footer-nav">
                 <a class="nav-link text-light" href="https://github.com/davidaugustat/matrixer" target="_blank">{{ copy.footer.github }}</a>
