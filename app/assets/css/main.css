@@ -38,9 +38,27 @@ body{
     padding-bottom: 50px;
 }
 
+.main-content a{
+    text-decoration: none;
+}
+
+.main-content a:hover{
+    text-decoration: underline;
+}
+
 .footer{
     padding-top: 20px;
     padding-bottom: 20px;
+    background-color: #343a40;
+}
+
+.footer .nav-link{
+    transition: none;
+}
+
+.footer a.text-light:hover,
+.footer a.text-light:focus{
+    color: #cbd3da !important;
 }
 
 #expression-input-area{
@@ -49,11 +67,6 @@ body{
 }
 
 #field-select{
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-#calculate-btn{
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -79,7 +92,6 @@ body{
 .btn:focus{
     outline: none !important;
     box-shadow: none;
-    background-color: #007bff;
 }
 
 .btn:focus-visible{
@@ -204,40 +216,6 @@ ul li{
 }
 
 @media (max-width: 1200px) {
-    legend {
-        font-size: calc(1.275rem + 0.3vw);
-    }
-    h1,
-    .h1 {
-        font-size: calc(1.375rem + 1.5vw);
-    }
-    h2,
-    .h2 {
-        font-size: calc(1.325rem + 0.9vw);
-    }
-    h3,
-    .h3 {
-        font-size: calc(1.3rem + 0.6vw);
-    }
-    h4,
-    .h4 {
-        font-size: calc(1.275rem + 0.3vw);
-    }
-    .display-1 {
-        font-size: calc(1.725rem + 5.7vw);
-    }
-    .display-2 {
-        font-size: calc(1.675rem + 5.1vw);
-    }
-    .display-3 {
-        font-size: calc(1.575rem + 3.9vw);
-    }
-    .display-4 {
-        font-size: calc(1.475rem + 2.7vw);
-    }
-    .close {
-        font-size: calc(1.275rem + 0.3vw);
-    }
     .lead{
         font-size: calc(1.0rem + 0.3vw);
     }

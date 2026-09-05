@@ -17,11 +17,11 @@ const copy = computed(() => getSiteLocale(props.locale));
 
 <template>
     <header>
-        <nav class="navbar navbar-expand-md navbar-light">
+        <nav class="navbar navbar-expand-md px-3">
             <NuxtLink class="navbar-brand" :to="copy.homeHref">
                 <img class="logo" :alt="copy.logoAlt" src="/assets/img/matrixer-logo.svg">
             </NuxtLink>
-            <div class="ml-auto">
+            <div class="ms-auto">
                 <NuxtLink :to="copy.languageHref" :title="copy.languageTitle" class="header-link" id="language-header-link">
                     <img id="language-icon" :alt="copy.languageAlt" :src="copy.languageIcon">
                 </NuxtLink>
