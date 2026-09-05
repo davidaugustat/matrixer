@@ -81,7 +81,9 @@ rather than direct History API access.
 ## Coding Style
 - Clean code: Code must be well-structured. Create methods and classes where appropriate.
 - JSDoc: Every class and method must have JSDoc. The JSDoc must include type definitions for parameters and the return value. Each non-class JavaScript or Vue file needs file-level JSDoc with an `@file` tag explaining what this file is for.
+- Parts that may be difficult to understand must have explanatory comments.
 - Use LF (`\n`) encoding for line endings.
 - Code must be properly formatted.
 - When writing German text (e.g., in frontend text or error messages), feel free to use the characters ä,ö,ü,ß,Ä,Ö,Ü,ẞ.
 - Keep `AGENTS.md` and `README.md` up-to-date. After completing a coding task, check if your changes require adapting the `AGENTS.md` and/or `README.md` file.
+- Bash scripts and CI configs must have explanatory comments explaining every semantic step.

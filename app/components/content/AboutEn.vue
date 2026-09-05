@@ -35,9 +35,9 @@
             </li>
             <li>
                 <a href="https://vuejs.org" target="_blank"><b>Vue.js:</b></a><br>
-                Vue.js is a JavaScript framework which makes manipulating the graphical user interface a lot
-                easier than it is in pure JavaScript. I use Vue.js to obtain the user input (selected field and
-                the expression string) from the GUI and to output the result on the GUI.
+                Vue.js is a JavaScript framework which is used to create the graphical user interface of
+                this website. I use Vue.js to obtain the user input (selected field and the expression string)
+                from the GUI and to output the result on the GUI.
             </li>
             <li>
                 <a href="https://katex.org" target="_blank"><b>KaTeX:</b></a><br>
@@ -55,7 +55,7 @@
             <li>
                 <a href="https://vite.dev" target="_blank"><b>Vite:</b></a><br>
                 Vite is the build tool used by Nuxt. It bundles and minifies the JavaScript and CSS files for
-                the production website and provides the development server used while working on Matrixer.
+                delivery of the website to the browser.
             </li>
             <li>
                 <a href="https://www.namecheap.com/logo-maker/" target="_blank"><b>Namecheap Logo Maker:</b></a><br>
