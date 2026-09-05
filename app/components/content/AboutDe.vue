@@ -35,10 +35,9 @@
             </li>
             <li>
                 <a href="https://vuejs.org" target="_blank"><b>Vue.js:</b></a><br>
-                Vue.js ist ein JavaScript-Framework, welches Zugriffe auf die grafische Benutzeroberfläche
-                deutlich einfacher gestaltet, als es in reinem JavaScript der Fall ist. Ich benutze Vue.js,
-                um die Eingaben des Benutzers (gewählter Körper und mathematischer Ausdruck) von der GUI
-                einzulesen und um das Ergebnis auszugeben.
+                Vue.js ist ein JavaScript-Framework, mit dem die graphische Benutzeroberfläche der Webseite erstellt wurde.
+                Ich benutze Vue.js, um die Eingaben des Benutzers (gewählter Körper und mathematischer Ausdruck) von der
+                GUI einzulesen und um das Ergebnis auszugeben.
             </li>
             <li>
                 <a href="https://katex.org" target="_blank"><b>KaTeX:</b></a><br>
@@ -57,8 +56,7 @@
             <li>
                 <a href="https://vite.dev" target="_blank"><b>Vite:</b></a><br>
                 Vite ist das von Nuxt verwendete Build-Werkzeug. Es bündelt und minimiert die JavaScript- und
-                CSS-Dateien für die produktive Webseite und stellt den Entwicklungsserver für die Arbeit an
-                Matrixer bereit.
+                CSS-Dateien für die Auslieferung der Webseite an den Browser.
             </li>
             <li>
                 <a href="https://www.namecheap.com/logo-maker/" target="_blank"><b>Namecheap Logo Maker:</b></a><br>
