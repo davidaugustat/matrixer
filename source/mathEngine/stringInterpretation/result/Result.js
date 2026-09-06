@@ -20,7 +20,7 @@ export default class Result {
 
     /**
      * Contains an exception object, if an error occured. Otherwise null.
-     * @type {?{englishMessage: string, germanMessage:String}}
+     * @type {?{englishMessage: string, germanMessage: string}}
      * */
     exception;
 

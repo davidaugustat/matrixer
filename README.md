@@ -44,28 +44,47 @@ Here you can find the different parts of the project:
 All the code that does the mathematical calculations in the background
 - **String interpretation:** [source/mathEngine/stringInterpretation](source/mathEngine/stringInterpretation): 
 Code that validates and interprets the user input and converts it into a binary tree used for the calculations
-- **HTML code:** [source/html](source/html): The layout and design of the website
-- **Assets** (CSS, images, ...): [source/assets](source/assets)
+- **Nuxt application:** [app](app): Vue components, localized pages, router/calculator composables, browser plugins,
+UI utilities and processed CSS
+- **Public assets:** [public](public): Images and favicons copied into the static output
+- **Shared configuration:** [shared](shared): Public route metadata reused by generation, sitemap output and tests
+- **Automated tests:** [tests](tests): Vitest math-engine regressions and Playwright tests for the generated website
 
-This project uses [Webpack](https://webpack.js.org/) to bundle all the individual files in the source folder into a
- small number of output files, which are then saved in the distribution folder. The output files are however not
-  included in this git repository. You can easily compile them yourself using NPM and Webpack.
+This project uses [Nuxt](https://nuxt.com/) with Vue and Vite. All six public routes are pre-rendered during the
+build and saved in the `distribution` folder. The generated site only contains static HTML, JavaScript, CSS and
+assets; no server-side runtime is required after deployment. The output files are not included in this repository.
 
 ## Building the output files yourself
-For the following steps you need to have [NPM](https://www.npmjs.com/) installed already. For those that haven't yet: 
-There are plenty of tutorials on that online.
+The build requires Node.js 24.15 or newer within the 24.x line, plus [NPM](https://www.npmjs.com/).
 
 1. Run `git clone https://github.com/davidaugustat/matrixer.git` to clone the repository.
 2. Run `cd matrixer` to go to the project directory.
 3. Run `npm install` to automatically install all dependencies.
-4. Set the webpack.config.js file to production mode (this reduces output file size) by **un**commenting the line 
-`mode: "production",` and commenting out the lines `mode: "development",` and `devtool: 'inline-source-map',` below.
-5. Run `npm run build` to build the output. You can find all output files in the "distribution" folder.
+4. Run `npm run build` to generate the static site. You can find all output files in the `distribution` folder.
 
 The files in "distribution" can then directly be uploaded to a web server, and you're done.
 
 ## Firing up a web server
-You can also fire up a local web server using the [webpack-dev-server](https://github.com/webpack/webpack-dev-server) tool. Just clone this repository and run `npm install` to install the dependencies. Then run `npm start` and a web server serving Matrixer will be launched at port 8080 of your machine.
+Run `npm run dev` to start the Nuxt development server. After generating the static site with `npm run build`, use
+`npm run preview` to preview the production output locally.
+
+## Test Suite
+There are logic tests for the math engine and Playwright tests for the web interface.
+
+Install the project dependencies and the Chromium test browser once:
+
+```shell
+npm install
+npx playwright install chromium
+```
+
+Then the following commands are available:
+
+- `npm run lint` checks JavaScript and Vue files with ESLint and validates JSDoc.
+- `npm run test:logic` runs the math-engine regression suite with Vitest.
+- `npm run test:coverage` runs the math-engine suite and writes text, HTML and JSON coverage reports to `coverage`.
+- `npm run build && npm run test:e2e` runs the Playwright browser tests.
+- `npm test` runs the logic tests, generates the site, and runs the browser tests in sequence.
 
 ## License
 This project is licensed under the GNU General Public License, Version 3. You can find the license [here](LICENSE.txt).

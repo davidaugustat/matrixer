@@ -198,7 +198,7 @@ export default class Interpreter {
      *
      * E.g. "rowreduce(5*{1,2;3,4}" is a valid input but "rowreduce(5*{1,2;3,4})" is not.
      *
-     * @param {String} expression
+     * @param {string} expression
      * @returns {ExpressionNode} The node of a binary tree containing the expression.
      * */
     _interpretFunction(expression){
@@ -409,7 +409,7 @@ export default class Interpreter {
      * this.field.
      *
      * @param {[string]} expression
-     * @returns boolean True if the expression is a valid number. Otherwise false.
+     * @returns {boolean} True if the expression is a valid number. Otherwise false.
      * */
     _isValidNumber(expression){
         if(Array.isArray(expression) && expression.length === 1){

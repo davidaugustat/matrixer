@@ -1,7 +1,6 @@
 import {Exceptions} from "../Exceptions";
 import RealNumber from "./RealNumber";
 import Helper from "../Helper";
-import GeneralNumber from "./GeneralNumber";
 import {MathElementType} from "../Constants";
 
 /**
@@ -141,7 +140,7 @@ export default class MathElement {
      * @returns {MathElement} result of the exponentiation
      * */
     exponentiate(exponent){
-        if(!exponent instanceof RealNumber ||exponent.value < 0 || !Number.isInteger(exponent.value)){
+        if(!(exponent instanceof RealNumber) || exponent.value < 0 || !Number.isInteger(exponent.value)){
             throw Exceptions.InvalidExponentException;
         }
 
@@ -200,11 +199,11 @@ export default class MathElement {
      * Note: This must be called on the desired subtype of MathElement! The type (number, matrix, vector)
      * is NOT automatically detected.
      *
-     * @param {number} field
-     * @param {string} text
+     * @param {number} _field
+     * @param {string} _text
      * @returns {MathElement}
      * */
-    static fromString(field, text){
+    static fromString(_field, _text){
         throw Exceptions.MethodNotImplementedException;
     }
 
@@ -213,82 +212,82 @@ export default class MathElement {
     // Following functions are not intended to be used as public methods:
 
     /**
-     * @param {MathElement} factor
+     * @param {MathElement} _factor
      * @returns {MathElement}
      * */
-    _multiplyWithNumber(factor){
+    _multiplyWithNumber(_factor){
         throw Exceptions.MethodNotImplementedException;
     }
 
     /**
-     * @param {MathElement} factor
+     * @param {MathElement} _factor
      * @returns {MathElement}
      * */
-    _multiplyWithMatrix(factor){
+    _multiplyWithMatrix(_factor){
         throw Exceptions.MethodNotImplementedException;
     }
 
     /**
-     * @param {MathElement} factor
+     * @param {MathElement} _factor
      * @returns {MathElement}
      * */
-    _multiplyWithVector(factor){
+    _multiplyWithVector(_factor){
         throw Exceptions.MethodNotImplementedException;
     }
 
     /**
-     * @param {MathElement} summand
+     * @param {MathElement} _summand
      * @returns {MathElement}
      * */
-    _addNumber(summand){
+    _addNumber(_summand){
         throw Exceptions.MethodNotImplementedException;
     }
 
     /**
-     * @param {MathElement} summand
+     * @param {MathElement} _summand
      * @returns {MathElement}
      * */
-    _addMatrix(summand){
+    _addMatrix(_summand){
         throw Exceptions.MethodNotImplementedException;
     }
 
     /**
-     * @param {MathElement} summand
+     * @param {MathElement} _summand
      * @returns {MathElement}
      * */
-    _addVector(summand){
+    _addVector(_summand){
         throw Exceptions.MethodNotImplementedException;
     } 
     
     /**
-     * @param {MathElement} subtrahend
+     * @param {MathElement} _subtrahend
      * @returns {MathElement}
      * */
-    _subtractNumber(subtrahend){
+    _subtractNumber(_subtrahend){
         throw Exceptions.MethodNotImplementedException;
     }
 
     /**
-     * @param {MathElement} subtrahend
+     * @param {MathElement} _subtrahend
      * @returns {MathElement}
      * */
-    _subtractMatrix(subtrahend){
+    _subtractMatrix(_subtrahend){
         throw Exceptions.MethodNotImplementedException;
     }
 
     /**
-     * @param {MathElement} subtrahend
+     * @param {MathElement} _subtrahend
      * @returns {MathElement}
      * */
-    _subtractVector(subtrahend){
+    _subtractVector(_subtrahend){
         throw Exceptions.MethodNotImplementedException;
     }
 
     /**
-     * @param {MathElement} divisor
+     * @param {MathElement} _divisor
      * @returns {MathElement}
      * */
-    _divideByNumber(divisor){
+    _divideByNumber(_divisor){
         throw Exceptions.MethodNotImplementedException;
     }
 

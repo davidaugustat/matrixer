@@ -3,6 +3,7 @@ import Helper from "../Helper";
 import Matrix from "./Matrix";
 import {Exceptions} from "../Exceptions";
 import {MathElementType} from "../Constants";
+import Field from "./Field";
 
 /**
  * Class for storing and manipulating a mathematical vector over an algebraic field.
@@ -129,9 +130,9 @@ export default class Vector extends MathElement{
      *
      * Note that the other way around (Matrix * Vector) is allowed.
      *
-     * @param {Matrix} factor
+     * @param {Matrix} _factor
      * */
-    _multiplyWithMatrix(factor) {
+    _multiplyWithMatrix(_factor) {
         throw Exceptions.MultiplicationOfVectorByMatrixException;
     }
 
@@ -162,18 +163,18 @@ export default class Vector extends MathElement{
     /**
      * Adding a number to a vector is mathematically not possible. Therefore an exception will be thrown.
      *
-     * @param {GeneralNumber} summand
+     * @param {GeneralNumber} _summand
      * */
-    _addNumber(summand) {
+    _addNumber(_summand) {
         throw Exceptions.AdditionOfNumberToVectorException;
     }
 
     /**
      * Adding a matrix to a vector is mathematically not possible. Therefore an exception will be thrown.
      *
-     * @param {Matrix} summand
+     * @param {Matrix} _summand
      * */
-    _addMatrix(summand) {
+    _addMatrix(_summand) {
         throw Exceptions.AdditionOfMatrixToVectorException;
     }
 
@@ -201,18 +202,18 @@ export default class Vector extends MathElement{
     /**
      * Subtracting a number from a vector is mathematically not possible. Therefore an exception will be thrown.
      *
-     * @param {GeneralNumber} subtrahend
+     * @param {GeneralNumber} _subtrahend
      * */
-    _subtractNumber(subtrahend) {
+    _subtractNumber(_subtrahend) {
         throw Exceptions.SubtractionOfNumberFromVectorException;
     }
 
     /**
      * Subtracting a matrix from a vector is mathematically not possible. Therefore an exception will be thrown.
      *
-     * @param {Matrix} subtrahend
+     * @param {Matrix} _subtrahend
      * */
-    _subtractMatrix(subtrahend) {
+    _subtractMatrix(_subtrahend) {
         throw Exceptions.SubtractionOfMatrixFromVectorException;
     }
 
@@ -264,7 +265,7 @@ export default class Vector extends MathElement{
      * */
     toUserInputString() {
         let output = "[";
-        this.value.forEach((number, index, array) => {
+        this.value.forEach((number, index) => {
             if(index < this.value.length-1) {
                 output += number.toUserInputString() + ", ";
             } else{
@@ -303,8 +304,8 @@ export default class Vector extends MathElement{
      *
      * E.g. [1,2,3,4] is a valid input for this method when field == Field.R
      *
-     * @param {string} text
      * @param {number} field
+     * @param {string} text
      * @returns {Vector}
      * */
     static fromString(field, text){

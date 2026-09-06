@@ -3,7 +3,7 @@ import {Exceptions} from "../Exceptions";
 import Vector from "./Vector";
 import Helper from "../Helper";
 import {MathElementType} from "../Constants";
-import GeneralNumber from "./GeneralNumber";
+import Field from "./Field";
 import RealNumber from "./RealNumber";
 import PrimeFieldNumber from "./PrimeFieldNumber";
 import F4Number from "./F4Number";
@@ -370,9 +370,9 @@ export default class Matrix extends MathElement{
     /**
      * Adding a number to a matrix is mathematically not possible. Therefore an exception will be thrown.
      *
-     * @param {GeneralNumber} summand
+     * @param {GeneralNumber} _summand
      * */
-    _addNumber(summand) {
+    _addNumber(_summand) {
         throw Exceptions.AdditionOfNumberToMatrixException;
     }
 
@@ -404,18 +404,18 @@ export default class Matrix extends MathElement{
     /**
      * Adding a vector to a matrix is mathematically not possible. Therefore an exception will be thrown.
      *
-     * @param {GeneralNumber} summand
+     * @param {GeneralNumber} _summand
      * */
-    _addVector(summand) {
+    _addVector(_summand) {
         throw Exceptions.AdditionOfVectorToMatrixException;
     }
 
     /**
      * Subtracting a number from a matrix is mathematically not possible. Therefore an exception will be thrown.
      *
-     * @param {GeneralNumber} subtrahend
+     * @param {GeneralNumber} _subtrahend
      * */
-    _subtractNumber(subtrahend) {
+    _subtractNumber(_subtrahend) {
         throw Exceptions. SubtractionOfNumberFromMatrixException;
     }
 

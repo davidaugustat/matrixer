@@ -390,7 +390,7 @@ export default class Parser {
      * @returns {string} The expression with only brackets left.
      * */
     _removeEveryThingButBrackets(text){
-        const everyThingButBracketsRegex = /[^(){}\[\]]/g;
+        const everyThingButBracketsRegex = /[^(){}[\]]/g;
         return text.replace(everyThingButBracketsRegex, '');
     }
 

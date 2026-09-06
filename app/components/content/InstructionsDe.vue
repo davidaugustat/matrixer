@@ -1,0 +1,356 @@
+<script setup>
+/**
+ * @file Provides the unchanged German calculator instructions.
+ */
+</script>
+
+<template>
+<div id="documentation-div">
+    <h2>Anleitung</h2>
+    <h4>Wie gebe ich einen mathematischen Ausdruck ein?</h4>
+    <ul>
+        <li>
+            <b>Gewöhnliche mathematische Ausdrücke:</b> Wie bei jedem Taschenrechner: <br>
+            <span class="input-example">-5*(3+4.5)/6-5^3</span> steht für \(-5*(3+4.5)/6-5^3\)
+        </li>
+        <li>
+            <b>Matrizen:</b> Umgeben von geschweiften Klammern, Zeilen mit Semikolon und Spalten mit Komma getrennt.<br>
+            <span class="input-example">{1,2,3;4,5,6}</span> steht für
+            \(\begin{pmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{pmatrix}\)
+        </li>
+        <li>
+            <b>Vektoren:</b> Umgeben von eckigen Klammern, Zeilen mit Komma getrennt.<br>
+            <span class="input-example">[1,2,3,4]</span> steht für
+            \(\begin{pmatrix}1 \\ 2 \\ 3 \\ 4\end{pmatrix}\)
+        </li>
+        <li>
+            <b>Elemente erweiterter Körper:</b><br>
+            <div class="field-number-container">
+                <b>F4-Elemente:</b>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Eingabe</th>
+                        <th>Element</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>0</td>
+                        <td>\(0\)</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>\(1\)</td>
+                    </tr>
+                    <tr>
+                        <td>a</td>
+                        <td>\(\alpha\)</td>
+                    </tr>
+                    <tr>
+                        <td>a+1</td>
+                        <td>\(\alpha+1\)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="field-number-container">
+                <b>F8-Elemente:</b>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Eingabe</th>
+                        <th>Element</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>0</td>
+                        <td>\(0\)</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>\(1\)</td>
+                    </tr>
+                    <tr>
+                        <td>b</td>
+                        <td>\(\beta\)</td>
+                    </tr>
+                    <tr>
+                        <td>1+b</td>
+                        <td>\(1+\beta\)</td>
+                    </tr>
+                    <tr>
+                        <td>bs</td>
+                        <td>\(\beta^2\)</td>
+                    </tr>
+                    <tr>
+                        <td>1+bs</td>
+                        <td>\(1+\beta^2\)</td>
+                    </tr>
+                    <tr>
+                        <td>b+bs</td>
+                        <td>\(\beta+\beta^2\)</td>
+                    </tr>
+                    <tr>
+                        <td>1+b+bs</td>
+                        <td>\(1+\beta+\beta^2\)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="field-number-container">
+                <b>F9-Elemente:</b>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Eingabe</th>
+                        <th>Element</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>0</td>
+                        <td>\(0\)</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>\(1\)</td>
+                    </tr>
+                    <tr>
+                        <td>-1</td>
+                        <td>\(-1\)</td>
+                    </tr>
+                    <tr>
+                        <td>j</td>
+                        <td>\(\iota\)</td>
+                    </tr>
+                    <tr>
+                        <td>j+1</td>
+                        <td>\(\iota+1\)</td>
+                    </tr>
+                    <tr>
+                        <td>j-1</td>
+                        <td>\(\iota-1\)</td>
+                    </tr>
+                    <tr>
+                        <td>-j</td>
+                        <td>\(-\iota\)</td>
+                    </tr>
+                    <tr>
+                        <td>-j+1</td>
+                        <td>\(-\iota+1\)</td>
+                    </tr>
+                    <tr>
+                        <td>-j-1</td>
+                        <td>\(-\iota-1\)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </li>
+        <li>
+            <b>Leerzeichen sowie Groß- und Kleinschreibung</b> sind egal. Du kannst Leerzeichen an beliebigen Stellen
+            hinschreiben oder weglassen - es macht keinen Unterschied. Selbiges gilt für Großbuchstaben.
+        </li>
+    </ul>
+
+    <h4>Was kann man mit Matrixer machen?</h4>
+    <ul>
+        <li>
+            <b>Auf Körpern rechnen:</b>
+            <p><span class="input-example">bs*(1+b+bs)-b</span> \(=\beta^2*(1+\beta+\beta^2)-\beta = 1+\beta\)</p>
+            <p><span class="input-example">(a+1)^2</span> \(=(\alpha+1)^2 = \alpha\)</p>
+            <p>Unterstütze Operationen sind Multiplikation <span class="input-example">*</span>,
+                Division <span class="input-example">/</span>, Addition <span class="input-example">+</span>
+                Subtraktion <span class="input-example">-</span> und Potenzieren <span class="input-example">^</span>.
+            </p>
+            <div class="alert alert-primary">
+                <p>
+                    Beachte, dass Exponenten immer <b>ganze Zahlen \(\geq\) 0</b> sein müssen, wenn auf endlichen
+                    Körpern gerechnet wird.
+                </p>
+                <p>
+                    \((\alpha+1)^2\) ist erlaubt, aber \((\alpha+1)^\alpha\) und \((\alpha+1)^{0.5}\) sind nicht
+                    erlaubt.
+                </p>
+                <p>
+                    Kommazahlen als Exponenten für <b>reelle Zahlen</b> sind allerdings erlaubt: \(4^{0.5} = \sqrt{4} = 2\)
+                </p>
+            </div>
+        </li>
+        <li>
+            <b>Multiplizieren, addieren, subtrahieren und potenzieren von Matrizen:</b>
+            <p>
+                Z.B. in F5: <span class="input-example">{0,4,3;1,2,4}*{1,3;0,2;4,2}</span>
+                \(=\begin{pmatrix}0&4&3\\1&2&4\end{pmatrix}*\begin{pmatrix}1&3\\0&2\\4&2\end{pmatrix} = \begin{pmatrix}2&4\\2&0\end{pmatrix}\)
+            </p>
+            <p>
+                Z.B. in F4: <span class="input-example">{a,a+1;0,1}+{0,1;a,a}</span>
+                \(=\begin{pmatrix}\alpha&\alpha+1\\0&1\end{pmatrix}+\begin{pmatrix}0&1\\\alpha&\alpha\end{pmatrix} = \begin{pmatrix}\alpha&\alpha\\\alpha&\alpha+1\end{pmatrix}\)
+            </p>
+        </li>
+        <li>
+            <b>Matrizen mit Vektoren multiplizieren:</b>
+            <p>
+                Z.B. in F5: <span class="input-example">{0,4,3;1,2,4}*[1,0,4]</span>
+                \(=\begin{pmatrix}0&4&3\\1&2&4\end{pmatrix}*\begin{pmatrix}1\\0\\4\end{pmatrix} = \begin{pmatrix}2\\2\end{pmatrix}\)
+            </p>
+        </li>
+        <li>
+            <b>Matrizen mit Konstanten multiplizieren:</b>
+            <p>
+                E.g. in F4: <span class="input-example">a*{1,1;1,1}</span>
+                \(=\alpha*\begin{pmatrix}1&1\\1&1\end{pmatrix}=\begin{pmatrix}\alpha&\alpha\\\alpha&\alpha\end{pmatrix}\)
+            </p>
+        </li>
+        <li>
+            <b>Multiplizieren, addieren, subtrahieren und potenzieren von Vektoren:</b>
+            <p>
+                Z.B. in F3: <span class="input-example">[2,1,2]*[2,2,0]</span>
+                \(=\begin{pmatrix}2\\1\\2\end{pmatrix}*\begin{pmatrix}2\\2\\0\end{pmatrix} = 0\)
+            </p>
+            <p>
+                Z.B. in R: <span class="input-example">[1,2,3]-[4,5,6]</span>
+                \(=\begin{pmatrix}1\\2\\3\end{pmatrix}-\begin{pmatrix}4\\5\\6\end{pmatrix} = \begin{pmatrix}-3\\-3\\-3\end{pmatrix}\)
+            </p>
+        </li>
+        <li>
+            <b>Alles miteinander kombiniert:</b>
+            <p>
+                Z.B. in R: <span class="input-example">3*(3+6)*{1,2,3;4,5,6}*[9,8,7]</span>
+                \(=3*(3+6)*\begin{pmatrix}1 & 2 & 3 \\ 4 & 5 & 6\end{pmatrix}*\begin{pmatrix}9 \\ 8 \\ 7\end{pmatrix}=\begin{pmatrix}1242\\3186\end{pmatrix}\)
+            </p>
+        </li>
+        <li>
+            <b>Matrix in Zeilen-Stufen-Form umwandeln mittels Gauß-Algorithmus:</b>
+            <p>
+                Z.B. in R: <span class="input-example">rowreduce({1,2,3,4;5,6,7,8;9,0,1,2})</span>
+                \(=rowreduce(\begin{pmatrix}1&2&3&4\\5&6&7&8\\9&0&1&2\end{pmatrix}) = \begin{pmatrix}1&0&0&0\\0&1&0&-1\\0&0&1&2\end{pmatrix}\)
+            </p>
+            <p>
+                Beachte, dass die runden Klammern um die Matrix <b>nicht</b> weggelassen werden dürfen.
+            </p>
+        </li>
+        <li>
+            <b>Ein homogenes Gleichungssystem lösen:</b>
+            <p>Ein homogenes Gleichungssystem ist definiert als \(A*x=0\) wobei \(A\) eine gegebene Matrix und \(x\)
+                ein unbekannter Vektor ist.
+            </p>
+            <p>
+                Z.B. in F9: <span class="input-example">solvehom({1,j,-j;1-j,0,-1})</span>
+                \(=solvehom(\begin{pmatrix}1&\iota&-\iota\\1-\iota&0&-1\end{pmatrix})\) ergibt
+            </p>
+            <div>
+                <div>
+                    <div class="hom-es-box">
+                        <span>Aufspann:</span>
+                        <div>
+                            \[\langle\begin{pmatrix}-\iota-1\\-\iota-1\\1\end{pmatrix}\rangle\]
+                        </div>
+                    </div>
+                    <div class="hom-es-box">
+                        <span>Triviale Lösung:</span>
+                        <div>
+                            \[\begin{pmatrix}0\\0\\0\end{pmatrix}\]
+                        </div>
+                    </div>
+                    <div class="hom-es-box">
+                        <span>Matrix in Zeilen-Stufen-Form:</span>
+                        <div>
+                            \[\begin{pmatrix}1&0&\iota+1\\0&1&\iota+1\end{pmatrix}\]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <b>Eine Matrix transponieren:</b>
+            <p>
+                Z.B. in R: <span class="input-example">transpose({1,2,3;4,5,6})</span>
+                \(= transpose(\begin{pmatrix}1&2&3\\4&5&6\end{pmatrix}) = \begin{pmatrix}1&4\\2&5\\3&6\end{pmatrix}\)
+            </p>
+        </li>
+        <li>
+            <b>Das multiplikativ inverse Element einer Zahl oder Matrix berechnen:</b>
+            <p>
+                Das multiplikativ inverse Element \(y\) einer Zahl \(x\) ist definiert als \(x*y=1\).
+                <br>
+                Die multiplikativ inverse Matrix \(B\) einer quadratischen Matrix \(A\) ist definiert als
+                \(A*B = \begin{pmatrix}1 & 0 & \dots & 0\\ 0 & 1 & \dots & 0\\ \vdots & \vdots & \ddots & \vdots\\ 0 & 0 & \dots & 1\end{pmatrix}\).
+                <br>
+                Bei Matrizen ist zu beachten, dass nicht jede Matrix invertierbar ist. Bei nicht invertierbaren Matrizen wird ein Fehler ausgegeben.
+            </p>
+            <p>
+                Z.B. in F4: <span class="input-example">multinverse(a)</span> \(=multinverse(\alpha) = \alpha+1\)
+            </p>
+            <p>
+                Z.B. in R: <span class="input-example">multinverse(2)</span> \(=multinverse(2) = 0.5\)
+            </p>
+            <p>
+                Z.B. in F7: <span class="input-example">multinverse({1,5,3;3,4,1;6,2,5})</span>
+                \(=multinverse(\begin{pmatrix}1&5&3\\3&4&1\\6&2&5\end{pmatrix}) = \begin{pmatrix}6&3&0\\ 4&5&5\\ 1&0&1\end{pmatrix} \)
+            </p>
+        </li>
+        <li>
+            <b>Das additiv inverse Element einer Zahl berechnen:</b>
+            <p>
+                Das additiv inverse Element \(y\) einer Zahl \(x\) ist definiert als \(x+y=0\).
+            </p>
+            <p>
+                Z.B. in F5: <span class="input-example">additiveinverse(2)</span> \(=additiveinverse(2) = 3 \)
+            </p>
+            <p>
+                Z.B. in R: <span class="input-example">additiveinverse(4)</span> \(=additiveinverse(4) = -4\)
+            </p>
+        </li>
+        <li>
+            <b>Die Determinante einer Matrix berechnen:</b>
+            <p>
+                Z.B. in R: <span class="input-example">det({1,2,3;4,5,7;8,9,10})</span>
+                \(= det(\begin{pmatrix}1&2&3\\4&5&7\\8&9&10\end{pmatrix}) = 7\)
+            </p>
+        </li>
+    </ul>
+    <h4>Was kann Matrixer nicht?</h4>
+    <ul>
+        <li>
+            <b>Berechnungen innerhalb von Matrizen oder Vektoren durchführen:</b>
+            <p>
+                Z.B. \(\begin{pmatrix}3*4&5+6\\2^2&7\end{pmatrix}\) oder \(\begin{pmatrix}3*4\\5-2\\4/3\end{pmatrix}\)
+                sind nicht erlaubt.
+            </p>
+
+            <div class="alert alert-primary">
+                Beachte, dass man daher in Matrizen und Vektoren das F8-Element \(\beta^2\) nicht als
+                <span class="input-example">b^2</span> schreiben kann. Verwende stattdessen
+                <span class="input-example">bs</span>.
+            </div>
+            Ich weiß, dass das nicht ideal ist. Eventuell verbessere ich es später.
+        </li>
+        <li>
+            <b>Funktionsoperatoren ohne runde Klammern verstehen:</b>
+            <p>
+                Funktionsoperatoren sind Operatoren mit dieser Struktur: meinoperator(irgendetwas)
+            </p>
+            <p>
+                Zum Beispiel ist <span class="input-example">rowreduce({1,2;3,4})</span>  erlaubt, aber
+                <span class="input-example">rowreduce{1,2;3,4}</span> ist <b>nicht</b> erlaubt, da die runden
+                Klammern fehlen.
+            </p>
+        </li>
+        <li>
+            <b>In Internet Explorer funktionieren.</b>
+            <p>
+                Das liegt an einer JavaScript-Inkompatibilität. Verwende stattdessen Chrome oder Firefox.
+            </p>
+        </li>
+        <li>
+            <b>Etwas anderes fehlt noch?</b><br>
+            Wenn dir eine Funktion einfällt, die hilfreich sein könnte, dann
+            <NuxtLink to="/de/report-error/" target="_blank">lass es mich wissen</NuxtLink>. Vielleicht ergänze ich Matrixer dann um
+            diese Funktion.
+        </li>
+    </ul>
+</div>
+</template>

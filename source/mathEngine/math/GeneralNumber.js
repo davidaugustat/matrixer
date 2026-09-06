@@ -64,36 +64,36 @@ export default class GeneralNumber extends MathElement{
     /**
      * Addition of a matrix to a number is not allowed. Therefore an exception will be thrown.
      *
-     * @param {Matrix} summand
+     * @param {Matrix} _summand
      * */
-    _addMatrix(summand) {
+    _addMatrix(_summand) {
         throw Exceptions.AdditionOfMatrixToNumberException;
     }
 
     /**
      * Addition of a vector to a number is not allowed. Therefore an exception will be thrown.
      *
-     * @param {Vector} summand
+     * @param {Vector} _summand
      * */
-    _addVector(summand) {
+    _addVector(_summand) {
         throw Exceptions.AdditionOfVectorToNumberException;
     }
 
     /**
      * Subtraction of a matrix from a number is not allowed. Therefore an exception will be thrown.
      *
-     * @param {Matrix} subtrahend
+     * @param {Matrix} _subtrahend
      * */
-    _subtractMatrix(subtrahend) {
+    _subtractMatrix(_subtrahend) {
         throw Exceptions.SubtractionOfMatrixFromNumberException;
     }
 
     /**
      * Subtraction of a vector from a number is not allowed. Therefore an exception will be thrown.
      *
-     * @param {Vector} subtrahend
+     * @param {Vector} _subtrahend
      * */
-    _subtractVector(subtrahend) {
+    _subtractVector(_subtrahend) {
         throw Exceptions.SubtractionOfVectorFromNumberException;
     }
 
